@@ -128,7 +128,7 @@ a img {
   -webkit-margin-after: 0;
 }
 body {
-  background: #fcc;
+  background: #158597;
   font-family: "Helvetica Neue", "Helvetica", "Microsoft YaHei", "WenQuanYi Micro Hei", Arial, sans-serif;
   font-size: 100%;
   color: #817c7c;
@@ -402,7 +402,7 @@ body >header {
   width: 100%;
   -webkit-box-shadow: 2px 4px 5px rgba(3,3,3,0.2);
   box-shadow: 2px 4px 5px rgba(3,3,3,0.2);
-  background: url("../") center #d07272;
+  background: url("../") center #2c3e50;
   color: #fff;
   padding: 1em 0 0.8em;
 }
@@ -467,23 +467,21 @@ body >header a {
   text-align: center;
   margin: auto;
   width: 86%;
-  font-family: "chalkboardse-bold-webfont";
-  font-size: 200%;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Helvetica Neue", "Helvetica", "Microsoft YaHei", "WenQuanYi Micro Hei", Arial, sans-serif;
+  font-size: 160%;
+  line-height: 1.7;
+  font-weight: normal;
 }
 @media only screen and (min-width: 768px) {
   #textlogo h1.site-name {
-    margin-top: 0.2em;
-    font-size: 240%;
+    margin-top: 0.3em;
+    font-size: 190%;
   }
 }
 @media only screen and (min-width: 1024px) {
   #textlogo h1.site-name {
-    margin-top: 0.2em;
-    font-size: 280%;
-    line-height: 1.5;
+    margin-top: 0.4em;
+    font-size: 220%;
   }
 }
 #textlogo h2.blog-motto {
@@ -570,7 +568,7 @@ header nav ul li a {
   }
 }
 header nav ul li a:hover {
-  background: #bb3636;
+  background: #202e3d;
   color: #e9cd4c;
 }
 .shownav {
@@ -666,7 +664,7 @@ header nav ul li a:hover {
   }
 }
 #main section.post a:hover {
-  border-left: 0.5em solid #d07272;
+  border-left: 0.5em solid #2c3e50;
 }
 #main section.post a h1 {
   color: #2ca6cb;
@@ -710,12 +708,12 @@ header nav ul li a:hover {
   line-height: 1em;
   padding: 6px 15px;
   border-radius: 15px;
-  background: #fcc;
+  background: #158597;
   color: #817c7c;
   text-decoration: none;
 }
 #main article.post-expand .article-more-link a:hover {
-  background: #d07272;
+  background: #2c3e50;
   color: #fff;
   text-decoration: none;
 }
@@ -735,7 +733,7 @@ header nav ul li a:hover {
   border-left: 0.5em solid #ccc;
 }
 .unexpand .prev:hover {
-  border-left: 0.5em solid #d07272;
+  border-left: 0.5em solid #2c3e50;
 }
 #page-nav {
   background: #fafafa;
@@ -751,7 +749,7 @@ header nav ul li a:hover {
 }
 #page-nav a:hover {
   background: #ccc;
-  color: #d07272;
+  color: #2c3e50;
 }
 #page-nav .prev {
   float: left;
@@ -848,7 +846,7 @@ header nav ul li a:hover {
   transition: color 0.5s;
 }
 .archive-title a:hover {
-  color: #d07272;
+  color: #2c3e50;
   -webkit-transition: color 0.5s;
   -moz-transition: color 0.5s;
   -o-transition: color 0.5s;
@@ -928,7 +926,7 @@ article header.article-info >h1 {
   word-break: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  border-left: 5px solid #d07272;
+  border-left: 5px solid #2c3e50;
 }
 @media only screen and (min-width: 1024px) {
   article header.article-info >h1 {
@@ -1043,7 +1041,7 @@ article .article-content abbr {
   border-bottom: 1px dotted;
 }
 article .article-content blockquote {
-  border-left: 0.2em solid #d07272;
+  border-left: 0.2em solid #2c3e50;
   margin: 0.65em 0 0.65em 1%;
   padding-left: 1%;
   line-height: 1.5;
@@ -1579,7 +1577,7 @@ section.comment {
   transition: color 1s ease-out;
 }
 #toc.toc-aside a:hover {
-  color: #d07272;
+  color: #2c3e50;
   -webkit-transition: color 0.3s ease-out;
   -moz-transition: color 0.3s ease-out;
   -o-transition: color 0.3s ease-out;
@@ -1587,20 +1585,20 @@ section.comment {
   transition: color 0.3s ease-out;
 }
 .active {
-  color: #d07272 !important;
+  color: #2c3e50 !important;
 }
 .openaside {
   display: none;
   position: fixed;
   right: 7.5%;
-  top: 320px;
+  top: 260px;
 }
 .openaside a {
   display: block;
   color: #fff;
   border: 1px solid #fff;
   border-radius: 5px;
-  background: #d07272;
+  background: #2c3e50;
   padding: 0.2em 0.55em;
 }
 .openaside a::before {
@@ -1613,7 +1611,7 @@ section.comment {
   display: none;
 }
 .closeaside a {
-  color: #d07272;
+  color: #2c3e50;
 }
 .closeaside a:hover {
   color: #2ca6cb;
@@ -1655,7 +1653,7 @@ section.comment {
   color: #2ca6cb;
 }
 .asidetitle a:hover {
-  color: #d07272;
+  color: #2c3e50;
   -webkit-transition: color 0.5s;
   -moz-transition: color 0.5s;
   -o-transition: color 0.5s;
@@ -1684,7 +1682,7 @@ section.comment {
   padding: 0.5em 5%;
 }
 .categorieslist li a:hover {
-  color: #d07272;
+  color: #2c3e50;
 }
 .tagslist {
   margin: 1em 0 0;
@@ -1716,11 +1714,11 @@ section.comment {
   background: #dbdbdb;
 }
 .tagslist ul li a:hover {
-  color: #d07272;
+  color: #2c3e50;
   background: #e6e6e6;
 }
 .rsspart {
-  background: #d07272;
+  background: #2c3e50;
   width: 100%;
 }
 @media only screen and (min-width: 768px) {
@@ -1744,7 +1742,7 @@ section.comment {
   text-align: center;
 }
 .rsspart a:hover {
-  color: #d07272;
+  color: #2c3e50;
   background: #fafafa;
 }
 .rsspart a::before {
@@ -1772,7 +1770,7 @@ section.comment {
   padding: 0.5em;
 }
 .archiveslist li a:hover {
-  color: #d07272;
+  color: #2c3e50;
   -webkit-transition: color 0.25s;
   -moz-transition: color 0.25s;
   -o-transition: color 0.25s;
@@ -1820,7 +1818,7 @@ section.comment {
   float: left;
 }
 .tagcloudlist .tagcloudlist a:hover {
-  color: #d07272;
+  color: #2c3e50;
   -webkit-transition: color 0.25s;
   -moz-transition: color 0.25s;
   -o-transition: color 0.25s;
@@ -1854,7 +1852,7 @@ section.comment {
   padding: 0 3%;
 }
 .linkslist ul a:hover {
-  color: #d07272;
+  color: #2c3e50;
   -webkit-transition: color 0.25s;
   -moz-transition: color 0.25s;
   -o-transition: color 0.25s;
@@ -1891,7 +1889,7 @@ section.comment {
   width: 6.875em;
   height: 6.875em;
   margin: 0 auto;
-  background: no-repeat url("../img/author.jpg") left top;
+  background: no-repeat url("../") left top;
   -webkit-background-size: 6.875em 6.875em;
   -moz-background-size: 6.875em 6.875em;
   background-size: 6.875em 6.875em;
@@ -2079,7 +2077,7 @@ section.comment {
 }
 footer {
   margin-top: 0em;
-  background: #4a4848;
+  background: #2c3e50;
   padding: 0 2% 0.5em;
 }
 #footer {
@@ -2118,7 +2116,7 @@ footer {
   width: 6.875em;
   height: 6.875em;
   margin: 0 auto;
-  background: no-repeat url("../img/author.jpg") left top;
+  background: no-repeat url("../") left top;
   -webkit-background-size: 6.875em 6.875em;
   -moz-background-size: 6.875em 6.875em;
   background-size: 6.875em 6.875em;
@@ -2144,9 +2142,8 @@ footer {
   }
 }
 .copyright {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-family: "chalkboardse-bold-webfont";
+  font-family: "Helvetica Neue", "Helvetica", "Microsoft YaHei", "WenQuanYi Micro Hei", Arial, sans-serif;
+  font-size: 1em;
   width: 100%;
   color: #fff;
   text-align: center;
@@ -2185,10 +2182,10 @@ footer {
 .article-content pre,
 .article-content .highlight,
 .article-content .highlight pre {
-  background: #eee;
+  background: highlight-background;
   margin: 0.5em 0;
   padding: 0.5em 2%;
-  color: #4d4d4c;
+  color: highlight-foreground;
   line-height: 1.5;
   font-size: 0.8em;
   -webkit-border-radius: 0.35em;
@@ -2204,7 +2201,7 @@ footer {
 }
 .article-content .highlight .gutter pre,
 .article-content .gist .gist-file .gist-data .line-numbers {
-  color: #999;
+  color: highlight-line-numbers;
   font-size: 0.4em;
 }
 @media only screen and (min-width: 568px) {
@@ -2243,7 +2240,7 @@ footer {
   zoom: 1;
   font-size: 0.85em;
   text-align: left;
-  color: #8e908c;
+  color: highlight-comment;
   line-height: 1em;
   padding: 0.5em 0;
   margin-bottom: 0.5em;
@@ -2268,7 +2265,7 @@ footer {
 }
 .article-content .gist {
   margin: 0.5em 0;
-  background: #eee;
+  background: highlight-background;
   padding: 1em 2%;
   -webkit-border-radius: 0.35em;
   border-radius: 0.35em;
@@ -2294,11 +2291,11 @@ footer {
   margin: 0;
   padding: 0;
   border: none;
-  background: #eee;
+  background: highlight-background;
 }
 .article-content .gist .gist-file .gist-meta {
-  background: #eee;
-  color: #8e908c;
+  background: highlight-background;
+  color: highlight-comment;
   font: 0.85em "Georgia", serif;
   text-shadow: 0 0;
   padding: 0;
@@ -2309,11 +2306,11 @@ footer {
   font-weight: normal;
 }
 .article-content .gist .gist-file .gist-meta a:hover {
-  color: #d07272;
+  color: #2c3e50;
 }
 pre .comment,
 pre .title {
-  color: #8e908c;
+  color: highlight-comment;
 }
 pre .variable,
 pre .attribute,
@@ -2327,7 +2324,7 @@ pre .html .doctype,
 pre .css .id,
 pre .css .class,
 pre .css .pseudo {
-  color: #c82829;
+  color: highlight-red;
 }
 pre .number,
 pre .preprocessor,
@@ -2335,12 +2332,12 @@ pre .built_in,
 pre .literal,
 pre .params,
 pre .constant {
-  color: #f5871f;
+  color: highlight-orange;
 }
 pre .class,
 pre .ruby .class .title,
 pre .css .rules .attribute {
-  color: #718c00;
+  color: highlight-green;
 }
 pre .string,
 pre .value,
@@ -2348,10 +2345,10 @@ pre .inheritance,
 pre .header,
 pre .ruby .symbol,
 pre .xml .cdata {
-  color: #718c00;
+  color: highlight-green;
 }
 pre .css .hexcolor {
-  color: #3e999f;
+  color: highlight-aqua;
 }
 pre .function,
 pre .python .decorator,
@@ -2361,11 +2358,11 @@ pre .ruby .title .keyword,
 pre .perl .sub,
 pre .javascript .title,
 pre .coffeescript .title {
-  color: #4271ae;
+  color: highlight-blue;
 }
 pre .keyword,
 pre .javascript .function {
-  color: #8959a8;
+  color: highlight-purple;
 }
 .gallery {
   overflow: hidden;
