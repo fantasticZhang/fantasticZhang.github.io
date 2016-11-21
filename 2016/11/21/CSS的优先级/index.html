@@ -4,26 +4,35 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>我的第一篇博客 | Fantastic</title>
+    <title>CSS的优先级 | Fantastic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="张金玲">
     
 
     
-    <meta name="description" content="终于有自己的博客啦~
-其实一直想要建一个属于自己的博客，用来记录自己日常生活中的点点滴滴、学习过程中整理的笔记以及一些技术感悟，记录自己读过的一些论文等，但由于自己的拖延症，一直没有弄:-P。终于，今天我也有了属于自己的博客啦，也希望自己之后能克服懒惰，经常更新。日积月累，总会有收获的。">
+    <meta name="description" content="如何确定CSS的优先级？首先要引入一个机制，分别用4个数字（a, b, c, d）表示优先级组合，它们的意思分别是：    
+
+第一个数字（a）表示style属性，优先级最高。由于一般都是class样式，所以该值一般都是0。  
+第二个数字（b）是该CSS选择器上的id数量的总和，一般都是1个。
+第三个数字（c）是用在该CSS选择器上的其他属性CSS选择器以及伪类的总和。这里包括class（比如">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我的第一篇博客">
-<meta property="og:url" content="https://fantasticzhang.github.io/2016/11/13/我的第一篇博客/index.html">
+<meta property="og:title" content="CSS的优先级">
+<meta property="og:url" content="https://fantasticzhang.github.io/2016/11/21/CSS的优先级/index.html">
 <meta property="og:site_name" content="Fantastic">
-<meta property="og:description" content="终于有自己的博客啦~
-其实一直想要建一个属于自己的博客，用来记录自己日常生活中的点点滴滴、学习过程中整理的笔记以及一些技术感悟，记录自己读过的一些论文等，但由于自己的拖延症，一直没有弄:-P。终于，今天我也有了属于自己的博客啦，也希望自己之后能克服懒惰，经常更新。日积月累，总会有收获的。">
-<meta property="og:updated_time" content="2016-11-13T14:52:39.523Z">
+<meta property="og:description" content="如何确定CSS的优先级？首先要引入一个机制，分别用4个数字（a, b, c, d）表示优先级组合，它们的意思分别是：    
+
+第一个数字（a）表示style属性，优先级最高。由于一般都是class样式，所以该值一般都是0。  
+第二个数字（b）是该CSS选择器上的id数量的总和，一般都是1个。
+第三个数字（c）是用在该CSS选择器上的其他属性CSS选择器以及伪类的总和。这里包括class（比如">
+<meta property="og:updated_time" content="2016-11-21T09:25:55.970Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我的第一篇博客">
-<meta name="twitter:description" content="终于有自己的博客啦~
-其实一直想要建一个属于自己的博客，用来记录自己日常生活中的点点滴滴、学习过程中整理的笔记以及一些技术感悟，记录自己读过的一些论文等，但由于自己的拖延症，一直没有弄:-P。终于，今天我也有了属于自己的博客啦，也希望自己之后能克服懒惰，经常更新。日积月累，总会有收获的。">
+<meta name="twitter:title" content="CSS的优先级">
+<meta name="twitter:description" content="如何确定CSS的优先级？首先要引入一个机制，分别用4个数字（a, b, c, d）表示优先级组合，它们的意思分别是：    
+
+第一个数字（a）表示style属性，优先级最高。由于一般都是class样式，所以该值一般都是0。  
+第二个数字（b）是该CSS选择器上的id数量的总和，一般都是1个。
+第三个数字（c）是用在该CSS选择器上的其他属性CSS选择器以及伪类的总和。这里包括class（比如">
 <meta name="twitter:creator" content="@fantastic_zjl">
 
     
@@ -84,14 +93,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/11/13/我的第一篇博客/" title="我的第一篇博客" itemprop="url">我的第一篇博客</a>
+      <a href="/2016/11/21/CSS的优先级/" title="CSS的优先级" itemprop="url">CSS的优先级</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="张金玲" target="_blank" itemprop="author">张金玲</a>
 		
   <p class="article-time">
-    <time datetime="2016-11-13T13:44:29.000Z" itemprop="datePublished"> 发表于 2016-11-13</time>
+    <time datetime="2016-11-21T08:56:01.000Z" itemprop="datePublished"> 发表于 2016-11-21</time>
     
   </p>
 </header>
@@ -104,8 +113,23 @@
 		
 		</div>
 		
-		<p>终于有自己的博客啦~</p>
-<p>其实一直想要建一个属于自己的博客，用来记录自己日常生活中的点点滴滴、学习过程中整理的笔记以及一些技术感悟，记录自己读过的一些论文等，但由于自己的拖延症，一直没有弄:-P。终于，今天我也有了属于自己的博客啦，也希望自己之后能克服懒惰，经常更新。日积月累，总会有收获的。</p>
+		<p>如何确定CSS的优先级？首先要引入一个机制，分别用4个数字（a, b, c, d）表示优先级组合，它们的意思分别是：    </p>
+<ul>
+<li>第一个数字（a）表示style属性，优先级最高。由于一般都是class样式，所以该值一般都是0。  </li>
+<li>第二个数字（b）是该CSS选择器上的id数量的总和，一般都是1个。</li>
+<li>第三个数字（c）是用在该CSS选择器上的其他属性CSS选择器以及伪类的总和。这里包括class（比如 .btn）和属性选择器（比如 li[id=red]）。</li>
+<li>第四个数字（d）计算元素（比如 table、p、div等）和伪元素（比如 first-child）。</li>
+</ul>
+<p>注：</p>
+<ul>
+<li>通用CSS选择器（*）是0优先级。</li>
+<li>如果两个CSS选择器有同样的优先级，则在样式表中后面的那个起作用。</li>
+</ul>
+<p>几个例子：</p>
+<ul>
+<li>选择器：<code>#menu h2</code>， 优先级：0,1,0,1。   </li>
+<li>选择器： <code>#leftbar li:first-child</code>，优先级： 0,1,0,2。 </li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -113,9 +137,14 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/随记/">随记</a>
+  <a class="article-category-link" href="/categories/前端/">前端</a>
 </div>
 
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/CSS/">CSS</a>
+  </div>
 
 </div>
 
@@ -128,19 +157,19 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/11/14/又长大一岁啦/" title="又长大一岁啦">
-  <span>
-  又长大一岁啦</span>
+
+<div class="next">
+<a href="/2016/11/14/又长大一岁啦/"  title="又长大一岁啦">
+ <span>又长大一岁啦
+</span>
 </a>
 </div>
-
 
 </nav>
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/11/13/我的第一篇博客/" data-title="我的第一篇博客" data-url="https://fantasticzhang.github.io/2016/11/13/我的第一篇博客/"></div>
+	<div class="ds-thread" data-thread-key="2016/11/21/CSS的优先级/" data-title="CSS的优先级" data-url="https://fantasticzhang.github.io/2016/11/21/CSS的优先级/"></div>
 </section>
 
 
