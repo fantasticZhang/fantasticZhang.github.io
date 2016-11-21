@@ -4,35 +4,26 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>CSS的优先级 | Fantastic</title>
+    <title>CSS的定位技术 | Fantastic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="张金玲">
     
 
     
-    <meta name="description" content="如何确定CSS的优先级？首先要引入一个机制，分别用4个数字（a, b, c, d）表示优先级组合，它们的意思分别是：    
-
-第一个数字（a）表示style属性，优先级最高。由于一般都是class样式，所以该值一般都是0。  
-第二个数字（b）是该CSS选择器上的id数量的总和，一般都是1个。
-第三个数字（c）是用在该CSS选择器上的其他属性CSS选择器以及伪类的总和。这里包括class（比如">
+    <meta name="description" content="CSS使用top、left、right、bottom设置元素的二维（x轴和y轴）偏移量。使用z-index设置元素垂直于屏幕的方向，也就是“z轴”的偏移量。
+CSS使用position选项来定义元素的定位属性，该选项有五个可选值：static、relative、absolute、fixed、inherit，默认值是static。inherit属性表示继承父元素的定位属性，因此只需掌握static、">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSS的优先级">
-<meta property="og:url" content="https://fantasticzhang.github.io/2016/11/21/CSS的优先级/index.html">
+<meta property="og:title" content="CSS的定位技术">
+<meta property="og:url" content="https://fantasticzhang.github.io/2016/11/21/CSS的定位技术/index.html">
 <meta property="og:site_name" content="Fantastic">
-<meta property="og:description" content="如何确定CSS的优先级？首先要引入一个机制，分别用4个数字（a, b, c, d）表示优先级组合，它们的意思分别是：    
-
-第一个数字（a）表示style属性，优先级最高。由于一般都是class样式，所以该值一般都是0。  
-第二个数字（b）是该CSS选择器上的id数量的总和，一般都是1个。
-第三个数字（c）是用在该CSS选择器上的其他属性CSS选择器以及伪类的总和。这里包括class（比如">
-<meta property="og:updated_time" content="2016-11-21T09:25:55.970Z">
+<meta property="og:description" content="CSS使用top、left、right、bottom设置元素的二维（x轴和y轴）偏移量。使用z-index设置元素垂直于屏幕的方向，也就是“z轴”的偏移量。
+CSS使用position选项来定义元素的定位属性，该选项有五个可选值：static、relative、absolute、fixed、inherit，默认值是static。inherit属性表示继承父元素的定位属性，因此只需掌握static、">
+<meta property="og:updated_time" content="2016-11-21T14:16:39.758Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSS的优先级">
-<meta name="twitter:description" content="如何确定CSS的优先级？首先要引入一个机制，分别用4个数字（a, b, c, d）表示优先级组合，它们的意思分别是：    
-
-第一个数字（a）表示style属性，优先级最高。由于一般都是class样式，所以该值一般都是0。  
-第二个数字（b）是该CSS选择器上的id数量的总和，一般都是1个。
-第三个数字（c）是用在该CSS选择器上的其他属性CSS选择器以及伪类的总和。这里包括class（比如">
+<meta name="twitter:title" content="CSS的定位技术">
+<meta name="twitter:description" content="CSS使用top、left、right、bottom设置元素的二维（x轴和y轴）偏移量。使用z-index设置元素垂直于屏幕的方向，也就是“z轴”的偏移量。
+CSS使用position选项来定义元素的定位属性，该选项有五个可选值：static、relative、absolute、fixed、inherit，默认值是static。inherit属性表示继承父元素的定位属性，因此只需掌握static、">
 <meta name="twitter:creator" content="@fantastic_zjl">
 
     
@@ -93,14 +84,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/11/21/CSS的优先级/" title="CSS的优先级" itemprop="url">CSS的优先级</a>
+      <a href="/2016/11/21/CSS的定位技术/" title="CSS的定位技术" itemprop="url">CSS的定位技术</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="张金玲" target="_blank" itemprop="author">张金玲</a>
 		
   <p class="article-time">
-    <time datetime="2016-11-21T08:56:01.000Z" itemprop="datePublished"> 发表于 2016-11-21</time>
+    <time datetime="2016-11-21T12:39:57.000Z" itemprop="datePublished"> 发表于 2016-11-21</time>
     
   </p>
 </header>
@@ -109,27 +100,24 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#相对定位技术"><span class="toc-number">1.</span> <span class="toc-text">相对定位技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#static（默认值）"><span class="toc-number">1.1.</span> <span class="toc-text">static（默认值）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#relative"><span class="toc-number">1.2.</span> <span class="toc-text">relative</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#绝对定位"><span class="toc-number">2.</span> <span class="toc-text">绝对定位</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#absolute"><span class="toc-number">2.1.</span> <span class="toc-text">absolute</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fixed"><span class="toc-number">2.2.</span> <span class="toc-text">fixed</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<p>如何确定CSS的优先级？首先要引入一个机制，分别用4个数字（a, b, c, d）表示优先级组合，它们的意思分别是：    </p>
+		<p>CSS使用top、left、right、bottom设置元素的二维（x轴和y轴）偏移量。使用z-index设置元素垂直于屏幕的方向，也就是“z轴”的偏移量。</p>
+<p>CSS使用position选项来定义元素的定位属性，该选项有五个可选值：static、relative、absolute、fixed、inherit，默认值是static。inherit属性表示继承父元素的定位属性，因此只需掌握static、relative、absolute、fixed这四种定位属性的特性即可。</p>
+<h3 id="相对定位技术"><a href="#相对定位技术" class="headerlink" title="相对定位技术"></a>相对定位技术</h3><p>相对定位即相对于文档流中的其他已定义的元素位置进行定位。relative和static都是相对于文档其他元素进行定位，都属于相对定位的范畴，区别在于一个可以控制位移，一个不能。</p>
+<h4 id="static（默认值）"><a href="#static（默认值）" class="headerlink" title="static（默认值）"></a>static（默认值）</h4><p>如果使用默认值，在CSS中为元素定义top、left、right、 bottom、z-index都不会生效。也就是说，如果想设置元素的偏移量和z-index，必须为元素定义position属性（static除外）。</p>
+<h4 id="relative"><a href="#relative" class="headerlink" title="relative"></a>relative</h4><p>relative的表现和默认值一样，只不过可以通过设置偏移量和z-index来控制相对于其正常位置进行的偏移。</p>
+<h3 id="绝对定位"><a href="#绝对定位" class="headerlink" title="绝对定位"></a>绝对定位</h3><p>绝对定位的元素有以下几个特点：</p>
 <ul>
-<li>第一个数字（a）表示style属性，优先级最高。由于一般都是class样式，所以该值一般都是0。  </li>
-<li>第二个数字（b）是该CSS选择器上的id数量的总和，一般都是1个。</li>
-<li>第三个数字（c）是用在该CSS选择器上的其他属性CSS选择器以及伪类的总和。这里包括class（比如 .btn）和属性选择器（比如 li[id=red]）。</li>
-<li>第四个数字（d）计算元素（比如 table、p、div等）和伪元素（比如 first-child）。</li>
+<li>块级元素的宽度在未定义时不再为100%，而是根据内容自动调整。</li>
+<li>在不定义z-index的情况下，absolute元素会覆盖在其他元素之上。</li>
+<li>它会脱离正常的文档流，不再占据空间，类似于浮动后的效果。</li>
 </ul>
-<p>注：</p>
-<ul>
-<li>通用CSS选择器（*）是0优先级。</li>
-<li>如果两个CSS选择器有同样的优先级，则在样式表中后面的那个起作用。</li>
-</ul>
-<p>几个例子：</p>
-<ul>
-<li>选择器：<code>#menu h2</code>， 优先级：0,1,0,1。   </li>
-<li>选择器： <code>#leftbar li:first-child</code>，优先级： 0,1,0,2。 </li>
-</ul>
+<p>absolute和fixed都属于绝对定位的范畴，都遵循以上3个特点。</p>
+<h4 id="absolute"><a href="#absolute" class="headerlink" title="absolute"></a>absolute</h4><p>absolute是相对上一个不为static的父元素进行绝对定位。也就是说，如果不指定父元素的position，absolute将相对于整个html文档进行绝对定位。</p>
+<h4 id="fixed"><a href="#fixed" class="headerlink" title="fixed"></a>fixed</h4><p>fixed是相对于浏览器窗口进行定位。也就是说，不论网页如何滚动，该元素始终停留在屏幕的某个位置上。例如：我们希望侧边控制栏始终对用户可见，就可以使用<code>position:fixed</code>来进行定位。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -157,17 +145,10 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/11/21/CSS的定位技术/" title="CSS的定位技术">
-  <span>
-  CSS的定位技术</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/11/14/又长大一岁啦/"  title="又长大一岁啦">
- <span>又长大一岁啦
+<a href="/2016/11/21/CSS的优先级/"  title="CSS的优先级">
+ <span>CSS的优先级
 </span>
 </a>
 </div>
@@ -176,7 +157,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/11/21/CSS的优先级/" data-title="CSS的优先级" data-url="https://fantasticzhang.github.io/2016/11/21/CSS的优先级/"></div>
+	<div class="ds-thread" data-thread-key="2016/11/21/CSS的定位技术/" data-title="CSS的定位技术" data-url="https://fantasticzhang.github.io/2016/11/21/CSS的定位技术/"></div>
 </section>
 
 
