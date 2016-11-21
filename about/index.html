@@ -1,38 +1,27 @@
 
- <!DOCTYPE HTML>
+  
+    <!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   
-    <title>CSS的优先级 | Fantastic</title>
+    <title>about | Fantastic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="张金玲">
     
 
     
-    <meta name="description" content="如何确定CSS的优先级？首先要引入一个机制，分别用4个数字（a, b, c, d）表示优先级组合，它们的意思分别是：    
-
-第一个数字（a）表示style属性，优先级最高。由于一般都是class样式，所以该值一般都是0。  
-第二个数字（b）是该CSS选择器上的id数量的总和，一般都是1个。
-第三个数字（c）是用在该CSS选择器上的其他属性CSS选择器以及伪类的总和。这里包括class（比如">
-<meta property="og:type" content="article">
-<meta property="og:title" content="CSS的优先级">
-<meta property="og:url" content="https://fantasticzhang.github.io/2016/11/21/CSS的优先级/index.html">
+    <meta name="description" content="目前在北京读研，平时的工作主要是前端相关的。对前端技术也很感兴趣，处于边学边实践的阶段。欢迎志同道合的朋友与我多多交流，也期待大神的指点~">
+<meta property="og:type" content="website">
+<meta property="og:title" content="about">
+<meta property="og:url" content="https://fantasticzhang.github.io/about/index.html">
 <meta property="og:site_name" content="Fantastic">
-<meta property="og:description" content="如何确定CSS的优先级？首先要引入一个机制，分别用4个数字（a, b, c, d）表示优先级组合，它们的意思分别是：    
-
-第一个数字（a）表示style属性，优先级最高。由于一般都是class样式，所以该值一般都是0。  
-第二个数字（b）是该CSS选择器上的id数量的总和，一般都是1个。
-第三个数字（c）是用在该CSS选择器上的其他属性CSS选择器以及伪类的总和。这里包括class（比如">
-<meta property="og:updated_time" content="2016-11-21T09:25:55.970Z">
+<meta property="og:description" content="目前在北京读研，平时的工作主要是前端相关的。对前端技术也很感兴趣，处于边学边实践的阶段。欢迎志同道合的朋友与我多多交流，也期待大神的指点~">
+<meta property="og:updated_time" content="2016-11-21T14:42:00.390Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSS的优先级">
-<meta name="twitter:description" content="如何确定CSS的优先级？首先要引入一个机制，分别用4个数字（a, b, c, d）表示优先级组合，它们的意思分别是：    
-
-第一个数字（a）表示style属性，优先级最高。由于一般都是class样式，所以该值一般都是0。  
-第二个数字（b）是该CSS选择器上的id数量的总和，一般都是1个。
-第三个数字（c）是用在该CSS选择器上的其他属性CSS选择器以及伪类的总和。这里包括class（比如">
+<meta name="twitter:title" content="about">
+<meta name="twitter:description" content="目前在北京读研，平时的工作主要是前端相关的。对前端技术也很感兴趣，处于边学边实践的阶段。欢迎志同道合的朋友与我多多交流，也期待大神的指点~">
 <meta name="twitter:creator" content="@fantastic_zjl">
 
     
@@ -48,9 +37,9 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
-  <body>
-    <header>
-      
+      <body>
+        <header>
+          
 <div>
 		
 			<div id="imglogo">
@@ -85,66 +74,33 @@
 				</ul>
 			</nav>			
 </div>
-    </header>
-    <div id="container">
-      <div id="main" class="post" itemscope itemprop="blogPost">
+        </header>
+        <div id="container">
+          <div id="main" class="page" itemscope itemprop="blogPost">
   
 	<article itemprop="articleBody"> 
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/11/21/CSS的优先级/" title="CSS的优先级" itemprop="url">CSS的优先级</a>
+      <a href="/about/index.html" title="about" itemprop="url">about</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="张金玲" target="_blank" itemprop="author">张金玲</a>
 		
   <p class="article-time">
-    <time datetime="2016-11-21T08:56:01.000Z" itemprop="datePublished"> 发表于 2016-11-21</time>
+    <time datetime="2016-11-21T14:27:21.000Z" itemprop="datePublished"> 发表于 2016-11-21</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-		
-			
-		
-		</div>
-		
-		<p>如何确定CSS的优先级？首先要引入一个机制，分别用4个数字（a, b, c, d）表示优先级组合，它们的意思分别是：    </p>
-<ul>
-<li>第一个数字（a）表示style属性，优先级最高。由于一般都是class样式，所以该值一般都是0。  </li>
-<li>第二个数字（b）是该CSS选择器上的id数量的总和，一般都是1个。</li>
-<li>第三个数字（c）是用在该CSS选择器上的其他属性CSS选择器以及伪类的总和。这里包括class（比如 .btn）和属性选择器（比如 li[id=red]）。</li>
-<li>第四个数字（d）计算元素（比如 table、p、div等）和伪元素（比如 first-child）。</li>
-</ul>
-<p>注：</p>
-<ul>
-<li>通用CSS选择器（*）是0优先级。</li>
-<li>如果两个CSS选择器有同样的优先级，则在样式表中后面的那个起作用。</li>
-</ul>
-<p>几个例子：</p>
-<ul>
-<li>选择器：<code>#menu h2</code>， 优先级：0,1,0,1。   </li>
-<li>选择器： <code>#leftbar li:first-child</code>，优先级： 0,1,0,2。 </li>
-</ul>
+		<p>目前在北京读研，平时的工作主要是前端相关的。对前端技术也很感兴趣，处于边学边实践的阶段。欢迎志同道合的朋友与我多多交流，也期待大神的指点~</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/前端/">前端</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/CSS/">CSS</a>
-  </div>
 
 </div>
 
@@ -155,118 +111,15 @@
    	       
 	</article>
 	
-<nav class="article-nav clearfix">
- 
- <div class="prev" >
- <a href="/2016/11/21/CSS的定位技术/" title="CSS的定位技术">
-  <span>
-  CSS的定位技术</span>
-</a>
-</div>
-
-
-<div class="next">
-<a href="/2016/11/14/又长大一岁啦/"  title="又长大一岁啦">
- <span>又长大一岁啦
-</span>
-</a>
-</div>
-
-</nav>
-
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/11/21/CSS的优先级/" data-title="CSS的优先级" data-url="https://fantasticzhang.github.io/2016/11/21/CSS的优先级/"></div>
+	<div class="ds-thread" data-thread-key="about/index.html" data-title="about" data-url="https://fantasticzhang.github.io/about/index.html"></div>
 </section>
 
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-<div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
-<aside class="clearfix">
-<div id="authorInfo">
-	
-		<div class="author-img"></div>		
-	
-	<div class="social-info" class="clearfix">
-		
-		<a href="http://weibo.com/jinlingzhang" target="_blank" class="icon-weibo" title="微博"></a>
-		
-		
-		<a href="https://github.com/fantasticZhang" target="_blank" class="icon-github" title="github"></a>
-		
-		
-		
-		<a href="https://twitter.com/fantastic_zjl" target="_blank" class="icon-twitter" title="twitter"></a>
-		
-		
-		<a href="https://www.facebook.com/fantasticzjl" target="_blank" class="icon-facebook" title="facebook"></a>
-		
-		
-		
-		
-		
-		
-		
-		<a href="mailto:jlzhanghot@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
-		
-
-	</div>
-</div>
-
-  
-<div class="categorieslist">
-	<p class="asidetitle">分类</p>
-		<ul>
-		
-		  
-			<li><a href="/categories/前端/" title="前端">前端<sup>2</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/生活/" title="生活">生活<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/随记/" title="随记">随记<sup>1</sup></a></li>
-		  
-		
-		</ul>
-</div>
-
-
-  
-<div class="tagslist">
-	<p class="asidetitle">标签</p>
-		<ul class="clearfix">
-		
-			
-				<li><a href="/tags/CSS/" title="CSS">CSS<sup>2</sup></a></li>
-			
-		
-		</ul>
-</div>
-
-
-  <div class="linkslist">
-  <p class="asidetitle">链接</p>
-    <ul>
-        
-          <li>
-            
-            	<a href="https://hexo.github.io" target="_blank" title="Airghc">Airghc</a>
-            
-          </li>
-        
-    </ul>
-</div>
-
-</aside>
-</div>
-    </div>
-    <footer><div id="footer" >
+        </div>
+        <footer><div id="footer" >
 		
 		
 
@@ -279,7 +132,7 @@
 		</p>
 </div>
 </footer>
-    <script src="/js/jquery-2.0.3.min.js"></script>
+        <script src="/js/jquery-2.0.3.min.js"></script>
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 <script src="/js/jquery.qrcode-0.12.0.min.js"></script>
@@ -325,32 +178,6 @@ $(document).ready(function(){
       o.css('display', 'none');
         
     }
-  });
-});
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  c.click(function(){
-    ta.css('display', 'block').addClass('fadeIn');
-  });
-  o.click(function(){
-    ta.css('display', 'none');
-  });
-  $(window).scroll(function(){
-    ta.css("top",Math.max(140,320-$(this).scrollTop()));
   });
 });
 </script>
@@ -485,5 +312,6 @@ var _hmt = _hmt || [];
 
 <!-- Tiny_search End -->
 
-  </body>
-</html>
+      </body>
+     </html>
+     
