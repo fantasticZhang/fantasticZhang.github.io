@@ -4,26 +4,38 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>我的第一篇博客 | Fantastic</title>
+    <title>CSS的overflow属性和white-space属性 | Fantastic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="张金玲">
     
 
     
-    <meta name="description" content="终于有自己的博客啦~
-其实一直想要建一个属于自己的博客，用来记录自己日常生活中的点点滴滴、学习过程中整理的笔记以及一些技术感悟，记录自己读过的一些论文等，但由于自己的拖延症，一直没有弄:-P。终于，今天我也有了属于自己的博客啦，也希望自己之后能克服懒惰，经常更新。日积月累，总会有收获的。">
+    <meta name="description" content="今天在写网页的时候用到了这两个属性，对于它们分别可能的取值及其含义一开始不是很确定，在查阅了网上的一些资料以及自己动手测试后，对它们每个可能取值的含义现已明确，因此记录下来方便之后查阅。
+overflow属性overflow属性规定当内容溢出元素框时发生的事情。
+可能的取值
+visible：默认值。内容不会被修剪，会呈现在元素框之外。
+hidden：内容会被修剪，并且其余内容是不可见的。
+scro">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我的第一篇博客">
-<meta property="og:url" content="https://fantasticzhang.github.io/2016/11/13/我的第一篇博客/index.html">
+<meta property="og:title" content="CSS的overflow属性和white-space属性">
+<meta property="og:url" content="https://fantasticzhang.github.io/2016/11/22/CSS的overflow属性和white-space属性/index.html">
 <meta property="og:site_name" content="Fantastic">
-<meta property="og:description" content="终于有自己的博客啦~
-其实一直想要建一个属于自己的博客，用来记录自己日常生活中的点点滴滴、学习过程中整理的笔记以及一些技术感悟，记录自己读过的一些论文等，但由于自己的拖延症，一直没有弄:-P。终于，今天我也有了属于自己的博客啦，也希望自己之后能克服懒惰，经常更新。日积月累，总会有收获的。">
-<meta property="og:updated_time" content="2016-11-13T14:52:39.523Z">
+<meta property="og:description" content="今天在写网页的时候用到了这两个属性，对于它们分别可能的取值及其含义一开始不是很确定，在查阅了网上的一些资料以及自己动手测试后，对它们每个可能取值的含义现已明确，因此记录下来方便之后查阅。
+overflow属性overflow属性规定当内容溢出元素框时发生的事情。
+可能的取值
+visible：默认值。内容不会被修剪，会呈现在元素框之外。
+hidden：内容会被修剪，并且其余内容是不可见的。
+scro">
+<meta property="og:updated_time" content="2016-11-22T13:54:08.596Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我的第一篇博客">
-<meta name="twitter:description" content="终于有自己的博客啦~
-其实一直想要建一个属于自己的博客，用来记录自己日常生活中的点点滴滴、学习过程中整理的笔记以及一些技术感悟，记录自己读过的一些论文等，但由于自己的拖延症，一直没有弄:-P。终于，今天我也有了属于自己的博客啦，也希望自己之后能克服懒惰，经常更新。日积月累，总会有收获的。">
+<meta name="twitter:title" content="CSS的overflow属性和white-space属性">
+<meta name="twitter:description" content="今天在写网页的时候用到了这两个属性，对于它们分别可能的取值及其含义一开始不是很确定，在查阅了网上的一些资料以及自己动手测试后，对它们每个可能取值的含义现已明确，因此记录下来方便之后查阅。
+overflow属性overflow属性规定当内容溢出元素框时发生的事情。
+可能的取值
+visible：默认值。内容不会被修剪，会呈现在元素框之外。
+hidden：内容会被修剪，并且其余内容是不可见的。
+scro">
 <meta name="twitter:creator" content="@fantastic_zjl">
 
     
@@ -84,16 +96,16 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/11/13/我的第一篇博客/" title="我的第一篇博客" itemprop="url">我的第一篇博客</a>
+      <a href="/2016/11/22/CSS的overflow属性和white-space属性/" title="CSS的overflow属性和white-space属性" itemprop="url">CSS的overflow属性和white-space属性</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="张金玲" target="_blank" itemprop="author">张金玲</a>
 		
   <p class="article-time">
-    <time datetime="2016-11-13T13:44:29.000Z" itemprop="datePublished"> 发表于 2016-11-13</time>
+    <time datetime="2016-11-22T13:02:03.000Z" itemprop="datePublished"> 发表于 2016-11-22</time>
     <span class="head-plus">
-   &nbsp;|&nbsp;<i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="2016/11/13/我的第一篇博客/"><i class="fa fa-spinner fa-spin"></i></span>
+   &nbsp;|&nbsp;<i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="2016/11/22/CSS的overflow属性和white-space属性/"><i class="fa fa-spinner fa-spin"></i></span>
    </span>
   </p>
  
@@ -104,12 +116,36 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#overflow属性"><span class="toc-number">1.</span> <span class="toc-text">overflow属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#可能的取值"><span class="toc-number">1.1.</span> <span class="toc-text">可能的取值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scroll和auto的区别"><span class="toc-number">1.2.</span> <span class="toc-text">scroll和auto的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#white-space属性"><span class="toc-number">2.</span> <span class="toc-text">white-space属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#可能的取值-1"><span class="toc-number">2.1.</span> <span class="toc-text">可能的取值</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<p>终于有自己的博客啦~</p>
-<p>其实一直想要建一个属于自己的博客，用来记录自己日常生活中的点点滴滴、学习过程中整理的笔记以及一些技术感悟，记录自己读过的一些论文等，但由于自己的拖延症，一直没有弄:-P。终于，今天我也有了属于自己的博客啦，也希望自己之后能克服懒惰，经常更新。日积月累，总会有收获的。</p>
+		<p>今天在写网页的时候用到了这两个属性，对于它们分别可能的取值及其含义一开始不是很确定，在查阅了网上的一些资料以及自己动手测试后，对它们每个可能取值的含义现已明确，因此记录下来方便之后查阅。</p>
+<h3 id="overflow属性"><a href="#overflow属性" class="headerlink" title="overflow属性"></a>overflow属性</h3><p>overflow属性规定当内容溢出元素框时发生的事情。</p>
+<h4 id="可能的取值"><a href="#可能的取值" class="headerlink" title="可能的取值"></a>可能的取值</h4><ul>
+<li>visible：默认值。内容不会被修剪，会呈现在元素框之外。</li>
+<li>hidden：内容会被修剪，并且其余内容是不可见的。</li>
+<li>scroll：内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。</li>
+<li>auto：如果内容被修剪，则浏览器会显示滚动条以便查看其余的内容。</li>
+<li>inherit：从父元素继承overflow属性的值。</li>
+</ul>
+<h4 id="scroll和auto的区别"><a href="#scroll和auto的区别" class="headerlink" title="scroll和auto的区别"></a>scroll和auto的区别</h4><ul>
+<li>scroll：内容自动撑开容器的宽度不包括滚动条，相当于滚动条是一个和内容并列显示的组件。</li>
+<li><p>auto：内容撑开容器的宽度包括滚动条。即 使用<code>white-space:nowrape;</code>撑开容器至正好显示所有内容时，如果有滚动条，则滚动条会覆盖在内容上方，导致内容宽度被再次缩小，然后出现省略号。由此推断渲染顺序：</p>
+<p>  自适应宽度-&gt;根据高度显示滚动条-&gt;重新计算内部元素宽度。 </p>
+</li>
+</ul>
+<p>综上，如果宽度是由内容自适应撑开的，则<code>overflow:auto;</code>带来的滚动条会占用内容的一部分宽度，导致内容显示不全。</p>
+<h3 id="white-space属性"><a href="#white-space属性" class="headerlink" title="white-space属性"></a>white-space属性</h3><p>该属性声明建立布局过程中如何处理元素中的空白符。</p>
+<h4 id="可能的取值-1"><a href="#可能的取值-1" class="headerlink" title="可能的取值"></a>可能的取值</h4><ul>
+<li>normal：默认值。连续的空白符会被合并，换行符会被当做空白符来处理。填充line盒子时，必要的话会换行。</li>
+<li>pre: 连续的空白符会被保留。在遇到换行符或者\<br\>元素时才会换行。</br\></li>
+<li>nowrap: 连续的空白符会被合并，文本不会换行，会在同一行上继续，直到遇到\<br\>标签为止。</br\></li>
+<li>pre-wrap：连续的空白符会被保留，在遇到换行符或者\<br\>元素或者需要为了填充line盒子时才会换行。</br\></li>
+<li>pre-line：连续的空白符会被合并，在遇到换行符或者\<br\>元素或者需要为了填充line盒子时才会换行。</br\></li>
+<li>inherit：从父元素继承white-space属性的值。</li>
+</ul>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/white-space" target="_blank" rel="external">参考</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -117,9 +153,14 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/随记/">随记</a>
+  <a class="article-category-link" href="/categories/前端/">前端</a>
 </div>
 
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/CSS/">CSS</a>
+  </div>
 
 </div>
 
@@ -132,19 +173,19 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/11/14/又长大一岁啦/" title="又长大一岁啦">
-  <span>
-  又长大一岁啦</span>
+
+<div class="next">
+<a href="/2016/11/21/CSS的定位技术/"  title="CSS的定位技术">
+ <span>CSS的定位技术
+</span>
 </a>
 </div>
-
 
 </nav>
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/11/13/我的第一篇博客/" data-title="我的第一篇博客" data-url="https://fantasticzhang.github.io/2016/11/13/我的第一篇博客/"></div>
+	<div class="ds-thread" data-thread-key="2016/11/22/CSS的overflow属性和white-space属性/" data-title="CSS的overflow属性和white-space属性" data-url="https://fantasticzhang.github.io/2016/11/22/CSS的overflow属性和white-space属性/"></div>
 </section>
 
 
