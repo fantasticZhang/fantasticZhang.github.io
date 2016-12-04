@@ -19,7 +19,7 @@ execFile(): 启动一个子进程来执行可执行文件。
 fork(): 与spawn()类似，不同点在于它创建Node的子进程只需要指定要执">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用Node的子进程调用脚本和系统命令">
-<meta property="og:url" content="https://fantasticzhang.github.io/2016/11/30/利用Node的子进程调用脚本和系统命令/index.html">
+<meta property="og:url" content="https://fantasticzhang.github.io/2016/12/04/利用Node的子进程调用脚本和系统命令/index.html">
 <meta property="og:site_name" content="Fantastic">
 <meta property="og:description" content="child_process模块使得Node可以随意创建子进程。它提供了4个方法用于创建子进程。
 
@@ -27,7 +27,7 @@ spawn(): 启动一个子进程来执行命令。
 exec(): 启动一个子进程来执行命令，与spawn()不同的是其接口不同，它有一个回调函数获知子进程的状况。
 execFile(): 启动一个子进程来执行可执行文件。
 fork(): 与spawn()类似，不同点在于它创建Node的子进程只需要指定要执">
-<meta property="og:updated_time" content="2016-12-04T07:07:27.808Z">
+<meta property="og:updated_time" content="2016-12-04T07:32:06.266Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用Node的子进程调用脚本和系统命令">
 <meta name="twitter:description" content="child_process模块使得Node可以随意创建子进程。它提供了4个方法用于创建子进程。
@@ -104,16 +104,16 @@ fork(): 与spawn()类似，不同点在于它创建Node的子进程只需要指�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/11/30/利用Node的子进程调用脚本和系统命令/" title="利用Node的子进程调用脚本和系统命令" itemprop="url">利用Node的子进程调用脚本和系统命令</a>
+      <a href="/2016/12/04/利用Node的子进程调用脚本和系统命令/" title="利用Node的子进程调用脚本和系统命令" itemprop="url">利用Node的子进程调用脚本和系统命令</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="张金玲" target="_blank" itemprop="author">张金玲</a>
 		
   <p class="article-time">
-    <time datetime="2016-11-30T14:48:56.000Z" itemprop="datePublished"> 发表于 2016-11-30</time>
+    <time datetime="2016-12-04T14:48:56.000Z" itemprop="datePublished"> 发表于 2016-12-04</time>
     <span class="head-plus">
-   &nbsp;|&nbsp;<i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="2016/11/30/利用Node的子进程调用脚本和系统命令/"><i class="fa fa-spinner fa-spin"></i></span>
+   &nbsp;|&nbsp;<i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="2016/12/04/利用Node的子进程调用脚本和系统命令/"><i class="fa fa-spinner fa-spin"></i></span>
    </span>
   </p>
 
@@ -125,7 +125,7 @@ fork(): 与spawn()类似，不同点在于它创建Node的子进程只需要指�
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法简介"><span class="toc-number">1.</span> <span class="toc-text">方法简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#spawn"><span class="toc-number">1.1.</span> <span class="toc-text">spawn()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exec"><span class="toc-number">1.2.</span> <span class="toc-text">exec()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#execFile"><span class="toc-number">1.3.</span> <span class="toc-text">execFile()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fork"><span class="toc-number">1.4.</span> <span class="toc-text">fork()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#区别"><span class="toc-number">2.</span> <span class="toc-text">区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#补充"><span class="toc-number">3.</span> <span class="toc-text">补充</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用exec-方法执行sudo命令"><span class="toc-number">3.1.</span> <span class="toc-text">使用exec()方法执行sudo命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方法一：-S选项"><span class="toc-number">3.1.1.</span> <span class="toc-text">方法一： -S选项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法二"><span class="toc-number">3.1.2.</span> <span class="toc-text">方法二</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用exec-方法实时获取输出"><span class="toc-number">3.2.</span> <span class="toc-text">使用exec()方法实时获取输出</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法简介"><span class="toc-number">1.</span> <span class="toc-text">方法简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#spawn"><span class="toc-number">1.1.</span> <span class="toc-text">spawn()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exec"><span class="toc-number">1.2.</span> <span class="toc-text">exec()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#execFile"><span class="toc-number">1.3.</span> <span class="toc-text">execFile()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fork"><span class="toc-number">1.4.</span> <span class="toc-text">fork()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#区别"><span class="toc-number">2.</span> <span class="toc-text">区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#补充"><span class="toc-number">3.</span> <span class="toc-text">补充</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用exec-方法执行sudo命令"><span class="toc-number">3.1.</span> <span class="toc-text">使用exec()方法执行sudo命令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#方法一：-S选项"><span class="toc-number">3.1.0.1.</span> <span class="toc-text">方法一： -S选项</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#方法二"><span class="toc-number">3.1.0.2.</span> <span class="toc-text">方法二</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用exec-方法实时获取输出"><span class="toc-number">3.2.</span> <span class="toc-text">使用exec()方法实时获取输出</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -192,7 +192,7 @@ shellProcess.execFile(&apos;./stop.sh&apos;, function(err, stdout, stderr){
 </li>
 </ul>
 <h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><h3 id="使用exec-方法执行sudo命令"><a href="#使用exec-方法执行sudo命令" class="headerlink" title="使用exec()方法执行sudo命令"></a>使用exec()方法执行sudo命令</h3><p>由于sudo命令需要输入密码，所以执行sudo命令与执行普通命令有所区别，下面是两种比较简单的解决方法：</p>
-<h4 id="方法一：-S选项"><a href="#方法一：-S选项" class="headerlink" title="方法一： -S选项"></a>方法一： -S选项</h4><p>sudo命令有个-S选项，用于在需要输入密码的时候，读取密码。</p>
+<h5 id="方法一：-S选项"><a href="#方法一：-S选项" class="headerlink" title="方法一： -S选项"></a>方法一： -S选项</h5><p>sudo命令有个-S选项，用于在需要输入密码的时候，读取密码。</p>
 <p>假设密码为password，且假设要使用sudo命令执行脚本文件 tee_to_monitor.sh ，并向其传递参数 status ，那么，完整命令如下</p>
 <p><code>echo &quot;password&quot; | sudo -S ./tee_to_monitor.sh status</code></p>
 <p>相应的，node代码可以这样</p>
@@ -201,7 +201,7 @@ shellProcess.exec(&apos;echo &quot;zjl&quot; | sudo -S ./tee_to_monitor.sh statu
     if(err) console.log(&apos;error: &apos;+stderr);
     console.log(stdout);
 });
-</code></pre><h4 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h4><p>该方法比较简单，只需要使用<code>sudo npm start</code>启动应用即可，假设同样是上面的例子，此时node代码如下：</p>
+</code></pre><h5 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h5><p>该方法比较简单，只需要使用<code>sudo npm start</code>启动应用即可，假设同样是上面的例子，此时node代码如下：</p>
 <pre><code>var shellProcess = require(&apos;child_process&apos;);
 shellProcess.exec(&apos;./tee_to_monitor.sh status&apos;,function(err, stdout, stderr){
     if(err) console.log(&apos;error: &apos;+stderr);
@@ -252,7 +252,7 @@ child.on(&apos;close&apos;,function(code){
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/11/30/利用Node的子进程调用脚本和系统命令/" data-title="利用Node的子进程调用脚本和系统命令" data-url="https://fantasticzhang.github.io/2016/11/30/利用Node的子进程调用脚本和系统命令/"></div>
+	<div class="ds-thread" data-thread-key="2016/12/04/利用Node的子进程调用脚本和系统命令/" data-title="利用Node的子进程调用脚本和系统命令" data-url="https://fantasticzhang.github.io/2016/12/04/利用Node的子进程调用脚本和系统命令/"></div>
 </section>
 
 
@@ -327,7 +327,7 @@ child.on(&apos;close&apos;,function(code){
 
 
   <div class="linkslist">
-  <p class="asidetitle">链接</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
           <li>
