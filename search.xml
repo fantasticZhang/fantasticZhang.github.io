@@ -17,21 +17,21 @@
 <p>spawn方法返回一个对象流，适合于输出大量数据然后需要读取的应用场合。</p>
 <p>使用案例：</p>
 <pre><code>var shellProcess = require(&apos;child_process&apos;);
-free = shellProcess.spawn(&apos;free&apos;, [&apos;-m&apos;]); 
+free = shellProcess.spawn(&apos;free&apos;, [&apos;-m&apos;]);
 
-// 捕获标准输出并将其打印到控制台 
-free.stdout.on(&apos;data&apos;, function (data) { 
-    console.log(&apos;standard output:\n&apos; + data); 
-}); 
+// 捕获标准输出并将其打印到控制台
+free.stdout.on(&apos;data&apos;, function (data) {
+    console.log(&apos;standard output:\n&apos; + data);
+});
 
-// 捕获标准错误输出并将其打印到控制台 
-free.stderr.on(&apos;data&apos;, function (data) { 
-    console.log(&apos;standard error output:\n&apos; + data); 
-}); 
+// 捕获标准错误输出并将其打印到控制台
+free.stderr.on(&apos;data&apos;, function (data) {
+    console.log(&apos;standard error output:\n&apos; + data);
+});
 
-// 注册子进程关闭事件 
-free.on(&apos;exit&apos;, function (code) { 
-    console.log(&apos;child process exit ,exit:&apos; + code); 
+// 注册子进程关闭事件
+free.on(&apos;exit&apos;, function (code) {
+    console.log(&apos;child process exit ,exit:&apos; + code);
 });
 </code></pre><h3 id="exec"><a href="#exec" class="headerlink" title="exec()"></a>exec()</h3><p><code>child_process.exec(command[, options][, callback])</code></p>
 <p>exec方法会启动一个子进程来执行系统命令，并缓冲产生的数据，当子进程完成后回调函数就会被调用，可带有：</p>

@@ -27,7 +27,7 @@ spawn(): 启动一个子进程来执行命令。
 exec(): 启动一个子进程来执行命令，与spawn()不同的是其接口不同，它有一个回调函数获知子进程的状况。
 execFile(): 启动一个子进程来执行可执行文件。
 fork(): 与spawn()类似，不同点在于它创建Node的子进程只需要指定要执">
-<meta property="og:updated_time" content="2016-12-04T07:32:06.266Z">
+<meta property="og:updated_time" content="2016-12-04T07:44:10.159Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用Node的子进程调用脚本和系统命令">
 <meta name="twitter:description" content="child_process模块使得Node可以随意创建子进程。它提供了4个方法用于创建子进程。
@@ -111,7 +111,7 @@ fork(): 与spawn()类似，不同点在于它创建Node的子进程只需要指�
 		<a href="/about" title="张金玲" target="_blank" itemprop="author">张金玲</a>
 		
   <p class="article-time">
-    <time datetime="2016-12-04T14:48:56.000Z" itemprop="datePublished"> 发表于 2016-12-04</time>
+    <time datetime="2016-12-04T06:48:56.000Z" itemprop="datePublished"> 发表于 2016-12-04</time>
     <span class="head-plus">
    &nbsp;|&nbsp;<i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="2016/12/04/利用Node的子进程调用脚本和系统命令/"><i class="fa fa-spinner fa-spin"></i></span>
    </span>
@@ -140,21 +140,21 @@ fork(): 与spawn()类似，不同点在于它创建Node的子进程只需要指�
 <p>spawn方法返回一个对象流，适合于输出大量数据然后需要读取的应用场合。</p>
 <p>使用案例：</p>
 <pre><code>var shellProcess = require(&apos;child_process&apos;);
-free = shellProcess.spawn(&apos;free&apos;, [&apos;-m&apos;]); 
+free = shellProcess.spawn(&apos;free&apos;, [&apos;-m&apos;]);
 
-// 捕获标准输出并将其打印到控制台 
-free.stdout.on(&apos;data&apos;, function (data) { 
-    console.log(&apos;standard output:\n&apos; + data); 
-}); 
+// 捕获标准输出并将其打印到控制台
+free.stdout.on(&apos;data&apos;, function (data) {
+    console.log(&apos;standard output:\n&apos; + data);
+});
 
-// 捕获标准错误输出并将其打印到控制台 
-free.stderr.on(&apos;data&apos;, function (data) { 
-    console.log(&apos;standard error output:\n&apos; + data); 
-}); 
+// 捕获标准错误输出并将其打印到控制台
+free.stderr.on(&apos;data&apos;, function (data) {
+    console.log(&apos;standard error output:\n&apos; + data);
+});
 
-// 注册子进程关闭事件 
-free.on(&apos;exit&apos;, function (code) { 
-    console.log(&apos;child process exit ,exit:&apos; + code); 
+// 注册子进程关闭事件
+free.on(&apos;exit&apos;, function (code) {
+    console.log(&apos;child process exit ,exit:&apos; + code);
 });
 </code></pre><h3 id="exec"><a href="#exec" class="headerlink" title="exec()"></a>exec()</h3><p><code>child_process.exec(command[, options][, callback])</code></p>
 <p>exec方法会启动一个子进程来执行系统命令，并缓冲产生的数据，当子进程完成后回调函数就会被调用，可带有：</p>
@@ -228,6 +228,16 @@ child.on(&apos;close&apos;,function(code){
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/前端/">前端</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Node/">Node</a>
+  </div>
 
 </div>
 
@@ -298,7 +308,7 @@ child.on(&apos;close&apos;,function(code){
 		<ul>
 		
 		  
-			<li><a href="/categories/前端/" title="前端">前端<sup>3</sup></a></li>
+			<li><a href="/categories/前端/" title="前端">前端<sup>4</sup></a></li>
 		  
 		
 		  
@@ -320,6 +330,10 @@ child.on(&apos;close&apos;,function(code){
 		
 			
 				<li><a href="/tags/CSS/" title="CSS">CSS<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Node/" title="Node">Node<sup>1</sup></a></li>
 			
 		
 		</ul>
