@@ -1,0 +1,58 @@
+#site_search {
+  padding: 0.1em 0 0 1em;
+}
+#local-search-input{
+  -webkit-appearance:textfield;
+  font-size: 0.87em;
+  border:1px solid white;
+  color: white;
+  background: transparent;
+  width:80%;
+  line-height: 1.7;
+  padding-left: 0.5em;
+}
+
+@media only screen and (min-width: 1024px) {
+  #local-search-input:focus{
+    width: 15em;
+  }
+  #local-search-input{
+    width: 8em;
+    transition: 0.5s width;
+  }
+
+}
+#local-search-result{
+  position: relative;
+  overflow: visible !important;
+}
+ul.search-result-list {
+  display: block;
+  /*padding-left: 8px;*/
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 82%;
+  height: auto;
+  z-index: 1;
+  background: #D07272;
+  border: 1px solid #ccc;
+}
+header nav ul li a.search-result-title {
+  /*font-weight: bold;*/
+  font-size: 15px;
+  padding: 0.1em 0.3em;
+}
+/*清除搜索结果的浮动*/
+header nav ul.search-result-list li {
+  float:none;
+}
+
+p.search-result {
+  color:#555;
+  display: none;
+}
+em.search-keyword {
+  border-bottom: 1px dashed #4088b8;
+  font-weight: bold;
+}

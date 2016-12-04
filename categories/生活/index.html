@@ -11,15 +11,12 @@
     
 
     
-    <meta name="description" content="你若盛开，清风自来">
-<meta property="og:type" content="website">
+    <meta property="og:type" content="website">
 <meta property="og:title" content="Fantastic">
 <meta property="og:url" content="https://fantasticzhang.github.io/categories/生活/index.html">
 <meta property="og:site_name" content="Fantastic">
-<meta property="og:description" content="你若盛开，清风自来">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Fantastic">
-<meta name="twitter:description" content="你若盛开，清风自来">
 <meta name="twitter:creator" content="@fantastic_zjl">
 
     
@@ -33,6 +30,7 @@
     <link rel="apple-touch-icon-precomposed" href="/img/logo.png">
     
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/search.css">
 </head>
 
     <body>
@@ -62,16 +60,23 @@
 					
 					<li>
  					
-					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+					<!-- <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
 						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:fantasticzhang.github.io">
-					</form>
+					</form> -->
+
+					<!--自定义本地搜索 2016。11.29-->
+						<div id="site_search">
+							<input type="text" id="local-search-input" name="q" results="0" autocomplete="off" maxlength="20" placeholder="搜索博客" class="form-control"/>
+							<div id="local-search-result"></div>
+						</div>
 					
 					</li>
 				</ul>
-			</nav>			
+			</nav>
 </div>
+
       </header>
       <div id="container">
         
@@ -104,36 +109,45 @@
       <footer><div id="footer" >
 		
 		
-		
+
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/hsihohuang/kiddochan" target="_blank" title="Kiddochan">Kiddochan</a> © 2016 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/hsihohuang/kiddochan" target="_blank" title="Kiddochan">Kiddochan</a> © 2016
 		
 		<a href="/about" target="_blank" title="张金玲">张金玲</a>
 		
-		
+
 		</p>
-		<p class="copyright">
+		<!-- <p class="copyright">
 		<span id="busuanzi_container_site_pv">
 		    本站总访问量<span id="busuanzi_value_site_pv"></span>次，
 		</span>
 		<span id="busuanzi_container_site_uv">
 		  您是第<span id="busuanzi_value_site_uv"></span>个到来的小伙伴
 		</span>
-		
-		</p>
+
+		</p> -->
 </div>
 </footer>
       <script src="/js/jquery-2.0.3.min.js"></script>
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 <script src="/js/jquery.qrcode-0.12.0.min.js"></script>
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
+<!--自定义的配置-->
+<!-- <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script> -->
+<script src="/js/search.js"></script>
 
 <script type="text/javascript">
-$(document).ready(function(){ 
+$(document).ready(function(){
   $('.navbar').click(function(){
     $('header nav').toggleClass('shownav');
+    //2016-11-29
+    if($('header nav').hasClass('shownav')){
+      $('.animated').css('display', 'block');
+    }else {
+      $('.animated').css('display', 'none');  //2016-11-29
+    }
+
   });
   var myWidth = 0;
   function getSize(){
@@ -154,7 +168,7 @@ $(document).ready(function(){
   });
   o.click(function(){
     o.css('display', 'none').removeClass('beforeFadeIn');
-    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
     m.removeClass('moveMain');
   });
   $(window).scroll(function(){
@@ -162,17 +176,52 @@ $(document).ready(function(){
   });
   
   $(window).resize(function(){
-    getSize(); 
+    getSize();
     if (myWidth >= 1024) {
       $('header nav').removeClass('shownav');
+      $('.animated').css('display', 'block');   //2016-11-29
     }else{
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
-        
+      $('.animated').css('display', 'none');  //2016-11-29
+      
+      //自定义  固定搜索结果列表宽度
+      $('ul.search-result-list').css('width', '82%');
     }
   });
+  //自定义事件 让搜索结果与输入框同宽 2016-11-30
+  $('#local-search-input').focusin(function(){
+    getSize();
+    if (myWidth >= 1024) {
+        $('ul.search-result-list').css('width', '13.5em');
+    }
+  })
+  $('#local-search-input').focusout(function(){
+    getSize();
+    if (myWidth >= 1024) {
+        $('ul.search-result-list').css('width', '7.4em');
+    }
+  })
+  //自定义 如果初始化时屏幕尺寸小于1024 则根据实际情况显示或隐藏菜单
+  getSize();
+  if (myWidth < 1024) {
+    if($('header nav').hasClass('shownav')){
+      $('.animated').css('display', 'block');
+    }else {
+      $('.animated').css('display', 'none');  //2016-11-29
+    }
+  }
 });
+
+<!--自定义功能：本地搜索-->
+var search_path = "search.xml";
+     if (search_path.length == 0) {
+     	search_path = "search.xml";
+     }
+     var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+
 </script>
 
 
@@ -187,7 +236,7 @@ $(document).ready(function(){
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
 <script src="/fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){ 
+$(document).ready(function(){
   $('.article-content').each(function(i){
     $(this).find('img').each(function(){
       if ($(this).parent().hasClass('fancybox')) return;
@@ -202,7 +251,7 @@ $(document).ready(function(){
   if($.fancybox){
     $('.fancybox').fancybox();
   }
-}); 
+});
 </script>
 
 
