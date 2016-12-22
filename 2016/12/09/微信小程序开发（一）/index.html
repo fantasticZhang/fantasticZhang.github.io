@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://fantasticzhang.github.io/images/2016-12-9/9.PNG">
 <meta property="og:image" content="https://fantasticzhang.github.io/images/2016-12-9/10.PNG">
 <meta property="og:image" content="https://fantasticzhang.github.io/images/2016-12-9/11.PNG">
-<meta property="og:updated_time" content="2016-12-22T02:37:10.909Z">
+<meta property="og:updated_time" content="2016-12-22T09:28:23.661Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微信小程序开发（一）">
 <meta name="twitter:description" content="前段时间，微信小程序突然火了，朋友圈被刷屏了。但由于某些原因，博主一直没有了解它，终于在昨天，抽了些时间了解了下小程序，主要是阅读了官方文档，之后博主觉得，小程序还是蛮有意思的，于是决定将自己的学习过程记录下来，也希望能够和同样对微信小程序感兴趣的朋友们多多交流。
@@ -402,8 +402,8 @@ Page({
 <h4 id="数据绑定"><a href="#数据绑定" class="headerlink" title="数据绑定"></a>数据绑定</h4><p>WXML 中的动态数据均来自对应 Page 的 data。</p>
 <p>数据绑定使用Mustache语法（双大括号）将变量包起来，可以作用于：内容、组件属性、控制属性和关键字，其中后三者需要在双引号之内。</p>
 <p>作用于关键字的例子：</p>
-<p><code>&lt;checkbox checked=&quot;false&quot;&gt; &lt;/checkbox&gt;</code></p>
-<ul>
+<pre><code>&lt;checkbox checked=&quot;{{false}}&quot;&gt; &lt;/checkbox&gt;    
+</code></pre><ul>
 <li><p>true：boolean 类型的 true，代表真值。</p>
 </li>
 <li><p>false： boolean 类型的 false，代表假值。</p>
@@ -413,7 +413,7 @@ Page({
 <p>还可在双大括号内进行简单的运算，支持的运算有：三元运算、算数运算、逻辑判断、字符串运算、数据路径运算等。</p>
 <p>也可在双大括号内直接进行组合，构成新的对象或者数组。</p>
 <p>具体的使用方法可参考官方文档给出的例子。</p>
-<h4 id="条件渲染"><a href="#条件渲染" class="headerlink" title="条件渲染"></a>条件渲染</h4><p>在框架中，我们用 <code>wx:if=&quot;&quot;</code>来判断是否需要渲染该代码块：</p>
+<h4 id="条件渲染"><a href="#条件渲染" class="headerlink" title="条件渲染"></a>条件渲染</h4><p>在框架中，我们用<code>wx:if</code>来判断是否需要渲染该代码块：</p>
 <pre><code>&lt;view wx:if=&quot;{{condition}}&quot;&gt; True &lt;/view&gt;
 </code></pre><p>也可以用<code>wx:elif</code> 和 <code>wx:else</code> 来添加一个 else 块：</p>
 <pre><code>&lt;view wx:if=&quot;{{length > 5}}&quot;&gt; 1 &lt;/view&gt;
@@ -446,6 +446,7 @@ Page({
 
 &lt;switch wx:for=&quot;{{numberArray}}&quot; wx:key=&quot;*this&quot; style=&quot;display: block;&quot;&gt; {{item}} &lt;/switch&gt;
 &lt;button bindtap=&quot;addNumberToFront&quot;&gt; Add to the front &lt;/button&gt;
+
 Page({
   data: {
     objectArray: [
