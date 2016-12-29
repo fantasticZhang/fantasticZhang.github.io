@@ -4,6 +4,50 @@
   
     
     <entry>
+      <title><![CDATA[文字循环无缝滚动特效代码]]></title>
+      <url>https://fantasticzhang.github.io/2016/12/29/%E6%96%87%E5%AD%97%E5%BE%AA%E7%8E%AF%E6%97%A0%E7%BC%9D%E6%BB%9A%E5%8A%A8%E7%89%B9%E6%95%88%E4%BB%A3%E7%A0%81/</url>
+      <content type="html"><![CDATA[<p>今天突然被问到了这个问题，现把我的解决方案记下来以便日后查看。下面是一个简单的小例子：</p>
+<pre><code>&lt;div  id=&quot;textScroll&quot; style=&quot;overflow:hidden;height:200px;width:300px;font-size:14px;line-height:22px;text-align:left;padding:10px&quot;&gt;
+&lt;div id=&quot;textScroll1&quot;&gt;
+  文字实循环无缝滚动
+  &lt;/div&gt;
+&lt;div id=&quot;textScroll2&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+
+//原理：设置好固定的宽高，内容的实际高度比这个高得多。控制滚动条，在滚到一定位置后减小滚动条高度，重复此过程。
+
+var textScroll = document.getElementById(&quot;textScroll&quot;);
+var textScroll1 = document.getElementById(&quot;textScroll1&quot;);
+var textScroll2 = document.getElementById(&quot;textScroll2&quot;);
+var speed=50;    //滚动速度值，值越大速度越慢
+
+//复制文本,使文本总高度大于父元素高度，这样才能无缝滚动
+var nnn=200/textScroll1.offsetHeight;
+for(i=0;i&lt;nnn;i++){textScroll1.innerHTML+=&quot;&lt;br /&gt;&quot;+ textScroll1.innerHTML}
+textScroll2.innerHTML = textScroll1.innerHTML;
+
+function Marquee(){
+if(textScroll2.offsetTop-textScroll.scrollTop&lt;=0)    //当滚动至textScroll2时
+{
+    textScroll.scrollTop-=textScroll1.offsetHeight;    //textScroll跳到最顶端,从头开始滚动
+
+}
+else{
+    textScroll.scrollTop++;     //持续滚动
+}
+}
+
+var MyMar = setInterval(Marquee,speed);        //设置定时器
+textScroll.onmouseover = function(){clearInterval(MyMar)}    //鼠标经过时清除定时器达到滚动停止的目的
+textScroll.onmouseout = function(){MyMar = setInterval(Marquee,speed)};    //鼠标移开时重设定时器
+&lt;/script&gt;
+</code></pre><p>例子很简单，可根据实际情况进行修改以满足实际需要。</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[微信小程序开发（一）]]></title>
       <url>https://fantasticzhang.github.io/2016/12/09/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%EF%BC%88%E4%B8%80%EF%BC%89/</url>
       <content type="html"><![CDATA[<p>前段时间，微信小程序突然火了，朋友圈被刷屏了。但由于某些原因，博主一直没有了解它，终于在昨天，抽了些时间了解了下小程序，主要是阅读了官方文档，之后博主觉得，小程序还是蛮有意思的，于是决定将自己的学习过程记录下来，也希望能够和同样对微信小程序感兴趣的朋友们多多交流。</p>

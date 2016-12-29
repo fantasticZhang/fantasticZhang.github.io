@@ -4,19 +4,26 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Fantastic</title>
+    <title>文字循环无缝滚动特效代码 | Fantastic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="张金玲">
     
 
     
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Fantastic">
-<meta property="og:url" content="https://fantasticzhang.github.io/index.html">
+    <meta name="description" content="今天突然被问到了这个问题，现把我的解决方案记下来以便日后查看。下面是一个简单的小例子：
+&amp;lt;div  id=&amp;quot;textScroll&amp;quot; style=&amp;quot;overflow:hidden;height:200px;width:300px;font-size:14px;line-height:22px;text-align:left;padding:10px&amp;quot;&amp;g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文字循环无缝滚动特效代码">
+<meta property="og:url" content="https://fantasticzhang.github.io/2016/12/29/文字循环无缝滚动特效代码/index.html">
 <meta property="og:site_name" content="Fantastic">
+<meta property="og:description" content="今天突然被问到了这个问题，现把我的解决方案记下来以便日后查看。下面是一个简单的小例子：
+&amp;lt;div  id=&amp;quot;textScroll&amp;quot; style=&amp;quot;overflow:hidden;height:200px;width:300px;font-size:14px;line-height:22px;text-align:left;padding:10px&amp;quot;&amp;g">
+<meta property="og:updated_time" content="2016-12-29T08:33:24.457Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Fantastic">
+<meta name="twitter:title" content="文字循环无缝滚动特效代码">
+<meta name="twitter:description" content="今天突然被问到了这个问题，现把我的解决方案记下来以便日后查看。下面是一个简单的小例子：
+&amp;lt;div  id=&amp;quot;textScroll&amp;quot; style=&amp;quot;overflow:hidden;height:200px;width:300px;font-size:14px;line-height:22px;text-align:left;padding:10px&amp;quot;&amp;g">
 <meta name="twitter:creator" content="@fantastic_zjl">
 
     
@@ -79,190 +86,119 @@
 
     </header>
     <div id="container">
-      <div id="main">
-
+      <div id="main" class="post" itemscope itemprop="blogPost">
   
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/12/29/文字循环无缝滚动特效代码/" title="文字循环无缝滚动特效代码" itemprop="url">
-  
-    <h1 itemprop="name">文字循环无缝滚动特效代码</h1>
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
     
-     
-           <p itemprop="description" >今天突然被问到了这个问题，现把我的解决方案记下来以便日后查看。下面是一个简单的小例子：
-&amp;lt;div  id=&amp;quot;textScroll&amp;quot; style=&amp;quot;overflow:hidden;height:200px;width:300px;font-siz</p>
-        
-    
-    <time datetime="2016-12-29T07:46:10.000Z" itemprop="datePublished">2016-12-29</time>
-  </a>
-</section>
+      <a href="/2016/12/29/文字循环无缝滚动特效代码/" title="文字循环无缝滚动特效代码" itemprop="url">文字循环无缝滚动特效代码</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="张金玲" target="_blank" itemprop="author">张金玲</a>
+		
+  <p class="article-time">
+    <time datetime="2016-12-29T07:46:10.000Z" itemprop="datePublished"> 发表于 2016-12-29</time>
+    <span class="head-plus">
+   &nbsp;|&nbsp;<i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="2016/12/29/文字循环无缝滚动特效代码/"><i class="fa fa-spinner fa-spin"></i></span>
+   </span>
+  </p>
 
 
+</header>
 
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>
+		
+		<p>今天突然被问到了这个问题，现把我的解决方案记下来以便日后查看。下面是一个简单的小例子：</p>
+<pre><code>&lt;div  id=&quot;textScroll&quot; style=&quot;overflow:hidden;height:200px;width:300px;font-size:14px;line-height:22px;text-align:left;padding:10px&quot;&gt;
+&lt;div id=&quot;textScroll1&quot;&gt;
+  文字实循环无缝滚动
+  &lt;/div&gt;
+&lt;div id=&quot;textScroll2&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
 
+&lt;script type=&quot;text/javascript&quot;&gt;
+
+//原理：设置好固定的宽高，内容的实际高度比这个高得多。控制滚动条，在滚到一定位置后减小滚动条高度，重复此过程。
+
+var textScroll = document.getElementById(&quot;textScroll&quot;);
+var textScroll1 = document.getElementById(&quot;textScroll1&quot;);
+var textScroll2 = document.getElementById(&quot;textScroll2&quot;);
+var speed=50;    //滚动速度值，值越大速度越慢
+
+//复制文本,使文本总高度大于父元素高度，这样才能无缝滚动
+var nnn=200/textScroll1.offsetHeight;
+for(i=0;i&lt;nnn;i++){textScroll1.innerHTML+=&quot;&lt;br /&gt;&quot;+ textScroll1.innerHTML}
+textScroll2.innerHTML = textScroll1.innerHTML;
+
+function Marquee(){
+if(textScroll2.offsetTop-textScroll.scrollTop&lt;=0)    //当滚动至textScroll2时
+{
+    textScroll.scrollTop-=textScroll1.offsetHeight;    //textScroll跳到最顶端,从头开始滚动
+
+}
+else{
+    textScroll.scrollTop++;     //持续滚动
+}
+}
+
+var MyMar = setInterval(Marquee,speed);        //设置定时器
+textScroll.onmouseover = function(){clearInterval(MyMar)}    //鼠标经过时清除定时器达到滚动停止的目的
+textScroll.onmouseout = function(){MyMar = setInterval(Marquee,speed)};    //鼠标移开时重设定时器
+&lt;/script&gt;
+</code></pre><p>例子很简单，可根据实际情况进行修改以满足实际需要。</p>
   
-<section class="post" itemscope itemprop="blogitem">
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/前端/">前端</a>
+</div>
+
+
+  <div class="article-tags">
   
-    <a href="/2016/12/09/微信小程序开发（一）/" title="微信小程序开发（一）" itemprop="url">
-  
-    <h1 itemprop="name">微信小程序开发（一）</h1>
-    
-     
-           <p itemprop="description" >前段时间，微信小程序突然火了，朋友圈被刷屏了。但由于某些原因，博主一直没有了解它，终于在昨天，抽了些时间了解了下小程序，主要是阅读了官方文档，之后博主觉得，小程序还是蛮有意思的，于是决定将自己的学习过程记录下来，也希望能够和同样对微信小程序感兴趣的朋友们多多交流。
-以下内容主要来</p>
-        
-    
-    <time datetime="2016-12-09T01:27:11.000Z" itemprop="datePublished">2016-12-09</time>
-  </a>
-</section>
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/12/07/同一台电脑关联两个或多个Github账号/" title="同一台电脑关联两个或多个Github账号" itemprop="url">
-  
-    <h1 itemprop="name">同一台电脑关联两个或多个Github账号</h1>
-    
-     
-           <p itemprop="description" >今天遇到了一个问题，我自己有一个github账号，项目组有一个github账号，然后我需要在我的电脑上同时管理这两个github账号的仓库，这时候该怎么办呢？在查阅了一些资料后，成功解决了这个问题，现将解决方案记录下来，以便日后查看。
-思路管理两个SSH key。
-解决方案生成S</p>
-        
-    
-    <time datetime="2016-12-07T07:35:28.000Z" itemprop="datePublished">2016-12-07</time>
-  </a>
-</section>
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/12/04/利用Node的子进程调用脚本和系统命令/" title="利用Node的子进程调用脚本和系统命令" itemprop="url">
-  
-    <h1 itemprop="name">利用Node的子进程调用脚本和系统命令</h1>
-    
-     
-           <p itemprop="description" >child_process模块使得Node可以随意创建子进程。它提供了4个方法用于创建子进程。
-
-spawn(): 启动一个子进程来执行命令。
-exec(): 启动一个子进程来执行命令，与spawn()不同的是其接口不同，它有一个回调函数获知子进程的状况。
-execFile():</p>
-        
-    
-    <time datetime="2016-12-04T06:48:56.000Z" itemprop="datePublished">2016-12-04</time>
-  </a>
-</section>
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/11/22/CSS的overflow属性和white-space属性/" title="CSS的overflow属性和white-space属性" itemprop="url">
-  
-    <h1 itemprop="name">CSS的overflow属性和white-space属性</h1>
-    
-     
-           <p itemprop="description" >今天在写网页的时候用到了这两个属性，对于它们分别可能的取值及其含义一开始不是很确定，在查阅了网上的一些资料以及自己动手测试后，对它们每个可能取值的含义现已明确，因此记录下来方便之后查阅。
-overflow属性overflow属性规定当内容溢出元素框时发生的事情。
-可能的取值
-vi</p>
-        
-    
-    <time datetime="2016-11-22T13:02:03.000Z" itemprop="datePublished">2016-11-22</time>
-  </a>
-</section>
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/11/21/CSS的定位技术/" title="CSS的定位技术" itemprop="url">
-  
-    <h1 itemprop="name">CSS的定位技术</h1>
-    
-     
-           <p itemprop="description" >CSS使用top、left、right、bottom设置元素的二维（x轴和y轴）偏移量。使用z-index设置元素垂直于屏幕的方向，也就是“z轴”的偏移量。
-CSS使用position选项来定义元素的定位属性，该选项有五个可选值：static、relative、absolute、</p>
-        
-    
-    <time datetime="2016-11-21T12:39:57.000Z" itemprop="datePublished">2016-11-21</time>
-  </a>
-</section>
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/11/21/CSS的优先级/" title="CSS的优先级" itemprop="url">
-  
-    <h1 itemprop="name">CSS的优先级</h1>
-    
-     
-           <p itemprop="description" >如何确定CSS的优先级？首先要引入一个机制，分别用4个数字（a, b, c, d）表示优先级组合，它们的意思分别是：    
-
-第一个数字（a）表示style属性，优先级最高。由于一般都是class样式，所以该值一般都是0。  
-第二个数字（b）是该CSS选择器上的id数量的总和</p>
-        
-    
-    <time datetime="2016-11-21T08:56:01.000Z" itemprop="datePublished">2016-11-21</time>
-  </a>
-</section>
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/11/14/又长大一岁啦/" title="又长大一岁啦" itemprop="url">
-  
-    <h1 itemprop="name">又长大一岁啦</h1>
-    
-     
-           <p itemprop="description" >今天我又长大一岁啦~一大早就收到了爸爸妈妈的祝福和红包，以及好朋友的祝福，真的好开心~因此，想要简单记录一下这开心的一天。但由于博主经验不足图片格式还不太会调，可能看起来不太美观，以后会改正。
-美好的一天
-闺蜜送的生日礼物，真的好喜欢，每一年的生日都给我好大的惊喜，也希望之后的每</p>
-        
-    
-    <time datetime="2016-11-14T03:43:42.000Z" itemprop="datePublished">2016-11-14</time>
-  </a>
-</section>
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/11/13/我的第一篇博客/" title="我的第一篇博客" itemprop="url">
-  
-    <h1 itemprop="name">我的第一篇博客</h1>
-    
-     
-           <p itemprop="description" >终于有自己的博客啦~
-其实一直想要建一个属于自己的博客，用来记录自己日常生活中的点点滴滴、学习过程中整理的笔记以及一些技术感悟，记录自己读过的一些论文等，但由于自己的拖延症，一直没有弄:-P。终于，今天我也有了属于自己的博客啦，也希望自己之后能克服懒惰，经常更新。日积月累，总会有</p>
-        
-    
-    <time datetime="2016-11-13T13:44:29.000Z" itemprop="datePublished">2016-11-13</time>
-  </a>
-</section>
-
-
-
-
+  <span></span> <a href="/tags/js/">js</a>
+  </div>
 
 </div>
+
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/12/09/微信小程序开发（一）/"  title="微信小程序开发（一）">
+ <span>微信小程序开发（一）
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/12/29/文字循环无缝滚动特效代码/" data-title="文字循环无缝滚动特效代码" data-url="https://fantasticzhang.github.io/2016/12/29/文字循环无缝滚动特效代码/"></div>
+</section>
+
+
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
@@ -488,8 +424,95 @@ var search_path = "search.xml";
 
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
 
 
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"fantasticzhang"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
 
 
 
@@ -558,4 +581,4 @@ var _hmt = _hmt || [];
 <!-- Tiny_search End -->
 
   </body>
- </html>
+</html>
