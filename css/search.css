@@ -56,3 +56,7 @@ em.search-keyword {
   border-bottom: 1px dashed #4088b8;
   font-weight: bold;
 }
+
+pre{
+  overflow-x: scroll;
+}
