@@ -4,6 +4,65 @@
   
     
     <entry>
+      <title><![CDATA[【转载】2016年JavaScript回顾]]></title>
+      <url>https://fantasticzhang.github.io/2016/12/30/%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%912016%E5%B9%B4JavaScript%E5%9B%9E%E9%A1%BE/</url>
+      <content type="html"><![CDATA[<p>2016年是值得纪念、奇怪的、有点高兴也有点可怕的一年，这一切取决于你怎么看。跟其他事件相比仅仅专注于javascript可能看起来没什么大不了，但对于每个web开发人员来说javascript都是工作生活中非常大的一部分。</p>
+<p><a href="http://www.modulecounts.com/" target="_blank" rel="external">JavaScript的流行继续激增</a>。不是每个人都喜欢这种语言，但是你很少听到十年前的嘲笑意见。就个人而言，我一直喜欢JavaScript，即使在早期，那些令人沮丧的年代。只要从C++、Java或PHP方向接近它的人首先都会感到困惑：JavaScript看起来很熟悉，但又不是。克服你的假设，你会喜欢它简单的优雅，实用性和灵活性。（比如：日期处理仍然是一个噩梦！)</p>
+<p>JavaScript在5月份庆祝了它21岁的生日，让我们回顾下它成熟发展的这第一年…</p>
+<h2 id="ECMAScript发展"><a href="#ECMAScript发展" class="headerlink" title="ECMAScript发展"></a>ECMAScript发展</h2><p>ES6/2015是语言自诞生以来最重要的更新。规范花了七年才完成，但浏览器和运行时终于开始支持箭头函数，let、const，这带来了更多的乐趣。<a href="http://kangax.github.io/compat-table/es6/" target="_blank" rel="external"> ES6兼容性表正在变成一个光辉的绿色</a>。</p>
+<p>如果你需要支持旧的浏览器，全面切换到ES6也许会有一点早。对于旧的浏览器，一年多前发布的项目。您可以用ES6到ES5编译器（如Babel），但是开发非常复杂，需要引入额外的构建步骤。</p>
+<p>ES7/2016是更多的革命。一个令人兴奋的新功能是async，它允许异步代码以同步方式写入，而没有回调或Promises（继续困惑我）的语法复杂性。</p>
+<h2 id="渐进式Web应用程序"><a href="#渐进式Web应用程序" class="headerlink" title="渐进式Web应用程序"></a>渐进式Web应用程序</h2><p>我最喜欢的基于JavaScript的2016年技术授予Progressive Web Apps。 PWA是在谷歌的<a href="https://developers.google.com/web/shows/cds/2015/progressive-web-apps-chrome-dev-summit-2015" target="_blank" rel="external">2015年Chrome开发者峰会</a>上宣布，但稳定的技术和工具终于在7月到达Chrome 52。 PWA允许离线优先功能，并取代片状AppCache方法。 Web应用程序终于可以和native应用程序竞争，并提供以下优势：</p>
+<ul>
+<li>主屏幕图标</li>
+<li>快速启动和自定义闪屏</li>
+<li>快速执行</li>
+<li>离线功能，无需互联网连接</li>
+<li>网址，链接和书签</li>
+<li>全屏或主题界面</li>
+<li>沙盒执行</li>
+<li>本地或基于云的存储</li>
+<li>更少的设备空间和处理资源</li>
+<li>更好的安全性（HTTPS是先决条件）</li>
+<li>从任何搜索引擎轻松发现</li>
+<li>请在安装前尝试</li>
+<li>更简单的部署：它只是一个Web应用程序</li>
+<li>没有AppStore废话：你的应用程序可以包含任何裸体画并且你绝对会渴望没有人能拿走你30％的利润！</li>
+</ul>
+<p>最重要的是：任何网站或者应用程序可以在几小时内转换为PWA。步骤：</p>
+<ol>
+<li>在服务器上启用HTTPS。</li>
+<li>创建一个应用程序清单 - 应用程序根目录中的JSON文件，用于定义名称，颜色，图标和显示选项。</li>
+<li>创建一个Service Worker - 根目录中的JavaScript文件用于拦截网络调用,并且可以根据需要返回缓存或实时数据。</li>
+</ol>
+<p>初期例子很少，但是PWA提供了一个不错的机会“动员”您的Web应用程序。虽然不能保证苹果将实施这项技术，但这并不重要，你的应用程序仍然可以在Safari中工作，只是它不会从离线执行中受益。我有一种感觉一旦Android上web体验有明显提升,苹果将鼓励支持PWA。</p>
+<p>有关详细信息，请参阅 <a href="https://dev.opera.com/articles/pwa-resources/" target="_blank" rel="external">Dev.Opera’s Progressive Web Apps: The definitive collection of resources</a>和<a href="https://developers.google.com/web/progressive-web-apps/" target="_blank" rel="external">Google的PWA指南</a>。</p>
+<h2 id="框架固定"><a href="#框架固定" class="headerlink" title="框架固定"></a>框架固定</h2><p>很难做出一个公正的判断，但是<a href="https://facebook.github.io/react/" target="_blank" rel="external">React</a>似乎在今年受到最多的关注。你也许不同意;因为这取决于你使用的是什么，你曾经浏览过的地方和你说过的话！</p>
+<p><a href="https://vuejs.org/" target="_blank" rel="external">Vue.js</a>已经普及，2.0版本于9月发布。</p>
+<p><a href="https://angularjs.org/" target="_blank" rel="external">AngularJS</a>可能已经失去了它在2015年获得的一些势头，但这可能会随着9月发布Angular 2而改变。新版本是一个完全重写;它不是向后兼容v1.0。</p>
+<p>虽然新的框架和库是令人兴奋的，但是十年前的jQuery仍然强大。版本3.0于6月9日发布，v3.1随后于7月7日出现。该库现在以严格模式运行，支持Promise，并实现了各种修复。 （查看完整修改列表的<a href="http://jquery.com/upgrade-guide/3.0/" target="_blank" rel="external">升级指南</a>。）</p>
+<p>在使用JavaScript的96.4％的网站上用了jQuery。与之相比，Angular是最常用的现代框架 - 占0.5％。 jQuery 1.x是最流行的版本，占93.5％的使用率。版本2.x占6.0％、版本3.x占0.5％。</p>
+<p>我一直批评开发人员上来就直接使用jQuery。当有一个其他更合适的选择或只要一小段JavaScript就能实现需求的时候，它就会被过度使用了。然而，它提供了更浅的学习曲线，比大多数框架更灵活。其他框架或库要取代它需要很多年的时间。</p>
+<h2 id="API滥用"><a href="#API滥用" class="headerlink" title="API滥用"></a>API滥用</h2><p>比如电池状态API。在我2013年写JavaScript的时候，它似乎很有用;当你的应用程序检测到用户的手机即将关机的时候，到底怎样才能更好的最小化网络请求和处理呢?</p>
+<p>不幸的是，Mozilla预估大约有6％的网站用了这个API​​，但大多数是广告客户用来检测电池状态，并跟踪用户浏览了哪些网站的域名。也有可能是某些服务商知道一个用户手机快关机绝望的时候，以此来提高某些服务的价格，</p>
+<p>虽然这不是JavaScript或API的问题，出于隐私方面的原因，Mozilla采取了空前的手段把电池状态API从Firefox 53中删除。这不太可能出现在ios设备中,其他具有类似原因的API也包括传感器和蓝牙。这是一个不太光彩的事情：这些API都有实际的好处，我希望隐私问题可以在未来的版本得到解决。</p>
+<h2 id="Node新版本"><a href="#Node新版本" class="headerlink" title="Node新版本"></a>Node新版本</h2><p>每年Node.JS会给我们带来两次发布进度，4月的6.0版本和10月的7.0版本。</p>
+<p>目前该平台呈上升趋势，尽管W3Techs报告Node.js服务器使用率仅为0.2％，而PHP为82.3％。这些数字可能有点误导，因为Node.js即使安装了，也不一定能识别。</p>
+<p>因为php已经开始很久了，并且现在依然是服务端最靠谱的选择。然而，Node.js正在书写自己的历史，并被所有语言信仰的开发者广泛使用。</p>
+<h2 id="Yarn"><a href="#Yarn" class="headerlink" title="Yarn"></a>Yarn</h2><p>我非常喜欢npm，并且认为它是Node.js工具火爆的主要原因之一。在npm上我从来没有遇到过太多的问题，但我不是在Facebook这样大的项目上工作。</p>
+<p>Facebook的工程师在10月份发布了Yarn。它是一个新的Node.js包管理器，旨在比npm更快更稳定。它依赖于npm注册表，因此可以和npm保持完全兼容。</p>
+<p>Tim Severien的<a href="https://www.sitepoint.com/yarn-vs-npm/" target="_blank" rel="external">Yarn vs npm：你需要知道的一切</a>。我同意他的结论：</p>
+<p>虽然Yarn不是一个复制品，但它改善了npm几个缺陷的地方。如果npm从Yarn身上学习，并要求Facebook、谷歌和其他Yarn贡献者一起来改进npm，这样是不是很爽呢？</p>
+<h2 id="厌倦疲劳"><a href="#厌倦疲劳" class="headerlink" title="厌倦疲劳"></a>厌倦疲劳</h2><p>2016年的有篇文章叫I-can’t-take-this-any-more入选了Jose Aguinaga的<a href="https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f#.e4rkosi1w" target="_blank" rel="external">2016年学习JavaScript的感觉</a>。亚军：dayssincelastjavascriptframework.com。</p>
+<p>这可能是种幽默的方式以表明当前JavaScript的状态，但有一点要说明的就是，就是现在要跟上最新的趋势，框架和建议变得越来越难。当面对大量的技术方案评估时，开发人员会相互争执。</p>
+<p>我的建议：不要试图跟上。因为这根本做不到。你今天重点关注的任何系统,明天都将被更好的东西取代。为您的项目选择一个好的方案，并坚持使用它，除非它让工作变得很糟糕。</p>
+<p>有一个是可以确定的就是JavaScript本身。首先学习语言，并继续扩展你的知识。您的经验将帮助您了解每个框架的运作方式，以便您做出明智的选择，即便这种选择可能是完全放弃所有的框架。</p>
+<p>新年快乐！</p>
+<p>原文链接：<a href="http://cnedwan.com/2016/12/21/%E8%AF%91-2016%E5%B9%B4Javascript%E5%9B%9E%E9%A1%BE.html" target="_blank" rel="external">【译】2016年javascript回顾</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[文字循环无缝滚动特效代码]]></title>
       <url>https://fantasticzhang.github.io/2016/12/29/%E6%96%87%E5%AD%97%E5%BE%AA%E7%8E%AF%E6%97%A0%E7%BC%9D%E6%BB%9A%E5%8A%A8%E7%89%B9%E6%95%88%E4%BB%A3%E7%A0%81/</url>
       <content type="html"><![CDATA[<p>今天突然被问到了这个问题，现把我的解决方案记下来以便日后查看。下面是一个简单的小例子：</p>
