@@ -4,6 +4,50 @@
   
     
     <entry>
+      <title><![CDATA[js修改url中某个指定参数的值]]></title>
+      <url>https://fantasticzhang.github.io/2017/01/16/js%E4%BF%AE%E6%94%B9url%E4%B8%AD%E6%9F%90%E4%B8%AA%E6%8C%87%E5%AE%9A%E5%8F%82%E6%95%B0%E7%9A%84%E5%80%BC/</url>
+      <content type="html"><![CDATA[<h2 id="location对象"><a href="#location对象" class="headerlink" title="location对象"></a>location对象</h2><p>location对象很特别，因为它既是window对象的属性，也是document对象的属性；也就是说，window.location和document.location引用的是同一个对象。location对象将URL解析为独立的片段，让开发人员可以通过不同的属性访问这些片段。下面是location对象的所有属性。</p>
+<ul>
+<li>hash：返回URL中的hash（#号后跟的零或多个字符），如果URL中不包含散列，则返回空字符串；例: “#contents”</li>
+<li>host：返回服务器名称和端口号（如果有）；例：”www.baidu.com:80”</li>
+<li>hostname：返回不带端口号的服务器名称；例：”www.baidu.com”</li>
+<li>href：返回当前加载页面的完整URL。而location对象的toString()方法也返回这个值；例：”<a href="http://www.baidu.com" target="_blank" rel="external">http://www.baidu.com</a>“</li>
+<li>pathname：返回URL中的目录和（或）文件名；例：”/WilleyCDA/“</li>
+<li>port：返回URL中指定的端口号。如果没有则返回空串。例：”8080”</li>
+<li>portocol：返回页面使用的协议，通常是http:或https:  例：”http:”</li>
+<li>search：返回URL的查询字符串。这个字符串以问好开头；例：”?q=javascript”</li>
+</ul>
+<h2 id="js修改url中某个指定参数的值"><a href="#js修改url中某个指定参数的值" class="headerlink" title="js修改url中某个指定参数的值"></a>js修改url中某个指定参数的值</h2><p>下面是一个利用javascript修改url中某个参数的值的办法，可以直接修改当前url中的某个参数的值而不会导致这个url中同一个参数存在多个值的情况。</p>
+<pre><code>/*
+* url 目标url
+* arg 需要替换的参数名称
+* arg_val 替换后的参数的值
+* return url 参数替换后的url
+*/
+function changeURLArg(url,arg,arg_val){
+    var pattern=arg+&apos;=([^&amp;]*)&apos;;
+    var replaceText=arg+&apos;=&apos;+arg_val;
+    if(url.match(pattern)){
+        var tmp=&apos;/(&apos;+ arg+&apos;=)([^&amp;]*)/gi&apos;;
+        tmp=url.replace(eval(tmp),replaceText);
+        return tmp;
+    }else{
+        if(url.match(&apos;[\?]&apos;)){
+            return url+&apos;&amp;&apos;+replaceText;
+        }else{
+            return url+&apos;?&apos;+replaceText;
+        }
+    }
+    return url+&apos;\n&apos;+arg+&apos;\n&apos;+arg_val;
+}
+</code></pre><p>使用方法：</p>
+<pre><code>changeURLArg(&apos;http://www.daimajiayuan.com/test.php?class_id=3&amp;id=2&apos;,&apos;class_id&apos;,4);
+</code></pre><p>结果：<a href="http://www.daimajiayuan.com/test.php?class_id=4&amp;id=2" target="_blank" rel="external">http://www.daimajiayuan.com/test.php?class_id=4&amp;id=2</a></p>
+<p><a href="http://www.daimajiayuan.com/sitejs-17226-1.html" target="_blank" rel="external">参考链接</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[【转载】2016年JavaScript回顾]]></title>
       <url>https://fantasticzhang.github.io/2016/12/30/%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%912016%E5%B9%B4JavaScript%E5%9B%9E%E9%A1%BE/</url>
       <content type="html"><![CDATA[<p>2016年是值得纪念、奇怪的、有点高兴也有点可怕的一年，这一切取决于你怎么看。跟其他事件相比仅仅专注于javascript可能看起来没什么大不了，但对于每个web开发人员来说javascript都是工作生活中非常大的一部分。</p>
