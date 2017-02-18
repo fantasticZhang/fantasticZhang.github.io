@@ -1,0 +1,690 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Grid布局 | Fantastic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="张金玲">
+    
+
+    
+    <meta name="description" content="概述Grid布局（又称网格布局）是指：以规则的网格阵列来指导和规范网页中的版面布局以及信息分布。
+CSS Grid布局简介CSS Grid布局是一种二维网格布局系统，旨在彻底改变基于网格的用户界面的设计。目前，CSS Grid布局仅仅是一个W3C工作草案，因此还没有被任何浏览器默认支持。在Chrome中体验Grid布局的方法：打来浏览器并输入chrome://flags，找到”experiment">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Grid布局">
+<meta property="og:url" content="https://fantasticzhang.github.io/2017/02/18/Grid布局/index.html">
+<meta property="og:site_name" content="Fantastic">
+<meta property="og:description" content="概述Grid布局（又称网格布局）是指：以规则的网格阵列来指导和规范网页中的版面布局以及信息分布。
+CSS Grid布局简介CSS Grid布局是一种二维网格布局系统，旨在彻底改变基于网格的用户界面的设计。目前，CSS Grid布局仅仅是一个W3C工作草案，因此还没有被任何浏览器默认支持。在Chrome中体验Grid布局的方法：打来浏览器并输入chrome://flags，找到”experiment">
+<meta property="og:image" content="https://fantasticzhang.github.io/(/images/2016-02-18/Grid布局效果图.PNG">
+<meta property="og:updated_time" content="2017-02-18T14:13:31.135Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Grid布局">
+<meta name="twitter:description" content="概述Grid布局（又称网格布局）是指：以规则的网格阵列来指导和规范网页中的版面布局以及信息分布。
+CSS Grid布局简介CSS Grid布局是一种二维网格布局系统，旨在彻底改变基于网格的用户界面的设计。目前，CSS Grid布局仅仅是一个W3C工作草案，因此还没有被任何浏览器默认支持。在Chrome中体验Grid布局的方法：打来浏览器并输入chrome://flags，找到”experiment">
+<meta name="twitter:image" content="https://fantasticzhang.github.io/(/images/2016-02-18/Grid布局效果图.PNG">
+<meta name="twitter:creator" content="@fantastic_zjl">
+
+    
+    <link rel="alternative" href="atom.xml" title="Fantastic" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/unnamed4_n_mSY_icon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/logo.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/logo.png">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/search.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Fantastic" title="Fantastic"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Fantastic">Fantastic</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<!-- <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:fantasticzhang.github.io">
+					</form> -->
+
+					<!--自定义本地搜索 2016。11.29-->
+						<div id="site_search">
+							<input type="text" id="local-search-input" name="q" results="0" autocomplete="off" maxlength="20" placeholder="搜索博客" class="form-control"/>
+							<div id="local-search-result"></div>
+						</div>
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/02/18/Grid布局/" title="Grid布局" itemprop="url">Grid布局</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="张金玲" target="_blank" itemprop="author">张金玲</a>
+		
+  <p class="article-time">
+    <time datetime="2017-02-18T12:08:36.000Z" itemprop="datePublished"> 发表于 2017-02-18</time>
+    <span class="head-plus">
+   &nbsp;|&nbsp;<i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="2017/02/18/Grid布局/"><i class="fa fa-spinner fa-spin"></i></span>
+   </span>
+  </p>
+
+
+</header>
+
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Grid布局"><span class="toc-number">2.</span> <span class="toc-text">CSS Grid布局</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#简介"><span class="toc-number">2.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#常用术语"><span class="toc-number">2.2.</span> <span class="toc-text">常用术语</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置在网格容器上的属性"><span class="toc-number">2.3.</span> <span class="toc-text">设置在网格容器上的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置在网格项上的属性"><span class="toc-number">2.4.</span> <span class="toc-text">设置在网格项上的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#简单的例子"><span class="toc-number">2.5.</span> <span class="toc-text">简单的例子</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bootstrap对Grid布局的实现"><span class="toc-number">3.</span> <span class="toc-text">Bootstrap对Grid布局的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#实现原理"><span class="toc-number">3.1.</span> <span class="toc-text">实现原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bootstrap中栅格系统的主要工作原理"><span class="toc-number">3.2.</span> <span class="toc-text">Bootstrap中栅格系统的主要工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#涉及的CSS特性"><span class="toc-number">3.3.</span> <span class="toc-text">涉及的CSS特性</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>Grid布局（又称网格布局）是指：以规则的网格阵列来指导和规范网页中的版面布局以及信息分布。</p>
+<h3 id="CSS-Grid布局"><a href="#CSS-Grid布局" class="headerlink" title="CSS Grid布局"></a>CSS Grid布局</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>CSS Grid布局是一种二维网格布局系统，旨在彻底改变基于网格的用户界面的设计。目前，CSS Grid布局仅仅是一个W3C工作草案，因此还没有被任何浏览器默认支持。在Chrome中体验Grid布局的方法：打来浏览器并输入chrome://flags，找到”experimental web platform features”（实验性网络平台功能）,启用并重启浏览器。Opera和Firefox也支持CSS Grid布局，具体启用方法可参考相关网络资料。</p>
+<h4 id="常用术语"><a href="#常用术语" class="headerlink" title="常用术语"></a>常用术语</h4><p>在整个Grid布局中常用到的术语如下：</p>
+<ul>
+<li>网格容器（Grid Container）：所有网格项的父元素；</li>
+<li>网格项（Grid Item）：网格容器的直接子元素；</li>
+<li>网格线（Grid Line）：组成网格的分界线；</li>
+<li>网格轨道（Grid Track）：两个相邻的网格线之间为网格轨道，即网格的行或列；</li>
+<li>网格单元（Grid Cell）：网格轨道相交的区域；</li>
+<li>网格区域（Grid Area）：由任意数量的网格单元组成；</li>
+<li>间距（Gutters）：两个网格轨道之间的区域。</li>
+</ul>
+<h4 id="设置在网格容器上的属性"><a href="#设置在网格容器上的属性" class="headerlink" title="设置在网格容器上的属性"></a>设置在网格容器上的属性</h4><ul>
+<li>display：属性值有：grid、inline-grid、subgrid；</li>
+<li>grid-template-columns：用一组值来设置列的大小；</li>
+<li>grid-template-rows：用一组值来设置行的大小；</li>
+<li>grid-template-areas：通过获取网格项中的grid-area属性值来定义网格模板，用’.’代表空网格单元；</li>
+<li>grid-column-gap：网格单元列间距；</li>
+<li>grid-row-gap：网格单元行间距；</li>
+<li>grid-gap：网格单元间距，是grid-column-gap和grid-row-gap的简写；</li>
+<li>justify-items：垂直于列网格线对齐，适用于网格容器中的所有网格项。属性值有：start、end、center、stretch；</li>
+<li>align-items：垂直于行网格线对齐，适用于网格容器中的所有网格项。属性值同上；</li>
+<li>justify-content：在总网格区域大小小于网格容器时，使用该属性设置网格的对齐方式（垂直于列网格线对齐）。属性值有：start、end、center、stretch、space-around、space-between、space-evenly；</li>
+<li>align-content：在总网格区域大小小于网格容器时，使用该属性设置网格的对齐方式（垂直于行网格线对齐）。属性值同上；</li>
+<li>grid-auto-columns：设置隐式网格轨道（列）的大小，当定位网格项超出网格容器范围时，将自动创建隐式网格轨道；</li>
+<li>grid-auto-rows：设置隐式网格轨道（行）的大小；</li>
+<li>grid-auto-flow：在没有设置网格项的位置时，这个属性控制网格项的排列方式。属性值有：row、column、dense；</li>
+<li>grid：一种简写形式，设置网格容器所有属性。属性值有：none，(grid-template-rows) / (grid-template-columns)，(grid-auto-flow) [(grid-auto-rows) [ /(grid-auto-columns)]]。</li>
+</ul>
+<h4 id="设置在网格项上的属性"><a href="#设置在网格项上的属性" class="headerlink" title="设置在网格项上的属性"></a>设置在网格项上的属性</h4><ul>
+<li>grid-column-start：通过网格线来定义网格项的列开始位置；</li>
+<li>grid-column-end：通过网格线来定义网格项的列结束位置；</li>
+<li>grid-row-start：通过网格线来定义网格项的行开始位置；</li>
+<li>grid-row-end：通过网格线来定义网格项的行结束位置；</li>
+<li>grid-column：是 grid-column-start、grid-column-end的简写；</li>
+<li>grid-row：是 grid-row-start、grid-row-end 的简写；</li>
+<li>grid-area：定义网格项名字，以便创建模块；</li>
+<li>justify-self：定义单个网格项垂直于列网格线的对齐方式；</li>
+<li>align-self：定义单个网格项垂直于行网格线的对齐方式；</li>
+</ul>
+<h4 id="简单的例子"><a href="#简单的例子" class="headerlink" title="简单的例子"></a>简单的例子</h4><p>代码：</p>
+<pre><code>&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;style&gt;
+        .grid_1{
+            display: grid;
+            grid-template-columns: 150px 20px 150px 20px 150px;
+            grid-template-rows: auto 20px auto 20px auto;
+        }
+        .item1{
+            grid-column: 1;
+            grid-row: 1;
+            background: blueviolet;
+        }
+        .item2{
+            grid-column: 3;
+            grid-row: 1;
+            background: chocolate;
+        }
+        .item3{
+            grid-column: 5;
+            grid-row: 1;
+            background: #e2e242;
+        }
+        .item4{
+            grid-column: 1;
+            grid-row: 3;
+            background: #42e2b9;
+        }
+        .item5{
+            grid-column: 3;
+            grid-row: 3;
+            background: #e28cc8;
+        }
+        .item6{
+            grid-column: 5;
+            grid-row: 3;
+            background: #2be24c;
+        }
+        .item7{
+            grid-column: 1;
+            grid-row: 5;
+            background: #c2e2da;
+        }
+        .item8{
+            grid-column: 3;
+            grid-row: 5;
+            background: blueviolet;
+        }
+        .item9{
+            grid-column: 5;
+            grid-row: 5;
+            background: #e2203f;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;section class=&quot;grid_1&quot;&gt;
+    &lt;div class=&quot;item1&quot;&gt;1&lt;/div&gt;
+    &lt;div class=&quot;item2&quot;&gt;2&lt;/div&gt;
+    &lt;div class=&quot;item3&quot;&gt;3&lt;/div&gt;
+    &lt;div class=&quot;item4&quot;&gt;4&lt;/div&gt;
+    &lt;div class=&quot;item5&quot;&gt;5&lt;/div&gt;
+    &lt;div class=&quot;item6&quot;&gt;6&lt;/div&gt;
+    &lt;div class=&quot;item7&quot;&gt;7&lt;/div&gt;
+    &lt;div class=&quot;item8&quot;&gt;8&lt;/div&gt;
+    &lt;div class=&quot;item9&quot;&gt;9&lt;/div&gt;
+&lt;/section&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>效果图：</p>
+<p><img src="(/images/2016-02-18/Grid布局效果图.PNG" alt="">)</p>
+<p>以上只是对CSS Grid布局的简单介绍，比较详细的介绍可参考<a href="http://peale.cn/2016/12/08/2016_12_8_grid/#more" target="_blank" rel="external">这篇文章</a></p>
+<h3 id="Bootstrap对Grid布局的实现"><a href="#Bootstrap对Grid布局的实现" class="headerlink" title="Bootstrap对Grid布局的实现"></a>Bootstrap对Grid布局的实现</h3><h4 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h4><p>通过定义容器大小，平分12份，再调整内外边距，最后再结合媒体查询，就制作出了强大的响应式的栅格系统。</p>
+<p>Bootstrap为不同的屏幕尺寸提供了不同的栅格样式。Bootstrap3中通过媒体查询@media定义了四种屏幕类型：超小屏幕设备手机（<768px，xs）、小屏幕设备平板（>= 768px，sm）、中等屏幕设备桌面（&gt;=992px，md）、大屏幕设备桌面（&gt;=1200px，lg）。针对四种不同的屏幕大小分别对container样式固定了尺寸（自动、750px、970px、1170px），例如：</768px，xs）、小屏幕设备平板（></p>
+<pre><code>@media (min-width:1200){
+  .container{ width:1170px; }
+}
+</code></pre><h4 id="Bootstrap中栅格系统的主要工作原理"><a href="#Bootstrap中栅格系统的主要工作原理" class="headerlink" title="Bootstrap中栅格系统的主要工作原理"></a>Bootstrap中栅格系统的主要工作原理</h4><ul>
+<li>一行数据（row）必须包含在.container中，以便为其赋予合适的对齐方式和内边距（padding）。</li>
+<li>使用行（row）在水平方向创建一组列（column）。</li>
+<li>具体内容应当放置于列（column）内，而且只有列（column）可以作为行（row）的直接子元素。</li>
+<li>内置了许多样式，可以使用像.row和.col-xs-5这样的样式来快速创建栅格布局。</li>
+<li>通过设置padding从而创建列之间的间隔。然后通过为第一列和最后一列设置负的margin从而抵消掉padding的影响。</li>
+<li>栅格系统中的列是通过指定1到12的值来表示其跨越的范围的。</li>
+</ul>
+<h4 id="涉及的CSS特性"><a href="#涉及的CSS特性" class="headerlink" title="涉及的CSS特性"></a>涉及的CSS特性</h4><ul>
+<li>列组合涉及两个CSS特性：左浮动和宽度百分比；</li>
+<li>列偏移（offset）涉及一个CSS特性：margin-left；</li>
+<li>列排序（pull、push）涉及三个CSS特性：左浮动、left、right。</li>
+</ul>
+<p>此外，可使用Bootstrap提供的clearfix样式来清除浮动。</p>
+<p>例：</p>
+<pre><code>&lt;div class=”row”&gt;
+    &lt;div class=”col-xs-6 col-sm-3”&gt;div1：.col-xs-6 .col-sm-3&lt;/div&gt;
+&lt;div class=”col-xs-6 col-sm-3”&gt;div2：.col-xs-6 .col-sm-3&lt;/div&gt;
+&lt;div class=”clearfix visible-xs”&gt; &lt;/div&gt;
+&lt;div class=”col-xs-6 col-sm-3”&gt;div3：.col-xs-6 .col-sm-3&lt;/div&gt;
+&lt;div class=”col-xs-6 col-sm-3”&gt;div4：.col-xs-6 .col-sm-3&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/前端/">前端</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/CSS/">CSS</a>
+  </div>
+
+</div>
+
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/01/16/js修改url中某个指定参数的值/"  title="js修改url中某个指定参数的值">
+ <span>js修改url中某个指定参数的值
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/02/18/Grid布局/" data-title="Grid布局" data-url="https://fantasticzhang.github.io/2017/02/18/Grid布局/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+<div id="authorInfo">
+	
+		<div class="author-img"></div>		
+	
+	<div class="social-info" class="clearfix">
+		
+		<a href="http://weibo.com/jinlingzhang" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/fantasticZhang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/fantastic_zjl" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/fantasticzjl" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:jlzhanghot@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+
+	</div>
+</div>
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/github/" title="github">github<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/生活/" title="生活">生活<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随记/" title="随记">随记<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/CSS/" title="CSS">CSS<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/js/" title="js">js<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Node/" title="Node">Node<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信小程序/" title="微信小程序">微信小程序<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://airghc.gtensor.com" target="_blank" title="Airghc">Airghc</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://rain1ove.cn/" target="_blank" title="rain">rain</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+		
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/hsihohuang/kiddochan" target="_blank" title="Kiddochan">Kiddochan</a> © 2017
+		
+		<a href="/about" target="_blank" title="张金玲">张金玲</a>
+		
+
+		</p>
+		<!-- <p class="copyright">
+		<span id="busuanzi_container_site_pv">
+		    本站总访问量<span id="busuanzi_value_site_pv"></span>次，
+		</span>
+		<span id="busuanzi_container_site_uv">
+		  您是第<span id="busuanzi_value_site_uv"></span>个到来的小伙伴
+		</span>
+
+		</p> -->
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+<!--自定义的配置-->
+<!-- <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script> -->
+<script src="/js/search.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+    //2016-11-29
+    if($('header nav').hasClass('shownav')){
+      $('.animated').css('display', 'block');
+    }else {
+      $('.animated').css('display', 'none');  //2016-11-29
+    }
+
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+      $('.animated').css('display', 'block');   //2016-11-29
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      $('.animated').css('display', 'none');  //2016-11-29
+      
+      //自定义  固定搜索结果列表宽度
+      $('ul.search-result-list').css('width', '82%');
+    }
+  });
+  //自定义事件 让搜索结果与输入框同宽 2016-11-30
+  $('#local-search-input').focusin(function(){
+    getSize();
+    if (myWidth >= 1024) {
+        $('ul.search-result-list').css('width', '13.5em');
+    }
+  })
+  $('#local-search-input').focusout(function(){
+    getSize();
+    if (myWidth >= 1024) {
+        $('ul.search-result-list').css('width', '7.4em');
+    }
+  })
+  //自定义 如果初始化时屏幕尺寸小于1024 则根据实际情况显示或隐藏菜单
+  getSize();
+  if (myWidth < 1024) {
+    if($('header nav').hasClass('shownav')){
+      $('.animated').css('display', 'block');
+    }else {
+      $('.animated').css('display', 'none');  //2016-11-29
+    }
+  }
+});
+
+<!--自定义功能：本地搜索-->
+var search_path = "search.xml";
+     if (search_path.length == 0) {
+     	search_path = "search.xml";
+     }
+     var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"fantasticzhang"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?dacfb28ac21a2d86cfeeda2ea84b20a7";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
