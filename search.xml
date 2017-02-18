@@ -119,7 +119,7 @@
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p>效果图：</p>
-<p><img src="(/images/2016-02-18/Grid布局效果图.PNG" alt="">)</p>
+<p><img src="/images/2017-02-18/Grid.PNG" alt=""></p>
 <p>以上只是对CSS Grid布局的简单介绍，比较详细的介绍可参考<a href="http://peale.cn/2016/12/08/2016_12_8_grid/#more" target="_blank" rel="external">这篇文章</a></p>
 <h1 id="Bootstrap对Grid布局的实现"><a href="#Bootstrap对Grid布局的实现" class="headerlink" title="Bootstrap对Grid布局的实现"></a>Bootstrap对Grid布局的实现</h1><h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><p>通过定义容器大小，平分12份，再调整内外边距，最后再结合媒体查询，就制作出了强大的响应式的栅格系统。</p>
 <p>Bootstrap为不同的屏幕尺寸提供了不同的栅格样式。Bootstrap3中通过媒体查询@media定义了四种屏幕类型：超小屏幕设备手机（<768px，xs）、小屏幕设备平板（>= 768px，sm）、中等屏幕设备桌面（&gt;=992px，md）、大屏幕设备桌面（&gt;=1200px，lg）。针对四种不同的屏幕大小分别对container样式固定了尺寸（自动、750px、970px、1170px），例如：</768px，xs）、小屏幕设备平板（></p>
