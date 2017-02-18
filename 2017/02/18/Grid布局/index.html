@@ -20,7 +20,7 @@ CSS Grid布局简介CSS Grid布局是一种二维网格布局系统，旨在彻�
 <meta property="og:description" content="概述Grid布局（又称网格布局）是指：以规则的网格阵列来指导和规范网页中的版面布局以及信息分布。
 CSS Grid布局简介CSS Grid布局是一种二维网格布局系统，旨在彻底改变基于网格的用户界面的设计。目前，CSS Grid布局仅仅是一个W3C工作草案，因此还没有被任何浏览器默认支持。在Chrome中体验Grid布局的方法：打来浏览器并输入chrome://flags，找到”experiment">
 <meta property="og:image" content="https://fantasticzhang.github.io/(/images/2016-02-18/Grid布局效果图.PNG">
-<meta property="og:updated_time" content="2017-02-18T14:13:31.135Z">
+<meta property="og:updated_time" content="2017-02-18T14:21:48.066Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Grid布局">
 <meta name="twitter:description" content="概述Grid布局（又称网格布局）是指：以规则的网格阵列来指导和规范网页中的版面布局以及信息分布。
@@ -115,13 +115,13 @@ CSS Grid布局简介CSS Grid布局是一种二维网格布局系统，旨在彻�
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Grid布局"><span class="toc-number">2.</span> <span class="toc-text">CSS Grid布局</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#简介"><span class="toc-number">2.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#常用术语"><span class="toc-number">2.2.</span> <span class="toc-text">常用术语</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置在网格容器上的属性"><span class="toc-number">2.3.</span> <span class="toc-text">设置在网格容器上的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置在网格项上的属性"><span class="toc-number">2.4.</span> <span class="toc-text">设置在网格项上的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#简单的例子"><span class="toc-number">2.5.</span> <span class="toc-text">简单的例子</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bootstrap对Grid布局的实现"><span class="toc-number">3.</span> <span class="toc-text">Bootstrap对Grid布局的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#实现原理"><span class="toc-number">3.1.</span> <span class="toc-text">实现原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bootstrap中栅格系统的主要工作原理"><span class="toc-number">3.2.</span> <span class="toc-text">Bootstrap中栅格系统的主要工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#涉及的CSS特性"><span class="toc-number">3.3.</span> <span class="toc-text">涉及的CSS特性</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-Grid布局"><span class="toc-number">2.</span> <span class="toc-text">CSS Grid布局</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">2.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用术语"><span class="toc-number">2.2.</span> <span class="toc-text">常用术语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设置在网格容器上的属性"><span class="toc-number">2.3.</span> <span class="toc-text">设置在网格容器上的属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设置在网格项上的属性"><span class="toc-number">2.4.</span> <span class="toc-text">设置在网格项上的属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#简单的例子"><span class="toc-number">2.5.</span> <span class="toc-text">简单的例子</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Bootstrap对Grid布局的实现"><span class="toc-number">3.</span> <span class="toc-text">Bootstrap对Grid布局的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#实现原理"><span class="toc-number">3.1.</span> <span class="toc-text">实现原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bootstrap中栅格系统的主要工作原理"><span class="toc-number">3.2.</span> <span class="toc-text">Bootstrap中栅格系统的主要工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#涉及的CSS特性"><span class="toc-number">3.3.</span> <span class="toc-text">涉及的CSS特性</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>Grid布局（又称网格布局）是指：以规则的网格阵列来指导和规范网页中的版面布局以及信息分布。</p>
-<h3 id="CSS-Grid布局"><a href="#CSS-Grid布局" class="headerlink" title="CSS Grid布局"></a>CSS Grid布局</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>CSS Grid布局是一种二维网格布局系统，旨在彻底改变基于网格的用户界面的设计。目前，CSS Grid布局仅仅是一个W3C工作草案，因此还没有被任何浏览器默认支持。在Chrome中体验Grid布局的方法：打来浏览器并输入chrome://flags，找到”experimental web platform features”（实验性网络平台功能）,启用并重启浏览器。Opera和Firefox也支持CSS Grid布局，具体启用方法可参考相关网络资料。</p>
-<h4 id="常用术语"><a href="#常用术语" class="headerlink" title="常用术语"></a>常用术语</h4><p>在整个Grid布局中常用到的术语如下：</p>
+		<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>Grid布局（又称网格布局）是指：以规则的网格阵列来指导和规范网页中的版面布局以及信息分布。</p>
+<h1 id="CSS-Grid布局"><a href="#CSS-Grid布局" class="headerlink" title="CSS Grid布局"></a>CSS Grid布局</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>CSS Grid布局是一种二维网格布局系统，旨在彻底改变基于网格的用户界面的设计。目前，CSS Grid布局仅仅是一个W3C工作草案，因此还没有被任何浏览器默认支持。在Chrome中体验Grid布局的方法：打来浏览器并输入chrome://flags，找到”experimental web platform features”（实验性网络平台功能）,启用并重启浏览器。Opera和Firefox也支持CSS Grid布局，具体启用方法可参考相关网络资料。</p>
+<h2 id="常用术语"><a href="#常用术语" class="headerlink" title="常用术语"></a>常用术语</h2><p>在整个Grid布局中常用到的术语如下：</p>
 <ul>
 <li>网格容器（Grid Container）：所有网格项的父元素；</li>
 <li>网格项（Grid Item）：网格容器的直接子元素；</li>
@@ -131,7 +131,7 @@ CSS Grid布局简介CSS Grid布局是一种二维网格布局系统，旨在彻�
 <li>网格区域（Grid Area）：由任意数量的网格单元组成；</li>
 <li>间距（Gutters）：两个网格轨道之间的区域。</li>
 </ul>
-<h4 id="设置在网格容器上的属性"><a href="#设置在网格容器上的属性" class="headerlink" title="设置在网格容器上的属性"></a>设置在网格容器上的属性</h4><ul>
+<h2 id="设置在网格容器上的属性"><a href="#设置在网格容器上的属性" class="headerlink" title="设置在网格容器上的属性"></a>设置在网格容器上的属性</h2><ul>
 <li>display：属性值有：grid、inline-grid、subgrid；</li>
 <li>grid-template-columns：用一组值来设置列的大小；</li>
 <li>grid-template-rows：用一组值来设置行的大小；</li>
@@ -148,7 +148,7 @@ CSS Grid布局简介CSS Grid布局是一种二维网格布局系统，旨在彻�
 <li>grid-auto-flow：在没有设置网格项的位置时，这个属性控制网格项的排列方式。属性值有：row、column、dense；</li>
 <li>grid：一种简写形式，设置网格容器所有属性。属性值有：none，(grid-template-rows) / (grid-template-columns)，(grid-auto-flow) [(grid-auto-rows) [ /(grid-auto-columns)]]。</li>
 </ul>
-<h4 id="设置在网格项上的属性"><a href="#设置在网格项上的属性" class="headerlink" title="设置在网格项上的属性"></a>设置在网格项上的属性</h4><ul>
+<h2 id="设置在网格项上的属性"><a href="#设置在网格项上的属性" class="headerlink" title="设置在网格项上的属性"></a>设置在网格项上的属性</h2><ul>
 <li>grid-column-start：通过网格线来定义网格项的列开始位置；</li>
 <li>grid-column-end：通过网格线来定义网格项的列结束位置；</li>
 <li>grid-row-start：通过网格线来定义网格项的行开始位置；</li>
@@ -159,7 +159,7 @@ CSS Grid布局简介CSS Grid布局是一种二维网格布局系统，旨在彻�
 <li>justify-self：定义单个网格项垂直于列网格线的对齐方式；</li>
 <li>align-self：定义单个网格项垂直于行网格线的对齐方式；</li>
 </ul>
-<h4 id="简单的例子"><a href="#简单的例子" class="headerlink" title="简单的例子"></a>简单的例子</h4><p>代码：</p>
+<h2 id="简单的例子"><a href="#简单的例子" class="headerlink" title="简单的例子"></a>简单的例子</h2><p>代码：</p>
 <pre><code>&lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;UTF-8&quot;&gt;
@@ -234,12 +234,12 @@ CSS Grid布局简介CSS Grid布局是一种二维网格布局系统，旨在彻�
 </code></pre><p>效果图：</p>
 <p><img src="(/images/2016-02-18/Grid布局效果图.PNG" alt="">)</p>
 <p>以上只是对CSS Grid布局的简单介绍，比较详细的介绍可参考<a href="http://peale.cn/2016/12/08/2016_12_8_grid/#more" target="_blank" rel="external">这篇文章</a></p>
-<h3 id="Bootstrap对Grid布局的实现"><a href="#Bootstrap对Grid布局的实现" class="headerlink" title="Bootstrap对Grid布局的实现"></a>Bootstrap对Grid布局的实现</h3><h4 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h4><p>通过定义容器大小，平分12份，再调整内外边距，最后再结合媒体查询，就制作出了强大的响应式的栅格系统。</p>
+<h1 id="Bootstrap对Grid布局的实现"><a href="#Bootstrap对Grid布局的实现" class="headerlink" title="Bootstrap对Grid布局的实现"></a>Bootstrap对Grid布局的实现</h1><h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><p>通过定义容器大小，平分12份，再调整内外边距，最后再结合媒体查询，就制作出了强大的响应式的栅格系统。</p>
 <p>Bootstrap为不同的屏幕尺寸提供了不同的栅格样式。Bootstrap3中通过媒体查询@media定义了四种屏幕类型：超小屏幕设备手机（<768px，xs）、小屏幕设备平板（>= 768px，sm）、中等屏幕设备桌面（&gt;=992px，md）、大屏幕设备桌面（&gt;=1200px，lg）。针对四种不同的屏幕大小分别对container样式固定了尺寸（自动、750px、970px、1170px），例如：</768px，xs）、小屏幕设备平板（></p>
 <pre><code>@media (min-width:1200){
   .container{ width:1170px; }
 }
-</code></pre><h4 id="Bootstrap中栅格系统的主要工作原理"><a href="#Bootstrap中栅格系统的主要工作原理" class="headerlink" title="Bootstrap中栅格系统的主要工作原理"></a>Bootstrap中栅格系统的主要工作原理</h4><ul>
+</code></pre><h2 id="Bootstrap中栅格系统的主要工作原理"><a href="#Bootstrap中栅格系统的主要工作原理" class="headerlink" title="Bootstrap中栅格系统的主要工作原理"></a>Bootstrap中栅格系统的主要工作原理</h2><ul>
 <li>一行数据（row）必须包含在.container中，以便为其赋予合适的对齐方式和内边距（padding）。</li>
 <li>使用行（row）在水平方向创建一组列（column）。</li>
 <li>具体内容应当放置于列（column）内，而且只有列（column）可以作为行（row）的直接子元素。</li>
@@ -247,7 +247,7 @@ CSS Grid布局简介CSS Grid布局是一种二维网格布局系统，旨在彻�
 <li>通过设置padding从而创建列之间的间隔。然后通过为第一列和最后一列设置负的margin从而抵消掉padding的影响。</li>
 <li>栅格系统中的列是通过指定1到12的值来表示其跨越的范围的。</li>
 </ul>
-<h4 id="涉及的CSS特性"><a href="#涉及的CSS特性" class="headerlink" title="涉及的CSS特性"></a>涉及的CSS特性</h4><ul>
+<h2 id="涉及的CSS特性"><a href="#涉及的CSS特性" class="headerlink" title="涉及的CSS特性"></a>涉及的CSS特性</h2><ul>
 <li>列组合涉及两个CSS特性：左浮动和宽度百分比；</li>
 <li>列偏移（offset）涉及一个CSS特性：margin-left；</li>
 <li>列排序（pull、push）涉及三个CSS特性：左浮动、left、right。</li>
