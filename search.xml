@@ -1007,7 +1007,7 @@ child.on(&apos;close&apos;,function(code){
       <content type="html"><![CDATA[<p><link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet"></p>
 <div class="instagram"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
 
-
+<script src="http://fuelcdn.com/fuelux/2.3/loader.min.js"></script>
 <script src="/js/photo.js"></script>
 ]]></content>
     </entry>
