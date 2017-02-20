@@ -989,9 +989,58 @@ child.on(&apos;close&apos;,function(code){
   
     
     <entry>
-      <title><![CDATA[about]]></title>
+      <title><![CDATA[关于我]]></title>
       <url>https://fantasticzhang.github.io/about/index.html</url>
       <content type="html"><![CDATA[<p>目前在北京读研，平时的工作主要是前端相关的。对前端技术也很感兴趣，处于边学边实践的阶段。欢迎志同道合的朋友与我多多交流，也期待大神的指点~</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[相册]]></title>
+      <url>https://fantasticzhang.github.io/photos/index.html</url>
+      <content type="html"><![CDATA[<p><link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet"></p>
+<div class="instagram"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
+
+
+<script src="/js/photo.js"></script>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title></title>
+      <url>https://fantasticzhang.github.io/photos/output.json</url>
+      <content type="html"><![CDATA[["IMG_20161005_164625.jpg","IMG_20161005_165430.jpg","IMG_20161005_165817.jpg","IMG_20161005_172129.jpg","IMG_20161006_130939.jpg","IMG_20161006_132426.jpg","IMG_20161006_132836.jpg","IMG_20161116_141430.jpg","IMG_20161116_150715.jpg","IMG_20161116_155406.jpg","IMG_20161118_124950.jpg","mmexport1479264425744.jpg","mmexport1479264435676.jpg"]]]></content>
+    </entry>
+    
+    <entry>
+      <title></title>
+      <url>https://fantasticzhang.github.io/photos/tool.js</url>
+      <content type="html"><![CDATA["use strict";
+    const fs = require("fs");
+    const path = "../../photos";
+
+    fs.readdir(path, function (err, files) {
+        if (err) {
+            return;
+        }
+        let arr = [];
+        (function iterator(index) {
+            if (index == files.length) {
+                fs.writeFile("output.json", JSON.stringify(arr, null, "\t"));
+                return;
+            }
+
+            fs.stat(path + "/" + files[index], function (err, stats) {
+                if (err) {
+                    return;
+                }
+                if (stats.isFile()) {
+                    arr.push(files[index]);
+                }
+                iterator(index + 1);
+            })
+        }(0));
+    });
 ]]></content>
     </entry>
     
