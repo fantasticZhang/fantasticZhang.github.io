@@ -344,6 +344,13 @@ $(document).ready(function(){
   if($.fancybox){
     $('.fancybox').fancybox();
   }
+
+  //相册功能 2017-02-20 add
+  if($(".instagram").length) {
+       require(['/js/photo.js', '/fancybox/jquery.fancybox.js'], function(obj) {
+           obj.init();
+       });
+   }
 });
 </script>
 
