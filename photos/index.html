@@ -16,7 +16,7 @@
 <meta property="og:title" content="相册">
 <meta property="og:url" content="https://fantasticzhang.github.io/photos/index.html">
 <meta property="og:site_name" content="Fantastic">
-<meta property="og:updated_time" content="2017-02-20T14:39:03.286Z">
+<meta property="og:updated_time" content="2017-02-21T02:09:23.963Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="相册">
 <meta name="twitter:creator" content="@fantastic_zjl">
@@ -96,7 +96,7 @@
 		<a href="/about" title="张金玲" target="_blank" itemprop="author">张金玲</a>
 		
   <p class="article-time">
-    <time datetime="2017-02-20T14:39:03.286Z" itemprop="datePublished"> 发表于 2017-02-20</time>
+    <time datetime="2017-02-21T02:09:23.963Z" itemprop="datePublished"> 发表于 2017-02-21</time>
     <span class="head-plus">
    &nbsp;|&nbsp;<i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="photos/index.html"><i class="fa fa-spinner fa-spin"></i></span>
    </span>
@@ -107,11 +107,10 @@
 
 	<div class="article-content">
 		
-		<p><link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet"></p>
-<div class="instagram"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
+		<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
+<link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet">
 
-<script src="http://fuelcdn.com/fuelux/2.3/loader.min.js"></script>
-<script src="/js/photo.js"></script>
+<div class="instagram"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -165,6 +164,9 @@
 <!-- <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script> -->
 <script src="/js/search.js"></script>
+<!--相冊功能-->
+<script src="/js/jquery.lazyload.js"></script>
+<script src="/js/main.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -344,9 +346,7 @@ $(document).ready(function(){
 
   //相册功能 2017-02-20 add
   if($(".instagram").length) {
-       require(['/js/photo.js', '/fancybox/jquery.fancybox.js'], function(obj) {
-           obj.init();
-       });
+      photoInit();
    }
 });
 </script>

@@ -372,6 +372,9 @@ JavaScript的流行继续激增。不是每个人都喜欢这种语言，但是�
 <!-- <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script> -->
 <script src="/js/search.js"></script>
+<!--相冊功能-->
+<script src="/js/jquery.lazyload.js"></script>
+<script src="/js/main.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -577,9 +580,7 @@ $(document).ready(function(){
 
   //相册功能 2017-02-20 add
   if($(".instagram").length) {
-       require(['/js/photo.js', '/fancybox/jquery.fancybox.js'], function(obj) {
-           obj.init();
-       });
+      photoInit();
    }
 });
 </script>
