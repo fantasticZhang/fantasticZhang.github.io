@@ -4,26 +4,26 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>文字循环无缝滚动特效代码 | Fantastic</title>
+    <title>hexo主题中加入相册功能 | Fantastic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="张金玲">
     
 
     
-    <meta name="description" content="今天突然被问到了这个问题，现把我的解决方案记下来以便日后查看。下面是一个简单的小例子：
-&amp;lt;div  id=&amp;quot;textScroll&amp;quot; style=&amp;quot;overflow:hidden;height:200px;width:300px;font-size:14px;line-height:22px;text-align:left;padding:10px&amp;quot;&amp;g">
+    <meta name="description" content="前段时间一个朋友问我：怎么给自己的博客加入相册功能？我还真被问住了，因为搭建博客的初衷是写一些文字性的东西，并没有考虑过“相册”这回事。但被朋友问到后，仔细想了想，给博客加入相册功能还是挺不错的，可以和大家分享一些自己喜欢的图片。于是参考了网上的相关资料，最终实现了一个简单的相册功能。现把实现过程记录下来，以供大家参考。
+主要是参考了这篇文章,但这篇文章的作者使用的是yilia主题，该主题已实现了">
 <meta property="og:type" content="article">
-<meta property="og:title" content="文字循环无缝滚动特效代码">
-<meta property="og:url" content="https://fantasticzhang.github.io/2016/12/29/文字循环无缝滚动特效代码/index.html">
+<meta property="og:title" content="hexo主题中加入相册功能">
+<meta property="og:url" content="https://fantasticzhang.github.io/2017/02/21/hexo主题中加入相册功能/index.html">
 <meta property="og:site_name" content="Fantastic">
-<meta property="og:description" content="今天突然被问到了这个问题，现把我的解决方案记下来以便日后查看。下面是一个简单的小例子：
-&amp;lt;div  id=&amp;quot;textScroll&amp;quot; style=&amp;quot;overflow:hidden;height:200px;width:300px;font-size:14px;line-height:22px;text-align:left;padding:10px&amp;quot;&amp;g">
-<meta property="og:updated_time" content="2016-12-29T08:33:24.457Z">
+<meta property="og:description" content="前段时间一个朋友问我：怎么给自己的博客加入相册功能？我还真被问住了，因为搭建博客的初衷是写一些文字性的东西，并没有考虑过“相册”这回事。但被朋友问到后，仔细想了想，给博客加入相册功能还是挺不错的，可以和大家分享一些自己喜欢的图片。于是参考了网上的相关资料，最终实现了一个简单的相册功能。现把实现过程记录下来，以供大家参考。
+主要是参考了这篇文章,但这篇文章的作者使用的是yilia主题，该主题已实现了">
+<meta property="og:updated_time" content="2017-02-22T02:14:50.303Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="文字循环无缝滚动特效代码">
-<meta name="twitter:description" content="今天突然被问到了这个问题，现把我的解决方案记下来以便日后查看。下面是一个简单的小例子：
-&amp;lt;div  id=&amp;quot;textScroll&amp;quot; style=&amp;quot;overflow:hidden;height:200px;width:300px;font-size:14px;line-height:22px;text-align:left;padding:10px&amp;quot;&amp;g">
+<meta name="twitter:title" content="hexo主题中加入相册功能">
+<meta name="twitter:description" content="前段时间一个朋友问我：怎么给自己的博客加入相册功能？我还真被问住了，因为搭建博客的初衷是写一些文字性的东西，并没有考虑过“相册”这回事。但被朋友问到后，仔细想了想，给博客加入相册功能还是挺不错的，可以和大家分享一些自己喜欢的图片。于是参考了网上的相关资料，最终实现了一个简单的相册功能。现把实现过程记录下来，以供大家参考。
+主要是参考了这篇文章,但这篇文章的作者使用的是yilia主题，该主题已实现了">
 <meta name="twitter:creator" content="@fantastic_zjl">
 
     
@@ -94,16 +94,16 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/12/29/文字循环无缝滚动特效代码/" title="文字循环无缝滚动特效代码" itemprop="url">文字循环无缝滚动特效代码</a>
+      <a href="/2017/02/21/hexo主题中加入相册功能/" title="hexo主题中加入相册功能" itemprop="url">hexo主题中加入相册功能</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="张金玲" target="_blank" itemprop="author">张金玲</a>
 		
   <p class="article-time">
-    <time datetime="2016-12-29T07:46:10.000Z" itemprop="datePublished"> 发表于 2016-12-29</time>
+    <time datetime="2017-02-21T14:25:30.000Z" itemprop="datePublished"> 发表于 2017-02-21</time>
     <span class="head-plus">
-   &nbsp;|&nbsp;<i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="2016/12/29/文字循环无缝滚动特效代码/"><i class="fa fa-spinner fa-spin"></i></span>
+   &nbsp;|&nbsp;<i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="2017/02/21/hexo主题中加入相册功能/"><i class="fa fa-spinner fa-spin"></i></span>
    </span>
   </p>
 
@@ -115,62 +115,146 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#新建相册页面"><span class="toc-number">1.</span> <span class="toc-text">新建相册页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置主题"><span class="toc-number">2.</span> <span class="toc-text">配置主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#存放图片"><span class="toc-number">3.</span> <span class="toc-text">存放图片</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#分析"><span class="toc-number">3.1.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存放图片-1"><span class="toc-number">3.2.</span> <span class="toc-text">存放图片</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取图片"><span class="toc-number">4.</span> <span class="toc-text">获取图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成相册页的代码"><span class="toc-number">5.</span> <span class="toc-text">生成相册页的代码</span></a></li></ol>
 		
 		</div>
 		
-		<p>今天突然被问到了这个问题，现把我的解决方案记下来以便日后查看。下面是一个简单的小例子：</p>
-<pre><code>&lt;div  id=&quot;textScroll&quot; style=&quot;overflow:hidden;height:200px;width:300px;font-size:14px;line-height:22px;text-align:left;padding:10px&quot;&gt;
-&lt;div id=&quot;textScroll1&quot;&gt;
-  文字实循环无缝滚动
-  &lt;/div&gt;
-&lt;div id=&quot;textScroll2&quot;&gt;&lt;/div&gt;
+		<p>前段时间一个朋友问我：怎么给自己的博客加入相册功能？我还真被问住了，因为搭建博客的初衷是写一些文字性的东西，并没有考虑过“相册”这回事。但被朋友问到后，仔细想了想，给博客加入相册功能还是挺不错的，可以和大家分享一些自己喜欢的图片。于是参考了网上的相关资料，最终实现了一个简单的相册功能。现把实现过程记录下来，以供大家参考。</p>
+<p>主要是参考了<a href="http://www.cnblogs.com/xljzlw/p/5137622.html" target="_blank" rel="external">这篇文章</a>,但这篇文章的作者使用的是<code>yilia</code>主题，该主题已实现了相册功能。而我使用的是<a href="https://github.com/hsihohuang/kiddochan" target="_blank" rel="external">kiddochan</a>主题，这个主题并没有实现相册功能。因此，我的实现过程和我参考的那篇文章也略有不同，但整体流程还是类似的。</p>
+<h2 id="新建相册页面"><a href="#新建相册页面" class="headerlink" title="新建相册页面"></a>新建相册页面</h2><p><code>hexo new page “photos”</code></p>
+<p>执行上面的命令，会在<code>source</code>文件夹中生成一个<code>photo</code>文件夹，打开<code>photo</code>文件夹中的<code>index.md</code>文件，修改内容如下：</p>
+<pre><code>---
+title: 相册
+---
+
+&lt;link type=&quot;text/css&quot; href=&quot;/css/photo.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;link type=&quot;text/css&quot; href=&quot;/fancybox/jquery.fancybox.css&quot; rel=&quot;stylesheet&quot;&gt;
+
+&lt;div class=&quot;photos&quot;&gt;
+  &lt;section class=&quot;archives album&quot;&gt;
+    &lt;ul class=&quot;img-box-ul&quot;&gt;&lt;/ul&gt;
+  &lt;/section&gt;
 &lt;/div&gt;
+</code></pre><p>其中，’photo.css’用来控制相册样式，由于我使用的主题并没有实现相册功能，因此需要另写一个样式来控制相册的展示。</p>
+<h2 id="配置主题"><a href="#配置主题" class="headerlink" title="配置主题"></a>配置主题</h2><p>在主题的配置文件<code>_config.yml</code>的menu下添加一个相册的菜单：</p>
+<pre><code>menu:
+  主页: /
+  归档: /archives
+  关于: /about
+  相册: /photos
+</code></pre><h2 id="存放图片"><a href="#存放图片" class="headerlink" title="存放图片"></a>存放图片</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>首先图片不能放在<code>source</code>文件夹中，因为需要编译成静态文件，非常慢。那么该放到哪里好呢？</p>
+<p>在使用hexo搭建博客时，我们都会在github上会建立一个名为<code>username.github.io</code>的仓库，而且仓库只存储了整个项目的一部分。所以，一般我们都会在github上另建一个仓库，用来存储整个博客项目的文件对博客进行备份，这样就能在不同的电脑上写博客了。因此，我们可以在根目录下新建一个<code>photos</code>文件夹用来存放相册需要展示的图片文件，这样图片的数量就不受限制了。</p>
+<h3 id="存放图片-1"><a href="#存放图片-1" class="headerlink" title="存放图片"></a>存放图片</h3><p>在博客的根目录下新建一个<code>photos</code>的文件夹，里面存放你想要展示的图片文件。然后把整个博客项目部署到github上，才能访问到图片的线上地址。</p>
+<h2 id="获取图片"><a href="#获取图片" class="headerlink" title="获取图片"></a>获取图片</h2><p>那么多图片的文件名该怎么获取呢？由于原生<code>js</code>不能很好的处理文件，因此不能直接在js文件中获取图片的文件名。但我们可以新建一个基于nodejs的js文件用来读取所有图片，并把所有的图片名称放在一个json文件中供相册页面的js文件使用。</p>
+<p>在<code>source\photo</code>文件夹中新建一个<code>tool.js</code>文件，内容如下：</p>
+<pre><code>&quot;use strict&quot;;
+    const fs = require(&quot;fs&quot;);
+    const path = &quot;../../photos&quot;;
 
-&lt;script type=&quot;text/javascript&quot;&gt;
+    fs.readdir(path, function (err, files) {
+        if (err) {
+            return;
+        }
+        let arr = [];
+        (function iterator(index) {
+            if (index == files.length) {
+                fs.writeFile(&quot;output.json&quot;, JSON.stringify(arr, null, &quot;\t&quot;));
+                return;
+            }
 
-//原理：设置好固定的宽高，内容的实际高度比这个高得多。控制滚动条，在滚到一定位置后减小滚动条高度，重复此过程。
+            fs.stat(path + &quot;/&quot; + files[index], function (err, stats) {
+                if (err) {
+                    return;
+                }
+                if (stats.isFile()) {
+                    arr.push(files[index]);
+                }
+                iterator(index + 1);
+            })
+        }(0));
+    });
+</code></pre><p>通过<code>node tool.js</code>命令运行该文件，会在<code>source\photos</code>下生成一个<code>output.json</code>文件:</p>
+<pre><code>[
+    &quot;IMG_20161005_164625.jpg&quot;,
+    &quot;IMG_20161005_165430.jpg&quot;,
+    &quot;IMG_20161005_165817.jpg&quot;,
+    &quot;IMG_20161005_172129.jpg&quot;,
+    &quot;IMG_20161006_130939.jpg&quot;,
+    &quot;IMG_20161006_132426.jpg&quot;,
+    &quot;IMG_20161006_132836.jpg&quot;,
+    &quot;IMG_20161116_141430.jpg&quot;,
+    &quot;IMG_20161116_150715.jpg&quot;,
+    &quot;IMG_20161116_155406.jpg&quot;,
+    &quot;IMG_20161118_124950.jpg&quot;,
+    &quot;mmexport1479264425744.jpg&quot;,
+    &quot;mmexport1479264435676.jpg&quot;
+]
+</code></pre><p>之后每次添加了新的图片，都要运行<code>node tool.js</code>来更新<code>output.json</code>文件的内容。</p>
+<h2 id="生成相册页的代码"><a href="#生成相册页的代码" class="headerlink" title="生成相册页的代码"></a>生成相册页的代码</h2><p>在<code>myBlog\themes\kiddochan\source\js</code>（myBlog为我的博客根目录，kiddochan为我使用的主题，替换成相应的即可）文件夹下新建一个photo.js，代码如下：</p>
+<pre><code>//相册功能 2017-02-20 add
+var page = 1;
+var offset = 20;
 
-var textScroll = document.getElementById(&quot;textScroll&quot;);
-var textScroll1 = document.getElementById(&quot;textScroll1&quot;);
-var textScroll2 = document.getElementById(&quot;textScroll2&quot;);
-var speed=50;    //滚动速度值，值越大速度越慢
+function photoShow(page ,data){
+  var begin = (page - 1) * offset;
+  var end = page * offset;
+  if (begin &gt;= data.length) return;
+  var html, li = &quot;&quot;;
+  for (var i = begin; i &lt; end &amp;&amp; i &lt; data.length; i++) {
+      li += &apos;&lt;li&gt;&lt;div class=&quot;img-box&quot;&gt;&apos; +
+          &apos;&lt;a class=&quot;img-bg&quot; rel=&quot;example_group&quot; href=&quot;https://raw.githubusercontent.com/fantasticZhang/blog-back-up/master/photos/&apos; + data[i] + &apos;?raw=true&quot;&gt;&lt;/a&gt;&apos; +
+          &apos;&lt;img lazy-src=&quot;https://raw.githubusercontent.com/fantasticZhang/blog-back-up/master/photos/&apos; + data[i] + &apos;?raw=true&quot; /&gt;&apos; +
+          &apos;&lt;/li&gt;&apos;;
+  }
 
-//复制文本,使文本总高度大于父元素高度，这样才能无缝滚动
-var nnn=200/textScroll1.offsetHeight;
-for(i=0;i&lt;nnn;i++){textScroll1.innerHTML+=&quot;&lt;br /&gt;&quot;+ textScroll1.innerHTML}
-textScroll2.innerHTML = textScroll1.innerHTML;
-
-function Marquee(){
-if(textScroll2.offsetTop-textScroll.scrollTop&lt;=0)    //当滚动至textScroll2时
-{
-    textScroll.scrollTop-=textScroll1.offsetHeight;    //textScroll跳到最顶端,从头开始滚动
-
+  $(&quot;.img-box-ul&quot;).append(li);
+  $(&quot;.img-box-ul&quot;).lazyload();
+  $(&quot;a[rel=example_group]&quot;).fancybox();
 }
-else{
-    textScroll.scrollTop++;     //持续滚动
-}
+
+function photoScroll(data){
+  $(window).scroll(function() {
+      var windowPageYOffset = window.pageYOffset;
+      var windowPageYOffsetAddHeight = windowPageYOffset + window.innerHeight;
+    //  var sensitivity = 0;
+      var offsetTop = $(&quot;.photos&quot;).offset().top + $(&quot;.photos&quot;).height();
+      if (offsetTop &gt;= windowPageYOffset &amp;&amp; offsetTop &lt; windowPageYOffsetAddHeight) {
+          photoShow(++page, data);
+      }
+  })
 }
 
-var MyMar = setInterval(Marquee,speed);        //设置定时器
-textScroll.onmouseover = function(){clearInterval(MyMar)}    //鼠标经过时清除定时器达到滚动停止的目的
-textScroll.onmouseout = function(){MyMar = setInterval(Marquee,speed)};    //鼠标移开时重设定时器
-&lt;/script&gt;
-</code></pre><p>例子很简单，可根据实际情况进行修改以满足实际需要。</p>
+var photoInit = function() {
+    $.getJSON(&quot;/photos/output.json&quot;, function (data) {
+        photoShow(page, data);
+
+        photoScroll(data);
+    });
+}
+</code></pre><p>  其中，<code>https://raw.githubusercontent.com/fantasticZhang/blog-back-up/master/photos/&#39; + data[i] + &#39;?raw=true&quot;</code>是上传至github的图片链接。</p>
+<p>  该文件读取json文件，将图片的线上url拼接起来渲染在相册页面上。</p>
+<p>  在<code>myBlog\themes\layout\_patial\after_footer.ejs</code>文件中加入了如下代码：</p>
+<pre><code>&lt;!--相冊功能--&gt;
+&lt;script src=&quot;/js/jquery.lazyload.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/js/photo.js&quot;&gt;&lt;/script&gt;
+
+$(document).ready(function(){
+  //相册功能 2017-02-20 add
+  if($(&quot;.photos&quot;).length) {
+      photoInit();
+   }
+});
+</code></pre><p>根据实际所使用的主题，添加到相应位置即可。</p>
+<p>最后，运行<code>hexo g</code>、<code>hexo d</code>等相应命令，相册功能就实现了。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/前端/">前端</a>
-</div>
-
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/js/">js</a>
+  <span></span> <a href="/tags/hexo/">hexo</a>
   </div>
 
 </div>
@@ -184,17 +268,10 @@ textScroll.onmouseout = function(){MyMar = setInterval(Marquee,speed)};    //鼠
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/12/30/【转载】2016年JavaScript回顾/" title="【转载】2016年JavaScript回顾">
-  <span>
-  【转载】2016年JavaScript回顾</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/12/09/微信小程序开发（一）/"  title="微信小程序开发（一）">
- <span>微信小程序开发（一）
+<a href="/2017/02/18/Grid布局/"  title="Grid布局">
+ <span>Grid布局
 </span>
 </a>
 </div>
@@ -203,7 +280,7 @@ textScroll.onmouseout = function(){MyMar = setInterval(Marquee,speed)};    //鼠
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/12/29/文字循环无缝滚动特效代码/" data-title="文字循环无缝滚动特效代码" data-url="https://fantasticzhang.github.io/2016/12/29/文字循环无缝滚动特效代码/"></div>
+	<div class="ds-thread" data-thread-key="2017/02/21/hexo主题中加入相册功能/" data-title="hexo主题中加入相册功能" data-url="https://fantasticzhang.github.io/2017/02/21/hexo主题中加入相册功能/"></div>
 </section>
 
 
@@ -213,7 +290,7 @@ textScroll.onmouseout = function(){MyMar = setInterval(Marquee,speed)};    //鼠
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#新建相册页面"><span class="toc-number">1.</span> <span class="toc-text">新建相册页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置主题"><span class="toc-number">2.</span> <span class="toc-text">配置主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#存放图片"><span class="toc-number">3.</span> <span class="toc-text">存放图片</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#分析"><span class="toc-number">3.1.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存放图片-1"><span class="toc-number">3.2.</span> <span class="toc-text">存放图片</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取图片"><span class="toc-number">4.</span> <span class="toc-text">获取图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成相册页的代码"><span class="toc-number">5.</span> <span class="toc-text">生成相册页的代码</span></a></li></ol>
  
   </div>
 

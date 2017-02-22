@@ -4,7 +4,7 @@ a img {
 ul {
   list-style: none;
 }
-.instagram {
+.photos {
     position: relative;
     min-height: 500px;
 }
@@ -16,7 +16,7 @@ section {
     display: block;
 }
 
-.instagram .album ul {
+.photos .album ul {
     padding-top: 17px;
     border-bottom: 1px solid #ddd;
     clear: both;
@@ -24,12 +24,7 @@ section {
     text-align: left;
 }
 
-.article-entry ul, .article-entry ol {
-    font-size: 14px;
-    margin: 10px 0px;
-}
-
-.instagram .album li {
+.photos .album li {
     list-style: none;
     display: inline-block;
     -webkit-box-sizing: border-box;
@@ -45,7 +40,7 @@ section {
     padding-bottom: 25%;
 }
 
-.instagram .album div.img-box {
+.photos .album div.img-box {
     position: absolute;
     width: 90%;
     height: 90%;
@@ -56,7 +51,7 @@ section {
     box-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 1px 0 1px rgba(255,255,255,0.1);
 }
 
-.instagram .album div.img-box .img-bg {
+.photos .album div.img-box .img-bg {
     position: absolute;
     top: 0;
     left: 0;
@@ -85,7 +80,8 @@ section {
     display: block;
 }
 
-.instagram .album div.img-box img {
+.photos .album div.img-box img {
     width: 100%;
     height: 100%;
+    padding: 1px 1px;
 }

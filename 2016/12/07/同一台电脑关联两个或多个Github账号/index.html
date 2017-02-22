@@ -200,6 +200,13 @@ Host github_gtensor
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-number">1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案"><span class="toc-number">2.</span> <span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#生成SSH-key"><span class="toc-number">2.1.</span> <span class="toc-text">生成SSH key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将SSH-key添加到github"><span class="toc-number">2.2.</span> <span class="toc-text">将SSH key添加到github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建config文件"><span class="toc-number">2.3.</span> <span class="toc-text">创建config文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将SSH-key添加到ssh-agent上"><span class="toc-number">2.4.</span> <span class="toc-text">将SSH key添加到ssh-agent上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试github连接是否成功"><span class="toc-number">2.5.</span> <span class="toc-text">测试github连接是否成功</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-number">2.6.</span> <span class="toc-text">使用</span></a></li></ol></li></ol>
+ 
+  </div>
+
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
@@ -272,6 +279,10 @@ Host github_gtensor
 			
 		
 			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/Node/" title="Node">Node<sup>1</sup></a></li>
 			
 		
@@ -289,6 +300,12 @@ Host github_gtensor
         
           <li>
             
+            	<a href="https://ily11.github.io/" target="_blank" title="ily">ily</a>
+            
+          </li>
+        
+          <li>
+            
             	<a href="https://airghc.gtensor.com" target="_blank" title="Airghc">Airghc</a>
             
           </li>
@@ -296,12 +313,6 @@ Host github_gtensor
           <li>
             
             	<a href="http://rain1ove.cn/" target="_blank" title="rain">rain</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="https://ily11.github.io/" target="_blank" title="ily">ily</a>
             
           </li>
         
@@ -349,7 +360,7 @@ Host github_gtensor
 <script src="/js/search.js"></script>
 <!--相冊功能-->
 <script src="/js/jquery.lazyload.js"></script>
-<script src="/js/main.js"></script>
+<script src="/js/photo.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -399,6 +410,8 @@ $(document).ready(function(){
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
       $('.animated').css('display', 'none');  //2016-11-29
+      
+      $('#toc.toc-aside').css('display', 'none');
       
       //自定义  固定搜索结果列表宽度
       $('ul.search-result-list').css('width', '82%');
@@ -554,7 +567,7 @@ $(document).ready(function(){
   }
 
   //相册功能 2017-02-20 add
-  if($(".instagram").length) {
+  if($(".photos").length) {
       photoInit();
    }
 });
