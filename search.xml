@@ -20,7 +20,7 @@
 &lt;div id=&quot;triangle-up&quot;&gt;
 &lt;/div&gt;
 </code></pre><p>效果：</p>
-<p><img src="/images/triangle-up.PNG" alt=""></p>
+<p><img src="/images/2017-02-23/triangle-up.PNG" alt=""></p>
 <h2 id="Triangle-Down"><a href="#Triangle-Down" class="headerlink" title="Triangle Down"></a>Triangle Down</h2><p>代码：</p>
 <pre><code>#triangle-bottom{
     width:0;
@@ -34,7 +34,7 @@
 &lt;div id=&quot;triangle-bottom&quot;&gt;
 &lt;/div&gt;
 </code></pre><p>效果：</p>
-<p><img src="/images/triangle-bottom.PNG" alt=""></p>
+<p><img src="/images/2017-02-23/triangle-bottom.PNG" alt=""></p>
 <h2 id="Triangle-Left"><a href="#Triangle-Left" class="headerlink" title="Triangle Left"></a>Triangle Left</h2><p>代码：</p>
 <pre><code>#triangle-left{
     width:0;
@@ -47,7 +47,7 @@
 &lt;div id=&quot;triangle-left&quot;&gt;
 &lt;/div&gt;
 </code></pre><p>效果：</p>
-<p><img src="/images/triangle-left.PNG" alt=""></p>
+<p><img src="/images/2017-02-23/triangle-left.PNG" alt=""></p>
 <h2 id="Triangle-Right"><a href="#Triangle-Right" class="headerlink" title="Triangle Right"></a>Triangle Right</h2><p>代码：</p>
 <pre><code>#triangle-right{
     width:0;
@@ -60,7 +60,7 @@
 &lt;div id=&quot;triangle-right&quot;&gt;
 &lt;/div&gt;
 </code></pre><p>效果：</p>
-<p><img src="/images/triangle-right.PNG" alt=""></p>
+<p><img src="/images/2017-02-23/triangle-right.PNG" alt=""></p>
 <h2 id="Triangle-Top-Left"><a href="#Triangle-Top-Left" class="headerlink" title="Triangle Top Left"></a>Triangle Top Left</h2><p>代码：</p>
 <pre><code>#triangle-topleft{
     width:0;
@@ -72,7 +72,7 @@
 &lt;div id=&quot;triangle-topleft&quot;&gt;
 &lt;/div&gt;
 </code></pre><p>效果：</p>
-<p><img src="/images/triangle-topleft.PNG" alt=""></p>
+<p><img src="/images/2017-02-23/triangle-topleft.PNG" alt=""></p>
 <h2 id="Triangle-Top-Right"><a href="#Triangle-Top-Right" class="headerlink" title="Triangle Top Right"></a>Triangle Top Right</h2><p>代码：</p>
 <pre><code>#triangle-topright{
     width:0;
@@ -84,7 +84,7 @@
 &lt;div id=&quot;triangle-topright&quot;&gt;
 &lt;/div&gt;
 </code></pre><p>效果：</p>
-<p><img src="/images/triangle-topright.PNG" alt=""></p>
+<p><img src="/images/2017-02-23/triangle-topright.PNG" alt=""></p>
 <h2 id="Triangle-Bottom-Left"><a href="#Triangle-Bottom-Left" class="headerlink" title="Triangle Bottom Left"></a>Triangle Bottom Left</h2><p>代码：</p>
 <pre><code>#triangle-bottomleft{
     width:0;
@@ -96,7 +96,7 @@
 &lt;div id=&quot;triangle-bottomleft&quot;&gt;
 &lt;/div&gt;
 </code></pre><p>效果：</p>
-<p><img src="/images/triangle-bottomleft.PNG" alt=""></p>
+<p><img src="/images/2017-02-23/triangle-bottomleft.PNG" alt=""></p>
 <h2 id="Triangle-Bottom-Right"><a href="#Triangle-Bottom-Right" class="headerlink" title="Triangle Bottom Right"></a>Triangle Bottom Right</h2><p>代码：</p>
 <pre><code>#triangle-bottomright{
     width:0;
@@ -108,7 +108,7 @@
 &lt;div id=&quot;triangle-bottomright&quot;&gt;
 &lt;/div&gt;
 </code></pre><p>效果：</p>
-<p><img src="/images/triangle-bottomright.PNG" alt=""></p>
+<p><img src="/images/2017-02-23/triangle-bottomright.PNG" alt=""></p>
 ]]></content>
     </entry>
     
@@ -1244,6 +1244,16 @@ child.on(&apos;close&apos;,function(code){
     </entry>
     
     <entry>
+      <title><![CDATA[相册]]></title>
+      <url>https://fantasticzhang.github.io/photos/index.html</url>
+      <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
+<link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet">
+
+<div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
+]]></content>
+    </entry>
+    
+    <entry>
       <title></title>
       <url>https://fantasticzhang.github.io/photos/tool.js</url>
       <content type="html"><![CDATA["use strict";
@@ -1272,16 +1282,6 @@ child.on(&apos;close&apos;,function(code){
             })
         }(0));
     });
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[相册]]></title>
-      <url>https://fantasticzhang.github.io/photos/index.html</url>
-      <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
-<link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet">
-
-<div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
 ]]></content>
     </entry>
     
