@@ -4,38 +4,56 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>CSS的overflow属性和white-space属性 | Fantastic</title>
+    <title>纯CSS绘制各种角度的三角形 | Fantastic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="张金玲">
     
 
     
-    <meta name="description" content="今天在写网页的时候用到了这两个属性，对于它们分别可能的取值及其含义一开始不是很确定，在查阅了网上的一些资料以及自己动手测试后，对它们每个可能取值的含义现已明确，因此记录下来方便之后查阅。
-overflow属性overflow属性规定当内容溢出元素框时发生的事情。
-可能的取值
-visible：默认值。内容不会被修剪，会呈现在元素框之外。
-hidden：内容会被修剪，并且其余内容是不可见的。
-scro">
+    <meta name="description" content="以下是纯CSS绘制各种角度的三角形的方法。
+Triangle Up代码：
+#triangle-up{
+    width:0;
+    height:0;
+    border-bottom: 80px solid #00ffff;
+    border-left:40px solid transparent;
+    border-right:40px solid transparent;
+}">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSS的overflow属性和white-space属性">
-<meta property="og:url" content="https://fantasticzhang.github.io/2016/11/22/CSS的overflow属性和white-space属性/index.html">
+<meta property="og:title" content="纯CSS绘制各种角度的三角形">
+<meta property="og:url" content="https://fantasticzhang.github.io/2017/02/23/纯CSS绘制各种角度的三角形/index.html">
 <meta property="og:site_name" content="Fantastic">
-<meta property="og:description" content="今天在写网页的时候用到了这两个属性，对于它们分别可能的取值及其含义一开始不是很确定，在查阅了网上的一些资料以及自己动手测试后，对它们每个可能取值的含义现已明确，因此记录下来方便之后查阅。
-overflow属性overflow属性规定当内容溢出元素框时发生的事情。
-可能的取值
-visible：默认值。内容不会被修剪，会呈现在元素框之外。
-hidden：内容会被修剪，并且其余内容是不可见的。
-scro">
-<meta property="og:updated_time" content="2016-11-22T13:54:08.596Z">
+<meta property="og:description" content="以下是纯CSS绘制各种角度的三角形的方法。
+Triangle Up代码：
+#triangle-up{
+    width:0;
+    height:0;
+    border-bottom: 80px solid #00ffff;
+    border-left:40px solid transparent;
+    border-right:40px solid transparent;
+}">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/triangle-up.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/triangle-bottom.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/triangle-left.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/triangle-right.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/triangle-topleft.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/triangle-topright.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/triangle-bottomleft.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/triangle-bottomright.PNG">
+<meta property="og:updated_time" content="2017-02-23T03:22:13.540Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSS的overflow属性和white-space属性">
-<meta name="twitter:description" content="今天在写网页的时候用到了这两个属性，对于它们分别可能的取值及其含义一开始不是很确定，在查阅了网上的一些资料以及自己动手测试后，对它们每个可能取值的含义现已明确，因此记录下来方便之后查阅。
-overflow属性overflow属性规定当内容溢出元素框时发生的事情。
-可能的取值
-visible：默认值。内容不会被修剪，会呈现在元素框之外。
-hidden：内容会被修剪，并且其余内容是不可见的。
-scro">
+<meta name="twitter:title" content="纯CSS绘制各种角度的三角形">
+<meta name="twitter:description" content="以下是纯CSS绘制各种角度的三角形的方法。
+Triangle Up代码：
+#triangle-up{
+    width:0;
+    height:0;
+    border-bottom: 80px solid #00ffff;
+    border-left:40px solid transparent;
+    border-right:40px solid transparent;
+}">
+<meta name="twitter:image" content="https://fantasticzhang.github.io/images/triangle-up.PNG">
 <meta name="twitter:creator" content="@fantastic_zjl">
 
     
@@ -106,16 +124,16 @@ scro">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/11/22/CSS的overflow属性和white-space属性/" title="CSS的overflow属性和white-space属性" itemprop="url">CSS的overflow属性和white-space属性</a>
+      <a href="/2017/02/23/纯CSS绘制各种角度的三角形/" title="纯CSS绘制各种角度的三角形" itemprop="url">纯CSS绘制各种角度的三角形</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="张金玲" target="_blank" itemprop="author">张金玲</a>
 		
   <p class="article-time">
-    <time datetime="2016-11-22T13:02:03.000Z" itemprop="datePublished"> 发表于 2016-11-22</time>
+    <time datetime="2017-02-23T02:53:20.000Z" itemprop="datePublished"> 发表于 2017-02-23</time>
     <span class="head-plus">
-   &nbsp;|&nbsp;<i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="2016/11/22/CSS的overflow属性和white-space属性/"><i class="fa fa-spinner fa-spin"></i></span>
+   &nbsp;|&nbsp;<i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="2017/02/23/纯CSS绘制各种角度的三角形/"><i class="fa fa-spinner fa-spin"></i></span>
    </span>
   </p>
 
@@ -127,36 +145,113 @@ scro">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#overflow属性"><span class="toc-number">1.</span> <span class="toc-text">overflow属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#可能的取值"><span class="toc-number">1.1.</span> <span class="toc-text">可能的取值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scroll和auto的区别"><span class="toc-number">1.2.</span> <span class="toc-text">scroll和auto的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#white-space属性"><span class="toc-number">2.</span> <span class="toc-text">white-space属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#可能的取值-1"><span class="toc-number">2.1.</span> <span class="toc-text">可能的取值</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Triangle-Up"><span class="toc-number">1.</span> <span class="toc-text">Triangle Up</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Triangle-Down"><span class="toc-number">2.</span> <span class="toc-text">Triangle Down</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Triangle-Left"><span class="toc-number">3.</span> <span class="toc-text">Triangle Left</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Triangle-Right"><span class="toc-number">4.</span> <span class="toc-text">Triangle Right</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Triangle-Top-Left"><span class="toc-number">5.</span> <span class="toc-text">Triangle Top Left</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Triangle-Top-Right"><span class="toc-number">6.</span> <span class="toc-text">Triangle Top Right</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Triangle-Bottom-Left"><span class="toc-number">7.</span> <span class="toc-text">Triangle Bottom Left</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Triangle-Bottom-Right"><span class="toc-number">8.</span> <span class="toc-text">Triangle Bottom Right</span></a></li></ol>
 		
 		</div>
 		
-		<p>今天在写网页的时候用到了这两个属性，对于它们分别可能的取值及其含义一开始不是很确定，在查阅了网上的一些资料以及自己动手测试后，对它们每个可能取值的含义现已明确，因此记录下来方便之后查阅。</p>
-<h3 id="overflow属性"><a href="#overflow属性" class="headerlink" title="overflow属性"></a>overflow属性</h3><p>overflow属性规定当内容溢出元素框时发生的事情。</p>
-<h4 id="可能的取值"><a href="#可能的取值" class="headerlink" title="可能的取值"></a>可能的取值</h4><ul>
-<li>visible：默认值。内容不会被修剪，会呈现在元素框之外。</li>
-<li>hidden：内容会被修剪，并且其余内容是不可见的。</li>
-<li>scroll：内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。</li>
-<li>auto：如果内容被修剪，则浏览器会显示滚动条以便查看其余的内容。</li>
-<li>inherit：从父元素继承overflow属性的值。</li>
-</ul>
-<h4 id="scroll和auto的区别"><a href="#scroll和auto的区别" class="headerlink" title="scroll和auto的区别"></a>scroll和auto的区别</h4><ul>
-<li>scroll：内容自动撑开容器的宽度不包括滚动条，相当于滚动条是一个和内容并列显示的组件。</li>
-<li><p>auto：内容撑开容器的宽度包括滚动条。即 使用<code>white-space:nowrape;</code>撑开容器至正好显示所有内容时，如果有滚动条，则滚动条会覆盖在内容上方，导致内容宽度被再次缩小，然后出现省略号。由此推断渲染顺序：</p>
-<p>  自适应宽度-&gt;根据高度显示滚动条-&gt;重新计算内部元素宽度。 </p>
-</li>
-</ul>
-<p>综上，如果宽度是由内容自适应撑开的，则<code>overflow:auto;</code>带来的滚动条会占用内容的一部分宽度，导致内容显示不全。</p>
-<h3 id="white-space属性"><a href="#white-space属性" class="headerlink" title="white-space属性"></a>white-space属性</h3><p>该属性声明建立布局过程中如何处理元素中的空白符。</p>
-<h4 id="可能的取值-1"><a href="#可能的取值-1" class="headerlink" title="可能的取值"></a>可能的取值</h4><ul>
-<li>normal：默认值。连续的空白符会被合并，换行符会被当做空白符来处理。填充line盒子时，必要的话会换行。</li>
-<li>pre: 连续的空白符会被保留。在遇到换行符或者\<br\>元素时才会换行。</br\></li>
-<li>nowrap: 连续的空白符会被合并，文本不会换行，会在同一行上继续，直到遇到\<br\>标签为止。</br\></li>
-<li>pre-wrap：连续的空白符会被保留，在遇到换行符或者\<br\>元素或者需要为了填充line盒子时才会换行。</br\></li>
-<li>pre-line：连续的空白符会被合并，在遇到换行符或者\<br\>元素或者需要为了填充line盒子时才会换行。</br\></li>
-<li>inherit：从父元素继承white-space属性的值。</li>
-</ul>
-<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/white-space" target="_blank" rel="external">参考</a></p>
+		<p>以下是纯CSS绘制各种角度的三角形的方法。</p>
+<h2 id="Triangle-Up"><a href="#Triangle-Up" class="headerlink" title="Triangle Up"></a>Triangle Up</h2><p>代码：</p>
+<pre><code>#triangle-up{
+    width:0;
+    height:0;
+    border-bottom: 80px solid #00ffff;
+    border-left:40px solid transparent;
+    border-right:40px solid transparent;
+}
+
+&lt;h3&gt;Triangle Up&lt;/h3&gt;
+&lt;div id=&quot;triangle-up&quot;&gt;
+&lt;/div&gt;
+</code></pre><p>效果：</p>
+<p><img src="/images/triangle-up.PNG" alt=""></p>
+<h2 id="Triangle-Down"><a href="#Triangle-Down" class="headerlink" title="Triangle Down"></a>Triangle Down</h2><p>代码：</p>
+<pre><code>#triangle-bottom{
+    width:0;
+    height:0;
+    border-top: 80px solid #00ffff;
+    border-left:40px solid transparent;
+    border-right:40px solid transparent;
+}
+
+&lt;h3&gt;Triangle Down&lt;/h3&gt;
+&lt;div id=&quot;triangle-bottom&quot;&gt;
+&lt;/div&gt;
+</code></pre><p>效果：</p>
+<p><img src="/images/triangle-bottom.PNG" alt=""></p>
+<h2 id="Triangle-Left"><a href="#Triangle-Left" class="headerlink" title="Triangle Left"></a>Triangle Left</h2><p>代码：</p>
+<pre><code>#triangle-left{
+    width:0;
+    height:0;
+    border-right: 80px solid #00ffff;
+    border-top:40px solid transparent;
+    border-bottom:40px solid transparent;
+}
+&lt;h3&gt;Triangle Left&lt;/h3&gt;
+&lt;div id=&quot;triangle-left&quot;&gt;
+&lt;/div&gt;
+</code></pre><p>效果：</p>
+<p><img src="/images/triangle-left.PNG" alt=""></p>
+<h2 id="Triangle-Right"><a href="#Triangle-Right" class="headerlink" title="Triangle Right"></a>Triangle Right</h2><p>代码：</p>
+<pre><code>#triangle-right{
+    width:0;
+    height:0;
+    border-left: 80px solid #00ffff;
+    border-top:40px solid transparent;
+    border-bottom:40px solid transparent;
+}
+&lt;h3&gt;Triangle Right&lt;/h3&gt;
+&lt;div id=&quot;triangle-right&quot;&gt;
+&lt;/div&gt;
+</code></pre><p>效果：</p>
+<p><img src="/images/triangle-right.PNG" alt=""></p>
+<h2 id="Triangle-Top-Left"><a href="#Triangle-Top-Left" class="headerlink" title="Triangle Top Left"></a>Triangle Top Left</h2><p>代码：</p>
+<pre><code>#triangle-topleft{
+    width:0;
+    height:0;
+    border-top: 80px solid #00ffff;
+    border-right:80px solid transparent;
+}
+&lt;h3&gt;Triangle Top Left&lt;/h3&gt;
+&lt;div id=&quot;triangle-topleft&quot;&gt;
+&lt;/div&gt;
+</code></pre><p>效果：</p>
+<p><img src="/images/triangle-topleft.PNG" alt=""></p>
+<h2 id="Triangle-Top-Right"><a href="#Triangle-Top-Right" class="headerlink" title="Triangle Top Right"></a>Triangle Top Right</h2><p>代码：</p>
+<pre><code>#triangle-topright{
+    width:0;
+    height:0;
+    border-top: 80px solid #00ffff;
+    border-left:80px solid transparent;
+}
+&lt;h3&gt;Triangle Top Right&lt;/h3&gt;
+&lt;div id=&quot;triangle-topright&quot;&gt;
+&lt;/div&gt;
+</code></pre><p>效果：</p>
+<p><img src="/images/triangle-topright.PNG" alt=""></p>
+<h2 id="Triangle-Bottom-Left"><a href="#Triangle-Bottom-Left" class="headerlink" title="Triangle Bottom Left"></a>Triangle Bottom Left</h2><p>代码：</p>
+<pre><code>#triangle-bottomleft{
+    width:0;
+    height:0;
+    border-bottom: 80px solid #00ffff;
+    border-right:80px solid transparent;
+}
+&lt;h3&gt;Triangle Bottom Left&lt;/h3&gt;
+&lt;div id=&quot;triangle-bottomleft&quot;&gt;
+&lt;/div&gt;
+</code></pre><p>效果：</p>
+<p><img src="/images/triangle-bottomleft.PNG" alt=""></p>
+<h2 id="Triangle-Bottom-Right"><a href="#Triangle-Bottom-Right" class="headerlink" title="Triangle Bottom Right"></a>Triangle Bottom Right</h2><p>代码：</p>
+<pre><code>#triangle-bottomright{
+    width:0;
+    height:0;
+    border-bottom: 80px solid #00ffff;
+    border-left:80px solid transparent;
+}
+&lt;h3&gt;Triangle Bottom Right&lt;/h3&gt;
+&lt;div id=&quot;triangle-bottomright&quot;&gt;
+&lt;/div&gt;
+</code></pre><p>效果：</p>
+<p><img src="/images/triangle-bottomright.PNG" alt=""></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -184,17 +279,10 @@ scro">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/12/04/利用Node的子进程调用脚本和系统命令/" title="利用Node的子进程调用脚本和系统命令">
-  <span>
-  利用Node的子进程调用脚本和系统命令</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/11/21/CSS的定位技术/"  title="CSS的定位技术">
- <span>CSS的定位技术
+<a href="/2017/02/21/hexo主题中加入相册功能/"  title="hexo主题中加入相册功能">
+ <span>hexo主题中加入相册功能
 </span>
 </a>
 </div>
@@ -203,7 +291,7 @@ scro">
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/11/22/CSS的overflow属性和white-space属性/" data-title="CSS的overflow属性和white-space属性" data-url="https://fantasticzhang.github.io/2016/11/22/CSS的overflow属性和white-space属性/"></div>
+	<div class="ds-thread" data-thread-key="2017/02/23/纯CSS绘制各种角度的三角形/" data-title="纯CSS绘制各种角度的三角形" data-url="https://fantasticzhang.github.io/2017/02/23/纯CSS绘制各种角度的三角形/"></div>
 </section>
 
 
@@ -213,7 +301,7 @@ scro">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#overflow属性"><span class="toc-number">1.</span> <span class="toc-text">overflow属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#可能的取值"><span class="toc-number">1.1.</span> <span class="toc-text">可能的取值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scroll和auto的区别"><span class="toc-number">1.2.</span> <span class="toc-text">scroll和auto的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#white-space属性"><span class="toc-number">2.</span> <span class="toc-text">white-space属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#可能的取值-1"><span class="toc-number">2.1.</span> <span class="toc-text">可能的取值</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Triangle-Up"><span class="toc-number">1.</span> <span class="toc-text">Triangle Up</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Triangle-Down"><span class="toc-number">2.</span> <span class="toc-text">Triangle Down</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Triangle-Left"><span class="toc-number">3.</span> <span class="toc-text">Triangle Left</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Triangle-Right"><span class="toc-number">4.</span> <span class="toc-text">Triangle Right</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Triangle-Top-Left"><span class="toc-number">5.</span> <span class="toc-text">Triangle Top Left</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Triangle-Top-Right"><span class="toc-number">6.</span> <span class="toc-text">Triangle Top Right</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Triangle-Bottom-Left"><span class="toc-number">7.</span> <span class="toc-text">Triangle Bottom Left</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Triangle-Bottom-Right"><span class="toc-number">8.</span> <span class="toc-text">Triangle Bottom Right</span></a></li></ol>
  
   </div>
 

@@ -4,6 +4,115 @@
   
     
     <entry>
+      <title><![CDATA[纯CSS绘制各种角度的三角形]]></title>
+      <url>https://fantasticzhang.github.io/2017/02/23/%E7%BA%AFCSS%E7%BB%98%E5%88%B6%E5%90%84%E7%A7%8D%E8%A7%92%E5%BA%A6%E7%9A%84%E4%B8%89%E8%A7%92%E5%BD%A2/</url>
+      <content type="html"><![CDATA[<p>以下是纯CSS绘制各种角度的三角形的方法。</p>
+<h2 id="Triangle-Up"><a href="#Triangle-Up" class="headerlink" title="Triangle Up"></a>Triangle Up</h2><p>代码：</p>
+<pre><code>#triangle-up{
+    width:0;
+    height:0;
+    border-bottom: 80px solid #00ffff;
+    border-left:40px solid transparent;
+    border-right:40px solid transparent;
+}
+
+&lt;h3&gt;Triangle Up&lt;/h3&gt;
+&lt;div id=&quot;triangle-up&quot;&gt;
+&lt;/div&gt;
+</code></pre><p>效果：</p>
+<p><img src="/images/triangle-up.PNG" alt=""></p>
+<h2 id="Triangle-Down"><a href="#Triangle-Down" class="headerlink" title="Triangle Down"></a>Triangle Down</h2><p>代码：</p>
+<pre><code>#triangle-bottom{
+    width:0;
+    height:0;
+    border-top: 80px solid #00ffff;
+    border-left:40px solid transparent;
+    border-right:40px solid transparent;
+}
+
+&lt;h3&gt;Triangle Down&lt;/h3&gt;
+&lt;div id=&quot;triangle-bottom&quot;&gt;
+&lt;/div&gt;
+</code></pre><p>效果：</p>
+<p><img src="/images/triangle-bottom.PNG" alt=""></p>
+<h2 id="Triangle-Left"><a href="#Triangle-Left" class="headerlink" title="Triangle Left"></a>Triangle Left</h2><p>代码：</p>
+<pre><code>#triangle-left{
+    width:0;
+    height:0;
+    border-right: 80px solid #00ffff;
+    border-top:40px solid transparent;
+    border-bottom:40px solid transparent;
+}
+&lt;h3&gt;Triangle Left&lt;/h3&gt;
+&lt;div id=&quot;triangle-left&quot;&gt;
+&lt;/div&gt;
+</code></pre><p>效果：</p>
+<p><img src="/images/triangle-left.PNG" alt=""></p>
+<h2 id="Triangle-Right"><a href="#Triangle-Right" class="headerlink" title="Triangle Right"></a>Triangle Right</h2><p>代码：</p>
+<pre><code>#triangle-right{
+    width:0;
+    height:0;
+    border-left: 80px solid #00ffff;
+    border-top:40px solid transparent;
+    border-bottom:40px solid transparent;
+}
+&lt;h3&gt;Triangle Right&lt;/h3&gt;
+&lt;div id=&quot;triangle-right&quot;&gt;
+&lt;/div&gt;
+</code></pre><p>效果：</p>
+<p><img src="/images/triangle-right.PNG" alt=""></p>
+<h2 id="Triangle-Top-Left"><a href="#Triangle-Top-Left" class="headerlink" title="Triangle Top Left"></a>Triangle Top Left</h2><p>代码：</p>
+<pre><code>#triangle-topleft{
+    width:0;
+    height:0;
+    border-top: 80px solid #00ffff;
+    border-right:80px solid transparent;
+}
+&lt;h3&gt;Triangle Top Left&lt;/h3&gt;
+&lt;div id=&quot;triangle-topleft&quot;&gt;
+&lt;/div&gt;
+</code></pre><p>效果：</p>
+<p><img src="/images/triangle-topleft.PNG" alt=""></p>
+<h2 id="Triangle-Top-Right"><a href="#Triangle-Top-Right" class="headerlink" title="Triangle Top Right"></a>Triangle Top Right</h2><p>代码：</p>
+<pre><code>#triangle-topright{
+    width:0;
+    height:0;
+    border-top: 80px solid #00ffff;
+    border-left:80px solid transparent;
+}
+&lt;h3&gt;Triangle Top Right&lt;/h3&gt;
+&lt;div id=&quot;triangle-topright&quot;&gt;
+&lt;/div&gt;
+</code></pre><p>效果：</p>
+<p><img src="/images/triangle-topright.PNG" alt=""></p>
+<h2 id="Triangle-Bottom-Left"><a href="#Triangle-Bottom-Left" class="headerlink" title="Triangle Bottom Left"></a>Triangle Bottom Left</h2><p>代码：</p>
+<pre><code>#triangle-bottomleft{
+    width:0;
+    height:0;
+    border-bottom: 80px solid #00ffff;
+    border-right:80px solid transparent;
+}
+&lt;h3&gt;Triangle Bottom Left&lt;/h3&gt;
+&lt;div id=&quot;triangle-bottomleft&quot;&gt;
+&lt;/div&gt;
+</code></pre><p>效果：</p>
+<p><img src="/images/triangle-bottomleft.PNG" alt=""></p>
+<h2 id="Triangle-Bottom-Right"><a href="#Triangle-Bottom-Right" class="headerlink" title="Triangle Bottom Right"></a>Triangle Bottom Right</h2><p>代码：</p>
+<pre><code>#triangle-bottomright{
+    width:0;
+    height:0;
+    border-bottom: 80px solid #00ffff;
+    border-left:80px solid transparent;
+}
+&lt;h3&gt;Triangle Bottom Right&lt;/h3&gt;
+&lt;div id=&quot;triangle-bottomright&quot;&gt;
+&lt;/div&gt;
+</code></pre><p>效果：</p>
+<p><img src="/images/triangle-bottomright.PNG" alt=""></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[hexo主题中加入相册功能]]></title>
       <url>https://fantasticzhang.github.io/2017/02/21/hexo%E4%B8%BB%E9%A2%98%E4%B8%AD%E5%8A%A0%E5%85%A5%E7%9B%B8%E5%86%8C%E5%8A%9F%E8%83%BD/</url>
       <content type="html"><![CDATA[<p>前段时间一个朋友问我：怎么给自己的博客加入相册功能？我还真被问住了，因为搭建博客的初衷是写一些文字性的东西，并没有考虑过“相册”这回事。但被朋友问到后，仔细想了想，给博客加入相册功能还是挺不错的，可以和大家分享一些自己喜欢的图片。于是参考了网上的相关资料，最终实现了一个简单的相册功能。现把实现过程记录下来，以供大家参考。</p>
@@ -1129,16 +1238,6 @@ child.on(&apos;close&apos;,function(code){
     </entry>
     
     <entry>
-      <title><![CDATA[相册]]></title>
-      <url>https://fantasticzhang.github.io/photos/index.html</url>
-      <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
-<link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet">
-
-<div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
-]]></content>
-    </entry>
-    
-    <entry>
       <title></title>
       <url>https://fantasticzhang.github.io/photos/output.json</url>
       <content type="html"><![CDATA[["IMG_20161005_164625.jpg","IMG_20161005_165430.jpg","IMG_20161005_165817.jpg","IMG_20161005_172129.jpg","IMG_20161006_130939.jpg","IMG_20161006_132426.jpg","IMG_20161006_132836.jpg","IMG_20161116_141430.jpg","IMG_20161116_150715.jpg","IMG_20161116_155406.jpg","IMG_20161118_124950.jpg","mmexport1479264425744.jpg","mmexport1479264435676.jpg"]]]></content>
@@ -1173,6 +1272,16 @@ child.on(&apos;close&apos;,function(code){
             })
         }(0));
     });
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[相册]]></title>
+      <url>https://fantasticzhang.github.io/photos/index.html</url>
+      <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
+<link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet">
+
+<div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
 ]]></content>
     </entry>
     
