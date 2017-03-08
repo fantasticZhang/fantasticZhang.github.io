@@ -4,6 +4,237 @@
   
     
     <entry>
+      <title><![CDATA[Canvas学习（二）]]></title>
+      <url>https://fantasticzhang.github.io/2017/03/08/Canvas%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+      <content type="html"><![CDATA[<h2 id="处理图像"><a href="#处理图像" class="headerlink" title="处理图像"></a>处理图像</h2><h3 id="加载图像"><a href="#加载图像" class="headerlink" title="加载图像"></a>加载图像</h3><p><code>drawImage(image,x,y)</code>。参数<code>image</code>可以是HTML<code>img</code>元素、HTML5<code>canvas</code>元素或HTML5<code>video</code>元素。例：</p>
+<pre><code>var img = new Image();
+img.src = &quot;wen.jpg&quot;;
+img.onload = function(){
+  cxt.drawImage(img,0,0);
+};
+</code></pre><p>在使用以上方法图像到画布时，会将完整尺寸的图像绘制到画布上，但超过画布边界的部分会被裁减掉。</p>
+<h3 id="调整和裁剪图像"><a href="#调整和裁剪图像" class="headerlink" title="调整和裁剪图像"></a>调整和裁剪图像</h3><p><code>drawImage</code>方法还有两种调用方式：第一种调用可以调整图像大小，第二种调用可以同时调整和裁剪图像。<code>drawImage</code>的所有调用方式的唯一区别是所使用参数的个数和类型不同。</p>
+<h4 id="调整图像"><a href="#调整图像" class="headerlink" title="调整图像"></a>调整图像</h4><p><code>drawImage(image,x,y,width,height)</code>,其中<code>width</code>和<code>height</code>表示希望绘制的图像宽度和高度。我们可以根据画布的宽高来等比例计算图像的宽高。</p>
+<h4 id="裁剪图像"><a href="#裁剪图像" class="headerlink" title="裁剪图像"></a>裁剪图像</h4><p><code>drawImage(image,sx,sy,sw,sh,dx,dy,dw,dh)</code>，共9个参数：源图像、源图像的裁剪区原点坐标<code>(x,y)</code>、源图像的裁剪区宽和高、在画布上绘制图像的原点坐标<code>(x,y)</code>、在画布上绘制图像的宽和高。示意图如下：</p>
+<p><img src="/images/2017-03-08/裁剪图像.PNG" alt=""></p>
+<h3 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h3><p>代码：</p>
+<pre><code>cxt.shadowBlur = 30;
+cxt.shadowColor = &quot;rgb(0,0,0)&quot;;
+var img = new Image();
+img.src = &quot;wen.jpg&quot;;
+img.onload = function(){
+     cxt.drawImage(img,100,100,375,500);
+};
+</code></pre><p>效果：</p>
+<p><img src="/images/2017-03-08/图像阴影.PNG" alt=""></p>
+<h3 id="图像变形"><a href="#图像变形" class="headerlink" title="图像变形"></a>图像变形</h3><p>在画布中绘制图像后，就可以对它执行所有的2D渲染上下文方法。因此可以使用<code>translate</code>、<code>rotate</code>、<code>scale</code>等方法对图像进行旋转、平移、缩放与翻转等。注，如果<code>scale</code>方法使用负数缩放因子，就会使图像反转。</p>
+<p>实例：</p>
+<pre><code>cxt.shadowBlur = 30;
+cxt.shadowColor = &quot;rgb(0,0,0)&quot;;
+cxt.rotate(Math.PI/4);
+var img = new Image();
+img.src = &quot;wen.jpg&quot;;
+img.onload = function(){
+    cxt.drawImage(img,100,100,375,500);
+};
+</code></pre><p>效果：</p>
+<p><img src="/images/2017-03-08/img-rotate.PNG" alt=""></p>
+<h3 id="访问像素值"><a href="#访问像素值" class="headerlink" title="访问像素值"></a>访问像素值</h3><p><code>getImageData(x,y,width,height)</code>方法，该方法有4个参数：要访问的像素区域原点坐标<code>(x,y)</code>、像素区域的宽度和高度。调用该方法会返回一个2D渲染上下文<code>ImageData</code>对象，该对象包含3个属性：<code>width</code>表示所访问像素区域的宽度、<code>height</code>表示像素区域的高度、<code>data</code>是一个包含所访问区域中全部像素信息的<code>CanvasPixelArray</code>。</p>
+<p><code>data</code>属性存储的是一个<code>CanvasPixelArray</code>，它是一个JavaScript一维数组。每一个像素用4个整数值表示，范围从0至255，分别表示红(r)、绿(g)、蓝(b)和阿尔法值(a)。因此，，数组的前4项（0~3）是第一个像素的颜色值，接下来4项(4~7)是第二个像素的颜色值，以此类推。因此，该数组的长度是所访问区域的像素个数乘以4。<code>CanvasPixelArray</code>中的像素排列顺序：左上角像素位于数组开头，右下角像素位于数组末尾。即在所访问的区域中，每一行像素时从左到右访问的，直至行尾，然后再同样从左到右访问下一行。</p>
+<p>访问<code>(x,y)</code>坐标位置为<code>(2,2)</code>的中心像素：</p>
+<pre><code>var imgData = cxt.getImageData(0, 0, 3, 3); // 3x3 grid
+var width = imgData.width;
+var pixelRed = (y-1)*(width*4)+((x-1)*4);
+var pixelGreen = pixelRed+1;
+var pixelBlue = pixelRed+2;
+var pixelAlpha= pixelRed+3;
+</code></pre><p>使用如上公式可准确地计算出你需要从<code>CanvasPixelArray</code>中访问的像素。</p>
+<h3 id="绘制图像"><a href="#绘制图像" class="headerlink" title="绘制图像"></a>绘制图像</h3><p>代码：</p>
+<pre><code>var imageData = cxt.createImageData(width,height)(创建一个200,200);
+var pixels = imageData.data;
+var numPixels = imageData.width * imageData.height;
+for(var i = 0; i&lt; numPixels; i++){
+    pixels[i*4] = 0;   //红
+    pixels[i*4+1] = 0; //绿
+    pixels[i*4+2] = 255; //蓝
+    pixels[i*4+3] = 255;//透明度
+}
+cxt.putImageData(imageData,0,0);
+</code></pre><p>效果：</p>
+<p><img src="/images/2017-03-08/创建和绘制像素.PNG" alt=""></p>
+<p>其中，<code>createImageData(width,height)</code>方法返回一个包含所有常规属性的<code>ImageData</code>对象；<code>putImageData</code>方法可将<code>ImageData</code>对象画到画布上，该方法可接受3个或7个参数：<code>ImageData</code>对象、绘制像素数据的原点坐标<code>(x,y)</code>、脏矩阵的原点坐标<code>(x,y)</code>、脏矩阵的宽和高。</p>
+<h4 id="随机绘制像素"><a href="#随机绘制像素" class="headerlink" title="随机绘制像素"></a>随机绘制像素</h4><p>代码片段：</p>
+<pre><code>pixels[i*4] = Math.floor(Math.random()*255);   //红
+pixels[i*4+1] = Math.floor(Math.random()*255); ; //绿
+pixels[i*4+2] = Math.floor(Math.random()*255); ; //蓝
+pixels[i*4+3] = 255;//透明度
+</code></pre><p>效果：</p>
+<p><img src="/images/2017-03-08/随机像素.PNG" alt=""></p>
+<h4 id="创建马赛克效果"><a href="#创建马赛克效果" class="headerlink" title="创建马赛克效果"></a>创建马赛克效果</h4><p>原理：将像素区域分割到一个栅格中，并为栅格中的每个块儿（马赛克块）随机设置一种颜色。</p>
+<p>代码：</p>
+<pre><code>//马赛克
+var imageData = cxt.createImageData(canvas.width(),canvas.height());
+var pixels = imageData.data;
+//马赛克块的个数
+var numTileRows = 20;
+var numTileCols = 20;
+//每个块的尺寸
+var tileWidth = imageData.width/numTileCols;
+var tileHeight = imageData.height/numTileRows;
+for(var r = 0; r&lt; numTileRows; r++){
+    for(var c = 0;c&lt;numTileCols;c++){
+        var red = Math.floor(Math.random()*255);   //红
+        var green = Math.floor(Math.random()*255); //绿
+        var blue = Math.floor(Math.random()*255);  //蓝
+        for(var tr = 0;tr&lt;tileWidth;tr++){
+            for(var tc = 0;tc&lt;tileHeight;tc++){
+                var trueX = (c*tileWidth)+tc;
+                var trueY = (r*tileHeight)+tr;
+                var pos = (trueY*(imageData.width*4))+(trueX*4);
+                pixels[pos] = red; //绿
+                pixels[pos+1] = green; //绿
+                pixels[pos+2] = blue; //蓝
+                pixels[pos+3] = 255;//透明度
+            }
+        }
+   }
+}
+</code></pre><p>效果：</p>
+<p><img src="/images/2017-03-08/马赛克.PNG" alt=""></p>
+<h3 id="基本图像效果"><a href="#基本图像效果" class="headerlink" title="基本图像效果"></a>基本图像效果</h3><h4 id="反转图像"><a href="#反转图像" class="headerlink" title="反转图像"></a>反转图像</h4><p>即用255减去像素现在的颜色值。</p>
+<p>代码：</p>
+<pre><code>//反转颜色
+var img = new Image();
+img.src = &quot;wen.jpg&quot;;
+img.onload = function(){
+   cxt.drawImage(img,0,0,1080,1440,0,0,canvas.width(),canvas.height());
+   var imgData = cxt.getImageData(0,0,canvas.width(),canvas.height());
+   var pixels = imgData.data;
+   var numPixels = imgData.width * imgData.height;
+   cxt.clearRect(0,0,canvas.width(),canvas.height());
+   for(var i = 0; i&lt; numPixels; i++){
+       pixels[i*4] = 255 - pixels[i*4];   //红
+       pixels[i*4+1] = 255 - pixels[i*4+1]; //绿
+       pixels[i*4+2] = 255 - pixels[i*4+2]; //蓝
+   }
+   cxt.putImageData(imgData,0,0);
+};
+</code></pre><p>效果：</p>
+<p><img src="/images/2017-03-08/反转颜色.PNG" alt=""></p>
+<h4 id="灰度"><a href="#灰度" class="headerlink" title="灰度"></a>灰度</h4><p>方法：计算每个像素现有颜色值的平均值，并将该平均颜色作为相应像素三种颜色（红、绿和蓝）的值。</p>
+<p>代码：</p>
+<pre><code>for(var i = 0; i&lt; numPixels; i++){
+    var avg = (pixels[i*4]+pixels[i*4+1]+pixels[i*4+2])/3;
+    pixels[i*4] = avg;   //红
+    pixels[i*4+1] = avg; //绿
+    pixels[i*4+2] = avg; //蓝
+}
+</code></pre><p>效果：</p>
+<p><img src="/images/2017-03-08/灰度.PNG" alt=""></p>
+<h4 id="像素化"><a href="#像素化" class="headerlink" title="像素化"></a>像素化</h4><p>和上面马赛克的励志类似，就是将图像按栅格分割，或者对每块儿的颜色取平均值，或者选取每块儿的颜色。</p>
+<p>例：</p>
+<pre><code>//像素
+var img = new Image();
+img.src = &quot;wen.jpg&quot;;
+img.onload = function(){
+    cxt.drawImage(img,0,0,1080,1440,0,0,500,500);
+    var imgData = cxt.getImageData(0,0,canvas.width(),canvas.height());
+    var pixels = imgData.data;
+    cxt.clearRect(0,0,canvas.width(),canvas.height());
+    //马赛克块数
+    var numTileRows = 50;
+    var numTileCols = 50;
+    //每个块的尺寸
+    var tileWidth = imgData.width/numTileCols;
+    var tileHeight = imgData.height/numTileRows;
+    for(var r = 0; r&lt; numTileRows; r++){
+        for(var c = 0;c&lt;numTileCols;c++){
+            //每块中心点
+            var x = (c*tileWidth)+(tileWidth/2);
+            var y = (r*tileHeight)+(tileHeight/2);
+            var pos = (Math.floor(y)*(imgData.width*4))+(Math.floor(x)*4);
+            var red = pixels[pos];   //红
+            var green = pixels[pos+1]; //绿
+            var blue = pixels[pos+2];  //蓝
+            cxt.fillStyle = &quot;rgb(&quot;+red+&quot;, &quot;+green+&quot;, &quot;+blue+&quot;)&quot;;
+            cxt.fillRect(x-(tileWidth/2),y-(tileHeight/2),tileWidth,tileHeight);
+        }
+
+    }
+    };
+</code></pre><p>效果：</p>
+<p><img src="/images/2017-03-08/像素化.PNG" alt=""></p>
+<p>圆形马赛克：</p>
+<pre><code>cxt.beginPath();
+cxt.arc(x,y,tileWidth/2,0,Math.PI*2,false);
+cxt.closePath();
+cxt.fill();
+</code></pre><p>效果：</p>
+<p><img src="/images/2017-03-08/像素化2.PNG" alt=""></p>
+<h2 id="视频处理"><a href="#视频处理" class="headerlink" title="视频处理"></a>视频处理</h2><p><code>drawImage</code>方法可以接受一个HTML5<code>video</code>元素作为输入，在画布中的视频处理与图像处理几乎完全一样。</p>
+<p>实例：</p>
+<pre><code>//html代码
+&lt;canvas id=&quot;myCanvas&quot; width=&quot;500&quot; height=&quot;281&quot;&gt;
+    &lt;video id=&quot;myVideo&quot; src=&quot;Crooked.mp4&quot; controls  width=&quot;500&quot; height=&quot;281&quot;&gt;&lt;/video&gt;
+&lt;/canvas&gt;
+&lt;div&gt;
+    &lt;button id=&quot;play&quot;&gt;Play&lt;/button&gt;
+    &lt;button id=&quot;stop&quot;&gt;Stop&lt;/button&gt;
+&lt;/div&gt;
+
+//js代码：
+var canvas = $(&quot;#myCanvas&quot;);
+var cxt = canvas.get(0).getContext(&quot;2d&quot;);
+var video = $(&quot;#myVideo&quot;);
+// Trigger for video play button
+$(&quot;#play&quot;).click(function() {
+ video.get(0).play();
+});
+
+// Trigger for video stop button
+$(&quot;#stop&quot;).click(function() {
+ video.get(0).pause();
+});
+
+video.bind(&apos;play&apos;, function () {
+ dravCanvas();
+});
+
+function  dravCanvas(){
+  if(video.get(0).paused || video.get(0).ended) return;
+  cxt.drawImage(video.get(0),0,0,500,281);
+  var imgData = cxt.getImageData(0,0,canvas.width(),canvas.height());
+    var pixels = imgData.data;
+    cxt.clearRect(0,0,canvas.width(),canvas.height());
+    //马赛克块数
+    var numTileRows = 36;
+    var numTileCols = 64;
+    //每个块的尺寸
+    var tileWidth = imgData.width/numTileCols;
+    var tileHeight = imgData.height/numTileRows;
+    for(var r = 0; r&lt; numTileRows; r++){
+        for(var c = 0;c&lt;numTileCols;c++){
+            //每块中心点
+            var x = (c*tileWidth)+(tileWidth/2);
+            var y = (r*tileHeight)+(tileHeight/2);
+            var pos = (Math.floor(y)*(imgData.width*4))+(Math.floor(x)*4);
+            var red = pixels[pos];   //红
+            var green = pixels[pos+1]; //绿
+            var blue = pixels[pos+2];  //蓝
+            cxt.fillStyle = &quot;rgb(&quot;+red+&quot;, &quot;+green+&quot;, &quot;+blue+&quot;)&quot;;
+            cxt.fillRect(x-(tileWidth/2),y-(tileHeight/2),tileWidth,tileHeight);
+        }
+    }
+ setTimeout(dravCanvas,30);
+}
+</code></pre><p>效果截图：</p>
+<p><img src="/images/2017-03-08/像素化video.PNG" alt=""></p>
+<p>其中，<code>play</code>和<code>pause</code>方法都属于<code>video</code>DOM对象，用于开始和停止视频。</p>
+<p>我们通过<code>bind</code>方法创建了一个回调函数，通过监听<code>play</code>事件实现在视频开始播放时运行回调函数，回调函数将调用自定义函数<code>dravCanvas</code>，该函数包含所有创建像素化效果和绘制画布内容的功能。通过在<code>dravCanvas</code>函数末尾添加一个<code>setTimeout</code>调用，与视频的帧播放速度同步重复调用这个方法。</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Canvas学习（一）]]></title>
       <url>https://fantasticzhang.github.io/2017/03/08/Canvas%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
       <content type="html"><![CDATA[<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><p>HTML5 <code>&lt;canvas&gt;</code>元素用于图形的绘制，通过脚本 (通常是JavaScript)来完成。<code>&lt;canvas&gt;</code>标签只是图形容器，必须使用脚本来绘制图形。</p>
