@@ -4,6 +4,229 @@
   
     
     <entry>
+      <title><![CDATA[Canvas学习（一）]]></title>
+      <url>https://fantasticzhang.github.io/2017/03/08/Canvas%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+      <content type="html"><![CDATA[<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><p>HTML5 <code>&lt;canvas&gt;</code>元素用于图形的绘制，通过脚本 (通常是JavaScript)来完成。<code>&lt;canvas&gt;</code>标签只是图形容器，必须使用脚本来绘制图形。</p>
+<h3 id="创建一个画布（canvas）"><a href="#创建一个画布（canvas）" class="headerlink" title="创建一个画布（canvas）"></a>创建一个画布（canvas）</h3><p>一个画布在网页中是一个矩形框，通过 <code>&lt;canvas&gt;</code> 元素来绘制。</p>
+<pre><code>&lt;canvas id=&quot;myCanvas&quot; width=&quot;500&quot; height=&quot;500&quot;
+style=&quot;border:1px solid #000000;&quot;&gt;
+&lt;/canvas&gt;
+</code></pre><p>  如果不设置canvas元素的尺寸，那么2D渲染上下文会被设置为使用默认宽度和高度，分别是300和150像素。</p>
+<h3 id="使用JavaScript来绘制图像"><a href="#使用JavaScript来绘制图像" class="headerlink" title="使用JavaScript来绘制图像"></a>使用JavaScript来绘制图像</h3><p>canvas 元素本身是没有绘图能力的。所有的绘制工作必须在 JavaScript 内部完成：</p>
+<pre><code>&lt;script&gt;
+    var canvas = document.getElementById(&apos;myCanvas&apos;);
+    if(canvas &amp;&amp; canvas.getContext){
+        var cxt = canvas.getContext(&apos;2d&apos;);
+      //线性渐变
+        var grd = cxt.createLinearGradient(0,0,200,0);
+        grd.addColorStop(0,&quot;blue&quot;);
+        grd.addColorStop(1,&quot;pink&quot;);
+        //矩形
+         cxt.fillStyle = grd;
+        cxt.fillRect(0,0,150,75);
+
+    }
+&lt;/script&gt;
+</code></pre><p><code>getContext(&quot;2d&quot;)</code>返回的对象是浏览器内建的<code>CanvasRenderingContext2D</code>对象，拥有多种绘制路径、矩形、圆形、字符以及添加图像的方法。绘图功能是通过该对象实现的。</p>
+<p>因此，canvas元素并非Canvas中最强大的部分，真正的关键部分是2D渲染上下文，这是我们真正绘制图形的地方。canvas元素的用途只是作为2D渲染上下文的包装器，它包含绘图和图形操作所需要的全部方法和丰富功能。坐标系统的1个单位通常相当于屏幕的1个像素。</p>
+<h3 id="Canvas坐标"><a href="#Canvas坐标" class="headerlink" title="Canvas坐标"></a>Canvas坐标</h3><p>canvas元素是一张画布，这张画布的原点在元素的左上角，水平的是x轴，竖直的是y轴。沿原点向右、向下是正值，向左、向上是负值。</p>
+<h3 id="绘制基本图形和线条"><a href="#绘制基本图形和线条" class="headerlink" title="绘制基本图形和线条"></a>绘制基本图形和线条</h3><h4 id="线条"><a href="#线条" class="headerlink" title="线条"></a>线条</h4><pre><code>var canvas = document.getElementById(&apos;myCanvas&apos;);
+var cxt = canvas.getContext(&apos;2d&apos;);
+cxt.beginPath(); //开始路径
+cxt.moveTo(40.40); //设置路径原点
+cxt.lineTo(340,40); //设置路径终点
+cxt.closePath(); //结束路径
+cxt.stroke(); //绘出路径轮廓
+</code></pre><h4 id="矩形"><a href="#矩形" class="headerlink" title="矩形"></a>矩形</h4><pre><code>//fillRect(x, y, width, height)
+cxt.fillStyle = &quot;#FF0000&quot;; //设置颜色
+cxt.fillRect(40, 40, 100, 100); // 绘制一个矩形并给它填充颜色
+cxt.strokeRect(200, 300, 200, 100); // 绘制一个矩形并给它绘制边框
+</code></pre><p><code>fillRect(x, y, width, height)</code>中，<code>x</code>、<code>y</code>用来指定矩形左上角顶点的坐标；<code>width</code>指定矩形的宽；<code>height</code>指定矩形的高。</p>
+<h4 id="圆形"><a href="#圆形" class="headerlink" title="圆形"></a>圆形</h4><pre><code>context.beginPath(); // 开始路径
+context.arc(230, 90, 50, 0, Math.PI*2, false); // 绘制一个圆形
+context.closePath(); // 结束路径
+context.fill(); // 填充路径
+</code></pre><p><code>arc(x, y, r, startAngle, endAngle, anticlockwise)</code>中，<code>x</code>、<code>y</code>指定圆点坐标；<code>r</code>指定半径；<code>startAngle</code>、 <code>endAngle</code>指定开始角度和结束角度；<code>anticlockwise</code>指定弧线的绘制方向，该参数可选，但是如果不传入这个参数Firefox会抛出一个错误，因此最好保留这个参数。</p>
+<p>在Canvas中，一条弧线是由一条曲线定义的，它从与原点<code>(x,y)</code>距离为一个半径且角度为开始角度的位置开始，这条路径最后停在离原点<code>(x,y)</code>一个半径且角度为结束角度的位置上。此外，Canvas中的角度是以弧度而不是角度为单位的。简单地说，360度（一个完整的圆）是2π（<code>PI</code>的2倍）弧度。</p>
+<p><img src="/images/2017-03-08/绘制圆弧.PNG" alt=""></p>
+<h3 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h3><pre><code>cxt.fillStyle = &quot;#FF0000&quot;; //指定填充颜色
+cxt.strokeStyle = &quot;rgb(255, 0, 0)&quot;; //指定描边颜色
+cxt.lineWidth = 5; // 指定线宽
+</code></pre><h3 id="文字"><a href="#文字" class="headerlink" title="文字"></a>文字</h3><pre><code>var text = &quot;Hello, World!&quot;; // 要绘制的文字
+cxt.font = &quot;italic 30px serif&quot;;// 修改字号和字体 并设置为斜体
+cxt.fillText(text, 40, 40); // 绘制文字
+cxt.strokeText(text, 80, 80); // 绘制描边文字
+</code></pre><p><code>strokeText(text, x, y)</code>中，<code>text</code>是准备绘制的文字，<code>(x,y)</code>是文本原点（左下角）的坐标值。</p>
+<p>由于Canvas中的文本是以图形形式绘制的，因此它无法像HTML文档中的普通文字那样用鼠标指针选取——它实际上不是文本，只是像文本而已。</p>
+<h3 id="擦除Canvas"><a href="#擦除Canvas" class="headerlink" title="擦除Canvas"></a>擦除Canvas</h3><h4 id="clearReact方法"><a href="#clearReact方法" class="headerlink" title="clearReact方法"></a>clearReact方法</h4><p><code>clearReact(x,y,width,height)</code>中<code>x</code>、<code>y</code>用来指定矩形左上角顶点的坐标；<code>width</code>指定矩形的宽；<code>height</code>指定矩形的高。该矩形区域就是要擦除的区域。使用该方法只会清除指定区域，并不会完全重置Canvas上的所有内容（例如：样式、颜色等会保留）。</p>
+<h4 id="宽度-高度技巧"><a href="#宽度-高度技巧" class="headerlink" title="宽度/高度技巧"></a>宽度/高度技巧</h4><p>每当重新设置一个canvas元素的width和height属性时，Canvas都会自动清除内容并返回其原始状态。</p>
+<pre><code>var canvas = $(&quot;#myCanvas&quot;);
+var context = canvas.get(0).getContext(&quot;2d&quot;);
+context.fillStyle = &quot;rgb(255, 0, 0)&quot;;
+context.fillRect(40, 40, 100, 100);
+
+context.beginPath();
+context.arc(230, 90, 50, 0, Math.PI*2, false);
+context.closePath();
+context.fill();
+
+canvas.attr(&quot;width&quot;, canvas.width());
+canvas.attr(&quot;height&quot;, canvas.height());
+
+context.fillRect(40, 40, 100, 100);
+</code></pre><p>该技巧的缺点是，它会完全重置Canvas上的所有内容，包括样式和颜色。所以，只有准备完全重置Canvas时才能使用该方法。</p>
+<h3 id="使Canvas填满浏览器窗口"><a href="#使Canvas填满浏览器窗口" class="headerlink" title="使Canvas填满浏览器窗口"></a>使Canvas填满浏览器窗口</h3><p>代码如下：</p>
+<pre><code>//HTML
+&lt;canvas id=&quot;myCanvas&quot; width=&quot;500&quot; height=&quot;500&quot;&gt;
+    &lt;!-- Insert fallback content here --&gt;
+&lt;/canvas&gt;
+
+//js
+$(document).ready(function() {
+    var canvas = $(&quot;#myCanvas&quot;);
+    var context = canvas.get(0).getContext(&quot;2d&quot;);
+
+    $(window).resize(resizeCanvas);
+
+    function resizeCanvas() {
+        canvas.attr(&quot;width&quot;, $(window).get(0).innerWidth);
+        canvas.attr(&quot;height&quot;, $(window).get(0).innerHeight);
+        context.fillRect(0, 0, canvas.width(), canvas.height());
+    };
+
+    resizeCanvas();
+});
+
+//css
+* { margin: 0; padding: 0; }
+html, body { height: 100%; width: 100%; }
+canvas { display: block; }
+</code></pre><h2 id="Canvas高级功能"><a href="#Canvas高级功能" class="headerlink" title="Canvas高级功能"></a>Canvas高级功能</h2><h3 id="保存和恢复画布状态"><a href="#保存和恢复画布状态" class="headerlink" title="保存和恢复画布状态"></a>保存和恢复画布状态</h3><p>在画布中，绘图状态指的是描述某一时刻2D渲染上下文外观的整套属性。用于描述画布绘图状态的全部属性为：变换矩阵、裁剪区域（cliping region）、globalAlpha、globalCompositeOperation、strokeStyle、fillStyle、lineWidth、lineCap、lineJoin、miterLimit、shadowOffsetX、shadowOffsetY、shadowBlur、shadowColor、font、textAlign、textBaseline。</p>
+<p>注：画布上的当前路径和当前位图（正在显示的内容）并不属于状态。</p>
+<p>保存绘图状态：<code>save</code>方法。</p>
+<pre><code>var cxt = canvas.getContext(&apos;2d&apos;);
+cxt.fillRect(0,0,150,150);
+cxt.save();
+</code></pre><p>恢复绘图状态：<code>restore</code>方法。</p>
+<pre><code>var cxt = canvas.getContext(&apos;2d&apos;);
+cxt.fillRect(0,0,150,150);
+cxt.save();
+cxt.fillStyle=&quot;blue&quot;;
+cxt.fillRect(100,100,100,100);
+cxt.restore();
+cxt.fillRect(150,150,150,150);
+</code></pre><p>2D渲染上下文会保存一个绘图状态栈，默认栈是空的。每调用一次<code>save</code>方法，就会有一个新状态添加到这个栈；每调用一次<code>restore</code>方法，就会取出最后添加到栈中的绘图状态，并将它应用于2D渲染上下文，用所保存的状态覆盖全部现有的样式。</p>
+<h3 id="变形"><a href="#变形" class="headerlink" title="变形"></a>变形</h3><h4 id="平移"><a href="#平移" class="headerlink" title="平移"></a>平移</h4><p>即将2D渲染上下文的原点从一个位置移动到另一个位置。使用<code>translate</code>方法。<code>(x,y)</code>参数是移动后2D渲染上下文的坐标原点。</p>
+<pre><code>cxt.translate(150.150);
+</code></pre><p>注：该方法实际移动的是2D渲染上下文的坐标原点，而不是所绘制的对象，也不是<code>canvas</code>元素。移动后，再绘制新的对象时都会相对于新的2D渲染上下文的坐标原点，但移动之前所绘制的对象保持不变。</p>
+<h4 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h4><p>即调整2D渲染上下文的尺寸，使用<code>scale</code>方法。<code>(x,y)</code>参数是缩放倍数。</p>
+<pre><code>cxt.scale(2,2);
+</code></pre><h4 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h4><p>使用<code>rotate</code>方法，参数为以弧度为单位的2D渲染上下文旋转角度值。</p>
+<p>cxt.rotate(Math.PI/4); // 旋转45度</p>
+<p><code>rotate</code>方法是把2D渲染上下文绕其原点进行旋转的。</p>
+<h4 id="变换矩阵"><a href="#变换矩阵" class="headerlink" title="变换矩阵"></a>变换矩阵</h4><p>变换矩阵是一组数字。它们各自描述一个特定变形类型。矩阵分成多个列和行，在画布中使用的是一个3*3矩阵，如下图所示。</p>
+<p><img src="/images/2017-03-08/2D渲染上下文的变化矩阵.PNG" alt=""></p>
+<p>重要的是前两行，其中包含的数字值对应画布中使用的<code>a</code>至<code>f</code>。一个新的2D渲染上下文将包含一个全新的变换矩阵，即单位矩阵：</p>
+<p><img src="/images/2017-03-08/单位矩阵.PNG" alt=""></p>
+<p>操作变换矩阵的方法是<code>transform</code>和<code>setTransform</code>。<code>transform</code>方法有6个参数，分别对应变换矩阵中的每一个值，第一个表示<code>a</code>,最后一个表示<code>f</code>；<code>setTransform</code>方法的作用是将矩阵重置为单位矩阵。</p>
+<pre><code>cxt.setTransform(1, 0, 0, 1, 0, 0); // Identity matrix
+var xScale = Math.cos(0.7854);
+var ySkew = -Math.sin(0.7854);
+var xSkew = Math.sin(0.7854);
+var yScale = Math.cos(0.7854);
+var xTrans = 200;
+var yTrans = 200;
+cxt.transform(xScale, ySkew, xSkew, yScale, xTrans, yTrans);
+cxt.fillRect(-50, -50, 100, 100);
+</code></pre><h3 id="合成"><a href="#合成" class="headerlink" title="合成"></a>合成</h3><p>在画布上绘制的所有东西是已经合成的，这意味着绘制的所有内容都会与已经绘制的现有元素合并在一起。这实际上都是基本合成，只是将一些内容叠加到另一些内容之上。下面是两个全局合成属性，因为是全局的，所以在修改这两个属性会影响到修改之后所绘制的全部内容。</p>
+<h4 id="globalAlpha"><a href="#globalAlpha" class="headerlink" title="globalAlpha"></a>globalAlpha</h4><p>该属性的取值在<code>0.0</code>(全透明)与<code>1.0</code>(不透明)之间，默认值是1.0。即<code>globalAlpha</code>属性会影响到将要绘制的对象的透明度。</p>
+<pre><code>cxt.fillStyle = &quot;rgb(63, 169, 245)&quot;;
+cxt.fillRect(50, 50, 100, 100);
+cxt.globalAlpha = 0.5;
+cxt.fillStyle = &quot;rgb(255, 123, 172)&quot;;
+cxt.fillRect(100, 100, 100, 100);
+</code></pre><h4 id="globalCompositeOperation"><a href="#globalCompositeOperation" class="headerlink" title="globalCompositeOperation"></a>globalCompositeOperation</h4><p>该属性定义了对2D渲染上下文上所有绘制图形执行的合成类型，所谓合成，即一个图形叠加到另一个图形之上。<code>globalCompositeOperation</code>的默认值是<code>source-over</code>(源覆盖于目标之上)，源是绘制的新图形，而目标则是可能已经绘制了图形的2D渲染上下文。</p>
+<p><code>globalCompositeOperation</code>支持11种选择：</p>
+<ul>
+<li><code>source-over</code>：源覆盖于目标之上</li>
+<li><code>destination-over</code>：目标覆盖于源之上</li>
+<li><code>source-atop</code>：源覆盖于目标之上，重叠区域二者都不透明，重叠区域之外的目标不透明，源透明</li>
+<li><code>destination-atop</code>：目标覆盖于源之上，重叠区域二者都不透明，重叠区域之外的源不透明，目标透明</li>
+<li><code>source-in</code>：在源与目标重叠的区域只绘制源，而不重叠的部分都变成透明的</li>
+<li><code>destination-in</code>：在源与目标重叠的区域只绘制目标，而不重叠的部分都变成透明的</li>
+<li><code>source-out</code>：在源与目标不重叠的区域只绘制源，其他部分都变成透明的</li>
+<li><code>destination-out</code>：在源与目标不重叠的区域只绘制目标，其他部分都变成透明的</li>
+<li><code>lighter</code>：源与目标的重叠区域两者的颜色值相加</li>
+<li><code>copy</code>：只绘制源，覆盖掉目标</li>
+<li><p><code>xor</code>：只绘制不重叠的源与目标区域，重叠的部分变成透明</p>
+<p>  cxt.fillStyle = “rgb(63,169,245)”;<br>  cxt.fillRect(50,50,100,100);<br>  cxt.globalCompositeOperation = “xor”;<br>  cxt.fillStyle = “rgb(255,123,172)”;<br>  cxt.fillRect(100,100,100,100);</p>
+</li>
+</ul>
+<h3 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h3><p>通过4个全局属性进行控制：<code>shadowBlur</code>、<code>shadowColor</code>、<code>shadowOffsetX</code>、<code>shadowOffsetY</code></p>
+<pre><code>cxt.shadowBlur = 0;
+cxt.shadowOffsetX = 10;
+cxt.shadowOffsetY = 10;
+cxt.shadowColor = &quot;rgba(100,100,100,0.5)&quot;;
+cxt.fillRect(50,50,100,100);
+</code></pre><h3 id="渐变"><a href="#渐变" class="headerlink" title="渐变"></a>渐变</h3><p><code>fillStyle</code>和<code>strokeStyle</code>都可以接受以<code>CanvasGradient</code>对象表示的渐变颜色的值。画布支持两种类型的渐变：线性渐变(<code>createLinearGradient</code>)和放射渐变（<code>createRadialGradient</code>）。这两种方法都返回一个<code>CanvasGradient</code>对象，可以使用该对象本身的<code>addColorStop</code>方法对它进行进一步处理。</p>
+<p>线性渐变：</p>
+<pre><code>var gradient = cxt.createLinearGradient(0, 0, 0, canvas.height);
+gradient.addColorStop(0, &quot;rgb(0, 0, 0)&quot;);
+gradient.addColorStop(1, &quot;rgb(255, 255, 255)&quot;);
+cxt.fillStyle = gradient;
+cxt.fillRect(0, 0, canvas.width, canvas.height);
+</code></pre><p><code>createRadialGradient</code>方法有4个参数：渐变起点的<code>(x,y)</code>坐标和渐变终点的<code>(x,y)</code>坐标。</p>
+<p>放射渐变：</p>
+<pre><code>var gradient = cxt.createRadialGradient(300,300,10,100,100,50);
+gradient.addColorStop(0,&quot;rgb(0,0,0)&quot;);
+gradient.addColorStop(1,&quot;rgb(150,150,150&quot;);
+cxt.fillStyle = gradient;
+cxt.fillRect(0,0,canvas.width,canvas.height);
+</code></pre><p><code>createRadialGradient</code>方法有6个参数：前3个参数描述一个圆（开始圆），后3个参数描述另一个圆（结束圆）。这两个圆本身不仅描述了方向及渐变的起止位置，而且还描述了渐变的形状。实际的渐变效果是连接两个圆的椎体，其中开始圆之前的椎体部分显示偏移值为0的颜色，而结束圆之后的椎体部分则显示偏移值为1的颜色，如下图所示：</p>
+<p><img src="/images/2017-03-08/放射渐变工作原理.PNG" alt=""></p>
+<p>因此，如果将开始圆和结束圆放置在同一个位置，就可以得到我们想要的放射渐变效果。</p>
+<h3 id="复杂路径"><a href="#复杂路径" class="headerlink" title="复杂路径"></a>复杂路径</h3><pre><code>cxt.beginPath();
+cxt.moveTo(100, 50);
+cxt.lineTo(150, 150);
+cxt.lineTo(50, 150);
+cxt.closePath();
+cxt.stroke();
+cxt.fill();
+</code></pre><p>以上代码可以绘制一个三角形，效果如下：</p>
+<p><img src="/images/2017-03-08/绘制三角形.PNG" alt=""></p>
+<p>其中，<code>moveTo</code>方法会创建一条全新的子路径；<code>lineTo</code>方法只是沿着一条已有的子路径继续画线,每次调用都是从子路径的最后一个坐标开始画线；<code>closePath</code>方法会画一条线连接子路径的最后一个点和第一个点——封闭路径。</p>
+<h4 id="贝塞尔曲线"><a href="#贝塞尔曲线" class="headerlink" title="贝塞尔曲线"></a>贝塞尔曲线</h4><p>两个方法：<code>quadraticCurveTo(cpx,cpy,x,y)</code>(二次贝塞尔曲线)和<code>bezierCurveTo(cpx1,cpy1,cpx2,cpy2,x,y)</code>(三次贝塞尔曲线)，构造如下：</p>
+<p><img src="/images/2017-03-08/贝塞尔曲线.PNG" alt=""></p>
+<p>实例1：</p>
+<pre><code>cxt.lineWidth = 5;
+cxt.beginPath();
+cxt.moveTo(50,250);
+cxt.quadraticCurveTo(250,100,450,250);
+cxt.stroke();
+</code></pre><p>效果：</p>
+<p><img src="/images/2017-03-08/quadraticCurveTo.PNG" alt=""></p>
+<p>实例2：</p>
+<pre><code>cxt.lineWidth = 5;
+cxt.beginPath();
+cxt.moveTo(50,250);
+cxt.bezierCurveTo(150,50,350,450,450,250);
+cxt.stroke();
+cxt.bezierCurveTo(150,50,350,450,450,250);
+</code></pre><p>效果：</p>
+<p><img src="/images/2017-03-08/bezierCurveTo.PNG" alt=""></p>
+<h3 id="将画布导出为图像"><a href="#将画布导出为图像" class="headerlink" title="将画布导出为图像"></a>将画布导出为图像</h3><p>画布有一个<code>toDataURL</code>方法，可以将画布绘图转换为一个数据URL，我们可以通过它在浏览器上显示一个图像。</p>
+<pre><code>cxt.save();
+cxt.fillRect(50,50,100,100);
+cxt.fillStyle = &quot;rgb(255,0,0)&quot;;
+cxt.fillRect(100,100,100,100);
+cxt.restore();
+cxt.fillRect(150,150,100,100);
+var dataURL = canvas.toDataURL();
+console.log(dataURL);
+</code></pre>]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[纯CSS绘制各种角度的三角形]]></title>
       <url>https://fantasticzhang.github.io/2017/02/23/%E7%BA%AFCSS%E7%BB%98%E5%88%B6%E5%90%84%E7%A7%8D%E8%A7%92%E5%BA%A6%E7%9A%84%E4%B8%89%E8%A7%92%E5%BD%A2/</url>
       <content type="html"><![CDATA[<p>以下是纯CSS绘制各种角度的三角形的方法。</p>
@@ -1244,16 +1467,6 @@ child.on(&apos;close&apos;,function(code){
     </entry>
     
     <entry>
-      <title><![CDATA[相册]]></title>
-      <url>https://fantasticzhang.github.io/photos/index.html</url>
-      <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
-<link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet">
-
-<div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
-]]></content>
-    </entry>
-    
-    <entry>
       <title></title>
       <url>https://fantasticzhang.github.io/photos/tool.js</url>
       <content type="html"><![CDATA["use strict";
@@ -1282,6 +1495,16 @@ child.on(&apos;close&apos;,function(code){
             })
         }(0));
     });
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[相册]]></title>
+      <url>https://fantasticzhang.github.io/photos/index.html</url>
+      <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
+<link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet">
+
+<div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
 ]]></content>
     </entry>
     
