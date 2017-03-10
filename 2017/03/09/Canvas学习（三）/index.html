@@ -1,0 +1,1034 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Canvas学习（三） | Fantastic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="张金玲">
+    
+
+    
+    <meta name="description" content="接下来是Canvas学习的最后部分——动画。
+动画循环动画循环是创建动画效果的基础，动画循环的三要素：更新需要绘制的对象（如移动对象的位置）、清除画布、在画布上重新绘制对象。如下图所示：
+
+创建循环下面是一段简单的循环代码：
+//HTML
+&amp;lt;canvas id=&amp;quot;myCanvas&amp;quot; width=&amp;quot;500&amp;quot; height=&amp;quot;500&amp;quot;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Canvas学习（三）">
+<meta property="og:url" content="https://fantasticzhang.github.io/2017/03/09/Canvas学习（三）/index.html">
+<meta property="og:site_name" content="Fantastic">
+<meta property="og:description" content="接下来是Canvas学习的最后部分——动画。
+动画循环动画循环是创建动画效果的基础，动画循环的三要素：更新需要绘制的对象（如移动对象的位置）、清除画布、在画布上重新绘制对象。如下图所示：
+
+创建循环下面是一段简单的循环代码：
+//HTML
+&amp;lt;canvas id=&amp;quot;myCanvas&amp;quot; width=&amp;quot;500&amp;quot; height=&amp;quot;500&amp;quot;">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/2017-03-09/画布中的典型循环.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/2017-03-09/简单动画.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/2017-03-09/保存形状.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/2017-03-09/圆形轨道运行.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/2017-03-09/三角函数.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/2017-03-09/圆周运动.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/2017-03-10/正面碰撞.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/2017-03-10/实际碰撞.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/2017-03-10/两圆角度.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/2017-03-10/旋转两个圆.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/2017-03-10/公式推导.PNG">
+<meta property="og:updated_time" content="2017-03-10T06:53:58.660Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Canvas学习（三）">
+<meta name="twitter:description" content="接下来是Canvas学习的最后部分——动画。
+动画循环动画循环是创建动画效果的基础，动画循环的三要素：更新需要绘制的对象（如移动对象的位置）、清除画布、在画布上重新绘制对象。如下图所示：
+
+创建循环下面是一段简单的循环代码：
+//HTML
+&amp;lt;canvas id=&amp;quot;myCanvas&amp;quot; width=&amp;quot;500&amp;quot; height=&amp;quot;500&amp;quot;">
+<meta name="twitter:image" content="https://fantasticzhang.github.io/images/2017-03-09/画布中的典型循环.PNG">
+<meta name="twitter:creator" content="@fantastic_zjl">
+
+    
+    <link rel="alternative" href="atom.xml" title="Fantastic" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/unnamed4_n_mSY_icon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/logo.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/logo.png">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/search.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Fantastic" title="Fantastic"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Fantastic">Fantastic</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+						<li><a href="/demo">Demo</a></li>
+					
+						<li><a href="/photos">相册</a></li>
+					
+					<li>
+ 					
+					<!-- <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:fantasticzhang.github.io">
+					</form> -->
+
+					<!--自定义本地搜索 2016。11.29-->
+						<div id="site_search">
+							<input type="text" id="local-search-input" name="q" results="0" autocomplete="off" maxlength="20" placeholder="搜索博客" class="form-control"/>
+							<div id="local-search-result"></div>
+						</div>
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/09/Canvas学习（三）/" title="Canvas学习（三）" itemprop="url">Canvas学习（三）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="张金玲" target="_blank" itemprop="author">张金玲</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-09T00:57:54.000Z" itemprop="datePublished"> 发表于 2017-03-09</time>
+    <span class="head-plus">
+   &nbsp;|&nbsp;<i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="2017/03/09/Canvas学习（三）/"><i class="fa fa-spinner fa-spin"></i></span>
+   </span>
+  </p>
+
+
+</header>
+
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#动画循环"><span class="toc-number">1.</span> <span class="toc-text">动画循环</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建循环"><span class="toc-number">1.1.</span> <span class="toc-text">创建循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新、清除、绘制"><span class="toc-number">1.2.</span> <span class="toc-text">更新、清除、绘制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#记忆要绘制的形状"><span class="toc-number">2.</span> <span class="toc-text">记忆要绘制的形状</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#圆周运动"><span class="toc-number">3.</span> <span class="toc-text">圆周运动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反弹"><span class="toc-number">4.</span> <span class="toc-text">反弹</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现高级动画"><span class="toc-number">5.</span> <span class="toc-text">实现高级动画</span></a></li></ol>
+		
+		</div>
+		
+		<p>接下来是Canvas学习的最后部分——动画。</p>
+<h2 id="动画循环"><a href="#动画循环" class="headerlink" title="动画循环"></a>动画循环</h2><p>动画循环是创建动画效果的基础，动画循环的三要素：更新需要绘制的对象（如移动对象的位置）、清除画布、在画布上重新绘制对象。如下图所示：</p>
+<p><img src="/images/2017-03-09/画布中的典型循环.PNG" alt=""></p>
+<h3 id="创建循环"><a href="#创建循环" class="headerlink" title="创建循环"></a>创建循环</h3><p>下面是一段简单的循环代码：</p>
+<pre><code>//HTML
+&lt;canvas id=&quot;myCanvas&quot; width=&quot;500&quot; height=&quot;500&quot; style=&quot;border:1px solid #000000; display: block; &quot;&gt;
+
+&lt;/canvas&gt;
+&lt;button id=&quot;start&quot;&gt;Start&lt;/button&gt;
+&lt;button id=&quot;stop&quot;&gt;Stop&lt;/button&gt;
+
+//js
+var canvas = $(&quot;#myCanvas&quot;);
+var cxt = canvas.get(0).getContext(&quot;2d&quot;);
+var canvasWidth = canvas.width();
+var canvasHeight = canvas.height();
+
+var startButton = $(&quot;#start&quot;);
+var stopButton = $(&quot;#stop&quot;);
+var ifPlay = true;
+
+startButton.hide();
+startButton.click(function(){
+    $(this).hide();
+    stopButton.show();
+    ifPlay = true;
+    animate();
+});
+stopButton.click(function(){
+    $(this).hide();
+    startButton.show();
+    ifPlay = false;
+});
+
+function animate(){
+
+    if(ifPlay){
+        setTimeout(animate,33);
+    }
+}
+animate();
+</code></pre><p>以上代码中最重要的是<code>animate</code>函数，该函数使用<code>setTimeout</code>方法设置了一个定时器，每隔33毫秒调用一次<code>animate</code>函数，这样就创建了一个无限循环，可用来实现动画效果。<code>Start</code>、<code>Stop</code>按钮用来控制动画的启动和停止。</p>
+<p>使用33毫秒作为动画循环时间间隔的原因：动画在每秒钟需要的帧数通常介于25到30帧之间，1秒=1000毫秒，1000除以30得33毫秒。</p>
+<p>现在我们已经建立了基本的动画循环，接下来就需要在动画循环里添加三要素，即更新、清除和绘制过程了。</p>
+<h3 id="更新、清除、绘制"><a href="#更新、清除、绘制" class="headerlink" title="更新、清除、绘制"></a>更新、清除、绘制</h3><p>下面是一个简单的动画，使一个正方形每帧右移1像素。</p>
+<pre><code>var x = 0;
+function animate(){
+
+   x++;                                              //更新
+   cxt.clearRect(0,0,canvasWidth,canvasHeight);     //清除
+   cxt.fillRect(x,250,20,20);                      //绘制
+
+   if(ifPlay){
+       setTimeout(animate,33);
+   }
+}
+animate();
+</code></pre><p>效果如下：</p>
+<p><img src="/images/2017-03-09/简单动画.PNG" alt=""></p>
+<h2 id="记忆要绘制的形状"><a href="#记忆要绘制的形状" class="headerlink" title="记忆要绘制的形状"></a>记忆要绘制的形状</h2><p>动画循环三要素中，清除和绘制都很简单，难点在更新，即：如何准确记忆要绘制的对象的内容及位置。</p>
+<p>如果动画中的形状很少可以使用上一小节中的方法——简单变量来记忆，<br>但通常的动画中形状非常多，此时这种方法就非常笨拙了——需要复制大量代码，修改起来也非常复杂。其实需要解决的问题有两个：第一，不管形状的数量有多少，首先考虑如何存储每个形状的位置值；第二，在不复制代码的情况下如何绘制每个形状。针对这两个问题，可以考虑用对象和数组来实现。首先可以将每个形状视为一个对象，对象的属性即保存了形状的位置<code>(x,y)</code>、内容等信息；之后用数组来存储对象，就可通过循环来绘制每个形状。</p>
+<p>示例代码：</p>
+<pre><code>//用对象来定义形状
+var Shape = function (x,y,width,height) {
+   this.x = x;
+   this.y = y;
+   this.width = width;
+   this.height = height;
+};
+//用数组保存要绘制的所有形状
+var shapes = new Array();
+for(var i=0;i&lt;10;i++){
+   var x = Math.random()*250;
+   var y = Math.random()*250;
+   var width = height = Math.random()*50;
+   shapes.push(new Shape(x,y,width,height));
+}
+
+function animate(){
+   cxt.clearRect(0,0,canvasWidth,canvasHeight);  //清除
+   //循环每个形状
+   var shapesLength = shapes.length;
+   for (var i = 0; i &lt; shapesLength; i++) {
+       var tmpShape = shapes[i];
+       tmpShape.x++;   //更新
+       cxt.fillRect(tmpShape.x, tmpShape.y, tmpShape.width, tmpShape.height);  //绘制
+   };
+   if(ifPlay){
+       setTimeout(animate,33);
+   }
+}
+animate();
+</code></pre><p>效果：</p>
+<p><img src="/images/2017-03-09/保存形状.PNG" alt=""></p>
+<h2 id="圆周运动"><a href="#圆周运动" class="headerlink" title="圆周运动"></a>圆周运动</h2><p>有时候需要实现沿着圆周运动的动画效果，例如，沿着圆形轨道运行，如下图所示。</p>
+<p><img src="/images/2017-03-09/圆形轨道运行.PNG" alt=""></p>
+<p>其实原理很简单：将一个形状放在圆周的边缘处（即周长上），以圆周的任意位置作为起点，在每次动画循环中，只需增加位于圆周上的形状的角度，就可以使形状沿着圆周运动。为简单起见，假设形状的起点位置总是周长上角度为0弧度的位置。我们可以使用三角函数来解决该问题，示意图如下：</p>
+<p><img src="/images/2017-03-09/三角函数.PNG" alt=""></p>
+<p>假设圆点坐标为<code>(0,0)</code>，圆的半径为<code>r</code>，形状相对起点位置移动的角度为<code>a</code>。则，根据三角函数:<code>x=r*Math.cos(a)</code>，<code>y=r*Math.sin(a)</code>。这里的<code>a</code>是角度值，由于JavaScript中使用的单位是弧度，因此在实际计算时还需要进行转换。</p>
+<p>综上，如果想要对一个形状实现圆周运动，就需要保存圆的半径<code>r</code>、形状当前运动位置的角度值。又圆周运动的圆的坐标不一定是<code>(0,0)</code>，因此还需要保存圆点坐标<code>(x,y)</code>。用对象描述如下：</p>
+<pre><code>var Shape = function (x,y,width,height) {
+   this.x = x;
+   this.y = y;
+   this.width = width;
+   this.height = height;
+
+   this.radius = Math.random()*30;
+   this.angle = 0;
+};
+</code></pre><p>其中，<code>(x,y)</code>表示的是形状做圆周运动时圆心的坐标，而不是形状的当前位置；<code>radius</code>表示半径；<code>angle</code>表示形状当前的角度值。</p>
+<p>代码：</p>
+<pre><code>//用对象来定义形状
+var Shape = function (x,y,width,height) {
+   this.x = x;
+   this.y = y;
+   this.width = width;
+   this.height = height;
+
+   this.radius = Math.random()*30;
+   this.angle = 0;
+};
+//用数组保存要绘制的所有形状
+var shapes = new Array();
+for(var i=0;i&lt;10;i++){
+   var x = Math.random()*250;
+   var y = Math.random()*250;
+   var width = height = Math.random()*50;
+   shapes.push(new Shape(x,y,width,height));
+}
+
+function animate(){
+   cxt.clearRect(0,0,canvasWidth,canvasHeight);  //清除
+   //循环每个形状
+   var shapesLength = shapes.length;
+   for (var i = 0; i &lt; shapesLength; i++) {
+       var tmpShape = shapes[i];
+       //更新
+       var x = tmpShape.x+(tmpShape.radius*Math.cos(tmpShape.angle*(Math.PI/180)));
+       var y = tmpShape.y+(tmpShape.radius*Math.sin(tmpShape.angle*(Math.PI/180)));
+       tmpShape.angle += 5;
+       cxt.fillRect(x, y, tmpShape.width, tmpShape.height);  //绘制
+   };
+   if(ifPlay){
+       setTimeout(animate,33);
+   }
+}
+animate();
+</code></pre><p>效果：</p>
+<p><img src="/images/2017-03-09/圆周运动.PNG" alt=""></p>
+<h2 id="反弹"><a href="#反弹" class="headerlink" title="反弹"></a>反弹</h2><p>在之前的实现中，都没有考虑画布边界的问题，因此如果形状位置超出了画布边界，就会消失在视野中。我们理想的情景是：当形状位置达到边界时，会反弹回来，即向反方向运动，这样形状就会在画布中来回运动了。实现起来也很简单，只需在每次更新形状时检查形状是否超过了画布的边界，如果已经到达边界处，则反向改变形状运动的方向，这样它就会反弹回来。</p>
+<p>代码：</p>
+<pre><code>//反弹
+var Shape = function (x,y,width,height) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+
+    this.reverseX = true;
+    this.reverseY = false;
+};
+//用数组保存要绘制的所有形状
+var shapes = new Array();
+for(var i=0;i&lt;10;i++){
+    var x = Math.random()*250;
+    var y = Math.random()*250;
+    var width = height = Math.random()*50;
+    shapes.push(new Shape(x,y,width,height));
+}
+
+function animate(){
+    cxt.clearRect(0,0,canvasWidth,canvasHeight);
+    //循环每个形状
+    var shapesLength = shapes.length;
+    for (var i = 0; i &lt; shapesLength; i++) {
+        var tmpShape = shapes[i];
+        //更新
+        //检查
+        if(!tmpShape.reverseX){
+            tmpShape.x += 2;
+        }else{
+            tmpShape.x -= 2;
+        }
+        if(!tmpShape.reverseY){
+            tmpShape.y += 2;
+        }else{
+            tmpShape.y -= 2;
+        }
+        cxt.fillRect(tmpShape.x, tmpShape.y, tmpShape.width, tmpShape.height);  //绘制
+        //检查是否超出边界
+        if(tmpShape.x&lt;0){
+            tmpShape.reverseX = false;
+        }else if(tmpShape.x+tmpShape.width&gt;canvasWidth){
+            tmpShape.reverseX = true;
+        }
+        if(tmpShape.y&lt;0){
+            tmpShape.reverseY = false;
+        }else if(tmpShape.y+tmpShape.height&gt;canvasWidth){
+            tmpShape.reverseY = true;
+        }
+    };
+    if(ifPlay){
+        setTimeout(animate,33);
+    }
+}
+animate();
+</code></pre><p>对象中增加了两个属性<code>reverseX</code>、<code>reverseY</code>分别用来表示是否需要反弹，<code>true</code>表示需要，则在更新形状时让其向反方向运动；<code>false</code>表示不需要，则在更新形状时正方向运动即可。在每次绘制完后，还需要根据当前形状的位置来检查是否到达画布的边界，并更新<code>reverseX</code>、<code>reverseY</code>的值。这样就实现了一个简单的反弹动画效果。</p>
+<h2 id="实现高级动画"><a href="#实现高级动画" class="headerlink" title="实现高级动画"></a>实现高级动画</h2><p>我们可以通过物理知识把动画效果进一步提高，创建更加逼真和具有动态效果的动画。无论是使用速度、加速度这些简单概念，还是构建一个包含不同方向作用力的完善系统，通过学习物理学，我们才能真实而全面地展现动画效果。下面先介绍一些基本的物理概念。</p>
+<ul>
+<li>力： 力是作用于物体的推力或拉力，它是改变物体运动状态的原因。力是矢量，单位是牛顿（N）。</li>
+<li>矢量：矢量是具有大小和方向的量。</li>
+<li>质量：质量是一种阻碍物体在力的作用下加速的物理量，也用来衡量惯性。当力作用于物体时，质量将直接影响加速度的大小。质量的单位是千克。</li>
+<li>重力：物体的质量受另一个物体引力的作用而产生的力称为重力。重力是物体存在重量的原因。</li>
+<li>摩擦力：摩擦力是一种阻止一个物体沿着另一个物体表面运动的力。</li>
+<li>速度：速度是指物体运动的方向和速率。它是一个矢量。</li>
+<li>速率：指物体运动速度的大小，表示物体在一段时间内通过的距离。标量。</li>
+<li>加速度：加速度是指物体的速度随时间变化的比值，矢量。</li>
+</ul>
+<p>当我们创建自然流畅的动画时，了解力对物体运动状态的影响非常有用，因此还需要了解一下牛顿运动定律。</p>
+<ul>
+<li>牛顿第一定律：任何一个物体在不受外力或受平衡力的作用时，总是保持静止状态或匀速直线运动状态，直到有作用在它上面的外力迫使它改变这种状态为止。</li>
+<li>牛顿第二定律：物体的加速度跟物体所受的合外力成正比，跟物体的质量成反比，加速度的方向跟合外力的方向相同。<code>F=ma</code></li>
+<li>牛顿第三定律：两个物体之间的作用力和反作用力，在同一直线上，大小相等，方向相反。</li>
+</ul>
+<p>以上就是一些基本的物理知识，下面将利用这些物理知识实现一个简单的动画效果：一个简单的太空场景，在太空深处有一个动态的小行星群，这里每个小行星的颜色是随机的。点击<code>Start</code>按钮，行星开始运动，点击<code>Stop</code>按钮，行星将会静止。</p>
+<p>demo地址：<a href="/2017/03/10/实例demo之Canvas小动画/" title="实例demo之Canvas小动画">实例demo之Canvas小动画</a></p>
+<p>关键代码：</p>
+<pre><code>//定义形状
+var Asteroid = function(x, y,radius,mass,vX,vY,aX,aY,red,green,blue){
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
+    this.mass = mass;
+
+    this.vX = vX;
+    this.vY = vY;
+    this.aX = aX;
+    this.aY = aY;
+
+    //每个小球都有自己的颜色
+    this.red = red;
+    this.green = green;
+    this.blue = blue;
+};
+
+//保存所有形状
+var asteroids = new Array();
+for(var i = 0;i&lt;20;i++){
+    //圆点坐标
+   var x = 20+(Math.random()*(canvasWidth-40));
+   var y = 20+(Math.random()*(canvasHeight-40));
+    var radius = 5+Math.random()*10; //半径
+    var mass = radius/2;   //质量
+   //速度
+    var vX = Math.random()*4-2;
+    var vY = Math.random()*4-2;
+    var aX = 0;
+    var aY = 0;
+    //颜色
+    var red = Math.floor(Math.random()*255);
+    var green = Math.floor(Math.random()*255);
+    var blue = Math.floor(Math.random()*255);
+    asteroids.push(new Asteroid(x,y,radius,mass,vX,vY,aX,aY,red,green,blue));
+}
+
+function animate(){
+    //清除
+    cxt.clearRect(0,0,canvasWidth,canvasHeight);
+    var red = Math.floor(Math.random()*255);
+    //cxt.fillStyle = &quot;rgb(255,255,255)&quot;;
+    //更新
+    var asteroidsLength = asteroids.length;
+    for(var i = 0; i &lt; asteroidsLength; i++){
+        var tmpAsteroid = asteroids[i];
+        cxt.fillStyle = &quot;rgb(&quot;+tmpAsteroid.red+&quot;,&quot;+tmpAsteroid.green+&quot;,&quot;+tmpAsteroid.blue+&quot;)&quot;;
+       //检测是否和其他形状碰撞
+        for(var j = i+1; j &lt; asteroidsLength; j++){
+            var tmpAsteroidB = asteroids[j];
+            var dX = tmpAsteroidB.x - tmpAsteroid.x;
+            var dY = tmpAsteroidB.y - tmpAsteroid.y;
+            var distance = Math.sqrt((dX*dX)+(dY*dY));
+            if(distance &lt; tmpAsteroid.radius + tmpAsteroidB.radius){
+                //将小球的碰撞转换为理想碰撞，并利用坐标旋转公式计算转换后的坐标和速度
+                var angle = Math.atan2(dY, dX);    //旋转角度
+                var sine = Math.sin(angle);
+                var cosine = Math.cos(angle);
+                var x = 0;
+                var y = 0;
+                var vX = tmpAsteroid.vX * cosine + tmpAsteroid.vY * sine;
+                var vY = tmpAsteroid.vY * cosine - tmpAsteroid.vX * sine;
+
+                var xB = dX * cosine + dY * sine;
+                var yB = dY * cosine - dX * sine;
+                var vXb = tmpAsteroidB.vX * cosine + tmpAsteroidB.vY * sine;
+                var vYb = tmpAsteroidB.vY * cosine - tmpAsteroidB.vX * sine;
+
+                //理想碰撞后改变速度和坐标
+                //vX *= -1;
+                //vXb *= -1;
+                //能量守恒和动量守恒定律求解碰撞后的速度
+                var vTotal = vX - vXb;
+                vX = ((tmpAsteroid.mass - tmpAsteroidB.mass) * vX + 2 * tmpAsteroidB.mass * vXb) / (tmpAsteroid.mass + tmpAsteroidB.mass);
+                vXb = vTotal + vX;
+                xB = x + (tmpAsteroid.radius + tmpAsteroidB.radius);
+
+                //在旋转回之前的位置
+                tmpAsteroid.x = tmpAsteroid.x + (x * cosine - y * sine);
+                tmpAsteroid.y = tmpAsteroid.y + (y * cosine + x * sine);
+                tmpAsteroid.vX = vX * cosine - vY * sine;
+                tmpAsteroid.vY = vY * cosine + vX * sine;
+
+                tmpAsteroidB.x = tmpAsteroid.x + (xB * cosine - yB * sine);
+                tmpAsteroidB.y = tmpAsteroid.y + (yB * cosine + xB * sine);
+                tmpAsteroidB.vX = vXb * cosine - vYb * sine;
+                tmpAsteroidB.vY = vYb * cosine + vXb * sine;
+            }
+        }
+        //更新位置
+        tmpAsteroid.x += tmpAsteroid.vX;
+        tmpAsteroid.y += tmpAsteroid.vY;
+        //根据加速度更新速度
+        if (Math.abs(tmpAsteroid.vX) &lt; 10) {
+          tmpAsteroid.vX += tmpAsteroid.aX;
+        }
+        if (Math.abs(tmpAsteroid.vY) &lt; 10) {
+          tmpAsteroid.vY += tmpAsteroid.aY;
+        }
+
+        //检查是否到边界
+       if (tmpAsteroid.x-tmpAsteroid.radius &lt; 0) {
+          tmpAsteroid.x = tmpAsteroid.radius; // Move away from the edge
+          tmpAsteroid.vX *= -1;
+          tmpAsteroid.aX *= -1;
+      } else if (tmpAsteroid.x+tmpAsteroid.radius &gt; canvasWidth) {
+        tmpAsteroid.x = canvasWidth-tmpAsteroid.radius; // Move away from the edge
+        tmpAsteroid.vX *= -1;
+        tmpAsteroid.aX *= -1;
+      };
+
+      if (tmpAsteroid.y-tmpAsteroid.radius &lt; 0) {
+        tmpAsteroid.y = tmpAsteroid.radius; // Move away from the edge
+        tmpAsteroid.vY *= -1;
+        tmpAsteroid.aY *= -1;
+      } else if (tmpAsteroid.y+tmpAsteroid.radius &gt; canvasHeight) {
+        tmpAsteroid.y = canvasHeight-tmpAsteroid.radius; // Move away from the edge
+        tmpAsteroid.vY *= -1;
+        tmpAsteroid.aY *= -1;
+      };
+        //绘制
+        cxt.beginPath();
+        cxt.arc(tmpAsteroid.x, tmpAsteroid.y, tmpAsteroid.radius, 0, Math.PI*2);
+        cxt.closePath();
+        cxt.fill();
+    }
+
+    if(ifPlay){
+        setTimeout(animate,33);
+    }
+}
+animate();
+</code></pre><p><code>Asteroid</code>对象有11个属性：<code>(x,y)</code>是小行星的位置，<code>radius</code>是半径，<code>mass</code>是质量，<code>(vX,vY)</code>是速度，<code>(aX,aY)</code>是加速度，<code>(red,green,blue)</code>是颜色。在创建一个小行星时，这些参数的值是随机的，因此每个小行星都在不同的位置，有不同的大小、颜色、质量和速度。</p>
+<p>其实该动画效果的难点在于小行星之间的碰撞检测。碰撞检测的两个关键步骤：第一，计算两颗小行星是否发生重叠；第二，在发生重叠时（即碰撞）以什么方式相互分离才显得更加逼真。检测重叠的方法很简单：检查两个圆心之间的距离是否小于这两个圆的半径之和。因此，难点在于怎样分离，即怎样弹开物体。</p>
+<p>理想碰撞：两个圆发生碰撞时正好完全位于一条直线上，并且它们的中心点之间没有任何角度，此时只要反向改变速度的方向即可。如下图所示：</p>
+<p><img src="/images/2017-03-10/正面碰撞.PNG" alt=""></p>
+<p>但通常情况下，两个圆都会以一定角度发生碰撞，此时仅仅反向改变速度是行不通的，两个圆应该以正确的角度互相弹开。如下图所示：</p>
+<p><img src="/images/2017-03-10/实际碰撞.PNG" alt=""></p>
+<p>此时需要计算出两个圆之间的角度，并依次把每个圆的速度进行旋转，这样它们发生的碰撞就类似与上面提到的理想碰撞了，速度的状态转变如下图所示，这样圆的碰撞问题就转化成了一种简单的反向改变速度的问题。</p>
+<p><img src="/images/2017-03-10/两圆角度.PNG" alt=""><br><img src="/images/2017-03-10/旋转两个圆.PNG" alt=""></p>
+<p>对应的代码如下：</p>
+<pre><code>var angle = Math.atan2(dY, dX);    //旋转角度
+var sine = Math.sin(angle);
+var cosine = Math.cos(angle);
+var x = 0;
+var y = 0;
+var vX = tmpAsteroid.vX * cosine + tmpAsteroid.vY * sine;
+var vY = tmpAsteroid.vY * cosine - tmpAsteroid.vX * sine;
+
+var xB = dX * cosine + dY * sine;
+var yB = dY * cosine - dX * sine;
+var vXb = tmpAsteroidB.vX * cosine + tmpAsteroidB.vY * sine;
+var vYb = tmpAsteroidB.vY * cosine - tmpAsteroidB.vX * sine;
+</code></pre><p>这里用到了<a href="/2017/03/10/坐标旋转公式/" title="坐标旋转公式">坐标旋转公式</a></p>
+<p>假设两个小行星发生的是完全弹性碰撞，则根据动量守恒和能量守恒公式可推导出碰撞后第一颗小行星的新速度为:</p>
+<pre><code>vX = ((tmpAsteroid.mass - tmpAsteroidB.mass) * vX + 2 * tmpAsteroidB.mass * vXb) / (tmpAsteroid.mass + tmpAsteroidB.mass);
+</code></pre><p>推到过程如下图所示：</p>
+<p><img src="/images/2017-03-10/公式推导.PNG" alt=""></p>
+<p>这样，碰撞后的速度和位置改变为：</p>
+<pre><code>//能量守恒和动量守恒定律求解碰撞后的速度
+var vTotal = vX - vXb;
+vX = ((tmpAsteroid.mass - tmpAsteroidB.mass) * vX + 2 * tmpAsteroidB.mass * vXb) / (tmpAsteroid.mass + tmpAsteroidB.mass);
+vXb = vTotal + vX;
+xB = x + (tmpAsteroid.radius + tmpAsteroidB.radius);
+</code></pre><p>最后需要把这些小行星旋转到它们原来所在的位置，并使用新的速度。代码与上面旋转小行星的代码基本相反：</p>
+<pre><code>//在旋转回之前的位置
+tmpAsteroid.x = tmpAsteroid.x + (x * cosine - y * sine);
+tmpAsteroid.y = tmpAsteroid.y + (y * cosine + x * sine);
+tmpAsteroid.vX = vX * cosine - vY * sine;
+tmpAsteroid.vY = vY * cosine + vX * sine;
+
+tmpAsteroidB.x = tmpAsteroid.x + (xB * cosine - yB * sine);
+tmpAsteroidB.y = tmpAsteroid.y + (yB * cosine + xB * sine);
+tmpAsteroidB.vX = vXb * cosine - vYb * sine;
+tmpAsteroidB.vY = vYb * cosine + vXb * sine;
+</code></pre><p>通过以上过程，解决了碰撞检测问题。这样，这个小动画就比较完美地实现了。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/前端/">前端</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Canvas/">Canvas</a><a href="/tags/html5/">html5</a>
+  </div>
+
+</div>
+
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/03/10/实例demo之Canvas小动画/" title="实例demo之Canvas小动画">
+  <span>
+  实例demo之Canvas小动画</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/03/08/Canvas学习（二）/"  title="Canvas学习（二）">
+ <span>Canvas学习（二）
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/03/09/Canvas学习（三）/" data-title="Canvas学习（三）" data-url="https://fantasticzhang.github.io/2017/03/09/Canvas学习（三）/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#动画循环"><span class="toc-number">1.</span> <span class="toc-text">动画循环</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建循环"><span class="toc-number">1.1.</span> <span class="toc-text">创建循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新、清除、绘制"><span class="toc-number">1.2.</span> <span class="toc-text">更新、清除、绘制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#记忆要绘制的形状"><span class="toc-number">2.</span> <span class="toc-text">记忆要绘制的形状</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#圆周运动"><span class="toc-number">3.</span> <span class="toc-text">圆周运动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反弹"><span class="toc-number">4.</span> <span class="toc-text">反弹</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现高级动画"><span class="toc-number">5.</span> <span class="toc-text">实现高级动画</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+<div id="authorInfo">
+	
+		<div class="author-img"></div>		
+	
+	<div class="social-info" class="clearfix">
+		
+		<a href="http://weibo.com/jinlingzhang" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/fantasticZhang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/fantastic_zjl" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/fantasticzjl" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:jlzhanghot@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+
+	</div>
+</div>
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/github/" title="github">github<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/生活/" title="生活">生活<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随记/" title="随记">随记<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/CSS/" title="CSS">CSS<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Canvas/" title="Canvas">Canvas<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/html5/" title="html5">html5<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/js/" title="js">js<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Node/" title="Node">Node<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数学公式/" title="数学公式">数学公式<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/demo/" title="demo">demo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信小程序/" title="微信小程序">微信小程序<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://ily11.github.io/" target="_blank" title="ily">ily</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://airghc.gtensor.com" target="_blank" title="Airghc">Airghc</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://rain1ove.cn/" target="_blank" title="rain">rain</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://wisexy.github.io/" target="_blank" title="wisexy">wisexy</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+		
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/hsihohuang/kiddochan" target="_blank" title="Kiddochan">Kiddochan</a> © 2017
+		
+		<a href="/about" target="_blank" title="张金玲">张金玲</a>
+		
+
+		</p>
+		<!-- <p class="copyright">
+		<span id="busuanzi_container_site_pv">
+		    本站总访问量<span id="busuanzi_value_site_pv"></span>次，
+		</span>
+		<span id="busuanzi_container_site_uv">
+		  您是第<span id="busuanzi_value_site_uv"></span>个到来的小伙伴
+		</span>
+
+		</p> -->
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+<!--自定义的配置-->
+<!-- <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script> -->
+<script src="/js/search.js"></script>
+<!--相冊功能-->
+<script src="/js/jquery.lazyload.js"></script>
+<script src="/js/photo.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+    //2016-11-29
+    if($('header nav').hasClass('shownav')){
+      $('.animated').css('display', 'block');
+    }else {
+      $('.animated').css('display', 'none');  //2016-11-29
+    }
+
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+      $('.animated').css('display', 'block');   //2016-11-29
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      $('.animated').css('display', 'none');  //2016-11-29
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+      //自定义  固定搜索结果列表宽度
+      $('ul.search-result-list').css('width', '82%');
+    }
+  });
+  //自定义事件 让搜索结果与输入框同宽 2016-11-30
+  $('#local-search-input').focusin(function(){
+    getSize();
+    if (myWidth >= 1024) {
+        $('ul.search-result-list').css('width', '13.5em');
+    }
+  })
+  $('#local-search-input').focusout(function(){
+    getSize();
+    if (myWidth >= 1024) {
+        $('ul.search-result-list').css('width', '7.4em');
+    }
+  })
+  //自定义 如果初始化时屏幕尺寸小于1024 则根据实际情况显示或隐藏菜单
+  getSize();
+  if (myWidth < 1024) {
+    if($('header nav').hasClass('shownav')){
+      $('.animated').css('display', 'block');
+    }else {
+      $('.animated').css('display', 'none');  //2016-11-29
+    }
+  }
+});
+
+<!--自定义功能：本地搜索-->
+var search_path = "search.xml";
+     if (search_path.length == 0) {
+     	search_path = "search.xml";
+     }
+     var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"fantasticzhang"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+
+  //相册功能 2017-02-20 add
+  if($(".photos").length) {
+      photoInit();
+   }
+});
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?dacfb28ac21a2d86cfeeda2ea84b20a7";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
