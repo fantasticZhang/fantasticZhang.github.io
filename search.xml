@@ -4,6 +4,118 @@
   
     
     <entry>
+      <title><![CDATA[OpenVPN的安装及使用]]></title>
+      <url>https://fantasticzhang.github.io/2017/03/13/OpenVPN%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/</url>
+      <content type="html"><![CDATA[<h1 id="OpenVPN"><a href="#OpenVPN" class="headerlink" title="OpenVPN"></a>OpenVPN</h1><h2 id="元信息"><a href="#元信息" class="headerlink" title="元信息"></a>元信息</h2><ul>
+<li>开发语言：C/C++</li>
+<li>操作系统：跨平台，支持Linux、Windows、MacOS X等</li>
+<li><a href="https://github.com/OpenVPN/openvpn" target="_blank" rel="external">github</a></li>
+</ul>
+<h2 id="编译、运行、安装过程"><a href="#编译、运行、安装过程" class="headerlink" title="编译、运行、安装过程"></a>编译、运行、安装过程</h2><h3 id="安装方式"><a href="#安装方式" class="headerlink" title="安装方式"></a>安装方式</h3><p> 源码安装</p>
+<h3 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h3><ol>
+<li><p>安装c编译器及OpenVPN所需的插件</p>
+<p>gcc、g++、openssl、pam、lzo</p>
+<p>安装命令为：</p>
+<ul>
+<li>sudo apt-get install gcc</li>
+<li>sudo apt-get install g++</li>
+<li>sudo apt-get install openssl</li>
+<li>sudo apt-get install libssl-dev</li>
+<li>sudo apt-get install libpam0g-dev  </li>
+<li>sudo apt-get install liblzo2-dev  </li>
+</ul>
+</li>
+<li><p>从<a href="https://openvpn.net/index.php/download/community-downloads.html" target="_blank" rel="external">官网</a>下载源码</p>
+</li>
+<li><p>编译、安装</p>
+<ul>
+<li>tar -zxf openvpn-2.3.14.tar.gz</li>
+<li>cd openvpn-openvpn-2.3.14</li>
+<li>./configure</li>
+<li>make</li>
+<li>make install</li>
+</ul>
+</li>
+</ol>
+<h3 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h3><ol>
+<li><p>搭建CA，并为OpenVPN server端和client端产生证书和密钥</p>
+<p>使用<a href="https://github.com/OpenVPN/easy-rsa" target="_blank" rel="external">easy-rsa</a>来搭建CA。命令如下：</p>
+<ul>
+<li>CA：<ul>
+<li>./easyrsa init-pki</li>
+<li>./easyrsa build-ca</li>
+</ul>
+</li>
+<li>server:<ul>
+<li>./easyrsa gen-req server</li>
+<li>./easyrsa sign-req server server</li>
+</ul>
+</li>
+<li>client:<ul>
+<li>./easyrsa gen-req client1</li>
+<li>./easyrsa sign-req client client1</li>
+</ul>
+</li>
+<li>DH params:<ul>
+<li>./easyrsa gen-dh</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>OpenVPN server端配置</p>
+<p>在上一步中产生了所需要的文件，其中server端需要用到的有ca.crt、ca.key、dh.pem、server.crt、server.key</p>
+<p>在OpenVPN server端建立config文件夹，将以上文件拷贝到该文件夹下，此外 server端还需要配置文件server.conf，OpenVPN已经在安装包的sample/sample-config-files子目录中为我们提供了相关的示例文件server.conf，并且配置文件中的每个配置选项均有详细的英文说明。将server.conf文件拷贝到config目录中，然后再对其进行修改。</p>
+<p>server.conf文件中指定了监听的本机IP、端口号、CA证书的文件路径、server端的证书文件路径及私钥文件路径等，我们只需按照实际情况进行修改。</p>
+<p>OpenVPN自身的配置到此结束，但在使用前还必须开启Linux系统的路由转发功能：</p>
+<ul>
+<li>vi /etc/sysctl.conf</li>
+</ul>
+<p>找到 “#net.ipv4.ip_forward=1” 这一行，删除那个 “#” 号，然后保存退出。接下来使转发生效：</p>
+<ul>
+<li>sysctl -p  </li>
+</ul>
+<p>如果一切正常，你将只会看到以下结果：</p>
+<ul>
+<li>net.ipv4.ip_forward=1</li>
+</ul>
+<p>然后设置iptables规则，通过配置NAT将VPN网段IP转发到eth0网卡：</p>
+<ul>
+<li>iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j SNAT –to 10.108.112.6 （适用于固定IP的VPS）  </li>
+</ul>
+<p>或者:</p>
+<ul>
+<li>iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE （通用方法，自动获取eth0网卡的IP地址）  </li>
+</ul>
+<p>设置OpenVPN端口通过：</p>
+<ul>
+<li>iptables -A INPUT -p TCP –dport 1194 -j ACCEPT  </li>
+<li>iptables -A INPUT -m state –state ESTABLISHED,RELATED -j ACCEPT  </li>
+</ul>
+<p>最后，在服务端启动OpenVPN：</p>
+<ul>
+<li>openvpn 配置文件（server.conf）路径</li>
+</ul>
+</li>
+<li><p>OpenVPN client端配置</p>
+<p>client端可以有多个，在本次实验中只有一个client端：client1。客户端client1需要用到的文件有：ca.crt、client1.crt、client1.key。</p>
+<p>在OpenVPN client端建立config文件夹，将以上文件拷贝到该文件夹下，此外 client端还需要配置文件client.conf，OpenVPN已经在安装包的sample/sample-config-files子目录中为我们提供了相关的示例文件client.conf，并且配置文件中的每个配置选项均有详细的英文说明。将client.conf文件拷贝到config目录中，然后再对其进行修改。</p>
+<p>client.conf文件中指定了连接的远程服务器的实际IP地址和端口号、CA证书的文件路径、当前客户端的证书文件路径和私钥文件路径等，我们只需按照实际情况进行修改。</p>
+<p>在客户端启动OpenVPN：</p>
+<ul>
+<li>openvpn 配置文件（client.conf）路径</li>
+</ul>
+<p>接下来，在client端ping服务端的虚拟地址：</p>
+<ul>
+<li>ping 10.8.0.1</li>
+</ul>
+<p>如果能ping通，则说明客户端已经和OpenVPN服务端连接成功。</p>
+</li>
+</ol>
+<h3 id="证书导入接口"><a href="#证书导入接口" class="headerlink" title="证书导入接口"></a>证书导入接口</h3><p>  由上一节的实际操作过程可知，server端的证书导入接口在配置文件 server.conf 中；client端的证书导入接口在配置文件 client.conf 中。</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[实例demo之FidoBowling小游戏]]></title>
       <url>https://fantasticzhang.github.io/2017/03/12/%E5%AE%9E%E4%BE%8Bdemo%E4%B9%8BFidoBowling%E5%B0%8F%E6%B8%B8%E6%88%8F/</url>
       <content type="html"><![CDATA[<link type="text/css" href="/css/FidoBowling.css" rel="stylesheet">
@@ -2212,6 +2324,12 @@ child.on(&apos;close&apos;,function(code){
     </entry>
     
     <entry>
+      <title></title>
+      <url>https://fantasticzhang.github.io/photos/output.json</url>
+      <content type="html"><![CDATA[["IMG_20161005_164625.jpg","IMG_20161005_165430.jpg","IMG_20161005_165817.jpg","IMG_20161005_172129.jpg","IMG_20161006_130939.jpg","IMG_20161006_132426.jpg","IMG_20161006_132836.jpg","IMG_20161116_141430.jpg","IMG_20161116_150715.jpg","IMG_20161116_155406.jpg","IMG_20161118_124950.jpg","mmexport1479264425744.jpg","mmexport1479264435676.jpg","wen.jpg"]]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[相册]]></title>
       <url>https://fantasticzhang.github.io/photos/index.html</url>
       <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
@@ -2251,12 +2369,6 @@ child.on(&apos;close&apos;,function(code){
         }(0));
     });
 ]]></content>
-    </entry>
-    
-    <entry>
-      <title></title>
-      <url>https://fantasticzhang.github.io/photos/output.json</url>
-      <content type="html"><![CDATA[["IMG_20161005_164625.jpg","IMG_20161005_165430.jpg","IMG_20161005_165817.jpg","IMG_20161005_172129.jpg","IMG_20161006_130939.jpg","IMG_20161006_132426.jpg","IMG_20161006_132836.jpg","IMG_20161116_141430.jpg","IMG_20161116_150715.jpg","IMG_20161116_155406.jpg","IMG_20161118_124950.jpg","mmexport1479264425744.jpg","mmexport1479264435676.jpg","wen.jpg"]]]></content>
     </entry>
     
   
