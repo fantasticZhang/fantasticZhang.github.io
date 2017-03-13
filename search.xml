@@ -4,6 +4,52 @@
   
     
     <entry>
+      <title><![CDATA[实例demo之FidoBowling小游戏]]></title>
+      <url>https://fantasticzhang.github.io/2017/03/12/%E5%AE%9E%E4%BE%8Bdemo%E4%B9%8BFidoBowling%E5%B0%8F%E6%B8%B8%E6%88%8F/</url>
+      <content type="html"><![CDATA[<link type="text/css" href="/css/FidoBowling.css" rel="stylesheet">
+
+<div id="info">
+    <h2>Fido Bowling</h2>
+    <p>基于Canvas开发的一个小游戏——太空保龄球。</p>
+
+    <h2>游戏规则</h2>
+    <p>太空保龄球游戏在窗口的上部包含一个圆形平台，一群静止的小行星分布在圆形平台上，另一个稍大些的小行星放在离圆形平台较远的位置，作为玩家投掷时使用的圆球。</p>
+    <ul>
+      <li>用鼠标向下拖动玩家小行星将其弹向圆形平台，使其尽可能多地撞开位于圆形平台上的小行星。</li>
+      <li>当圆形平台上所有的小行星都被撞离平台时，你就获胜了！</li>
+      <li>游戏的分数是根据你撞开所有小行星所用的撞击次数来计算的。好了，开始游戏吧！</li>
+    </ul>
+</div>
+
+<div id="game">
+    <div id="gameUI">
+        <div id="gameIntro">
+            <h1>太空保龄球</h1>
+            <p>一个很有趣的小游戏</p>
+            <p><a id="gamePlay" class="button" href="">开始游戏</a></p>
+        </div>
+        <div id="gameStats">
+            <p>小行星数量：<span id="gameRemaining"></span></p>
+            <p>撞击次数：<span class="gameScore"></span></p>
+            <p><a class="gameReset" href="">重置</a></p>
+        </div>
+        <div id="gameComplete">
+            <h1>你赢了！</h1>
+            <p>恭喜你，你撞击了<span class="gameScore"></span>次就完成了游戏。</p>
+            <p><a class="gameReset button" href="">再玩一次</a></p>
+        </div>
+    </div>
+    <canvas id="gameCanvas" width="350" height="600">
+        <!--游戏界面-->
+    </canvas>
+</div>
+
+<script type="text/javascript" src="/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="/js/FidoBowling.js"></script>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[坐标旋转公式]]></title>
       <url>https://fantasticzhang.github.io/2017/03/10/%E5%9D%90%E6%A0%87%E6%97%8B%E8%BD%AC%E5%85%AC%E5%BC%8F/</url>
       <content type="html"><![CDATA[<p>该公式用于计算某个点绕另外一个点旋转一定角度后的坐标，推到过程如下。</p>
@@ -2148,6 +2194,16 @@ child.on(&apos;close&apos;,function(code){
     </entry>
     
     <entry>
+      <title><![CDATA[相册]]></title>
+      <url>https://fantasticzhang.github.io/photos/index.html</url>
+      <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
+<link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet">
+
+<div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[学习过程中实现的实例demo]]></title>
       <url>https://fantasticzhang.github.io/demo/index.html</url>
       <content type="html"><![CDATA[<p>做前端和后台不太一样，总觉得只有自己动手做出来一些能看得见的东西，才会有一些成就感~</p>
@@ -2157,16 +2213,6 @@ child.on(&apos;close&apos;,function(code){
 <li>demo：<a href="/2017/03/10/实例demo之Canvas小动画/" title="实例demo之Canvas小动画">实例demo之Canvas小动画</a></li>
 <li>源码：<a href="https://github.com/fantasticZhang/Asteroids" target="_blank" rel="external">View on GitHub</a></li>
 </ul>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[相册]]></title>
-      <url>https://fantasticzhang.github.io/photos/index.html</url>
-      <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
-<link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet">
-
-<div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
 ]]></content>
     </entry>
     
