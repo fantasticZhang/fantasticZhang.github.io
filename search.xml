@@ -4,6 +4,164 @@
   
     
     <entry>
+      <title><![CDATA[HTML5简介]]></title>
+      <url>https://fantasticzhang.github.io/2017/03/20/HTML5%E7%AE%80%E4%BB%8B/</url>
+      <content type="html"><![CDATA[<p>HTML5的新特性有很多，在这里主要阐述其中一些最有趣且最重要的特性。</p>
+<h2 id="结构和内容元素"><a href="#结构和内容元素" class="headerlink" title="结构和内容元素"></a>结构和内容元素</h2><h3 id="HTML5结构元素"><a href="#HTML5结构元素" class="headerlink" title="HTML5结构元素"></a>HTML5结构元素</h3><p>HTML5中新的结构元素提供了许多用于描述各种网页组成部分的方法。在这之前我们只能使用大量的<code>div</code>元素和<code>span</code>元素来设计文档结构，但现在我们能够使用更多的元素了，如<code>section</code>、<code>header</code>、<code>hgroup</code>、<code>footer</code>、<code>nav</code>、<code>article</code>、<code>aside</code>。每一种元素都有独特的用途，能够帮助我们把现代网页上最常见的区域一一区分开。</p>
+<ul>
+<li><p>section元素</p>
+<p>用来定义网站中特定的可区别的区域，按主题对内容进行分组，即将内容分组到一些具有独特主题或关注点的区域中。</p>
+</li>
+<li><p>header元素</p>
+<p>一个网页的页眉部分，其中可以包含标题、Logo、导航及其他与页眉相关的内容。</p>
+</li>
+<li><p>hgroup元素</p>
+<p>将标题进行分组的元素。可用于包含多个标题元素(h1~h6)，常见用法是显示带有标题和小标题的内容。</p>
+</li>
+<li><p>footer元素</p>
+<p>一个网页的页脚部分，其中可以包含版权声明和网站制作中信息等其他与页脚相关的内容。此外，<code>footer</code>还可以包含一些相关内容的链接，也就是说它们很适合在<code>section</code>和<code>article</code>中使用。</p>
+</li>
+<li><p>nav元素</p>
+<p>显示指向页面某一部分或网站其他页面的导航链接。最常见的用途是包含网站的主导航菜单。</p>
+</li>
+<li><p>article元素</p>
+<p>任何独立成文且可以以其他格式重用（例如：通过RSS分发）的内容都应该置于一个<code>article</code>元素中。如：博客文章、评论、论坛帖子、新闻文章等。关于<code>article</code>元素的使用，一条很好的经验法则就是：判断其内容在RSS阅读器中是否可以作为一个整体独立存在。</p>
+</li>
+<li><p>aside元素</p>
+<p>包含内容周围的相关内容。典型应用是引文和旁注。</p>
+</li>
+</ul>
+<h3 id="HTML5内容元素"><a href="#HTML5内容元素" class="headerlink" title="HTML5内容元素"></a>HTML5内容元素</h3><ul>
+<li><p>figure元素</p>
+<p><code>figure</code>元素的一个典型用途是包含图像、代码和其他内容对主内容给出某方面的说明。<code>figure</code>元素中的内容应该可以从主内容中删除而不会破坏主内容。</p>
+</li>
+<li><p>figcaption元素</p>
+<p>有一些注解内容需要使用一个简短的标题，通常这些内容是显示在原始内容的上下文之外的。要在<code>figure</code>元素中加入标题需要使用<code>figcaption</code>元素。</p>
+</li>
+<li><p>mark元素</p>
+<p>那些突出显示以表示引用的内容应该包含在<code>mark</code>元素中。也就是说在一段引文中对原作者没有加以强调的一句话进行突出显示。另一个用途是突出显示与用户当前活动相关的内容，例如可以用<code>mark</code>元素来突出显示用户在搜索中使用的关键词。</p>
+<p>注：<code>em</code>或<code>strong</code>表示原作者认为重要或需要强调的内容；<code>mark</code>表示某人在一个不同的上下文中引入原作者的话时认为重要的内容，或是用户活动的结果。</p>
+</li>
+<li><p>time元素</p>
+<p>在内容中显示时间或日期时用该元素，所使用的任何时间都必须采用24小时格式。该元素还可以包含两个属性:<code>datetime</code>，表示在元素中指定的确切日期和时间；<code>pubtime</code>，表示文章或整个文档发布时<code>time</code>元素所指定的日期和时间。</p>
+</li>
+</ul>
+<h2 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h2><h3 id="浏览器验证"><a href="#浏览器验证" class="headerlink" title="浏览器验证"></a>浏览器验证</h3><p>HTML5表单具有浏览器内置的验证机制。默认情况下，如果浏览器支持HTML5，则表单验证都是启用的，如果验证失败会显示一条友好的警告信息。可以在<code>form</code>元素中添加<code>novalidate</code>属性来关闭验证。</p>
+<h3 id="输入类型"><a href="#输入类型" class="headerlink" title="输入类型"></a>输入类型</h3><p>HTML5增加了一些新的输入类型，使得我们现在能够定义电子邮件地址、电话号码和URL的输入框等。新增的输入类型有：</p>
+<ul>
+<li>color：定义拾色器；</li>
+<li>date：定义日期字段（带有calendar控件）；</li>
+<li>datetime：定义日期字段（带有calendar和time控件）；</li>
+<li>datetime-local：定义日期字段（带有calendar和time控件）；</li>
+<li>month：定义日期字段的月（带有calendar控件）；</li>
+<li>week：定义日期字段的周（带有calendar控件）；</li>
+<li>time：定义日期字段的时分秒（带有time控件）；</li>
+<li>email：定义用于e-mail地址的文本字段；</li>
+<li>number：定义带有spinner控件的数字字段；</li>
+<li>range：定义带有slider控件的数字字段；</li>
+<li>search：定义用于搜索的文本字段；</li>
+<li>tel：定义用于电话号码的文本字段；</li>
+<li>url：定义用于URL的文本字段。</li>
+</ul>
+<h3 id="输入属性"><a href="#输入属性" class="headerlink" title="输入属性"></a>输入属性</h3><p>除了输入类型，HTML5中还为<code>input</code>元素增加了许多其他的属性：autocomplele、autofocus、form、formaction、formenctype、formmethod、formnovalidate、formtarget、height、width、list、max、min、multiple、pattern、placeholder、required、step。</p>
+<h2 id="媒体元素"><a href="#媒体元素" class="headerlink" title="媒体元素"></a>媒体元素</h2><p>HTML5出现之前，如果我们想在浏览器中播放媒体需要借助外部插件和应用程序，浏览器本身不支持图形处理。而HTML5的一个核心目标是改进媒体支持，引入了新的媒体元素（如<code>audio</code>、<code>video</code>），使得浏览器不需要使用外部插件就能够直接播放媒体。而<code>canvas</code>元素使浏览器能够直接创建和处理图像和图形。由于<code>canvas</code>在之前的博客中已经单独介绍过，因此下面简单介绍一下<code>audio</code>和<code>video</code>。</p>
+<h3 id="audio元素"><a href="#audio元素" class="headerlink" title="audio元素"></a>audio元素</h3><p>音频播放器，属性有：<code>src</code>、<code>controls</code>、<code>autoplay</code>、<code>loop</code>、<code>preload</code>。可使用这些属性对<code>audio</code>元素进行细粒度的控制。</p>
+<p>目前，主流浏览器对<code>audio</code>元素的支持各不相同，有多种音频编码器，其中最常用的的格式是MP3和OGG。可以使用如下方式实现跨浏览器HTML5音频支持。</p>
+<pre><code>&lt;audio  controls &gt;
+    &lt;source src=&quot;sound.ogg&quot;&gt;
+    &lt;source src=&quot;sound.mp3&quot;&gt;
+&lt;/audio&gt;
+</code></pre><h3 id="video元素"><a href="#video元素" class="headerlink" title="video元素"></a>video元素</h3><p>视频播放器，除具有<code>audio</code>元素的所有属性外，还有属性：<code>height</code>、<code>width</code>、<code>muted</code>、<code>poster</code>。</p>
+<p>可以采用与<code>audio</code>元素同样的方式来实现跨浏览器HTML5视频支持，即使用<code>source</code>元素。</p>
+<h2 id="HTML5页面的结构"><a href="#HTML5页面的结构" class="headerlink" title="HTML5页面的结构"></a>HTML5页面的结构</h2><p>前面几节简单介绍了HTML5的一些新特性，下面是一个简单的HTML5页面。</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;A basic HTML5 blog homepage&lt;/title&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;!-- CSS and JavaScript to go here --&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        &lt;header&gt;
+            &lt;!-- Website name and navigation --&gt;
+            &lt;h1&gt;My amazing blog&lt;/h1&gt;
+
+            &lt;nav&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;/archive/&quot;&gt;Archive&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;/about/&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;/contact/&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/nav&gt;
+        &lt;/header&gt;
+
+        &lt;section&gt;
+            &lt;!-- Blog articles - repeat as many times as required --&gt;
+            &lt;article&gt;
+                &lt;header&gt;
+                    &lt;hgroup&gt;
+                        &lt;h1&gt;&lt;a href=&quot;/blog/first-post-link/&quot;&gt;Main heading of the first blog post&lt;/a&gt;&lt;/h1&gt;
+                        &lt;h2&gt;Sub-heading of the first blog post&lt;/h2&gt;
+                    &lt;/hgroup&gt;
+                    &lt;p&gt;Posted on the &lt;time pubdate datetime=&quot;2010-10-30T13:08&quot;&gt;30 October 2010 at 1:08 PM&lt;/time&gt;&lt;/p&gt;
+                &lt;/header&gt;
+
+                &lt;p&gt;Summary of the first blog post.&lt;/p&gt;
+            &lt;/article&gt;
+
+            &lt;article&gt;
+                &lt;header&gt;
+                    &lt;hgroup&gt;
+                        &lt;h1&gt;&lt;a href=&quot;/blog/second-post-link/&quot;&gt;Main heading of the second blog post&lt;/a&gt;&lt;/h1&gt;
+                        &lt;h2&gt;Sub-heading of the second blog post&lt;/h2&gt;
+                    &lt;/hgroup&gt;
+                    &lt;p&gt;Posted on the &lt;time pubdate datetime=&quot;2010-10-26T09:36&quot;&gt;26 October 2010 at 9:36 AM&lt;/time&gt;&lt;/p&gt;
+                &lt;/header&gt;
+
+                &lt;p&gt;Summary of the second blog post.&lt;/p&gt;
+            &lt;/article&gt;
+
+            &lt;article&gt;
+                &lt;header&gt;
+                    &lt;hgroup&gt;
+                        &lt;h1&gt;&lt;a href=&quot;/blog/third-post-link/&quot;&gt;Main heading of the third blog post&lt;/a&gt;&lt;/h1&gt;
+                        &lt;h2&gt;Sub-heading of the third blog post&lt;/h2&gt;
+                    &lt;/hgroup&gt;
+                    &lt;p&gt;Posted on the &lt;time pubdate datetime=&quot;2010-10-21T17:13&quot;&gt;21 October 2010 at 5:13 PM&lt;/time&gt;&lt;/p&gt;
+                &lt;/header&gt;
+
+                &lt;p&gt;Summary of the third blog post.&lt;/p&gt;
+            &lt;/article&gt;
+
+            &lt;!-- Blog sidebar --&gt;
+            &lt;aside&gt;
+                &lt;h2&gt;Subscribe to the RSS feed&lt;/h2&gt;
+                &lt;p&gt;Make sure you don&apos;t miss a blog post by &lt;a href=&quot;/rss&quot;&gt;subscribing to the RSS feed&lt;/a&gt;.&lt;/p&gt;
+            &lt;/aside&gt;        
+        &lt;/section&gt;
+
+        &lt;footer&gt;
+            &lt;!-- Copyright and other stuff --&gt;
+            &lt;p&gt;My amazing blog &amp;copy; 2010&lt;/p&gt;
+        &lt;/footer&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h2 id="对HTML5的误解"><a href="#对HTML5的误解" class="headerlink" title="对HTML5的误解"></a>对HTML5的误解</h2><p>下面的一些技术或特性并不属于HTML5，一定要注意。</p>
+<ul>
+<li>CSS3：应用样式的技术，与内容或结构无关。</li>
+<li>Web Fonts：自定义字体，属于CSS3。</li>
+<li>Geolocation：了解用户位置，一种JavaScript API，是由想要支持它的浏览器实现的。</li>
+<li>SVG：一种允许使用XML创建2D矢量图的语言。是一种使用XML来描述图形的完全独立的技术。</li>
+<li>Web Storage：新存储方法，一种JavaScript API，是由想要支持它的浏览器实现的。</li>
+<li>Web Workers：可在后台执行一些繁重的计算及其他高强度的任务，从而不会导致网页显示减慢或影响用户体验。一种JavaScript API，是由想要支持它的浏览器实现的。</li>
+<li>WebSocket：可实现双向通信。一种JavaScript API，是由想要支持它的浏览器实现的。</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[OpenVPN的安装及使用]]></title>
       <url>https://fantasticzhang.github.io/2017/03/13/OpenVPN%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/</url>
       <content type="html"><![CDATA[<h2 id="元信息"><a href="#元信息" class="headerlink" title="元信息"></a>元信息</h2><ul>
@@ -12,7 +170,7 @@
 <li><a href="https://github.com/OpenVPN/openvpn" target="_blank" rel="external">github</a></li>
 </ul>
 <h2 id="编译、运行、安装过程"><a href="#编译、运行、安装过程" class="headerlink" title="编译、运行、安装过程"></a>编译、运行、安装过程</h2><h3 id="安装方式"><a href="#安装方式" class="headerlink" title="安装方式"></a>安装方式</h3><p> 源码安装</p>
-<h3 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h3><ol>
+<h3 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h3><ul>
 <li><p>安装c编译器及OpenVPN所需的插件</p>
 <p>gcc、g++、openssl、pam、lzo</p>
 <p>安装命令为：</p>
@@ -36,8 +194,8 @@
 <li>make install</li>
 </ul>
 </li>
-</ol>
-<h3 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h3><ol>
+</ul>
+<h3 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h3><ul>
 <li><p>搭建CA，并为OpenVPN server端和client端产生证书和密钥</p>
 <p>使用<a href="https://github.com/OpenVPN/easy-rsa" target="_blank" rel="external">easy-rsa</a>来搭建CA。命令如下：</p>
 <ul>
@@ -110,7 +268,7 @@
 </ul>
 <p>如果能ping通，则说明客户端已经和OpenVPN服务端连接成功。</p>
 </li>
-</ol>
+</ul>
 <h3 id="证书导入接口"><a href="#证书导入接口" class="headerlink" title="证书导入接口"></a>证书导入接口</h3><p>  由上一节的实际操作过程可知，server端的证书导入接口在配置文件 server.conf 中；client端的证书导入接口在配置文件 client.conf 中。</p>
 ]]></content>
     </entry>
@@ -2306,12 +2464,6 @@ child.on(&apos;close&apos;,function(code){
     </entry>
     
     <entry>
-      <title></title>
-      <url>https://fantasticzhang.github.io/photos/output.json</url>
-      <content type="html"><![CDATA[["IMG_20161005_164625.jpg","IMG_20161005_165430.jpg","IMG_20161005_165817.jpg","IMG_20161005_172129.jpg","IMG_20161006_130939.jpg","IMG_20161006_132426.jpg","IMG_20161006_132836.jpg","IMG_20161116_141430.jpg","IMG_20161116_150715.jpg","IMG_20161116_155406.jpg","IMG_20161118_124950.jpg","mmexport1479264425744.jpg","mmexport1479264435676.jpg","wen.jpg"]]]></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[学习过程中实现的实例demo]]></title>
       <url>https://fantasticzhang.github.io/demo/index.html</url>
       <content type="html"><![CDATA[<p>做前端和后台不太一样，总觉得只有自己动手做出来一些能看得见的东西，才会有一些成就感~</p>
@@ -2369,6 +2521,12 @@ child.on(&apos;close&apos;,function(code){
         }(0));
     });
 ]]></content>
+    </entry>
+    
+    <entry>
+      <title></title>
+      <url>https://fantasticzhang.github.io/photos/output.json</url>
+      <content type="html"><![CDATA[["IMG_20161005_164625.jpg","IMG_20161005_165430.jpg","IMG_20161005_165817.jpg","IMG_20161005_172129.jpg","IMG_20161006_130939.jpg","IMG_20161006_132426.jpg","IMG_20161006_132836.jpg","IMG_20161116_141430.jpg","IMG_20161116_150715.jpg","IMG_20161116_155406.jpg","IMG_20161118_124950.jpg","mmexport1479264425744.jpg","mmexport1479264435676.jpg","wen.jpg"]]]></content>
     </entry>
     
   
