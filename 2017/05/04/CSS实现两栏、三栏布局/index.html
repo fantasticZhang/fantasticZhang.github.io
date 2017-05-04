@@ -1,0 +1,949 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>CSS实现两栏、三栏布局 | Fantastic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="张金玲">
+    
+
+    
+    <meta name="description" content="以下是利用CSS实现两栏、三栏布局的一些方法。
+两栏布局——左栏固定、右栏自适应
+绝对定位法缺点：如果左右两栏高度不一样，且左右两栏之后还有其他元素，则后续元素不能正常定位。
+//css
+#left{
+       background-color: #42e2b9;
+       width: 200px;
+       height: 600px;
+       position: absol">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS实现两栏、三栏布局">
+<meta property="og:url" content="https://fantasticzhang.github.io/2017/05/04/CSS实现两栏、三栏布局/index.html">
+<meta property="og:site_name" content="Fantastic">
+<meta property="og:description" content="以下是利用CSS实现两栏、三栏布局的一些方法。
+两栏布局——左栏固定、右栏自适应
+绝对定位法缺点：如果左右两栏高度不一样，且左右两栏之后还有其他元素，则后续元素不能正常定位。
+//css
+#left{
+       background-color: #42e2b9;
+       width: 200px;
+       height: 600px;
+       position: absol">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/2017-05-04/两栏布局-左栏固定右栏自适应.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/2017-05-04/两栏布局-右栏固定左栏自适应.PNG">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/2017-05-04/三栏布局-左右两栏固定中栏自适应.PNG">
+<meta property="og:updated_time" content="2017-05-04T11:34:15.585Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS实现两栏、三栏布局">
+<meta name="twitter:description" content="以下是利用CSS实现两栏、三栏布局的一些方法。
+两栏布局——左栏固定、右栏自适应
+绝对定位法缺点：如果左右两栏高度不一样，且左右两栏之后还有其他元素，则后续元素不能正常定位。
+//css
+#left{
+       background-color: #42e2b9;
+       width: 200px;
+       height: 600px;
+       position: absol">
+<meta name="twitter:image" content="https://fantasticzhang.github.io/images/2017-05-04/两栏布局-左栏固定右栏自适应.PNG">
+<meta name="twitter:creator" content="@fantastic_zjl">
+
+    
+    <link rel="alternative" href="atom.xml" title="Fantastic" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/unnamed4_n_mSY_icon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/logo.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/logo.png">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/search.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Fantastic" title="Fantastic"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Fantastic">Fantastic</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+						<li><a href="/demo">Demo</a></li>
+					
+						<li><a href="/photos">相册</a></li>
+					
+					<li>
+ 					
+					<!-- <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:fantasticzhang.github.io">
+					</form> -->
+
+					<!--自定义本地搜索 2016。11.29-->
+						<div id="site_search">
+							<input type="text" id="local-search-input" name="q" results="0" autocomplete="off" maxlength="20" placeholder="搜索博客" class="form-control"/>
+							<div id="local-search-result"></div>
+						</div>
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/05/04/CSS实现两栏、三栏布局/" title="CSS实现两栏、三栏布局" itemprop="url">CSS实现两栏、三栏布局</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="张金玲" target="_blank" itemprop="author">张金玲</a>
+		
+  <p class="article-time">
+    <time datetime="2017-05-04T09:28:32.000Z" itemprop="datePublished"> 发表于 2017-05-04</time>
+    <span class="head-plus">
+   &nbsp;|&nbsp;<i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="2017/05/04/CSS实现两栏、三栏布局/"><i class="fa fa-spinner fa-spin"></i></span>
+   </span>
+  </p>
+
+
+</header>
+
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#两栏布局——左栏固定、右栏自适应"><span class="toc-number">1.</span> <span class="toc-text">两栏布局——左栏固定、右栏自适应</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#绝对定位法"><span class="toc-number">1.1.</span> <span class="toc-text">绝对定位法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自身浮动法"><span class="toc-number">1.2.</span> <span class="toc-text">自身浮动法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用display的table属性"><span class="toc-number">1.3.</span> <span class="toc-text">利用display的table属性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#两栏布局——右栏固定、左栏自适应"><span class="toc-number">2.</span> <span class="toc-text">两栏布局——右栏固定、左栏自适应</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#绝对定位法-1"><span class="toc-number">2.1.</span> <span class="toc-text">绝对定位法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#margin负值法"><span class="toc-number">2.2.</span> <span class="toc-text">margin负值法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自身浮动法-1"><span class="toc-number">2.3.</span> <span class="toc-text">自身浮动法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用display的table属性-1"><span class="toc-number">2.4.</span> <span class="toc-text">利用display的table属性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三栏布局——左右两栏固定、中间自适应"><span class="toc-number">3.</span> <span class="toc-text">三栏布局——左右两栏固定、中间自适应</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#绝对定位法-2"><span class="toc-number">3.1.</span> <span class="toc-text">绝对定位法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自身浮动法-2"><span class="toc-number">3.2.</span> <span class="toc-text">自身浮动法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#margin负值法-1"><span class="toc-number">3.3.</span> <span class="toc-text">margin负值法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用display的table属性-2"><span class="toc-number">3.4.</span> <span class="toc-text">利用display的table属性</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>以下是利用CSS实现两栏、三栏布局的一些方法。</p>
+<h1 id="两栏布局——左栏固定、右栏自适应"><a href="#两栏布局——左栏固定、右栏自适应" class="headerlink" title="两栏布局——左栏固定、右栏自适应"></a>两栏布局——左栏固定、右栏自适应</h1><p><img src="/images/2017-05-04/两栏布局-左栏固定右栏自适应.PNG" alt=""></p>
+<h2 id="绝对定位法"><a href="#绝对定位法" class="headerlink" title="绝对定位法"></a>绝对定位法</h2><p>缺点：如果左右两栏高度不一样，且左右两栏之后还有其他元素，则后续元素不能正常定位。</p>
+<pre><code>//css
+#left{
+       background-color: #42e2b9;
+       width: 200px;
+       height: 600px;
+       position: absolute;
+   }
+ #right{
+     background-color: #e28cc8;
+     margin-left: 200px;
+     height:600px;
+ }
+//html
+&lt;body&gt;
+&lt;div id=&quot;main&quot;&gt;
+    &lt;div id=&quot;left&quot;&gt;我是左栏，固定宽度&lt;/div&gt;
+    &lt;div id=&quot;right&quot;&gt;我是右栏，自适应&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+</code></pre><h2 id="自身浮动法"><a href="#自身浮动法" class="headerlink" title="自身浮动法"></a>自身浮动法</h2><pre><code>//css
+body{
+    margin: 0;
+}
+#left{
+    float: left;
+    background-color: #42e2b9;
+    width: 200px;
+    height: 600px;
+
+}
+#right{
+    background-color: #e28cc8;
+    margin-left: 200px;
+    height:600px;
+}
+//html
+&lt;body&gt;
+&lt;div id=&quot;main&quot;&gt;
+    &lt;div id=&quot;left&quot;&gt;我是左栏，固定宽度&lt;/div&gt;
+    &lt;div id=&quot;right&quot;&gt;我是右栏，自适应&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;    
+</code></pre><h2 id="利用display的table属性"><a href="#利用display的table属性" class="headerlink" title="利用display的table属性"></a>利用display的table属性</h2><p>缺点：IE7及以下版本不支持该方法。</p>
+<pre><code>//css
+body{
+    margin: 0;
+}
+#main{
+    display: table;
+    width: 100%;
+}
+#left{
+    display: table-cell;
+    background-color: #42e2b9;
+    width: 200px;
+    height: 600px;
+
+}
+#right{
+    display: table-cell;
+    background-color: #e28cc8;
+    height:600px;
+}
+//html
+&lt;body&gt;
+&lt;div id=&quot;main&quot;&gt;
+    &lt;div id=&quot;left&quot;&gt;我是左栏，固定宽度&lt;/div&gt;
+    &lt;div id=&quot;right&quot;&gt;我是右栏，自适应&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+</code></pre><h1 id="两栏布局——右栏固定、左栏自适应"><a href="#两栏布局——右栏固定、左栏自适应" class="headerlink" title="两栏布局——右栏固定、左栏自适应"></a>两栏布局——右栏固定、左栏自适应</h1><p><img src="/images/2017-05-04/两栏布局-右栏固定左栏自适应.PNG" alt=""></p>
+<h2 id="绝对定位法-1"><a href="#绝对定位法-1" class="headerlink" title="绝对定位法"></a>绝对定位法</h2><p>缺点：如果左右两栏高度不一样，且左右两栏之后还有其他元素，则后续元素不能正常定位。</p>
+<pre><code>//css
+body{
+    margin: 0;
+}
+#left{
+    background-color: #e28cc8;
+     height:600px;
+    margin-right: 200px;
+}
+#right{
+    position: absolute;
+    background-color: #42e2b9;
+    width: 200px;
+    height: 600px;
+    right: 0;
+    top:0;
+}
+//html
+&lt;body&gt;
+&lt;div id=&quot;main&quot;&gt;
+    &lt;div id=&quot;left&quot;&gt;我是左栏，自适应&lt;/div&gt;
+    &lt;div id=&quot;right&quot;&gt;我是右栏，固定宽度&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+</code></pre><h2 id="margin负值法"><a href="#margin负值法" class="headerlink" title="margin负值法"></a>margin负值法</h2><p>缺点：html中left外面要额外多一层div。</p>
+<pre><code>//css
+body{
+    margin: 0;
+}
+#left-outer{
+    float: left;
+    width:100%;
+    margin-left: -200px;
+}
+#left{
+     background-color: #e28cc8;
+     height:600px;
+    margin-left: 200px;
+}
+#right{
+    float: right;
+    background-color: #42e2b9;
+    width: 200px;
+    height: 600px;
+}
+//html
+&lt;body&gt;
+&lt;div id=&quot;main&quot;&gt;
+    &lt;div id=&quot;left-outer&quot;&gt;&lt;div id=&quot;left&quot;&gt;我是左栏，自适应&lt;/div&gt;&lt;/div&gt;
+    &lt;div id=&quot;right&quot;&gt;我是右栏，固定宽度&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+</code></pre><h2 id="自身浮动法-1"><a href="#自身浮动法-1" class="headerlink" title="自身浮动法"></a>自身浮动法</h2><p>缺点：html中<strong>right</strong>必须在<strong>left</strong>之前。</p>
+<pre><code>//css
+body{
+    margin: 0;
+}
+#left{
+    background-color: #e28cc8;
+     height:600px;
+    margin-right: 200px;
+}
+#right{
+    float: right;
+    background-color: #42e2b9;
+    width: 200px;
+    height: 600px;
+}
+//html
+&lt;body&gt;
+&lt;div id=&quot;main&quot;&gt;
+  &lt;div id=&quot;right&quot;&gt;我是右栏，固定宽度&lt;/div&gt;
+  &lt;div id=&quot;left&quot;&gt;我是左栏，自适应&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+</code></pre><h2 id="利用display的table属性-1"><a href="#利用display的table属性-1" class="headerlink" title="利用display的table属性"></a>利用display的table属性</h2><p>缺点：IE7及以下版本不支持该方法。</p>
+<pre><code>//css
+body{
+    margin: 0;
+}
+#main{
+    display: table;
+    width: 100%;
+}
+#left{
+    display: table-cell;
+    background-color: #e28cc8;
+    height:600px;
+
+}
+#right{
+    display: table-cell;
+    background-color: #42e2b9;
+    width: 200px;
+    height: 600px;
+}
+//html
+&lt;body&gt;
+&lt;div id=&quot;main&quot;&gt;
+    &lt;div id=&quot;left&quot;&gt;我是左栏，自适应&lt;/div&gt;
+     &lt;div id=&quot;right&quot;&gt;我是右栏，固定宽度&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+</code></pre><h1 id="三栏布局——左右两栏固定、中间自适应"><a href="#三栏布局——左右两栏固定、中间自适应" class="headerlink" title="三栏布局——左右两栏固定、中间自适应"></a>三栏布局——左右两栏固定、中间自适应</h1><p><img src="/images/2017-05-04/三栏布局-左右两栏固定中栏自适应.PNG" alt=""></p>
+<h2 id="绝对定位法-2"><a href="#绝对定位法-2" class="headerlink" title="绝对定位法"></a>绝对定位法</h2><p>缺点：如果三栏高度不一样，且三栏之后还有其他元素，则后续元素不能正常定位。</p>
+<pre><code>//css
+body{
+    margin: 0;;
+}
+#left{
+    position: absolute;
+    width:200px;
+    height: 600px;
+    background-color: lightblue;
+}
+#right{
+    position: absolute;
+    top:0;
+    right: 0;
+    width: 200px;
+    height: 600px;
+    background-color: chartreuse;
+}
+#middle{
+    background-color: #e28cc8;
+    height: 600px;
+    margin: 0 200px 0 200px;
+}
+//html
+&lt;body&gt;
+&lt;div id=&quot;main&quot;&gt;
+    &lt;div id=&quot;left&quot;&gt;我是左栏，固定宽度&lt;/div&gt;
+    &lt;div id=&quot;middle&quot;&gt;
+        我是中栏，宽度自适应
+    &lt;/div&gt;
+    &lt;div id=&quot;right&quot;&gt;我是右栏，固定宽度&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;    
+</code></pre><h2 id="自身浮动法-2"><a href="#自身浮动法-2" class="headerlink" title="自身浮动法"></a>自身浮动法</h2><p>缺点：html中<strong>right</strong>必须在<strong>middle</strong>之前。</p>
+<pre><code>//css
+body{
+    margin: 0;;
+}
+#left{
+   float: left;
+    width:200px;
+    height: 600px;
+    background-color: lightblue;
+}
+#right{
+   float: right;
+    width: 200px;
+    height: 600px;
+    background-color: chartreuse;
+}
+#middle{
+    background-color: #e28cc8;
+    height: 600px;
+    margin: 0 200px 0 200px;
+}
+//html    
+&lt;div id=&quot;main&quot;&gt;
+    &lt;div id=&quot;left&quot;&gt;我是左栏，固定宽度&lt;/div&gt;
+     &lt;div id=&quot;right&quot;&gt;我是右栏，固定宽度&lt;/div&gt;
+    &lt;div id=&quot;middle&quot;&gt;
+        我是中栏，宽度自适应
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre><h2 id="margin负值法-1"><a href="#margin负值法-1" class="headerlink" title="margin负值法"></a>margin负值法</h2><p>缺点：html中middle外面要额外多一层div。</p>
+<pre><code>//css
+body{
+    margin: 0;;
+}
+#left{
+    float: left;
+    width:200px;
+    height: 600px;
+    background-color: lightblue;
+}
+#right{
+    float: right;
+    width: 200px;
+    height: 600px;
+    background-color: chartreuse;
+}
+#middle-outer{
+    float: left;
+    width: 100%;
+    margin-right: -200px;
+    margin-left: -200px;
+
+}
+#middle{
+     height: 600px;
+    background-color: #e28cc8;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+//html
+&lt;body&gt;
+&lt;div id=&quot;main&quot;&gt;
+    &lt;div id=&quot;left&quot;&gt;我是左栏，固定宽度&lt;/div&gt;
+    &lt;div id=&quot;middle-outer&quot;&gt;
+        &lt;div id=&quot;middle&quot;&gt;我是中栏，宽度自适应&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&quot;right&quot;&gt;我是右栏，固定宽度&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+</code></pre><h2 id="利用display的table属性-2"><a href="#利用display的table属性-2" class="headerlink" title="利用display的table属性"></a>利用display的table属性</h2><p>缺点：IE7及以下版本不支持该方法。</p>
+<pre><code>//css
+&lt;style&gt;
+    body{
+        margin: 0;;
+    }
+    #main{
+        display: table;
+        width: 100%;
+    }
+    #left{
+        display: table-cell;
+        width:200px;
+        height: 600px;
+        background-color: lightblue;
+    }
+    #right{
+        display: table-cell;
+        width: 200px;
+        height: 600px;
+        background-color: chartreuse;
+    }
+    #middle{
+         display: table-cell;
+        background-color: #e28cc8;
+        height: 600px;
+    }
+//html
+&lt;body&gt;
+&lt;div id=&quot;main&quot;&gt;
+    &lt;div id=&quot;left&quot;&gt;我是左栏，固定宽度&lt;/div&gt;
+    &lt;div id=&quot;middle&quot;&gt;
+        我是中栏，宽度自适应
+    &lt;/div&gt;
+    &lt;div id=&quot;right&quot;&gt;我是右栏，固定宽度&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+</code></pre><p>补充：使用<code>position:absolute</code>和<code>float</code>都会使元素脱离文档流。但是，使用 <code>float</code>使元素脱离文档流时，其他元素会无视这个元素，但其他元素内的文本依然会为这个元素让出位置，环绕在周围；使用<code>position:absolute</code>使元素脱离文档流时，其他元素与元素内的文本都会无视这个元素，所以可能会出现覆盖的情况。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/前端/">前端</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/CSS/">CSS</a>
+  </div>
+
+</div>
+
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/04/19/JavaScript之Ajax总结/"  title="JavaScript之Ajax总结">
+ <span>JavaScript之Ajax总结
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/05/04/CSS实现两栏、三栏布局/" data-title="CSS实现两栏、三栏布局" data-url="https://fantasticzhang.github.io/2017/05/04/CSS实现两栏、三栏布局/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#两栏布局——左栏固定、右栏自适应"><span class="toc-number">1.</span> <span class="toc-text">两栏布局——左栏固定、右栏自适应</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#绝对定位法"><span class="toc-number">1.1.</span> <span class="toc-text">绝对定位法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自身浮动法"><span class="toc-number">1.2.</span> <span class="toc-text">自身浮动法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用display的table属性"><span class="toc-number">1.3.</span> <span class="toc-text">利用display的table属性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#两栏布局——右栏固定、左栏自适应"><span class="toc-number">2.</span> <span class="toc-text">两栏布局——右栏固定、左栏自适应</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#绝对定位法-1"><span class="toc-number">2.1.</span> <span class="toc-text">绝对定位法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#margin负值法"><span class="toc-number">2.2.</span> <span class="toc-text">margin负值法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自身浮动法-1"><span class="toc-number">2.3.</span> <span class="toc-text">自身浮动法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用display的table属性-1"><span class="toc-number">2.4.</span> <span class="toc-text">利用display的table属性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三栏布局——左右两栏固定、中间自适应"><span class="toc-number">3.</span> <span class="toc-text">三栏布局——左右两栏固定、中间自适应</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#绝对定位法-2"><span class="toc-number">3.1.</span> <span class="toc-text">绝对定位法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自身浮动法-2"><span class="toc-number">3.2.</span> <span class="toc-text">自身浮动法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#margin负值法-1"><span class="toc-number">3.3.</span> <span class="toc-text">margin负值法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用display的table属性-2"><span class="toc-number">3.4.</span> <span class="toc-text">利用display的table属性</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+<div id="authorInfo">
+	
+		<div class="author-img"></div>		
+	
+	<div class="social-info" class="clearfix">
+		
+		<a href="http://weibo.com/jinlingzhang" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/fantasticZhang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/fantastic_zjl" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/fantasticzjl" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:jlzhanghot@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+
+	</div>
+</div>
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/github/" title="github">github<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>17</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/生活/" title="生活">生活<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随记/" title="随记">随记<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/CSS/" title="CSS">CSS<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/html5/" title="html5">html5<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Canvas/" title="Canvas">Canvas<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/js/" title="js">js<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/demo/" title="demo">demo<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/OpenVPN/" title="OpenVPN">OpenVPN<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Node/" title="Node">Node<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数学公式/" title="数学公式">数学公式<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信小程序/" title="微信小程序">微信小程序<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://ily11.github.io/" target="_blank" title="ily">ily</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://airghc.gtensor.com" target="_blank" title="Airghc">Airghc</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://rain1ove.cn/" target="_blank" title="rain">rain</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://wisexy.github.io/" target="_blank" title="wisexy">wisexy</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+		
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/hsihohuang/kiddochan" target="_blank" title="Kiddochan">Kiddochan</a> © 2017
+		
+		<a href="/about" target="_blank" title="张金玲">张金玲</a>
+		
+
+		</p>
+		<!-- <p class="copyright">
+		<span id="busuanzi_container_site_pv">
+		    本站总访问量<span id="busuanzi_value_site_pv"></span>次，
+		</span>
+		<span id="busuanzi_container_site_uv">
+		  您是第<span id="busuanzi_value_site_uv"></span>个到来的小伙伴
+		</span>
+
+		</p> -->
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+<!--自定义的配置-->
+<!-- <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script> -->
+<script src="/js/search.js"></script>
+<!--相冊功能-->
+<script src="/js/jquery.lazyload.js"></script>
+<script src="/js/photo.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+    //2016-11-29
+    if($('header nav').hasClass('shownav')){
+      $('.animated').css('display', 'block');
+    }else {
+      $('.animated').css('display', 'none');  //2016-11-29
+    }
+
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+      $('.animated').css('display', 'block');   //2016-11-29
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      $('.animated').css('display', 'none');  //2016-11-29
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+      //自定义  固定搜索结果列表宽度
+      $('ul.search-result-list').css('width', '82%');
+    }
+  });
+  //自定义事件 让搜索结果与输入框同宽 2016-11-30
+  $('#local-search-input').focusin(function(){
+    getSize();
+    if (myWidth >= 1024) {
+        $('ul.search-result-list').css('width', '13.5em');
+    }
+  })
+  $('#local-search-input').focusout(function(){
+    getSize();
+    if (myWidth >= 1024) {
+        $('ul.search-result-list').css('width', '7.4em');
+    }
+  })
+  //自定义 如果初始化时屏幕尺寸小于1024 则根据实际情况显示或隐藏菜单
+  getSize();
+  if (myWidth < 1024) {
+    if($('header nav').hasClass('shownav')){
+      $('.animated').css('display', 'block');
+    }else {
+      $('.animated').css('display', 'none');  //2016-11-29
+    }
+  }
+});
+
+<!--自定义功能：本地搜索-->
+var search_path = "search.xml";
+     if (search_path.length == 0) {
+     	search_path = "search.xml";
+     }
+     var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"fantasticzhang"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+
+  //相册功能 2017-02-20 add
+  if($(".photos").length) {
+      photoInit();
+   }
+});
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?dacfb28ac21a2d86cfeeda2ea84b20a7";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
