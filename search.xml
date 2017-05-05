@@ -4,6 +4,103 @@
   
     
     <entry>
+      <title><![CDATA[CSS清除浮动的方法]]></title>
+      <url>https://fantasticzhang.github.io/2017/05/05/CSS%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/</url>
+      <content type="html"><![CDATA[<p>CSS的float（浮动）属性有四个可选项：<code>none</code>（默认值，即不浮动）、<code>left</code>（向左浮动）、<code>right</code>（向右浮动）、<code>inherit</code>（继承父元素的float值）。设置了浮动的元素（<code>left</code>、<code>right</code>）有如下几个特点：</p>
+<ul>
+<li>对于块级元素，在不设置宽度的情况下默认宽度为100%；一旦设置了浮动，它的宽度会根据内容进行自动调整；</li>
+<li>设置了浮动的元素会脱离文档流，向左/向右浮动，直到遇到父元素或者别的浮动元素；</li>
+<li>设置了浮动的元素会导致父元素高度坍塌；</li>
+<li>虽然浮动的元素脱离了文档流，但里面的内容仍然占据空间，会根据相对位置进行布局。</li>
+</ul>
+<p>解决父元素高度坍塌的方式：清除浮动。底层原理是在被清除浮动的元素上边或者下边添加足够的清除空间。清除浮动有两种思路：利用CSS的clear属性；使父容器成为BFC容器。</p>
+<h1 id="利用CSS的clear属性"><a href="#利用CSS的clear属性" class="headerlink" title="利用CSS的clear属性"></a>利用CSS的clear属性</h1><p>clear属性定义了元素的哪一侧不允许出现浮动元素，可选项有<code>left</code>、<code>right</code>、<code>both</code>。有以下两种方式清除浮动。</p>
+<h2 id="在需要的地方添加定义了clear-both的空标签"><a href="#在需要的地方添加定义了clear-both的空标签" class="headerlink" title="在需要的地方添加定义了clear:both的空标签"></a>在需要的地方添加定义了<code>clear:both</code>的空标签</h2><pre><code>&lt;div id=&quot;container&quot; class=&quot;clearfix&quot;&gt;
+    &lt;div id=&quot;left&quot;&gt;
+        我是左栏
+    &lt;/div&gt;
+    &lt;div id=&quot;right&quot;&gt;
+        我是右栏
+    &lt;/div&gt;
+    &lt;div style=&quot;clear:both&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p>下面一个”万能”的清除浮动代码，可在不同浏览器下兼容：</p>
+<pre><code>.clear{
+
+    background: none;
+    border:0;
+    clear:both;   /*重点，其他的都是兼容性代码*/
+    display: block;
+    float: none;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width:0;
+    height:0;
+}
+</code></pre><p>在需要清除浮动的元素后面添加<code>&lt;div class=&quot;clear&quot;&gt;&lt;/div&gt;</code>即可。</p>
+<h2 id="对父元素使用-after伪类"><a href="#对父元素使用-after伪类" class="headerlink" title="对父元素使用:after伪类"></a>对父元素使用<code>:after</code>伪类</h2><pre><code>//css
+/*同时加入:before以解决现代浏览器上边距折叠的问题*/
+.clearfix:before,
+.clearfix:after{
+    content: &quot;&quot;;
+    display: table;
+}
+.clearfix:after{
+    clear: both;
+}
+.clearfix{
+    zoom: 1;  /*IE6、7不支持after伪类，因此需要添加这个兼容性代码*/
+}
+//html
+&lt;body&gt;
+&lt;div id=&quot;container&quot; class=&quot;clearfix&quot;&gt;
+    &lt;div id=&quot;left&quot;&gt;
+        我是左栏
+    &lt;/div&gt;
+    &lt;div id=&quot;right&quot;&gt;
+        我是右栏
+    &lt;/div&gt;
+    &lt;div class=&quot;clear&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+</code></pre><h2 id="关于IE6、7下的兼容性问题"><a href="#关于IE6、7下的兼容性问题" class="headerlink" title="关于IE6、7下的兼容性问题"></a>关于IE6、7下的兼容性问题</h2><p>旧版本的IE下有一个<code>hasLayout</code>属性，很多IE下的css Bug都与这个属性有关。在IE中，一个元素要么自己对自身的内容进行计算大小和组织，要么依赖于其最近拥有布局的祖先元素来计算尺寸和组织内容。</p>
+<ul>
+<li>当<code>hasLayout</code>为<code>true</code>时，相当于元素产生新BFC，元素自己对自身内容进行组织和尺寸计算;</li>
+<li>当<code>hasLayout</code>为<code>false</code>时，相当于元素不产生新BFC，元素由其最近拥有布局的祖先元素进行组织和尺寸计算。</li>
+</ul>
+<p>因此，很多情况下，我们把<code>hasLayout</code>的状态改成<code>true</code>就可以解决很大部分IE下显示的bug。但我们不能直接设定<code>hasLayout</code>属性，只能通过设定一些特定的css属性来触发并改变<code>hasLayout</code>状态。触发<code>hasLayout</code>为<code>true</code>的方式:</p>
+<ul>
+<li>position: absolute</li>
+<li>float: left|right</li>
+<li>display: inline-block</li>
+<li>width: 除”auto”外的任意值</li>
+<li>height: 除”auto”外的任意值</li>
+<li>zoom: 除”normal”外的任意值</li>
+<li>writing-mode: tb-rl</li>
+</ul>
+<h1 id="使父容器成为BFC容器"><a href="#使父容器成为BFC容器" class="headerlink" title="使父容器成为BFC容器"></a>使父容器成为BFC容器</h1><p>BFC（Block Formatting Context）即块级格式化上下文。BFC容器有如下三个特征：</p>
+<ul>
+<li>BFC会阻止垂直外边距叠加：BFC容器是一个隔离的容器，和其他元素互不干扰；所以可以通过触发两个元素的BFC来解决垂直边距折叠问题；</li>
+<li>BFC不会重叠浮动元素；</li>
+<li>BFC可以包含浮动：可使用该特性来解决浮动父元素高度坍塌的问题。</li>
+</ul>
+<p>因此，我们可以利用BFC的“包含浮动”这条特性条来“清浮动”，也就是说只要父容器形成BFC就可以。触发BFC的方式：</p>
+<ul>
+<li>float：left|right</li>
+<li>overflow：hidden|auto|scorll</li>
+<li>display：table-cell|table-caption|inline-block|flex|inline-flex</li>
+<li>position：absolute|fixed</li>
+</ul>
+<p>但是，通过以上几种方式触发BFC来清浮动都有各自的缺陷。例如：父容器float解决了其塌陷问题，那么父容器的父容器怎么办？<code>overflow</code>属性会影响滚动条和绝对定位的元素；<code>position</code>会改变元素的定位方式等等。</p>
+<p>参考链接：</p>
+<p><a href="http://www.jianshu.com/p/09bd5873bed4" target="_blank" rel="external">http://www.jianshu.com/p/09bd5873bed4</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[CSS实现两栏、三栏布局]]></title>
       <url>https://fantasticzhang.github.io/2017/05/04/CSS%E5%AE%9E%E7%8E%B0%E4%B8%A4%E6%A0%8F%E3%80%81%E4%B8%89%E6%A0%8F%E5%B8%83%E5%B1%80/</url>
       <content type="html"><![CDATA[<p>以下是利用CSS实现两栏、三栏布局的一些方法。</p>
@@ -3218,6 +3315,12 @@ child.on(&apos;close&apos;,function(code){
     </entry>
     
     <entry>
+      <title></title>
+      <url>https://fantasticzhang.github.io/photos/output.json</url>
+      <content type="html"><![CDATA[["IMG_20161005_164625.jpg","IMG_20161005_165430.jpg","IMG_20161005_165817.jpg","IMG_20161005_172129.jpg","IMG_20161006_130939.jpg","IMG_20161006_132426.jpg","IMG_20161006_132836.jpg","IMG_20161116_141430.jpg","IMG_20161116_150715.jpg","IMG_20161116_155406.jpg","IMG_20161118_124950.jpg","mmexport1479264425744.jpg","mmexport1479264435676.jpg","wen.jpg"]]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[相册]]></title>
       <url>https://fantasticzhang.github.io/photos/index.html</url>
       <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
@@ -3225,12 +3328,6 @@ child.on(&apos;close&apos;,function(code){
 
 <div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
 ]]></content>
-    </entry>
-    
-    <entry>
-      <title></title>
-      <url>https://fantasticzhang.github.io/photos/output.json</url>
-      <content type="html"><![CDATA[["IMG_20161005_164625.jpg","IMG_20161005_165430.jpg","IMG_20161005_165817.jpg","IMG_20161005_172129.jpg","IMG_20161006_130939.jpg","IMG_20161006_132426.jpg","IMG_20161006_132836.jpg","IMG_20161116_141430.jpg","IMG_20161116_150715.jpg","IMG_20161116_155406.jpg","IMG_20161118_124950.jpg","mmexport1479264425744.jpg","mmexport1479264435676.jpg","wen.jpg"]]]></content>
     </entry>
     
     <entry>
