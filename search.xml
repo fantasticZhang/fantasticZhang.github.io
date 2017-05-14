@@ -4,6 +4,520 @@
   
     
     <entry>
+      <title><![CDATA[JavaScript总结之变量和作用域]]></title>
+      <url>https://fantasticzhang.github.io/2017/05/14/JavaScript%E6%80%BB%E7%BB%93%E4%B9%8B%E5%8F%98%E9%87%8F%E5%92%8C%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
+      <content type="html"><![CDATA[<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>JavaScript中使用<code>var</code>关键字来声明变量，JavaScript变量可以用来保存两种类型的值：基本类型值（Undefined、Null、Boolean、Number、String和引用类型值（Object）。具有如下特点：</p>
+<ul>
+<li>基本类型值在内存中占据固定大小的空间，保存在<strong>栈</strong>内存中；引用类型的值是对象，保存在<strong>堆</strong>内存中。</li>
+<li>复制基本类型的值，会创建这个值的一个副本；复制引用类型的值，复制的其实是指针，因此两个变量最终都指向同一个对象。</li>
+<li>可使用<code>typeof</code>操作符来确定一个值是哪种基本类型；可使用<code>instanceof</code>操作符来确定一个值是哪种引用类型。</li>
+</ul>
+<p>JavaScript中没有块级作用域，只有函数级作用域和全局作用域。使用<code>var</code>声明的变量会自动添加到最接近的环境中（函数的局部环境或是全局环境），但是如果在初始化变量时未使用<code>var</code>关键字，则该变量会被添加到全局环境。</p>
+<p>当代码在一个环境中执行时，会创建变量对象的一个<strong>作用域链</strong>。作用域链能够保证对执行环境有权访问的所有变量和函数的有序访问。作用域链的前端始终是当前执行的代码所在环境的变量对象，下一个变量对象来自包含（外部）环境，而再下一个变量对象则来自下一个包含环境，这样一直延伸到全局执行环境。全局执行环境中的变量对象始终是作用域链中的最后一个对象。而标识符的解析就是沿着作用域链一级一级地搜索标识符的过程，从作用域链的前端开始，逐级地向后回溯，直至找到标识符为止。</p>
+<p>JavaScript具有自动垃圾回收机制，因此很多时候我们并不用关系内存的分配和回收问题。目前主流的垃圾收集算法是“标记清除”，该算法的思想是给当前不使用的值加上标记，然后再回收其内存。但是，为了确保有效回收内存，我们可以及时解除不再使用的全局对象、全局对象属性以及循环引用变量的引用（置为null）。</p>
+<h1 id="ES6的新特性"><a href="#ES6的新特性" class="headerlink" title="ES6的新特性"></a>ES6的新特性</h1><p>ES6中新增了两个声明变量的关键字：let和const。</p>
+<h2 id="let命令"><a href="#let命令" class="headerlink" title="let命令"></a>let命令</h2><p><code>let</code>命令用来声明变量，所声明的变量只在<code>let</code>命令所在的代码块内有效。</p>
+<h3 id="与var比较"><a href="#与var比较" class="headerlink" title="与var比较"></a>与var比较</h3><pre><code>var a = [];
+for (var i = 0; i &lt; 10; i++) {
+  a[i] = function () {
+    console.log(i);
+  };
+}
+a[6](); // 10
+</code></pre><p>上面代码中，变量<code>i</code>是<code>var</code>声明的，在全局范围内都有效。所以每一次循环，新的<code>i</code>值都会覆盖旧值，导致最后输出的是最后一轮的<code>i</code>值，即输出的是10.</p>
+<p>使用<code>let</code>声明变量：</p>
+<pre><code>var a = [];
+for (let i = 0; i &lt; 10; i++) {
+  a[i] = function () {
+    console.log(i);
+  };
+}
+a[6](); // 6
+</code></pre><p>上面代码中，变量<code>i</code>是<code>let</code>声明的，仅在块级作用域内有效。因此当前的<code>i</code>只在本轮循环有效，所以每一次循环的<code>i</code>其实都是一个新的变量，所以最后输出的是6。<br> （JavaScript 引擎内部会记住上一轮循环的值，初始化本轮的变量i时，就在上一轮循环的基础上进行计算。）</p>
+<h3 id="不存在变量提升"><a href="#不存在变量提升" class="headerlink" title="不存在变量提升"></a>不存在变量提升</h3><p><code>var</code>命令会发生”变量提升“现象，即变量可以在声明之前使用，值为<code>undefined</code>。但<code>let</code>命令所声明的变量一定要在声明后使用，否则报错。</p>
+<h3 id="暂时性死区（temporal-dead-zone，简称-TDZ）"><a href="#暂时性死区（temporal-dead-zone，简称-TDZ）" class="headerlink" title="暂时性死区（temporal dead zone，简称 TDZ）"></a>暂时性死区（temporal dead zone，简称 TDZ）</h3><p>只要块级作用域内存在<code>let</code>命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响。即：区块中存在<code>let</code>命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错。</p>
+<pre><code>var tmp = 123
+if (true) {
+// TDZ开始
+tmp = &apos;abc&apos;; // ReferenceError
+console.log(tmp); // ReferenceError
+
+let tmp; // TDZ结束
+console.log(tmp); // undefined
+
+tmp = 123;
+console.log(tmp); // 123
+}
+</code></pre><p>“暂时性死区”也意味着<code>typeof</code>不再是一个百分之百安全的操作。</p>
+<h3 id="不允许重复声明"><a href="#不允许重复声明" class="headerlink" title="不允许重复声明"></a>不允许重复声明</h3><p>let不允许在相同作用域内，重复声明同一个变量。</p>
+<pre><code>// 报错
+function () {
+  let a = 10;
+  var a = 1;
+}
+
+// 报错
+function () {
+  let a = 10;
+  let a = 1;
+}
+</code></pre><h2 id="const命令"><a href="#const命令" class="headerlink" title="const命令"></a>const命令</h2><p><code>const</code>声明一个只读的常量。一旦声明，常量的值就不能改变。这意味着，<code>const</code>一旦声明变量，就必须立即初始化，不能留到以后赋值。</p>
+<p>与<code>let</code>命令一样，<code>const</code>命令是块级作用域、不能提升、存在暂时性死区等。</p>
+<p>但是，对于复合类型的变量，变量名不指向数据，而是指向数据所在的地址。<code>const</code>命令只是保证变量名指向的地址不变，并不保证该地址的数据不变，所以将一个对象声明为常量必须非常小心。</p>
+<p>注：ES5只有两种声明变量的方法：<code>var</code>命令和<code>function</code>命令。，ES6一共有6种声明变量的方法:<code>var</code>命令、<code>function</code>命令、<code>let</code>命令、<code>const</code>命令、<code>import</code>命令和<code>class</code>命令。</p>
+<h2 id="块级作用域与函数声明"><a href="#块级作用域与函数声明" class="headerlink" title="块级作用域与函数声明"></a>块级作用域与函数声明</h2><p>ES5 规定，函数只能在顶层作用域和函数作用域之中声明，不能在块级作用域声明。但是，浏览器没有遵守这个规定，因此如果在块级作用域里声明了函数，实际都能运行，不会报错。不过，“严格模式”下还是会报错。</p>
+<p>ES6 规定，块级作用域之中，函数声明语句的行为类似于<code>let</code>，在块级作用域之外<strong>不可引用</strong>。</p>
+<p>但是，为了减轻因此产生的不兼容问题，ES6在<a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-block-level-function-declarations-web-legacy-compatibility-semantics" target="_blank" rel="external">附录B</a>里面规定，浏览器的实现可以不遵守上面的规定，有自己的行为方式:</p>
+<ul>
+<li>允许在块级作用域内声明函数。</li>
+<li>函数声明类似于var，即会提升到全局作用域或函数作用域的头部。</li>
+<li>同时，函数声明还会提升到所在的块级作用域的头部。</li>
+</ul>
+<p>因此，在浏览器的 ES6 环境中，块级作用域内声明的函数，行为类似于<code>var</code>声明的变量。注意，上面三条规则只对 ES6 的浏览器实现有效，其他环境的实现不用遵守，还是将块级作用域的函数声明当作<code>let</code>处理。</p>
+<pre><code>// 浏览器的 ES6 环境
+function f() { console.log(&apos;I am outside!&apos;); }
+(function () {
+  if (false) {
+    // 重复声明一次函数f
+    function f() { console.log(&apos;I am inside!&apos;); }
+  }
+
+  f();
+}());
+// Uncaught TypeError: f is not a function
+</code></pre><p>上面的代码在符合 ES6 的浏览器中，都会报错，因为实际运行的是下面的代码。</p>
+<pre><code>// 浏览器的 ES6 环境
+function f() { console.log(&apos;I am outside!&apos;); }
+(function () {
+  var f = undefined;
+  if (false) {
+    function f() { console.log(&apos;I am inside!&apos;); }
+  }
+
+  f();
+}());
+// Uncaught TypeError: f is not a function
+</code></pre><p>参考链接：</p>
+<p><a href="http://es6.ruanyifeng.com/#docs/let" target="_blank" rel="external">http://es6.ruanyifeng.com/#docs/let</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[JavaScript总结之基本概念]]></title>
+      <url>https://fantasticzhang.github.io/2017/05/14/JavaScript%E6%80%BB%E7%BB%93%E4%B9%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
+      <content type="html"><![CDATA[<p>最近在面试的过程中发现，JavaScript的一些基础知识自己有些遗忘，于是决定重新学习JavaScript，同时学习ES6的相关新特性，记下笔记以便日后回顾。学习资料：《JavaScript高级程序设计》，<a href="http://es6.ruanyifeng.com/" target="_blank" rel="external">ECMAScript6入门</a>。</p>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>JavaScript由以下三部分组成：</p>
+<ul>
+<li>ECMAScript：由ECMAScript-262定义，提供核心语言功能；</li>
+<li>文档对象模型（DOM）：提供访问和操作网页内容的方法和接口；</li>
+<li>浏览器对象模型（BOM）：提供与浏览器交互的方法和接口。</li>
+</ul>
+<p>ECMAScript与JavaScript的关系：前者是后者的标准，后者是前者的一种实现。即ECMAScript就是对实现该标准规定的各个方面内容的语言的描述，JavaScript实现了ECMAScript，Adobe ActionScript同样也实现了ECMAScript。</p>
+<h1 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h1><p>ECMAScript标识符采用驼峰大小写格式，按照以下规则组合起来的一个或多个字符：</p>
+<ul>
+<li>第一个字符必须是字母、下划线<code>_</code>或美元符号<code>$</code>;</li>
+<li>其他字符可以是字母、数字、下划线或美元符号。</li>
+</ul>
+<p>此外，ECMAScript中的一切变量、函数和操作符等都区分大小写。</p>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>ECMAScript中有五种基本数据类型：Undefined、Null、Boolean、Number、String；一种复杂数据类型：Objrct。</p>
+<p>对于给定变量，可以使用<code>typeof</code>操作符来检测其数据类型，该操作符可能的返回值如下：</p>
+<ul>
+<li>“undefined”：该值未定义或未初始化；</li>
+<li>“boolean”：该值是布尔值；</li>
+<li>“string”：该值是字符串；</li>
+<li>“number”：该值是数值或<code>NaN</code>；</li>
+<li>“object”：该值是对象或<code>null</code>；</li>
+<li>“function”：该值是函数。</li>
+</ul>
+<h2 id="Undefined类型"><a href="#Undefined类型" class="headerlink" title="Undefined类型"></a>Undefined类型</h2><p>该类型只要一个值<code>undefined</code>，在使用var声明变量但未对其加以初始化时，这个变量的值就是<code>undefined</code>。</p>
+<p>对未初始化的变量执行<code>typeof</code>操作符会返回<code>undefined</code>；对未声明的变量执行<code>typeof</code>操作符也会返回<code>undefined</code>值。</p>
+<p>根据以上特点，在写程序时可对，每个变量进行显示初始化，这样就能用<code>typeof</code>操作符检测出那些未声明的变量。</p>
+<h2 id="Null类型"><a href="#Null类型" class="headerlink" title="Null类型"></a>Null类型</h2><p>该类型只有一个值<code>null</code>，表示一个空对象指针。 使用<code>typeof</code>操作符检测<code>null</code>时会返回”object”。</p>
+<p>因此，可以使用<code>null</code>来初始化一个将来用于保存对象的变量，这样只要直接检查null值就能知道相应的变量是否已经保存了一个对象的引用。</p>
+<p><code>null == undefined</code> 返回 <code>true</code></p>
+<h2 id="Boolean类型"><a href="#Boolean类型" class="headerlink" title="Boolean类型"></a>Boolean类型</h2><p>该类型有两个字面量值：<code>true</code>和<code>false</code>，其他类型的值可以使用转型函数<code>Boolean()</code>转变成对应的Boolean值。</p>
+<h2 id="Number类型"><a href="#Number类型" class="headerlink" title="Number类型"></a>Number类型</h2><p>该类型使用IEEE754格式来表示整数和浮点数值。如果浮点数本身表示一个整数，则该值会被转换为整数。</p>
+<p>在进行浮点数计算时，注意精度问题。浮点数值的最高精度是17位小数，例如：0.1加0.2的结果是0.30000000000000004。</p>
+<p>数值范围：<code>Number.MIN_VALUE</code>到<code>Number.MAX_VALUE</code>，超出范围的会被转化成<code>Infinity</code>或<code>-Infinity</code>。可使用<code>isFinite()</code>函数来确定一个数值是不是有穷的。</p>
+<p>NaN：表示一个本来要返回数值的操作数未返回数值的情况。任何涉及NaN的操作都会返回NaN；NaN与任何值都不相等，包括其本身。<code>isNaN()</code>函数用来确定参数是否“不是数值”。</p>
+<p>数值转换：</p>
+<ul>
+<li>Number()：空字符串、null转换为0；undefined转换为NaN；如果是字符串则只能包含数字（正负号、十进制、十六进制、浮点数），如果包含这之外的其他字符，则返回NaN。</li>
+<li>parseInt()：会忽略前导空格，直到找到第一个非空格字符。如果第一个字符不是数字或负号则返回NaN；如果是数字字符，则会解析完后续所有字符或者遇到了一个非数字字符。可以用第二个参数来指定转换时使用的基数（即多少进制），如果指定的基数和第一个参数的数字不匹配，会返回0。</li>
+<li>parseFloat()：与<code>parseInt()</code>的解析方式类似，但不会忽略第一个小数点<code>.</code>，而且只解析十进制数值。</li>
+</ul>
+<h3 id="ES6新特性之二进制和八进制表示法"><a href="#ES6新特性之二进制和八进制表示法" class="headerlink" title="ES6新特性之二进制和八进制表示法"></a>ES6新特性之二进制和八进制表示法</h3><p>ES6 提供了二进制和八进制数值的新的写法，分别用前缀<code>0b</code>（或<code>0B</code>）和<code>0o</code>（或<code>0O</code>）表示。</p>
+<pre><code>0b111110111 === 503 // true
+0o767 === 503 // true
+</code></pre><h2 id="String类型"><a href="#String类型" class="headerlink" title="String类型"></a>String类型</h2><p>用于表示由零个或多个16位Unicode字符组成的字符序列。任何字符都可使用<code>lenght</code>属性来取得其长度，该属性返回的字符数包括<strong>16位字符</strong>的数目。</p>
+<p>数值、布尔值、字符串值和对象都有<code>toString()</code>方法，使用该方法可返回相应值的字符串表现形式，在调用数值的<code>toString()</code>方法时还可传递一个参数，该参数指定输出数值的基数。此外，其他任何类型的值还可使用转型函数<code>String()</code>来转变成对应的String值,<code>String(null)</code>返回”null”,<code>String(undefined)</code>返回<code>undefined</code>。</p>
+<p>注：ECMAScript中的字符串是不可变的，即字符串一旦创建它们的值就不能改变。要改变某个变量保存的字符串，首先要销毁原来的字符串，然后再用另一个包含新值的字符串填充该变量。</p>
+<h3 id="ES6新增特性"><a href="#ES6新增特性" class="headerlink" title="ES6新增特性"></a>ES6新增特性</h3><h4 id="字符的Unicode表示方法"><a href="#字符的Unicode表示方法" class="headerlink" title="字符的Unicode表示方法"></a>字符的Unicode表示方法</h4><p>JavaScript允许采用<code>\uxxxx</code>形式表示一个字符，其中<code>xxxx</code>表示字符的Unicode码点。但是这种表示方法只限于码点在<code>\u0000</code>~<code>\uFFFF</code>之间的字符。超出这个范围的字符，必须用两个双字节的形式表示。ES6 对这一点做出了改进，只要将码点放入大括号，就能正确解读该字符。</p>
+<pre><code>&quot;\u{20BB7}&quot;
+// &quot;𠮷&quot;
+
+&quot;\u{41}\u{42}\u{43}&quot;
+// &quot;ABC&quot;
+
+let hello = 123;
+hell\u{6F} // 123
+
+&apos;\u{1F680}&apos; === &apos;\uD83D\uDE80&apos;
+// true
+</code></pre><h4 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h4><p>模板字符串（template string）是增强版的字符串，用反引号标识。它可以当作普通字符串使用，也可以用来定义多行字符串，或者在字符串中嵌入变量。模板字符串中嵌入变量，需要将变量名写在<code>${}</code>之中。<code>{}</code>中可以放入任意的JavaScript表达式，可以进行运算，可以引用对象属性，还可以进行函数调用。</p>
+<pre><code>var x = 1;
+var y = 2;
+
+`${x} + ${y} = ${x + y}`
+// &quot;1 + 2 = 3&quot;
+
+function fn() {
+return &quot;Hello World&quot;;
+}
+
+`foo ${fn()} bar`
+// foo Hello World bar
+</code></pre><h2 id="Object类型"><a href="#Object类型" class="headerlink" title="Object类型"></a>Object类型</h2><p> Object类型是所有它的实例的基础，即Object类型所具有的任何属性和方法也同样存在于更具体的对象中。</p>
+<p> Object的每个实例都具有如下属性和方法：</p>
+<ul>
+<li>constructor：保存着用于创建当前对象的函数；</li>
+<li>hasOwnProperty(propertyName)：检查给定的属性在当前对象的实例中（而不是实例的的原型中）是否存在；</li>
+<li><p>isPrototypeOf(Object)：检查当前对象是否存在于传入对象的原型链中，例：</p>
+<pre><code>function Site(){
+    this.name = &quot;Fantastic&quot;;
+    this.url = &quot;http://fantasticzhang.gtensor.com/&quot;;
+
+    this.sayHello = function(){
+        document.writeln(&quot;欢迎来到&quot; + this.name);
+    };
+}
+
+var s =  new Site();
+document.writeln( Site.prototype.isPrototypeOf(s) ); // true
+
+var obj = {
+    engine: &quot;apache&quot;
+    ,sayHi: function(){
+        document.writeln(&quot;欢迎访问&quot; + this.url);
+    }
+};
+// 使用对象obj覆盖Site本身的prototype属性
+Site.prototype = obj;
+
+var s2 =  new Site();
+document.writeln( obj.isPrototypeOf(s2) ); // true
+</code></pre><ul>
+<li>propertyIsEnumerable(propertyName)：检查给定的属性是否能使用<code>for-in</code>语句来枚举；</li>
+<li>toLocalString()、toString()：返回对象的字符串表示，其中<code>toLocalString</code>与执行环境的地区对应；</li>
+<li>valueOf()：返回对象的字符串、数值或布尔值表示。</li>
+</ul>
+</li>
+</ul>
+<h2 id="ES6新特性之Symbol类型"><a href="#ES6新特性之Symbol类型" class="headerlink" title="ES6新特性之Symbol类型"></a>ES6新特性之Symbol类型</h2><p>ES6引入了一种新的原始数据类型Symbol，表示独一无二的值。它是JavaScript语言的第七种数据类型。Symbol值通过Symbol函数生成。这就是说，对象的属性名现在可以有两种类型，一种是原来就有的字符串，另一种就是新增的Symbol类型。凡是属性名属于Symbol类型，就都是独一无二的，可以保证不会与其他属性名产生冲突。</p>
+<pre><code>var s1 = Symbol(&apos;foo&apos;);
+var s2 = Symbol(&apos;bar&apos;);
+
+s1 // Symbol(foo)
+s2 // Symbol(bar)
+
+s1.toString() // &quot;Symbol(foo)&quot;
+s2.toString() // &quot;Symbol(bar)&quot;
+</code></pre><p>Symbol.for()是另一种生成新的Symbol的方法。它与Symbol()的区别是：Symbol.for()会被<strong>登记</strong>在全局环境中供搜索，Symbol()不会。Symbol.for()不会每次调用就返回一个新的 Symbol 类型的值，而是会先检查给定的key是否已经存在，如果不存在才会新建一个值。比如，如果你调用Symbol.for(“cat”)30次，每次都会返回同一个 Symbol 值，但是调用Symbol(“cat”)30次，会返回30个不同的Symbol值。</p>
+<pre><code>var s1 = Symbol.for(&apos;foo&apos;);
+var s2 = Symbol.for(&apos;foo&apos;);
+s1 === s2 // true
+</code></pre><p>Symbol.keyFor方法返回一个已登记的 Symbol 类型值的key。</p>
+<pre><code>var s1 = Symbol.for(&quot;foo&quot;);
+Symbol.keyFor(s1) // &quot;foo&quot;
+
+var s2 = Symbol(&quot;foo&quot;);
+Symbol.keyFor(s2) // undefined
+</code></pre><p>上面代码中，变量s2属于未登记的Symbol值，所以返回undefined。</p>
+<h1 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h1><p>ECMAScript的操作符能够适用于很多值，如字符串、数值、布尔值、对象等。不过在进行相应的操作前一般会对操作数进行相应的转换。</p>
+<h2 id="一元操作符"><a href="#一元操作符" class="headerlink" title="一元操作符"></a>一元操作符</h2><p>包括递增<code>++</code>、递减<code>--</code>、一元加<code>+</code>、一元减<code>-</code>操作符。</p>
+<ul>
+<li>操作数是数值：直接进行相应计算；</li>
+<li>操作数是非数值（不包括对象）：像转型函数<code>Number()</code>一样先对操作数转换成数值，之后在进行计算；</li>
+<li>操作数是对象：调用对象的<code>valueOf()</code>和（或）<code>toString()</code>方法，之后后应用上一规则。</li>
+</ul>
+<h2 id="位操作符"><a href="#位操作符" class="headerlink" title="位操作符"></a>位操作符</h2><p>包括按位非<code>~</code>、按位与<code>&amp;</code>、按位或<code>|</code>、按位异或<code>^</code>、左移<code>&lt;&lt;</code>、有符号右移<code>&gt;&gt;</code>（符号位不变，空位用符号位的值填充）、无符号右移<code>&gt;&gt;&gt;</code>（符号位也移动，用0填充空位）。</p>
+<p>ECMAScript中所有数值都是以IEEE-754 64位格式存储，但位操作符是先将64位的值转换成<strong>32位的整数</strong>，然后执行操作，最后再将结果转回64位。这个操作导致了一个负效应，即在对特殊的<code>NaN</code>和<code>Infinity</code>值应用位操作时，这两个值都会被当成0来处理；而在对浮点数值应用位操作时，会当做整数来处理，即截取浮点数的整数位。</p>
+<p>如果对非数值应用位操作符，则会先使用<code>Number()</code>函数将其转换成一个数值，之后再应用位操作，得到的结果是一个数值。</p>
+<h2 id="布尔操作符"><a href="#布尔操作符" class="headerlink" title="布尔操作符"></a>布尔操作符</h2><h3 id="逻辑非"><a href="#逻辑非" class="headerlink" title="逻辑非!"></a>逻辑非<code>!</code></h3><p>该操作符始终会返回一个布尔值。遵循以下规则：</p>
+<ul>
+<li>操作数是一个数值：0返回<code>true</code>；其他非0数值返回<code>false</code>；</li>
+<li>操作数是一个字符串：空串返回<code>true</code>；其他非空串返回<code>false</code>；</li>
+<li>操作数是一个对象：<code>null</code>返回<code>true</code>；其他非空对象返回<code>false</code>；</li>
+<li>操作数是<code>NaN</code>或<code>undefined</code>：返回<code>true</code>；</li>
+<li>操作数是<code>+/-Infinity</code>：返回false。</li>
+</ul>
+<h3 id="逻辑与-amp-amp"><a href="#逻辑与-amp-amp" class="headerlink" title="逻辑与&amp;&amp;"></a>逻辑与<code>&amp;&amp;</code></h3><p>该操作符可用于任何类型的操作数，且返回值不一定是布尔值。</p>
+<p>设<code>a &amp;&amp; b</code>，则遵循以下规则：</p>
+<ul>
+<li>如果a是非0数值（包括+/-Infinity）、非空串或非空对象或<code>true</code>，则返回b；</li>
+<li>如果a是<code>null</code>、<code>NaN</code>、<code>undefined</code>或求值结果是<code>false</code>，则返回a；该情况下会执行短路操作。</li>
+</ul>
+<h3 id="逻辑或"><a href="#逻辑或" class="headerlink" title="逻辑或||"></a>逻辑或<code>||</code></h3><p>该操作符可用于任何类型的操作数，且返回值不一定是布尔值。</p>
+<p>设<code>a || b</code>，则遵循以下规则：</p>
+<ul>
+<li>如果a是非0数值（包括+/-Infinity）、非空串、非空对象或<code>true</code>，则返回a；该情况下会执行短路操作。</li>
+<li>如果a是<code>null</code>、<code>NaN</code>、<code>undefined</code>或求值结果为<code>false</code>，则返回b。</li>
+</ul>
+<h2 id="乘性操作符"><a href="#乘性操作符" class="headerlink" title="乘性操作符"></a>乘性操作符</h2><p>包括乘法<code>*</code>、除法<code>/</code>、求余<code>%</code>。</p>
+<p>设<code>a*b</code>，则遵循以下规则：</p>
+<ul>
+<li>a、b都是数值，正常计算，如发生溢出，则结果为<code>Infinity</code>或<code>-Infinity</code>；</li>
+<li>a、b中有一个是<code>NaN</code>，则结果是<code>NaN</code>；</li>
+<li>a和b一个是<code>Infinity</code>，一个是0，则结果是<code>NaN</code>；</li>
+<li>a和b一个是<code>Infinity</code>，一个是非0数值，则结果是<code>Infinity</code>或<code>-Infinity</code>；</li>
+<li>a、b中有非数值，则先调用<code>Number()</code>将其转换为数值，再按如上规则计算。</li>
+</ul>
+<p>设<code>a/b</code>，则遵循以下规则：</p>
+<ul>
+<li>a、b都是数值，正常计算，如发生溢出，则结果为<code>Infinity</code>或<code>-Infinity</code>；</li>
+<li>a、b中有一个是<code>NaN</code>，则结果是<code>NaN</code>；</li>
+<li>a、b都是0，结果为<code>NaN</code>;</li>
+<li>a、b都是<code>±Infinity</code>，结果为<code>NaN</code>；</li>
+<li>a是<code>±Infinity</code>，b是有限数值，则结果是<code>±Infinity</code>;</li>
+<li>a是有限数值，b是<code>±Infinity</code>，则结果是<code>±0</code>；</li>
+<li>a是非零数值，b是0，则结果是<code>±Infinity</code>。</li>
+</ul>
+<p>设<code>a%b</code>，则遵循以下规则：</p>
+<ul>
+<li>a、b都是数值，正常计算；</li>
+<li>a、b中有一个是<code>NaN</code>，则结果是<code>NaN</code>；</li>
+<li>a、b都是0，结果为<code>NaN</code>;</li>
+<li>a是<code>±Infinity</code>，结果是<code>NaN</code>;</li>
+<li>a是有限数值，b是<code>±Infinity</code>，则结果是a；</li>
+<li>a是非零数值，b是0，则结果是<code>NaN</code>。</li>
+</ul>
+<h2 id="加性操作符"><a href="#加性操作符" class="headerlink" title="加性操作符"></a>加性操作符</h2><p>包括加法<code>+</code>、减法<code>-</code>。</p>
+<p>设<code>a+b</code>，则遵循以下规则：</p>
+<ul>
+<li>如果a和b中有一个是字符串，则将另一个转换为字符串，然后将两个字符串拼接起来；</li>
+<li><p>如果a和b都不是字符串，则先调用<code>Number()</code>将非数值转换为数值，再进行计算：</p>
+<ul>
+<li>a、b中有一个是<code>NaN</code>，结果是<code>NaN</code>;</li>
+<li>a、b都是<code>Infinity</code>，结果是<code>Infinity</code>;</li>
+<li>a、b都是<code>-Infinity</code>，结果是<code>-Infinity</code>;</li>
+<li>a是<code>Infinity</code>，b是<code>-Infinity</code>（或相反），则结果是<code>NaN</code>；</li>
+<li>a、b都是<code>+0</code>，则结果是<code>+0</code>；</li>
+<li>a、b都是<code>-0</code>，则结果是<code>-0</code>；</li>
+<li>a是<code>+0</code>，b是<code>-0</code>（或相反），则结果是<code>+0</code>。</li>
+</ul>
+</li>
+</ul>
+<p>设<code>a-b</code>，先将非数值转换为数值，再进行计算，遵循以下规则：</p>
+<ul>
+<li>a、b中有一个是<code>NaN</code>，结果是<code>NaN</code>;</li>
+<li>a、b都是<code>Infinity</code>，结果是<code>NaN</code>;</li>
+<li>a、b都是<code>-Infinity</code>，结果是<code>NaN</code>;</li>
+<li>a是<code>Infinity</code>，b是<code>-Infinity</code>，则结果是<code>Infinity</code>；</li>
+<li>a是<code>-Infinity</code>，b是<code>Infinity</code>，则结果是<code>-Infinity</code>；</li>
+<li>a、b都是<code>+0</code>，则结果是<code>+0</code>；</li>
+<li>a、b都是<code>-0</code>，则结果是<code>+0</code>；</li>
+<li>a是<code>+0</code>，b是<code>-0</code>，则结果是<code>+0</code>；</li>
+<li>a是<code>-0</code>，b是<code>+0</code>，则结果是<code>-0</code>。</li>
+</ul>
+<h2 id="关系操作符"><a href="#关系操作符" class="headerlink" title="关系操作符"></a>关系操作符</h2><p>包括大于<code>&gt;</code>、大于等于<code>&gt;=</code>、小于<code>&lt;</code>、小于等于<code>&lt;=</code>。遵循以下规则：</p>
+<ul>
+<li>两个操作数都是数值，则执行数值比较；</li>
+<li>两个操作数都是字符串，则比较两个字符串对应的<strong>字符编码值</strong>；</li>
+<li>有一个操作数是<code>NaN</code>，则结果为<code>false</code>；</li>
+<li>其他情况，则先将非数值转换为数值，再进行运算。</li>
+</ul>
+<h2 id="相等操作符"><a href="#相等操作符" class="headerlink" title="相等操作符"></a>相等操作符</h2><h3 id="相等-和不相等"><a href="#相等-和不相等" class="headerlink" title="相等==和不相等!="></a>相等<code>==</code>和不相等<code>!=</code></h3><p>在比较之前会根据实际情况对两个操作数进行转换。设两个操作数分别是a、b，则遵循以下规则：</p>
+<ul>
+<li>a、b都是数值，则执行数值比较；</li>
+<li>a、b都是字符串，则比较两个字符串对应的<strong>字符编码值</strong>；</li>
+<li>如果a和b都是对象，则比较它们是不是同一个对象，如果它们都指向同一个对象，则相等操作符返回true，否则返回false；</li>
+<li>a或b有一个是NaN，则相等操作符返回false，不相等操作符返回true；</li>
+<li>null和undefined是相等的；</li>
+<li>在比较之前，不能将null和undefined转换成其他任何值；</li>
+<li>其他情况，先将非数值转换为数值，再进行运算。</li>
+</ul>
+<h3 id="全等-和不全等"><a href="#全等-和不全等" class="headerlink" title="全等===和不全等!=="></a>全等<code>===</code>和不全等<code>!==</code></h3><p>不会对操作数进行转换。</p>
+<ul>
+<li>全等<code>===</code>：两个操作数未经转换就相等的情况下返回true；</li>
+<li>不全等<code>!==</code>：两个操作数未经转换就不相等的情况下返回true。</li>
+</ul>
+<h2 id="其他操作符"><a href="#其他操作符" class="headerlink" title="其他操作符"></a>其他操作符</h2><ul>
+<li>条件操作符：<code>variable = boolean_expression ? true_value:false_value</code>；</li>
+<li>赋值操作符：=、+=、-=、*=、/=、%=、&lt;&lt;=、&gt;&gt;=、&gt;&gt;&gt;=；</li>
+<li>逗号操作符：在用于赋值时，逗号操作符总会返回表达式中的最后一项。</li>
+</ul>
+<h2 id="ES6新特性之变量的解构赋值"><a href="#ES6新特性之变量的解构赋值" class="headerlink" title="ES6新特性之变量的解构赋值"></a>ES6新特性之变量的解构赋值</h2><p>ES6允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构（Destructuring）。在ES6中，数组、对象、字符串等都可以进行解构赋值。</p>
+<p>解构赋值允许指定默认值，当相应位置的成员严格 等于<code>undefined</code>时（使用严格相等运算符<code>===</code>判断），默认值生效。</p>
+<p>解构赋值的规则是，只要等号右边的值不是对象或数组，就先将其转为对象。由于undefined和null无法转为对象，所以对它们进行解构赋值，都会报错。</p>
+<p>数组的结构赋值：</p>
+<pre><code>let [foo, [[bar], baz]] = [1, [[2], 3]];
+foo // 1
+bar // 2
+baz // 3
+</code></pre><p>结构对象的解构赋值：</p>
+<pre><code>let { bar, foo } = { foo: &quot;aaa&quot;, bar: &quot;bbb&quot; };
+foo // &quot;aaa&quot;
+bar // &quot;bbb&quot;
+
+let { foo: baz } = { foo: &quot;aaa&quot;, bar: &quot;bbb&quot; };
+baz // &quot;aaa&quot;
+foo // error: foo is not defined
+</code></pre><p>由上可知，对象的解构赋值的内部机制，是先找到同名属性，然后再赋给对应的变量。真正被赋值的是后者，而不是前者。上面代码中，foo是匹配的模式，baz才是变量。真正被赋值的是变量baz，而不是模式foo。</p>
+<p>字符串的解构赋值：</p>
+<p>字符串在解构赋值时被转换成了一个类似数组的对象，这个类似数组的对象有一个<code>length</code>属性。</p>
+<pre><code>const [a, b, c, d, e] = &apos;hello&apos;;
+a // &quot;h&quot;
+b // &quot;e&quot;
+c // &quot;l&quot;
+d // &quot;l&quot;
+e // &quot;o&quot;
+
+let {length : len} = &apos;hello&apos;;
+len // 5
+</code></pre><p>数值和布尔值的解构赋值：</p>
+<p>解构赋值时，如果等号右边是数值和布尔值，则会先转为对象。</p>
+<pre><code>let {toString: s} = 123;
+s === Number.prototype.toString // true
+
+let {toString: s} = true;
+s === Boolean.prototype.toString // true
+</code></pre><p>函数参数的解构赋值：</p>
+<pre><code>function move({x = 0, y = 0} = {}) {
+  return [x, y];
+}
+
+move({x: 3, y: 8}); // [3, 8]
+move({x: 3}); // [3, 0]
+move({}); // [0, 0]
+move(); // [0, 0]
+</code></pre><p>上面代码中，函数move的参数表面上是一个对象，但在传入参数的那一刻，对象就被解构成<strong>变量</strong>x和y。对于函数内部的代码来说，它们能感受到的参数就是x和y。</p>
+<pre><code>function move({x, y} = { x: 0, y: 0 }) {
+  return [x, y];
+}
+
+move({x: 3, y: 8}); // [3, 8]
+move({x: 3}); // [3, undefined]
+move({}); // [undefined, undefined]
+move(); // [0, 0]
+</code></pre><p>上面代码是为函数<code>move</code>的<strong>参数</strong>指定默认值，而不是为变量x和y指定默认值，所以会得到与前一种写法不同的结果。</p>
+<p>写法一函数参数的默认值是空对象，但是设置了对象解构赋值的默认值；写法二函数参数的默认值是一个有具体属性的对象，但是没有设置对象解构赋值的默认值。</p>
+<p>解构赋值的用途有很多，例如：交换变量的值、从函数返回多个值、函数参数设置默认值、提取JSON数据等等。</p>
+<h1 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h1><p>包括：if语句、do-while语句、while语句、for语句、for-in语句、lable语句、break和continue语句、with语句、switch语句。</p>
+<ul>
+<li>for-in语句：可以用来枚举对象的属性。例：<code>for(var obj in window) console.log(obj)</code>；</li>
+<li><p>lable语句：可以在代码中添加标签，常与break和continue语句配合使用。例：</p>
+<pre><code>var num = 0;
+outermost:
+for (var i=0; i &lt; 10; i++) {
+     for (var j=0; j &lt; 10; j++) {
+        if (i == 5 &amp;&amp; j == 5) {
+            break outermost;
+        }
+        num++;
+    }
+}
+alert(num);    //55
+
+var num = 0;
+outermost:
+for (var i=0; i &lt; 10; i++) {
+     for (var j=0; j &lt; 10; j++) {
+        if (i == 5 &amp;&amp; j == 5) {
+            continue outermost;
+        }
+        num++;
+    }
+}
+
+alert(num);    //95
+</code></pre></li>
+<li><p>with语句：<code>with(expression) statement</code>,将代码的作用域设置到一个特定的对象中。例：</p>
+<pre><code>with(location){
+    var qs = search.substring(1);
+    var hostName = hostname;   
+    var url = href;
+}
+
+alert(qs);
+alert(hostName);
+alert(url);
+</code></pre></li>
+<li>switch语句：可在switch语句中使用任何数据类型，每个case可以是常量、变量、表达式等，switch语句在比较值时使用的是<strong>全等</strong>操作符。</li>
+</ul>
+<h2 id="ES6新特性之for-of循环"><a href="#ES6新特性之for-of循环" class="headerlink" title="ES6新特性之for...of循环"></a>ES6新特性之<code>for...of</code>循环</h2><p>ES6引入了<code>for...of</code>循环，作为遍历所有数据结构的统一的方法。一个数据结构只要部署了<code>Symbol.iterator</code>属性，就被视为具有iterator接口，就可以用<code>for...of</code>循环遍历它的成员。也就是说，<code>for...of</code>循环内部调用的是数据结构的<code>Symbol.iterator</code>方法。<code>for...of</code>循环可以使用的范围包括数组、Set 和 Map 结构、某些类似数组的对象（比如arguments对象、DOM NodeList 对象）、Generator对象，以及字符串。例：</p>
+<pre><code>const arr = [&apos;red&apos;, &apos;green&apos;, &apos;blue&apos;];
+
+for(let v of arr) {
+  console.log(v); // red green blue
+}
+</code></pre><p>对于JavaScript之前就有的<code>for</code>循环、<code>forEach</code>、<code>for...in</code>循环等方法，有如下缺点：</p>
+<ul>
+<li><code>for</code>循环：写法不够简便；</li>
+<li><code>forEach</code>方法：无法中途跳出循环，<code>break</code>或<code>return</code>命令都不起作用；</li>
+<li><p><code>for...in</code>：数组的键名是数字，但是for…in循环是以字符串作为键名“0”、“1”、“2”等等；for…in循环不仅遍历数字键名，还会遍历手动添加的其他键，甚至包括原型链上的键。例：</p>
+<p>  let arr = [3, 5, 7];<br>  arr.foo = ‘hello’;</p>
+<p>  for (let i in arr) {</p>
+<pre><code>console.log(i); // &quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;foo&quot;
+</code></pre><p>  }</p>
+<p>  for (let i of arr) {</p>
+<pre><code>console.log(i); //  &quot;3&quot;, &quot;5&quot;, &quot;7&quot;
+</code></pre><p>  }</p>
+</li>
+</ul>
+<p><code>for...of</code>与以上遍历方法相比有以下优点：有着同<code>for...in</code>一样的简洁语法，但是没有<code>for...in</code>那些缺点;不同用于<code>forEach</code>方法，它可以与<code>break</code>、<code>continue</code>和<code>return</code>配合使用;提供了遍历所有数据结构的统一操作接口。</p>
+<h3 id="Iterator接口"><a href="#Iterator接口" class="headerlink" title="Iterator接口"></a>Iterator接口</h3><p>遍历器（Itertator）是一种接口，为各种不同的数据结构提供了一种统一的访问机制，即<code>for...of</code>循环。任何数据结构只要部署Iterator接口，就可以完成遍历操作（即依次处理该数据结构的所有成员）。</p>
+<p>ES6规定，默认的Iterator接口部署在数据结构的<code>Symbol.iterator</code>属性，该属性本身是一个函数，就是当前数据结构默认的遍历器生成函数。执行这个函数，就会返回一个遍历器。</p>
+<p>下面是一个为对象添加Iterator接口的例子。</p>
+<pre><code>let obj = {
+  data: [ &apos;hello&apos;, &apos;world&apos; ],
+  [Symbol.iterator]() {
+    const self = this;
+    let index = 0;
+    return {
+      next() {
+        if (index &lt; self.data.length) {
+          return {
+            value: self.data[index++],
+            done: false
+          };
+        } else {
+          return { value: undefined, done: true };
+        }
+      }
+    };
+  }
+};
+</code></pre><p>在ES6中，有四类数据结构原生具备Iterator接口：数组、某些类似数组的对象（比如arguments对象、DOM NodeList 对象）、Set和Map结构、字符串，这是因为这些数据结构原生部署了Symbol.iterator属性。例：</p>
+<pre><code>let arr = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;];
+let iter = arr[Symbol.iterator]();
+
+iter.next() // { value: &apos;a&apos;, done: false }
+iter.next() // { value: &apos;b&apos;, done: false }
+iter.next() // { value: &apos;c&apos;, done: false }
+iter.next() // { value: undefined, done: true }
+</code></pre><p>对于那些没有Iterator接口的，需要我们自己在Symbol.iterator属性上面部署，这样才会被for…of循环遍历。对于类似数组的对象（存在数值键名和length属性），部署Iterator接口，有一个简便方法，就是Symbol.iterator方法直接引用数组的Iterator接口。例：</p>
+<pre><code>let iterable = {
+  0: &apos;a&apos;,
+  1: &apos;b&apos;,
+  2: &apos;c&apos;,
+  length: 3,
+  [Symbol.iterator]: Array.prototype[Symbol.iterator]
+};
+for (let item of iterable) {
+  console.log(item); // &apos;a&apos;, &apos;b&apos;, &apos;c&apos;
+</code></pre><h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><p>ECMAScript中的函数与其他语言中的函数有很多不同之处：</p>
+<ul>
+<li>无需指定函数的返回值，未指定返回值的函数返回的是<code>undefined</code>；</li>
+<li>ECMAScript中没有函数签名（接受的参数的类型和数量）的概念，其函数参数是以一个包含零或多个值的数组的形式传递的，函数接收到的始终是这个数组，而不关心数组中包含哪些参数，因此命名的参数只是提供便利，而不是必须的；</li>
+<li>可以向ECMAScript函数传递任意数量的参数，并通过<code>arguments</code>对象来访问这些参数，使用该对象的<code>lenght</code>属性来确定传递的参数的个数；</li>
+<li><code>arguments</code>对象和命名参数的内存空间是<strong>独立</strong>的，但它们的值会<strong>同步</strong>，未传递值的命名参数自动被赋值为<code>undefined</code>；</li>
+<li>ECMAScript中的所有参数传递的都是值</li>
+<li>由于不存在函数签名的特性，ECMAScript函数不能重载。</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[CSS清除浮动的方法]]></title>
       <url>https://fantasticzhang.github.io/2017/05/05/CSS%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/</url>
       <content type="html"><![CDATA[<p>CSS的float（浮动）属性有四个可选项：<code>none</code>（默认值，即不浮动）、<code>left</code>（向左浮动）、<code>right</code>（向右浮动）、<code>inherit</code>（继承父元素的float值）。设置了浮动的元素（<code>left</code>、<code>right</code>）有如下几个特点：</p>
@@ -3308,6 +3822,29 @@ child.on(&apos;close&apos;,function(code){
   
     
     <entry>
+      <title><![CDATA[相册]]></title>
+      <url>https://fantasticzhang.github.io/photos/index.html</url>
+      <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
+<link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet">
+
+<div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[关于我]]></title>
+      <url>https://fantasticzhang.github.io/about/index.html</url>
+      <content type="html"><![CDATA[<p>目前在北京读研，平时的工作主要是前端相关的。对前端技术也很感兴趣，处于边学边实践的阶段。欢迎志同道合的朋友与我多多交流，也期待大神的指点~</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title></title>
+      <url>https://fantasticzhang.github.io/photos/output.json</url>
+      <content type="html"><![CDATA[["IMG_20161005_164625.jpg","IMG_20161005_165430.jpg","IMG_20161005_165817.jpg","IMG_20161005_172129.jpg","IMG_20161006_130939.jpg","IMG_20161006_132426.jpg","IMG_20161006_132836.jpg","IMG_20161116_141430.jpg","IMG_20161116_150715.jpg","IMG_20161116_155406.jpg","IMG_20161118_124950.jpg","mmexport1479264425744.jpg","mmexport1479264435676.jpg","wen.jpg"]]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[学习过程中实现的实例demo]]></title>
       <url>https://fantasticzhang.github.io/demo/index.html</url>
       <content type="html"><![CDATA[<p>做前端和后台不太一样，总觉得只有自己动手做出来一些能看得见的东西，才会有一些成就感~</p>
@@ -3322,13 +3859,6 @@ child.on(&apos;close&apos;,function(code){
 <li>demo：<a href="/2017/03/12/实例demo之FidoBowling小游戏/" title="实例demo之FidoBowling小游戏">实例demo之FidoBowling小游戏</a></li>
 <li>源码：<a href="https://github.com/fantasticZhang/FidoBowling" target="_blank" rel="external">View on GitHub</a></li>
 </ul>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[关于我]]></title>
-      <url>https://fantasticzhang.github.io/about/index.html</url>
-      <content type="html"><![CDATA[<p>目前在北京读研，平时的工作主要是前端相关的。对前端技术也很感兴趣，处于边学边实践的阶段。欢迎志同道合的朋友与我多多交流，也期待大神的指点~</p>
 ]]></content>
     </entry>
     
@@ -3362,22 +3892,6 @@ child.on(&apos;close&apos;,function(code){
         }(0));
     });
 ]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[相册]]></title>
-      <url>https://fantasticzhang.github.io/photos/index.html</url>
-      <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
-<link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet">
-
-<div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title></title>
-      <url>https://fantasticzhang.github.io/photos/output.json</url>
-      <content type="html"><![CDATA[["IMG_20161005_164625.jpg","IMG_20161005_165430.jpg","IMG_20161005_165817.jpg","IMG_20161005_172129.jpg","IMG_20161006_130939.jpg","IMG_20161006_132426.jpg","IMG_20161006_132836.jpg","IMG_20161116_141430.jpg","IMG_20161116_150715.jpg","IMG_20161116_155406.jpg","IMG_20161118_124950.jpg","mmexport1479264425744.jpg","mmexport1479264435676.jpg","wen.jpg"]]]></content>
     </entry>
     
   
