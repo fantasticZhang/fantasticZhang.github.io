@@ -4,6 +4,138 @@
   
     
     <entry>
+      <title><![CDATA[Webpack入门学习]]></title>
+      <url>https://fantasticzhang.github.io/2017/06/01/Webpack%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/</url>
+      <content type="html"><![CDATA[<p>前段时间在学习React时，用到了Webpack，于是简单地学习了一下，下面将Webpack的基础知识记录下来，以便日后查看。</p>
+<p>以下内容来自于：<a href="https://github.com/zhaoda/webpack-handbook/" target="_blank" rel="external">webpack-handbook</a></p>
+<p>在介绍Webpack之前，首先介绍一下模块系统。</p>
+<h1 id="模块系统"><a href="#模块系统" class="headerlink" title="模块系统"></a>模块系统</h1><h2 id="为什么会出现模块系统"><a href="#为什么会出现模块系统" class="headerlink" title="为什么会出现模块系统"></a>为什么会出现模块系统</h2><p>当前，越来越多的网站已经从网页模式进化到了WebAPP模式。webapp通常是一个单页面应用，每一个视图通过异步的方式加载，这导致页面初始化和使用过程中会加载越来越多的JavaScript代码，这给前端开发的流程和资源组织带来了巨大的挑战。</p>
+<p>由于前端产品的交付是基于浏览器的，各种资源是通过增量加载的方式运行到浏览器端，因此需要一个模块化系统，在开发环境中组织好这些碎片化的代码和资源，并且保证它们在浏览器端快速、优雅地加载和更新。而这个理想中的模块化系统是前端工程师多年来一直探索的难题。</p>
+<h2 id="已有的模块系统"><a href="#已有的模块系统" class="headerlink" title="已有的模块系统"></a>已有的模块系统</h2><p>模块系统主要解决模块的定义、依赖和导出。</p>
+<h3 id="lt-script-gt-标签"><a href="#lt-script-gt-标签" class="headerlink" title="&lt;script&gt;标签"></a><code>&lt;script&gt;</code>标签</h3><pre><code>&lt;script src=&quot;module1.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;module2.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;libraryA.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;module3.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>最原始的 JavaScript 文件加载方式，如果把每一个文件看做是一个模块，那么他们的接口通常是暴露在全局作用域下，也就是定义在 window 对象中，不同模块的接口调用都是一个作用域中。</p>
+<h3 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h3><pre><code>require(&quot;module&quot;);
+require(&quot;../file.js&quot;);
+exports.doStuff = function() {};
+module.exports = someValue;
+</code></pre><p>该规范的核心思想是允许模块通过 require 方法来<strong>同步</strong>加载所要依赖的其他模块，然后通过 exports 或 module.exports 来导出需要暴露的接口。</p>
+<p>实现：服务器端的<a href="https://nodejs.org/en/" target="_blank" rel="external">Node.js</a>；<a href="http://browserify.org/" target="_blank" rel="external">Browserify</a>（浏览器端的 CommonJS 实现）；<a href="https://github.com/medikoo/modules-webmake" target="_blank" rel="external">modules-webmake</a>；<a href="https://github.com/substack/wreq" target="_blank" rel="external">wreq</a>。</p>
+<h3 id="AMD（Asynchronous-Module-Definition）"><a href="#AMD（Asynchronous-Module-Definition）" class="headerlink" title="AMD（Asynchronous Module Definition）"></a>AMD（Asynchronous Module Definition）</h3><pre><code>define(&quot;module&quot;, [&quot;dep1&quot;, &quot;dep2&quot;], function(d1, d2) {
+return someExportedValue;
+});
+require([&quot;module&quot;, &quot;../file&quot;], function(module, file) { });
+</code></pre><p>只有一个主要接口 <code>define(id?, dependencies?,factory)</code> ，它要在声明模块的时候指定所有的依赖 dependencies ，并且还要当做形参传到factory 中，对于依赖的模块提前执行，依赖前置。适合在浏览器环境中异步加载模块，但提高了开发成本，代码的阅读和书写比较困难，模块定义方式的语义不顺畅。</p>
+<p>实现：<a href="http://requirejs.org/" target="_blank" rel="external">RequireJS</a>；<a href="https://github.com/cujojs/curl" target="_blank" rel="external">curl</a>。</p>
+<h3 id="CMD（Common-Module-Definition-）"><a href="#CMD（Common-Module-Definition-）" class="headerlink" title="CMD（Common Module Definition ）"></a>CMD（Common Module Definition ）</h3><pre><code>define(function(require, exports, module) {
+var $ = require(&apos;jquery&apos;);
+var Spinning = require(&apos;./spinning&apos;);
+exports.doSomething = ...
+module.exports = ...
+})
+</code></pre><p>和 AMD 很相似，尽量保持简单，并与 CommonJS 和 Node.js 的 Modules 规范保持了很大的兼容性。依赖 SPM 打包，模块的加载逻辑偏重。</p>
+<p>实现：<a href="http://seajs.org/" target="_blank" rel="external">Sea.js</a>；<a href="https://github.com/cloudcome/coolie" target="_blank" rel="external">coolie</a></p>
+<h3 id="UMD（Universal-Module-Definition）"><a href="#UMD（Universal-Module-Definition）" class="headerlink" title="UMD（Universal Module Definition）"></a>UMD（Universal Module Definition）</h3><p>类似于兼容 CommonJS 和 AMD 的语法糖，是模块定义的跨平台解决方案。</p>
+<h3 id="ES6模块"><a href="#ES6模块" class="headerlink" title="ES6模块"></a>ES6模块</h3><pre><code>import &quot;jquery&quot;;
+export function doStuff() {}
+module &quot;localModule&quot; {}
+</code></pre><p>EcmaScript6 标准增加了 JavaScript 语言层面的模块体系定义。ES6 模块的设计思想，是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。CommonJS 和AMD 模块，都只能在运行时确定这些东西。</p>
+<p>实现：<a href="https://babeljs.io/" target="_blank" rel="external">Babel</a>。</p>
+<h2 id="为什么会需要Webpack"><a href="#为什么会需要Webpack" class="headerlink" title="为什么会需要Webpack"></a>为什么会需要Webpack</h2><h3 id="已有模块系统的缺点"><a href="#已有模块系统的缺点" class="headerlink" title="已有模块系统的缺点"></a>已有模块系统的缺点</h3><p>市面上已经存在的模块管理和打包工具并不适合大型的项目，尤其单页面 Web 应用程序。最紧迫的原因是如何在一个大规模的代码库中，维护各种模块资源的分割和存放，维护它们之间的依赖关系，并且无缝的将它们整合到一起生成适合浏览器端请求加载的静态资源。这些已有的模块化工具并不能很好的完成如下的目标：</p>
+<ul>
+<li>将依赖树拆分成按需加载的块；</li>
+<li>初始化加载的耗时尽量少；</li>
+<li>各种静态资源都可以视作模块；</li>
+<li>将第三方库整合成模块的能力；</li>
+<li>可以自定义打包逻辑的能力；</li>
+<li>适合大项目，无论是单页还是多页的 Web 应用。</li>
+</ul>
+<h3 id="Webpack的特点"><a href="#Webpack的特点" class="headerlink" title="Webpack的特点"></a>Webpack的特点</h3><h4 id="代码拆分"><a href="#代码拆分" class="headerlink" title="代码拆分"></a>代码拆分</h4><p>Webpack 有两种组织模块依赖的方式，同步和异步。异步依赖作为分割点，形成一个新的块。在优化了依赖树后，每一个异步区块都作为一个文件被打包。</p>
+<h4 id="Loader"><a href="#Loader" class="headerlink" title="Loader"></a>Loader</h4><p>Webpack 本身只能处理原生的 JavaScript 模块，但是 loader 转换器可以将各种类型的资源转换成 JavaScript 模块。这样，任何资源都可以成为 Webpack 可以处理的模块。</p>
+<h4 id="智能解析"><a href="#智能解析" class="headerlink" title="智能解析"></a>智能解析</h4><p>Webpack 有一个智能解析器，几乎可以处理任何第三方库，无论它们的模块形式是CommonJS、 AMD 还是普通的 JS 文件。甚至在加载依赖的时候，允许使用动态表达式require(“./templates/“ + name + “.jade”) 。</p>
+<h4 id="插件系统"><a href="#插件系统" class="headerlink" title="插件系统"></a>插件系统</h4><p>Webpack 还有一个功能丰富的插件系统。大多数内容功能都是基于这个插件系统运行的，还可以开发和使用开源的 Webpack 插件，来满足各式各样的需求。</p>
+<h4 id="快速运行"><a href="#快速运行" class="headerlink" title="快速运行"></a>快速运行</h4><p>Webpack 使用异步 I/O 和多级缓存提高运行效率，这使得 Webpack 能够以令人难以置信的速度快速增量编译。</p>
+<h1 id="Webpack的基本使用"><a href="#Webpack的基本使用" class="headerlink" title="Webpack的基本使用"></a>Webpack的基本使用</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>通常我们会将 Webpack 安装到项目的依赖中，这样就可以使用项目本地版本的 Webpack。</p>
+<pre><code># 进入项目目录
+# 确定已经有 package.json，没有就通过 npm init 创建
+# 安装 webpack 依赖
+$ npm install webpack --save-dev
+
+# 查看 webpack 版本信息
+$ npm info webpack
+# 安装指定版本的 webpack
+$ npm install webpack@1.12.x --save-dev
+
+# 安装 Webpack 开发工具
+$ npm install webpack-dev-server --save-dev
+</code></pre><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="命令行方式"><a href="#命令行方式" class="headerlink" title="命令行方式"></a>命令行方式</h3><p>首先创建一个静态页面 index.html 和一个 JS 入口文件 entry.js，然后编译 entry.js 并打包到 bundle.js：</p>
+<pre><code>&lt;!-- index.html --&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+// entry.js
+document.write(&apos;It works.&apos;)
+
+$ webpack entry.js bundle.js
+</code></pre><p>用浏览器打开 index.html 将会看到 <code>It works.</code> 。</p>
+<p>Webpack 会分析入口文件，解析包含依赖关系的各个文件。这些文件（ 模块） 都打包到bundle.js 。Webpack 会给每个模块分配一个唯一的 id 并通过这个 id 索引和访问模块。在页面启动时，会先执行 entry.js 中的代码，其它模块会在运行 require 的时候再执行。</p>
+<h3 id="配置文件方式"><a href="#配置文件方式" class="headerlink" title="配置文件方式"></a>配置文件方式</h3><p>Webpack 在执行的时候，除了在命令行传入参数，还可以通过指定的配置文件来执行。默认情况下，会搜索当前目录的 webpack.config.js 文件，这个文件是一个 node.js 模块，返回一<br>个 json 格式的配置信息对象，或者通过 –config 选项来指定配置文件。</p>
+<pre><code>//webpack.config.js 文件示例
+
+var webpack = require(&apos;webpack&apos;)
+
+module.exports = {
+    entry:&apos;./entry.js&apos;,
+    output:{
+        path:__dirname,
+        filename:&apos;bundle.js&apos;
+    },
+    module:{
+        loaders:[
+            {test:/\.css$/,loader:&apos;style-loader!css-loader&apos;}
+        ]
+    },
+    plugins:[
+        new webpack.BannerPlugin(&apos;This file is created by zjl&apos;)
+    ]
+}
+</code></pre><p>其中，<code>loaders</code>用来指定模块和资源的转换器。Webpack 本身只能处理 JavaScript 模块，如果要处理其他类型的文件，就需要使用 loader进行转换。Loader 可以理解为是模块和资源的转换器，它本身是一个函数，接受源文件作为参数，返回转换的结果。这样，我们就可以通过 require 来加载任何类型的模块或文件，比如CoffeeScript、 JSX、 LESS 或图片。</p>
+<p>还可以通过命令行的方式使用或是在 require() 引用模块的时候添加：</p>
+<pre><code>require(&quot;!style-loader!css-loader!./style.css&quot;) // 载入 style.css
+document.write(&apos;It works.&apos;)
+
+webpack entry.js bundle.js --module-bind &apos;css=style-loader!css-loader&apos;
+</code></pre><p><code>plugins</code>选项用来指定插件信息。Webpack 本身内置了一些常用的插件，还可以通过 npm 安装第三方插件。在上面的例子中用一个最简单的 BannerPlugin 内置插件来实践插件的配置和运行，这个插件<br>的作用是给输出的文件头部添加注释信息。</p>
+<h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><ul>
+<li><p>通过参数让编译的输出内容带有进度和颜色：</p>
+<pre><code>$ webpack --progress --colors
+</code></pre></li>
+<li><p>开启监听模式（没有变化的模块会在编译后缓存到内存中，而不会每次都被重新编译，所以监听模式的整体速度是很快的）</p>
+<pre><code>$ webpack --progress --colors --watch
+</code></pre></li>
+<li><p>使用 webpack-dev-server 开发服务</p>
+<p>它将在 localhost:8080 启动一个 express 静态资源 web 服务器，并且会以监听模式自动运行 webpack，在浏览器打开<a href="http://localhost:8080/" target="_blank" rel="external">http://localhost:8080/</a> 或<a href="http://localhost:8080/webpack-dev-server/" target="_blank" rel="external">http://localhost:8080/webpack-dev-server/</a> 可以浏览项目中的页面和编译后的资源输出，并且通过一个 socket.io 服务实时监听它们的变化并自动刷新页面。</p>
+<pre><code># 安装
+$ npm install webpack-dev-server -g
+# 运行
+$ webpack-dev-server --progress --colors
+</code></pre></li>
+<li><p>打印错误详情</p>
+<pre><code>$ webpack --display-error-details
+</code></pre></li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[JavaScript总结之变量和作用域]]></title>
       <url>https://fantasticzhang.github.io/2017/05/14/JavaScript%E6%80%BB%E7%BB%93%E4%B9%8B%E5%8F%98%E9%87%8F%E5%92%8C%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
       <content type="html"><![CDATA[<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>JavaScript中使用<code>var</code>关键字来声明变量，JavaScript变量可以用来保存两种类型的值：基本类型值（Undefined、Null、Boolean、Number、String和引用类型值（Object）。具有如下特点：</p>
@@ -119,7 +251,7 @@ function f() { console.log(&apos;I am outside!&apos;); }
 <li>其他字符可以是字母、数字、下划线或美元符号。</li>
 </ul>
 <p>此外，ECMAScript中的一切变量、函数和操作符等都区分大小写。</p>
-<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>ECMAScript中有五种基本数据类型：Undefined、Null、Boolean、Number、String；一种复杂数据类型：Objrct。</p>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>ECMAScript中有五种基本数据类型：Undefined、Null、Boolean、Number、String；一种复杂数据类型：Object。</p>
 <p>对于给定变量，可以使用<code>typeof</code>操作符来检测其数据类型，该操作符可能的返回值如下：</p>
 <ul>
 <li>“undefined”：该值未定义或未初始化；</li>
@@ -3822,19 +3954,19 @@ child.on(&apos;close&apos;,function(code){
   
     
     <entry>
+      <title><![CDATA[关于我]]></title>
+      <url>https://fantasticzhang.github.io/about/index.html</url>
+      <content type="html"><![CDATA[<p>目前在北京读研，平时的工作主要是前端相关的。对前端技术也很感兴趣，处于边学边实践的阶段。欢迎志同道合的朋友与我多多交流，也期待大神的指点~</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[相册]]></title>
       <url>https://fantasticzhang.github.io/photos/index.html</url>
       <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
 <link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet">
 
 <div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[关于我]]></title>
-      <url>https://fantasticzhang.github.io/about/index.html</url>
-      <content type="html"><![CDATA[<p>目前在北京读研，平时的工作主要是前端相关的。对前端技术也很感兴趣，处于边学边实践的阶段。欢迎志同道合的朋友与我多多交流，也期待大神的指点~</p>
 ]]></content>
     </entry>
     
