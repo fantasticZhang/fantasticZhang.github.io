@@ -12,7 +12,7 @@
 <h1 id="模块系统"><a href="#模块系统" class="headerlink" title="模块系统"></a>模块系统</h1><h2 id="为什么会出现模块系统"><a href="#为什么会出现模块系统" class="headerlink" title="为什么会出现模块系统"></a>为什么会出现模块系统</h2><p>当前，越来越多的网站已经从网页模式进化到了WebAPP模式。webapp通常是一个单页面应用，每一个视图通过异步的方式加载，这导致页面初始化和使用过程中会加载越来越多的JavaScript代码，这给前端开发的流程和资源组织带来了巨大的挑战。</p>
 <p>由于前端产品的交付是基于浏览器的，各种资源是通过增量加载的方式运行到浏览器端，因此需要一个模块化系统，在开发环境中组织好这些碎片化的代码和资源，并且保证它们在浏览器端快速、优雅地加载和更新。而这个理想中的模块化系统是前端工程师多年来一直探索的难题。</p>
 <h2 id="已有的模块系统"><a href="#已有的模块系统" class="headerlink" title="已有的模块系统"></a>已有的模块系统</h2><p>模块系统主要解决模块的定义、依赖和导出。</p>
-<h3 id="lt-script-gt-标签"><a href="#lt-script-gt-标签" class="headerlink" title="&lt;script&gt;标签"></a><code>&lt;script&gt;</code>标签</h3><pre><code>&lt;script src=&quot;module1.js&quot;&gt;&lt;/script&gt;
+<h3 id="script标签"><a href="#script标签" class="headerlink" title="script标签"></a>script标签</h3><pre><code>&lt;script src=&quot;module1.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;module2.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;libraryA.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;module3.js&quot;&gt;&lt;/script&gt;
@@ -3961,36 +3961,18 @@ child.on(&apos;close&apos;,function(code){
     </entry>
     
     <entry>
-      <title><![CDATA[相册]]></title>
-      <url>https://fantasticzhang.github.io/photos/index.html</url>
-      <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
-<link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet">
-
-<div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
-]]></content>
-    </entry>
-    
-    <entry>
       <title></title>
       <url>https://fantasticzhang.github.io/photos/output.json</url>
       <content type="html"><![CDATA[["IMG_20161005_164625.jpg","IMG_20161005_165430.jpg","IMG_20161005_165817.jpg","IMG_20161005_172129.jpg","IMG_20161006_130939.jpg","IMG_20161006_132426.jpg","IMG_20161006_132836.jpg","IMG_20161116_141430.jpg","IMG_20161116_150715.jpg","IMG_20161116_155406.jpg","IMG_20161118_124950.jpg","mmexport1479264425744.jpg","mmexport1479264435676.jpg","wen.jpg"]]]></content>
     </entry>
     
     <entry>
-      <title><![CDATA[学习过程中实现的实例demo]]></title>
-      <url>https://fantasticzhang.github.io/demo/index.html</url>
-      <content type="html"><![CDATA[<p>做前端和后台不太一样，总觉得只有自己动手做出来一些能看得见的东西，才会有一些成就感~</p>
-<a id="more"></a>
-<h2 id="实例一：Canvas小动画"><a href="#实例一：Canvas小动画" class="headerlink" title="实例一：Canvas小动画"></a>实例一：Canvas小动画</h2><p>使用html5的Canvas实现的一个小动画：模拟太空中一个行星群的运动。</p>
-<ul>
-<li>demo：<a href="/2017/03/10/实例demo之Canvas小动画/" title="实例demo之Canvas小动画">实例demo之Canvas小动画</a></li>
-<li>源码：<a href="https://github.com/fantasticZhang/Asteroids" target="_blank" rel="external">View on GitHub</a></li>
-</ul>
-<h2 id="实例二：Fido-Bowling游戏"><a href="#实例二：Fido-Bowling游戏" class="headerlink" title="实例二：Fido Bowling游戏"></a>实例二：Fido Bowling游戏</h2><p>基于Canvas开发的一个小游戏——太空保龄球。将源码下载下来即可运行，无需安装任何插件。</p>
-<ul>
-<li>demo：<a href="/2017/03/12/实例demo之FidoBowling小游戏/" title="实例demo之FidoBowling小游戏">实例demo之FidoBowling小游戏</a></li>
-<li>源码：<a href="https://github.com/fantasticZhang/FidoBowling" target="_blank" rel="external">View on GitHub</a></li>
-</ul>
+      <title><![CDATA[相册]]></title>
+      <url>https://fantasticzhang.github.io/photos/index.html</url>
+      <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
+<link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet">
+
+<div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
 ]]></content>
     </entry>
     
@@ -4023,6 +4005,24 @@ child.on(&apos;close&apos;,function(code){
             })
         }(0));
     });
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[学习过程中实现的实例demo]]></title>
+      <url>https://fantasticzhang.github.io/demo/index.html</url>
+      <content type="html"><![CDATA[<p>做前端和后台不太一样，总觉得只有自己动手做出来一些能看得见的东西，才会有一些成就感~</p>
+<a id="more"></a>
+<h2 id="实例一：Canvas小动画"><a href="#实例一：Canvas小动画" class="headerlink" title="实例一：Canvas小动画"></a>实例一：Canvas小动画</h2><p>使用html5的Canvas实现的一个小动画：模拟太空中一个行星群的运动。</p>
+<ul>
+<li>demo：<a href="/2017/03/10/实例demo之Canvas小动画/" title="实例demo之Canvas小动画">实例demo之Canvas小动画</a></li>
+<li>源码：<a href="https://github.com/fantasticZhang/Asteroids" target="_blank" rel="external">View on GitHub</a></li>
+</ul>
+<h2 id="实例二：Fido-Bowling游戏"><a href="#实例二：Fido-Bowling游戏" class="headerlink" title="实例二：Fido Bowling游戏"></a>实例二：Fido Bowling游戏</h2><p>基于Canvas开发的一个小游戏——太空保龄球。将源码下载下来即可运行，无需安装任何插件。</p>
+<ul>
+<li>demo：<a href="/2017/03/12/实例demo之FidoBowling小游戏/" title="实例demo之FidoBowling小游戏">实例demo之FidoBowling小游戏</a></li>
+<li>源码：<a href="https://github.com/fantasticZhang/FidoBowling" target="_blank" rel="external">View on GitHub</a></li>
+</ul>
 ]]></content>
     </entry>
     
