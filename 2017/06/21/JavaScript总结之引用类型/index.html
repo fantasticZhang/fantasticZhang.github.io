@@ -1,0 +1,1400 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>JavaScript总结之引用类型 | Fantastic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="张金玲">
+    
+
+    
+    <meta name="description" content="ECMAScript中，引用类型是一种数据结构，用于将数据和功能组织在一起，引用类型的值（对象）是引用类型的一个实例。ECMAScript提供了许多原生的引用类型，下面一一简单介绍。
+Object类型Object是一个基础类型，其他所有引用类型都从Object继承了基本的行为。
+创建Object实例有两种方法：构造函数法和对象字面量法。
+
+构造函数法：
+var person = new Objec">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript总结之引用类型">
+<meta property="og:url" content="https://fantasticzhang.github.io/2017/06/21/JavaScript总结之引用类型/index.html">
+<meta property="og:site_name" content="Fantastic">
+<meta property="og:description" content="ECMAScript中，引用类型是一种数据结构，用于将数据和功能组织在一起，引用类型的值（对象）是引用类型的一个实例。ECMAScript提供了许多原生的引用类型，下面一一简单介绍。
+Object类型Object是一个基础类型，其他所有引用类型都从Object继承了基本的行为。
+创建Object实例有两种方法：构造函数法和对象字面量法。
+
+构造函数法：
+var person = new Objec">
+<meta property="og:updated_time" content="2017-06-21T15:08:24.669Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript总结之引用类型">
+<meta name="twitter:description" content="ECMAScript中，引用类型是一种数据结构，用于将数据和功能组织在一起，引用类型的值（对象）是引用类型的一个实例。ECMAScript提供了许多原生的引用类型，下面一一简单介绍。
+Object类型Object是一个基础类型，其他所有引用类型都从Object继承了基本的行为。
+创建Object实例有两种方法：构造函数法和对象字面量法。
+
+构造函数法：
+var person = new Objec">
+
+    
+    <link rel="alternative" href="atom.xml" title="Fantastic" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/unnamed4_n_mSY_icon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/logo.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/logo.png">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/search.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Fantastic" title="Fantastic"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Fantastic">Fantastic</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+						<li><a href="/demo">Demo</a></li>
+					
+						<li><a href="/photos">相册</a></li>
+					
+					<li>
+ 					
+					<!-- <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:fantasticzhang.github.io">
+					</form> -->
+
+					<!--自定义本地搜索 2016。11.29-->
+						<div id="site_search">
+							<input type="text" id="local-search-input" name="q" results="0" autocomplete="off" maxlength="20" placeholder="搜索博客" class="form-control"/>
+							<div id="local-search-result"></div>
+						</div>
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/06/21/JavaScript总结之引用类型/" title="JavaScript总结之引用类型" itemprop="url">JavaScript总结之引用类型</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="张金玲" target="_blank" itemprop="author">张金玲</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-21T07:25:15.000Z" itemprop="datePublished"> 发表于 2017-06-21</time>
+    <span class="head-plus">
+   &nbsp;|&nbsp;<i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="2017/06/21/JavaScript总结之引用类型/"><i class="fa fa-spinner fa-spin"></i></span>
+   </span>
+  </p>
+
+
+</header>
+
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Object类型"><span class="toc-number">1.</span> <span class="toc-text">Object类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ES6新增特性"><span class="toc-number">1.1.</span> <span class="toc-text">ES6新增特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#属性的简写"><span class="toc-number">1.1.1.</span> <span class="toc-text">属性的简写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#属性名表达式"><span class="toc-number">1.1.2.</span> <span class="toc-text">属性名表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法的name属性"><span class="toc-number">1.1.3.</span> <span class="toc-text">方法的name属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新增的一些方法"><span class="toc-number">1.1.4.</span> <span class="toc-text">新增的一些方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象的扩展运算符"><span class="toc-number">1.1.5.</span> <span class="toc-text">对象的扩展运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#解构赋值"><span class="toc-number">1.1.5.1.</span> <span class="toc-text">解构赋值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#扩展运算符"><span class="toc-number">1.1.5.2.</span> <span class="toc-text">扩展运算符</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Array类型"><span class="toc-number">2.</span> <span class="toc-text">Array类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建Array类型"><span class="toc-number">2.1.</span> <span class="toc-text">创建Array类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Array类型的方法"><span class="toc-number">2.2.</span> <span class="toc-text">Array类型的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#检测数组"><span class="toc-number">2.2.1.</span> <span class="toc-text">检测数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#转换方法"><span class="toc-number">2.2.2.</span> <span class="toc-text">转换方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#栈方法"><span class="toc-number">2.2.3.</span> <span class="toc-text">栈方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#队列方法"><span class="toc-number">2.2.4.</span> <span class="toc-text">队列方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重排序方法"><span class="toc-number">2.2.5.</span> <span class="toc-text">重排序方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作方法"><span class="toc-number">2.2.6.</span> <span class="toc-text">操作方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#位置方法"><span class="toc-number">2.2.7.</span> <span class="toc-text">位置方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代方法"><span class="toc-number">2.2.8.</span> <span class="toc-text">迭代方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#归并方法"><span class="toc-number">2.2.9.</span> <span class="toc-text">归并方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ES6新增特性-1"><span class="toc-number">2.3.</span> <span class="toc-text">ES6新增特性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Date类型"><span class="toc-number">3.</span> <span class="toc-text">Date类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建Date类型"><span class="toc-number">3.1.</span> <span class="toc-text">创建Date类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Date类型的方法"><span class="toc-number">3.2.</span> <span class="toc-text">Date类型的方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RegExp类型"><span class="toc-number">4.</span> <span class="toc-text">RegExp类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建RegExp类型"><span class="toc-number">4.1.</span> <span class="toc-text">创建RegExp类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RegExp类型的属性和方法"><span class="toc-number">4.2.</span> <span class="toc-text">RegExp类型的属性和方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实例属性"><span class="toc-number">4.2.1.</span> <span class="toc-text">实例属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例方法"><span class="toc-number">4.2.2.</span> <span class="toc-text">实例方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构造函数属性"><span class="toc-number">4.2.3.</span> <span class="toc-text">构造函数属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ES6新增特性-2"><span class="toc-number">4.3.</span> <span class="toc-text">ES6新增特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造函数"><span class="toc-number">4.3.1.</span> <span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u修饰符"><span class="toc-number">4.3.2.</span> <span class="toc-text">u修饰符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#y-修饰符"><span class="toc-number">4.3.3.</span> <span class="toc-text">y 修饰符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后行断言"><span class="toc-number">4.3.4.</span> <span class="toc-text">后行断言</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Function类型"><span class="toc-number">5.</span> <span class="toc-text">Function类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建函数"><span class="toc-number">5.1.</span> <span class="toc-text">创建函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Function类型的属性和方法"><span class="toc-number">5.2.</span> <span class="toc-text">Function类型的属性和方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ES6新增特性-3"><span class="toc-number">5.3.</span> <span class="toc-text">ES6新增特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数参数新增的特性"><span class="toc-number">5.3.1.</span> <span class="toc-text">函数参数新增的特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#箭头函数"><span class="toc-number">5.3.2.</span> <span class="toc-text">箭头函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数的name属性"><span class="toc-number">5.3.3.</span> <span class="toc-text">函数的name属性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基本包装类型"><span class="toc-number">6.</span> <span class="toc-text">基本包装类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Boolean类型"><span class="toc-number">6.1.</span> <span class="toc-text">Boolean类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Number类型"><span class="toc-number">6.2.</span> <span class="toc-text">Number类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建Number类型的实例"><span class="toc-number">6.2.1.</span> <span class="toc-text">创建Number类型的实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例的方法"><span class="toc-number">6.2.2.</span> <span class="toc-text">实例的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ES6新增特性-4"><span class="toc-number">6.2.3.</span> <span class="toc-text">ES6新增特性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String类型"><span class="toc-number">6.3.</span> <span class="toc-text">String类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建String类型的实例"><span class="toc-number">6.3.1.</span> <span class="toc-text">创建String类型的实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例的方法-1"><span class="toc-number">6.3.2.</span> <span class="toc-text">实例的方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Global对象和Math对象"><span class="toc-number">7.</span> <span class="toc-text">Global对象和Math对象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Global对象"><span class="toc-number">7.1.</span> <span class="toc-text">Global对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#获取Global对象"><span class="toc-number">7.1.1.</span> <span class="toc-text">获取Global对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Global对象的方法"><span class="toc-number">7.1.2.</span> <span class="toc-text">Global对象的方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Math对象"><span class="toc-number">7.2.</span> <span class="toc-text">Math对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ES6新特性"><span class="toc-number">7.2.1.</span> <span class="toc-text">ES6新特性</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<p>ECMAScript中，引用类型是一种数据结构，用于将数据和功能组织在一起，引用类型的值（对象）是引用类型的一个实例。ECMAScript提供了许多原生的引用类型，下面一一简单介绍。</p>
+<h1 id="Object类型"><a href="#Object类型" class="headerlink" title="Object类型"></a>Object类型</h1><p>Object是一个基础类型，其他所有引用类型都从Object继承了基本的行为。</p>
+<p>创建Object实例有两种方法：构造函数法和对象字面量法。</p>
+<ul>
+<li><p>构造函数法：</p>
+<pre><code>var person = new Object();
+person.name = &quot;zjl&quot;;
+person.age = 25;
+</code></pre></li>
+<li><p>对象字面量法：</p>
+<pre><code>var person = {
+    name : &quot;zjl&quot;,
+    age : 25
+};
+</code></pre></li>
+</ul>
+<p>访问对象的属性，有两种方法：点表示法和方括号法。例:</p>
+<pre><code>console.log(person.name);
+console.log(person[&quot;name&quot;]);
+</code></pre><h2 id="ES6新增特性"><a href="#ES6新增特性" class="headerlink" title="ES6新增特性"></a>ES6新增特性</h2><h3 id="属性的简写"><a href="#属性的简写" class="headerlink" title="属性的简写"></a>属性的简写</h3><p>ES6中，对象中的属性和方法都可以简写，如下所示：</p>
+<pre><code>var birth = &apos;2000/01/01&apos;;
+
+var Person = {
+
+  name: &apos;张三&apos;,
+
+  //等同于birth: birth
+  birth,
+
+  // 等同于hello: function ()...
+  hello() { console.log(&apos;我的名字是&apos;, this.name); }
+
+};
+</code></pre><p>即ES6允许在对象之中直接写变量，此时属性名为变量名，属性值为变量值。而方法也可以按照如上方式简写。</p>
+<h3 id="属性名表达式"><a href="#属性名表达式" class="headerlink" title="属性名表达式"></a>属性名表达式</h3><p>此外，ES6允许字面量定义对象时，用表达式作为对象的属性名或方法名，即把表达式放在方括号内：</p>
+<pre><code>var lastWord = &apos;last word&apos;;
+
+var a = {
+  &apos;first word&apos;: &apos;hello&apos;,
+  [lastWord]: &apos;world&apos;,
+  [&apos;h&apos; + &apos;ello&apos;]() {
+    return &apos;hi&apos;;
+  }
+};
+
+a[&apos;first word&apos;] // &quot;hello&quot;
+a[lastWord] // &quot;world&quot;
+a[&apos;last word&apos;] // &quot;world&quot;
+a.hello();  //&quot;hi&quot;
+</code></pre><p>注：</p>
+<ul>
+<li><p>属性名表达式与简洁表示法，不能同时使用，会报错。</p>
+<pre><code>// 报错
+var foo = &apos;bar&apos;;
+var bar = &apos;abc&apos;;
+var baz = { [foo] };
+
+// 正确
+var foo = &apos;bar&apos;;
+var baz = { [foo]: &apos;abc&apos;};    
+</code></pre></li>
+<li><p>属性名表达式如果是一个对象，默认情况下会自动将对象转为字符串[object Object]，这一点要特别小心。</p>
+<pre><code>const keyA = {a: 1};
+const keyB = {b: 2};
+
+const myObject = {
+</code></pre></li>
+</ul>
+<pre><code>  [keyA]: &apos;valueA&apos;,
+  [keyB]: &apos;valueB&apos;
+};
+myObject // Object {[object Object]: &quot;valueB&quot;}
+</code></pre><p>上面代码中，<code>[keyA]</code>和<code>[keyB]</code>得到的都是<code>[object Object]</code>，所以<code>[keyB]</code>会把<code>[keyA]</code>覆盖掉，而<code>myObject</code>最后只有一个<code>[object Object]</code>属性。</p>
+<h3 id="方法的name属性"><a href="#方法的name属性" class="headerlink" title="方法的name属性"></a>方法的name属性</h3><p>对象的方法也是函数，因此也有name属性，一般情况下返回方法名，但是有以下三种特殊情况：</p>
+<ul>
+<li><p>对象的方法使用了取值函数<code>getter</code>和存值函数<code>setter</code>:</p>
+<p>此时，<code>name</code>属性不是在该方法上面，而是该方法的属性的描述对象的get和set属性上面。</p>
+<pre><code>const obj = {
+get foo() {},
+set foo(x) {}
+};
+
+obj.foo.name
+// TypeError: Cannot read property &apos;name&apos; of undefined
+
+const descriptor = Object.getOwnPropertyDescriptor(obj, &apos;foo&apos;);
+
+descriptor.get.name // &quot;get foo&quot;
+descriptor.set.name // &quot;set foo&quot;
+</code></pre></li>
+<li><p><code>bind</code>方法创造的函数，<code>name</code>属性返回<code>bound</code>加上原函数的名字；<code>Function</code>构造函数创造的函数，<code>name</code>属性返回<code>anonymous</code></p>
+</li>
+<li><p>对象的方法是一个 Symbol 值，那么<code>name</code>属性返回的是这个 Symbol 值的描述:</p>
+<pre><code>const key1 = Symbol(&apos;description&apos;);
+const key2 = Symbol();
+let obj = {
+[key1]() {},
+[key2]() {},
+};
+obj[key1].name // &quot;[description]&quot;
+obj[key2].name // &quot;&quot;
+</code></pre></li>
+</ul>
+<h3 id="新增的一些方法"><a href="#新增的一些方法" class="headerlink" title="新增的一些方法"></a>新增的一些方法</h3><ul>
+<li>Object.is()：用来比较两个值是否严格相等，与严格比较运算符（<code>===</code>）的行为基本一致。不同之处只有两个：一是<code>+0</code>不等于<code>-0</code>，二是<code>NaN</code>等于自身。</li>
+<li><p>Object.assign()：用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）：</p>
+<ul>
+<li>Object.assign拷贝的属性是有限制的，只拷贝源对象的自身属性（不拷贝继承属性），也不拷贝不可枚举的属性（enumerable: false）；</li>
+<li>第一个参数是目标对象，后面的参数都是源对象;</li>
+<li>目标对象与源对象有同名属性，或多个源对象有同名属性，则后面的属性会覆盖前面的属性;</li>
+<li>如果只有一个参数，Object.assign会直接返回该参数;</li>
+<li>如果该参数不是对象，则会先转成对象;</li>
+<li>如果非对象参数出现在目标对象的位置，且为<code>undefined</code>或<code>null</code>，则会报错；</li>
+<li>如果非对象参数出现在源对象的位置（即非首参数），且无法转成对象，就会跳过。即，如果undefined和null不在首参数，就不会报错；除了字符串会以数组形式，拷贝到目标对象，其他值都不会产生效果；</li>
+<li>Object.assign方法实行的是浅拷贝，而不是深拷贝。</li>
+</ul>
+</li>
+<li><p>Object.getOwnPropertyDescriptor()：获取指定属性的描述对象。</p>
+</li>
+<li><p>属性的遍历：</p>
+<ul>
+<li>for…in：for…in循环遍历对象自身的和继承的可枚举属性（不含Symbol属性）。</li>
+<li>Object.keys(obj)：返回一个数组，包括对象自身的（不含继承的）所有可枚举属性（不含Symbol属性）。</li>
+<li>Object.getOwnPropertyNames(obj)：返回一个数组，包含对象自身的所有属性（不含Symbol属性，但是包括不可枚举属性）。</li>
+<li>Object.getOwnPropertySymbols(obj)：返回一个数组，包含对象自身的所有Symbol属性。</li>
+<li>Reflect.ownKeys(obj)：返回一个数组，包含对象自身的所有属性，不管是属性名是Symbol或字符串，也不管是否可枚举。</li>
+</ul>
+<p>以上的5种方法遍历对象的属性，都遵守同样的属性遍历的次序规则：</p>
+<ul>
+<li>首先遍历所有属性名为数值的属性，按照数字排序。</li>
+<li>其次遍历所有属性名为字符串的属性，按照生成时间排序。</li>
+<li>最后遍历所有属性名为 Symbol 值的属性，按照生成时间排序。</li>
+</ul>
+</li>
+<li><p>Object.setPrototypeOf()：作用与<strong>proto</strong>相同，用来设置一个对象的prototype对象，返回参数对象本身。</p>
+</li>
+<li>Object.getPrototypeOf()：与Object.setPrototypeOf方法配套，用于读取一个对象的原型对象。</li>
+<li>Object.values()：返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（enumerable）属性的键值。返回数组的成员顺序，与上文中的属性的遍历部分介绍的排列规则一致。</li>
+<li>Object.entries()：方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（enumerable）属性的键值对数组。</li>
+<li>Object.getOwnPropertyDescriptors()：返回指定对象所有自身属性（非继承属性）的描述对象。</li>
+</ul>
+<h3 id="对象的扩展运算符"><a href="#对象的扩展运算符" class="headerlink" title="对象的扩展运算符"></a>对象的扩展运算符</h3><h4 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h4><p>对象的解构赋值用于从一个对象取值，相当于将所有可遍历的、但尚未被读取的属性，分配到指定的对象上面。所有的键和它们的值，都会拷贝到新对象上面。</p>
+<pre><code>let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
+x // 1
+y // 2
+z // { a: 3, b: 4 }
+</code></pre><p>注：</p>
+<ul>
+<li>由于解构赋值要求等号右边是一个对象，所以如果等号右边是undefined或null，就会报错，因为它们无法转为对象。</li>
+<li>解构赋值必须是最后一个参数，否则会报错。</li>
+<li>解构赋值不会拷贝继承自原型对象的属性。</li>
+</ul>
+<h4 id="扩展运算符"><a href="#扩展运算符" class="headerlink" title="扩展运算符"></a>扩展运算符</h4><p>扩展运算符（…）用于取出参数对象的所有可遍历属性，拷贝到当前对象之中。等同于使用Object.assign方法。</p>
+<pre><code>let z = { a: 3, b: 4 };
+let n = { ...z };
+n // { a: 3, b: 4 }
+</code></pre><p>如果用户自定义的属性，放在扩展运算符后面，则扩展运算符内部的同名属性会被覆盖掉。放在扩展运算符之前，相当于设置默认值。</p>
+<pre><code>let aWithOverrides = { ...a, x: 1, y: 2 };
+// 等同于
+let aWithOverrides = { ...a, ...{ x: 1, y: 2 } };
+// 等同于
+let x = 1, y = 2, aWithOverrides = { ...a, x, y };
+// 等同于
+let aWithOverrides = Object.assign({}, a, { x: 1, y: 2 });
+</code></pre><p>扩展运算符的参数对象之中，如果有取值函数get，这个函数是会执行的。</p>
+<pre><code>// 并不会抛出错误，因为x属性只是被定义，但没执行
+let aWithXGetter = {
+  ...a,
+  get x() {
+    throws new Error(&apos;not thrown yet&apos;);
+  }
+};
+
+// 会抛出错误，因为x属性被执行了
+let runtimeError = {
+  ...a,
+  ...{
+    get x() {
+      throws new Error(&apos;thrown now&apos;);
+    }
+  }
+};
+</code></pre><p>如果扩展运算符的参数是null或undefined，这两个值会被忽略，不会报错。</p>
+<pre><code>let emptyObject = { ...null, ...undefined }; // 不报错
+</code></pre><h1 id="Array类型"><a href="#Array类型" class="headerlink" title="Array类型"></a>Array类型</h1><p>ECMAScript中的Array类型和其他语言中的数组有很大不同：ECMAScript数组的每一项可以保存任何类型的数据；数组的大小是可以动态调整的。</p>
+<h2 id="创建Array类型"><a href="#创建Array类型" class="headerlink" title="创建Array类型"></a>创建Array类型</h2><p>创建数组有两种方法：构造函数法和数组字面量表示法。</p>
+<ul>
+<li><p>构造函数法：</p>
+<pre><code>var colors = new Array(3);      //创建一个包含3项的数组
+var names = new Array(&quot;Greg&quot;);  //创建一个包含1项（&quot;Greg&quot;)的数组
+</code></pre></li>
+<li><p>数组字面量表示法：</p>
+<pre><code>var colors = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];
+var names = [];                        //创建一个空数组
+</code></pre></li>
+</ul>
+<p>数组有一个<code>length</code>属性，表示该数组中元素的个数。<code>length</code>属性可以修改，通过修改该属性，可以从数组末尾移除项或向数组中添加新项。</p>
+<h2 id="Array类型的方法"><a href="#Array类型的方法" class="headerlink" title="Array类型的方法"></a>Array类型的方法</h2><h3 id="检测数组"><a href="#检测数组" class="headerlink" title="检测数组"></a>检测数组</h3><p>检测某个对象是否为数组有两种方法：<code>instanceof</code>操作符和<code>Array.isArray()</code>。</p>
+<ul>
+<li>使用<code>instanceof</code>的缺点：只针对一个全局作用域而言，如果有多个全局执行环境，则结果可能不准确；</li>
+<li>Array.isArray()：只检测该值是不是数组，而不管其属于哪一个全局执行环境。</li>
+</ul>
+<h3 id="转换方法"><a href="#转换方法" class="headerlink" title="转换方法"></a>转换方法</h3><ul>
+<li>toString()：返回数组中每个值的字符串形式拼接成的一个以逗号为分隔符的字符串（会调用每一项的toString方法）；</li>
+<li>toLocaleString()：与toString的唯一区别是：会调用每一项的toLocaleString方法；</li>
+<li>valueOf()：返回数组本身。</li>
+</ul>
+<p>还可以使用join()方法对数组进行转换，该方法接收一个参数，即用作分隔符的字符串，然后返回包含所有数组项的字符串。</p>
+<pre><code>var colors = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];   
+alert(colors.toString());    //red,blue,green
+alert(colors.valueOf());     //red,blue,green
+alert(colors);               //red,blue,green
+alert(colors.join(&quot;,&quot;));      //red,green,blue
+alert(colors.join(&quot;||&quot;));     //red||green||blue
+</code></pre><p>注：alert()方法要接收字符串参数，因此如果参数是数组会后台自动调用toString()方法。</p>
+<h3 id="栈方法"><a href="#栈方法" class="headerlink" title="栈方法"></a>栈方法</h3><ul>
+<li>push()：参数为任意多个项，依次放到数组末尾，返回数组长度。</li>
+<li>pop()：删除最后一项，返回删除的项。</li>
+</ul>
+<h3 id="队列方法"><a href="#队列方法" class="headerlink" title="队列方法"></a>队列方法</h3><ul>
+<li><p>数组的首尾依次与队列的首尾对应：</p>
+<ul>
+<li>入队：push()；</li>
+<li>出队：shift()，移除数组中的第一项并返回该项。</li>
+</ul>
+</li>
+<li><p>数组的首对应队尾，数组的末端对应队头：</p>
+<ul>
+<li>入队：unshift()，参数为任意多项，在数组前端添加任意多个项并返回新数组的长度；</li>
+<li>出队：pop()。</li>
+</ul>
+</li>
+</ul>
+<h3 id="重排序方法"><a href="#重排序方法" class="headerlink" title="重排序方法"></a>重排序方法</h3><ul>
+<li>reverse()：数组元素倒置；</li>
+<li>sort()：对数组进行排序。默认将数组每一项转换为<strong>字符串</strong>（调用每一项的<code>toString</code>方法），然后比较字符串升序排序。该方法可接收一个排序函数，该排序函数有两个值作为参数，当函数返回正则第一个值应排在第二个值之后；当函数返回负则第一个值应排在第二个值之前；返回0则两个值相等。</li>
+</ul>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><ul>
+<li>concat()：参数可有多个，可为项或数组。返回一个新数组，该数组为原来的数组的基础上增加参数；</li>
+<li>slice()：第一个参数：起始位置；第二个参数（可选）：结束位置；返回起始到结束（不包括结束位置）之间的项组成的数组。如果传入负数，则会将负参数加上该数组的长度；如果结束位置小于起始位置，则返回空数组；</li>
+<li><p>splice()：会更改（删除、插入、替换）调用该函数的数组，返回值为删除项组成的数组。</p>
+<ul>
+<li>删除：传入两个参数，要删除的第一项的位置和删除的项数；</li>
+<li>插入：传入三个及以上参数：起始位置、0、要插入的项；</li>
+<li>替换：传入三个及以上参数：起始位置、删除的项数、要插入的项。</li>
+</ul>
+</li>
+</ul>
+<h3 id="位置方法"><a href="#位置方法" class="headerlink" title="位置方法"></a>位置方法</h3><p>有indexOf()和lastIndexOf()两个方法。均接收至多两个参数：要查找的项和（可选）标识查找起点位置的索引。</p>
+<ul>
+<li>indexOf()：从数组的开头开始向后查找；</li>
+<li>lastIndexOf()：从数组的尾部开始向前查找。</li>
+</ul>
+<p>这两个方法要求查找的项必须严格相等（使用<code>===</code>)，因此如果数组中存在<code>NaN</code>项，则无法查找到。</p>
+<h3 id="迭代方法"><a href="#迭代方法" class="headerlink" title="迭代方法"></a>迭代方法</h3><p>有五个方法，每个方法都接收至多两个参数。第一个参数：在每一项上运行的函数（该函数的参数有三个：item(当前项的值),index(该项在数组中的位置),array(数组对象本身)）；第二个参数(可选):运行该函数的作用域对象，会影响<code>this</code>的值。</p>
+<ul>
+<li>every()：对数组的每一项运行给定函数，如果该函数对每一项都返回<code>true</code>，则最终结果返回<code>true</code>。只要其中一项返回了<code>false</code>，就不再遍历，直接得到最终结果（<code>false</code>）；</li>
+<li>some()：对数组的每一项运行给定函数，如果对任一项返回<code>true</code>，最终结果就会返回<code>true</code>。只要其中一项返回了<code>true</code>，就不再遍历，直接得到最终结果（<code>true</code>）；</li>
+<li>filter()：对数组的每一项运行给定函数，返回该函数会返回<code>true</code>的项组成的数组；</li>
+<li>map()：对数组的每一项运行给定函数，返回每次函数调用的结果组成的数组；</li>
+<li>forEach()：对数组的每一项运行给定函数，没有返回值。</li>
+</ul>
+<h3 id="归并方法"><a href="#归并方法" class="headerlink" title="归并方法"></a>归并方法</h3><p>有两个方法：reduce()（从头开始向后遍历数组）和reduceRight()（从尾开始向前遍历数组），这两个方法都会迭代数组的所有项，然后构成一个最终返回的值。每个方法接收至多两个参数：在每一项上调用的函数和作为归并基础的初始值（可选）。</p>
+<p>传递的函数有四个参数：<code>prev</code>前一个值，<code>cur</code>当前值，<code>index</code>项的索引，<code>array</code>数组对象。这个函数返回的任何值都会作为第一个参数自动传给下一项。如果未传入作为归并基础的初始值，则第一次迭代发生在数组的第二项，因此第一次迭代的<code>prev</code>的值是数组的第一项；如果传入了初始值，则第一次迭代发生在数组的第一项。</p>
+<pre><code>var values = [1,2,3,4,5];
+var sum1 = values.reduce(function(prev, cur, index, array){
+    return prev + cur;
+
+});
+console.log(sum1);  //15
+
+var sum2 = values.reduce(function(prev,cur,index,array){
+     return prev+cur;
+
+},10);
+console.log(sum2);  //25
+
+var sum3 = values.reduceRight(function(prev,cur,index,array){
+    return prev*cur;
+})
+console.log(sum3);  //120
+
+var sum4 = values.reduceRight(function(prev,cur,index,array){
+    return prev*cur;
+},10);
+console.log(sum4);  //1200
+</code></pre><h2 id="ES6新增特性-1"><a href="#ES6新增特性-1" class="headerlink" title="ES6新增特性"></a>ES6新增特性</h2><ul>
+<li><p>Array.from()：</p>
+<p>用于将两类对象转为真正的数组：类似数组的对象和可遍历（具有Iterator接口）的对象。所谓类似数组的对象，本质特征只有一点，即必须有<code>lengt</code>h属性。因此，任何有<code>length</code>属性的对象，都可以通过<code>Array.from</code>方法转为数组。此外。扩展运算符<code>...</code>也能将可遍历的对象转为真正的数组。可接收三个参数：第一个参数要转换的对象（必须）；第二个参数是一个函数，作用类似于数组的map方法，用来对每个元素进行处理，将处理后的值放入返回的数组；第三个参数用来绑定第二个参数中的<code>this</code>。</p>
+</li>
+<li>Array.of()：用于将一组值，转换为数组。</li>
+<li><p>Array.prototype.copyWithin(target, start = 0, end = this.length)：在当前数组内部，将指定位置的成员复制到其他位置（会覆盖原有成员），然后返回当前数组。如果是非数值，则会转化为数值，如果为负数，则从倒数的位置开始。</p>
+<ul>
+<li>target（必需）：从该位置开始替换数据。</li>
+<li>start（可选）：从该位置开始读取数据，默认为0。如果为负值，表示倒数。</li>
+<li>end（可选）：到该位置前停止读取数据，默认等于数组长度。如果为负值，表示倒数。</li>
+</ul>
+</li>
+<li><p>Array.prototype.find(callback)：找出第一个符合条件（返回值为<code>true</code>）的数组成员。</p>
+</li>
+<li>Array.prototype.findIndex(callback)：用法与find方法非常类似，返回第一个符合条件的数组成员的位置。</li>
+<li>Array.prototype.fill：使用给定值，填充一个数组。</li>
+<li>数组实例的entries()，keys()和values()：用于遍历数组。它们都返回一个遍历器对象，可以用for…of循环进行遍历，唯一的区别是keys()是对键名的遍历、values()是对键值的遍历，entries()是对键值对的遍历。</li>
+<li>Array.prototype.includes：返回一个布尔值，表示某个数组是否包含给定的值，与字符串的includes方法类似。如果数组中有项<code>NaN</code>，是可以查找到的。</li>
+<li><p>对于数组的空位，ES6则是明确将空位转为undefined：</p>
+<ul>
+<li>Array.from方法会将数组的空位，转为undefined，也就是说，这个方法不会忽略空位。</li>
+<li>扩展运算符（…）也会将空位转为undefined。</li>
+<li>copyWithin()会连空位一起拷贝。</li>
+<li>fill()会将空位视为正常的数组位置。</li>
+<li>for…of循环也会遍历空位。</li>
+<li>entries()、keys()、values()、find()和findIndex()会将空位处理成undefined。</li>
+</ul>
+<p>ES5 对空位的处理则很不一致：</p>
+<ul>
+<li>forEach(), filter(), every() 和some()都会跳过空位。</li>
+<li>map()会跳过空位，但会保留这个值</li>
+<li>join()和toString()会将空位视为undefined，而undefined和null会被处理成空字符串。</li>
+</ul>
+</li>
+</ul>
+<h1 id="Date类型"><a href="#Date类型" class="headerlink" title="Date类型"></a>Date类型</h1><p>提供了有关日期和时间的信息。</p>
+<h2 id="创建Date类型"><a href="#创建Date类型" class="headerlink" title="创建Date类型"></a>创建Date类型</h2><p>创建一个Date类型的实例，有以下三种方法：</p>
+<ul>
+<li><p>Date构造函数法（基于本地时区创建）：</p>
+<pre><code>var date = new Date();
+</code></pre><p>在调用构造函数且不传递任何参数的情况下，新创建的对象自动获得当前日期和时间。如果想根据特定的日期和时间创建Date对象，则必须传入毫秒数，因此有下面几种方法。</p>
+</li>
+<li><p><code>Date.parse()</code>（基于本地时区创建）：</p>
+<p><code>Date.parse()</code>接收一个字符串，然后尝试根据这个字符串返回相应日期的毫秒数。如果传入的字符串不能表示日期，则返回NaN。传入的字符串可以有多种形式。</p>
+<pre><code>var someDate = new Date(Date.parse(&quot;May 18, 2017&quot;));
+someDate = new Date(Date.parse(&apos;5/18/2017&apos;));
+someDate = new Date(Date.parse(&quot;Thu May 18 2017 09:53:23 GMT+0800&quot;));
+someDate = new Date(Date.parse(&quot;2017-05-18T09:54:21&quot;));
+</code></pre><p>实际上，如果直接将表示日期的字符串传递给Date构造函数，也会在后台调用<code>Date.parse()</code>方法。</p>
+</li>
+<li><p><code>Date.UTC()</code>（基于GMT创建）：</p>
+<p>同样返回的是表示日期的毫秒数，但它进行的是一种<strong>绝对运算</strong>，传入的时间就是UTC时间，不会转换为当地时间。</p>
+<p>可接收7个参数，分别是年份、基于0的月份、月中的天（1~31）、小时数（0~23）、分钟、秒、毫秒。只有前两个参数是必须的。</p>
+<pre><code>var allFives = new Date(Date.UTC(2017,4, 18, 17, 55, 55)); //Fri May 19 2017 01:55:55 GMT+0800 (中国标准时间)
+</code></pre></li>
+</ul>
+<p>GMT：世界时，即格林尼治所在地区的标准时间 （它刚好是本初子午线经过的地方）。往东的时区时间晚（表示为GMT+hh:mm)；往西的时区时间早(表示为GMT-hh:mm)。</p>
+<h2 id="Date类型的方法"><a href="#Date类型的方法" class="headerlink" title="Date类型的方法"></a>Date类型的方法</h2><ul>
+<li>得到当前时间的毫秒数：<code>var start=Date.now()</code>；</li>
+<li>继承的方法：<code>toLocaleString()</code>、<code>toString()</code>，返回日期和时间，根据浏览器的不同而不同；<code>valueOf()</code>返回日期的毫秒表示；</li>
+<li>日期格式化的方法（Date：星期几、月、日和年；Time：时、分、秒和时区）：toDateString()、toTimeString()、toLocaleDateString()、toLocaleTimeString()、toUTCString()；</li>
+<li>其他方法：<code>getTime()</code>返回表示日期的毫秒数（同<code>valueOf</code>）， <code>setTime()</code>以毫秒数设置日期，<code>getTimezoneOffset()</code>返回本地时间与UTC时间相差的分钟数，getFullYear()、getUTCFullYear()、getMonth()、getUTCMonth()、getDate()、getDay()、getHours()、getMinuates()、getSeconds()、getMilliseconds()等等。</li>
+</ul>
+<h1 id="RegExp类型"><a href="#RegExp类型" class="headerlink" title="RegExp类型"></a>RegExp类型</h1><p>提供了有关正则表达式的一些功能。</p>
+<h2 id="创建RegExp类型"><a href="#创建RegExp类型" class="headerlink" title="创建RegExp类型"></a>创建RegExp类型</h2><p>有两种方法：正则表达式字面量形式和RegExp构造函数法。</p>
+<ul>
+<li><p>正则表达式字面量形式：</p>
+<p>语法：<code>var expression = /pattern/flags;</code>。其中pattern为模式，可以是任何简单化复杂的正则表达式；flags为标志，用以表明正则表达式的行为。flags的取值可以是：<code>g</code>（全局模式），<code>i</code>（不区分大小写模式），<code>m</code>（多行模式）。</p>
+<pre><code>var pattern = /.at/gi;  //匹配虽有以&quot;at&quot;结尾的3个字符的组合，不区分大小写。
+</code></pre><p>正则表达式中的<strong>元字符</strong>包括：<code>( [ { \ ^ $ | ) ? * + . } ]</code>。模式中使用的所有元字符必须转义。</p>
+</li>
+<li><p>RegExp构造函数：</p>
+<p>接收两个参数：要匹配的字符串模式；可选的标志字符串。</p>
+<pre><code>var pattern = new RegExp(&quot;.at&quot;,&quot;gi&quot;);  //匹配虽有以&quot;at&quot;结尾的3个字符的组合，不区分大小写。
+</code></pre><p>由于构造函数的模式参数是字符串，因此所有元字符都必须<strong>双重转义</strong>。</p>
+</li>
+</ul>
+<h2 id="RegExp类型的属性和方法"><a href="#RegExp类型的属性和方法" class="headerlink" title="RegExp类型的属性和方法"></a>RegExp类型的属性和方法</h2><h3 id="实例属性"><a href="#实例属性" class="headerlink" title="实例属性"></a>实例属性</h3><ul>
+<li>global：布尔值，表示是否设置了<code>g</code>标志；</li>
+<li>ignoreCase：布尔值，表示是否设置了<code>i</code>标志；</li>
+<li>multiline：布尔值，表示是否设置了<code>m</code>标志；</li>
+<li>source：正则表达式的字符串表示。注意是按照字面量形式而非传入构造函数中的字符串模式返回；</li>
+<li>lastIndex：整数值，表示开始搜索下一个匹配项的字符位置。</li>
+</ul>
+<h3 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h3><ul>
+<li><p>exec()</p>
+<p>接收一个参数，即应用该模式的字符串。返回值是包含第一个匹配项信息的数组或者<code>null</code>，返回数组的第一项是与整个模式匹配的字符串，其他项是与模式中的捕获组匹配的字符串。此外，该函数还有两个属性：<code>input</code>表示应用正则表达式的字符串；<code>index</code>表示匹配项在字符串中的位置。</p>
+<pre><code>var text2 = &quot;cat, bat, sat, fat&quot;;
+var pattern1 = /(.)at/g;
+
+var matches2 = pattern1.exec(text2);
+console.log(matches2.index);    //0
+console.log(matches2[0]);       //&quot;cat&quot;
+console.log(matches2[1]);       //&quot;c&quot;
+console.log(pattern1.lastIndex);//3
+
+matches2 = pattern1.exec(text2);
+console.log(matches2.index);    //5
+console.log(matches2[0]);       //&quot;bat&quot;
+console.log(matches2[1]);       //&quot;b&quot;
+console.log(pattern1.lastIndex);//8
+</code></pre><p>全局模式和非全局模式的区别：全局模式下，每次调用<code>exec()</code>都会返回字符串中的下一个匹配项，直至末尾；非全局模式下每次调用<code>exec()</code>返回的都是第一个匹配项。</p>
+</li>
+<li><p>test()</p>
+<p>接收一个字符串参数。在模式与该参数匹配的情况下返回<code>true</code>；否则返回<code>false</code>。</p>
+</li>
+<li><p>toLocaleString()、toString()：返回正则表达式的字面量（字符串形式）；valueOf()：返回正则表达式<strong>本身</strong>。</p>
+</li>
+</ul>
+<h3 id="构造函数属性"><a href="#构造函数属性" class="headerlink" title="构造函数属性"></a>构造函数属性</h3><p>RegExp构造函数包含一些属性，这些属性适用于作用域中的所有正则表达式，并且基于所执行的<strong>最近一次</strong>正则表达式操作而变化。每个属性都有两种访问方式：</p>
+<ul>
+<li><code>input</code>或<code>$_</code>：最近一次要匹配的字符串；</li>
+<li><code>lastMatch</code>或<code>$&amp;</code>：最近一次的匹配项；</li>
+<li><code>lastParen</code>或<code>$+</code>：最近一次匹配的捕获组；</li>
+<li><code>leftContent</code>或$反引号:input字符串中lastMatch之前的文本；</li>
+<li><code>rightContent</code>或<code>$&#39;</code>：input字符串中lastMatch之后的文本；</li>
+<li><code>$n</code>：n的取值1-9，分别存储第一个、第二个、…第九个匹配的捕获组。</li>
+</ul>
+<h2 id="ES6新增特性-2"><a href="#ES6新增特性-2" class="headerlink" title="ES6新增特性"></a>ES6新增特性</h2><h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p>如果RegExp构造函数第一个参数是一个正则对象，那么可以使用第二个参数指定修饰符（ES5中不可以）。而且，返回的正则表达式会忽略原有的正则表达式的修饰符，只使用新指定的修饰符。</p>
+<pre><code>new RegExp(/abc/ig, &apos;i&apos;).flags
+// &quot;i&quot;
+</code></pre><p>上面代码中，原有正则对象的修饰符是ig，它会被第二个参数i覆盖。</p>
+<p>上面代码中的<code>flags</code>属性ES6为正则表达式新增的，会返回正则表达式的<strong>修饰符</strong>。</p>
+<h3 id="u修饰符"><a href="#u修饰符" class="headerlink" title="u修饰符"></a><code>u</code>修饰符</h3><p>ES6对正则表达式添加了u修饰符，含义为“Unicode模式”，用来正确处理大于<code>\uFFFF</code>的Unicode字符。</p>
+<pre><code>/^\uD83D/u.test(&apos;\uD83D\uDC2A&apos;)
+// false
+/^\uD83D/.test(&apos;\uD83D\uDC2A&apos;)
+// true
+
+/\u{20BB7}/u.test(&apos;𠮷&apos;) // true
+</code></pre><p>使用了<code>u</code>修饰符，<code>.</code>可以代表任何字符，包括4字节的UTF-16字符；正则表达式中也可正常使用\u{}的形式来表示码点超过<code>\uFFFF</code>的字符了。</p>
+<h3 id="y-修饰符"><a href="#y-修饰符" class="headerlink" title="y 修饰符"></a><code>y</code> 修饰符</h3><p><code>y</code>修饰符的作用与g修饰符类似，也是全局匹配，后一次匹配都从上一次匹配成功的下一个位置开始。不同之处在于，<code>g</code>修饰符只要剩余位置中存在匹配就可，而<code>y</code>修饰符确保匹配必须从剩余的第一个位置开始，这也就是“粘连”的涵义。</p>
+<pre><code>var s = &apos;aaa_aa_a&apos;;
+var r1 = /a+/g;
+var r2 = /a+/y;
+
+r1.exec(s) // [&quot;aaa&quot;]
+r2.exec(s) // [&quot;aaa&quot;]
+
+r1.exec(s) // [&quot;aa&quot;]
+r2.exec(s) // null
+</code></pre><p>与<code>y</code>修饰符相匹配，ES6的正则对象多了<code>sticky</code>属性，表示是否设置了<code>y</code>修饰符。</p>
+<pre><code>var r = /hello\d/y;
+r.sticky // true
+
+/abc/ig.flags
+// &apos;gi&apos;
+</code></pre><p>但是，单单一个<code>y</code>修饰符对match方法，只能返回第一个匹配，必须与<code>g</code>修饰符联用，才能返回所有匹配。</p>
+<h3 id="后行断言"><a href="#后行断言" class="headerlink" title="后行断言"></a>后行断言</h3><p>”先行断言“指的是，<code>x</code>只有在<code>y</code>前面才匹配，必须写成<code>/x(?=y)/</code>。比如，只匹配百分号之前的数字，要写成<code>/\d+(?=%)/</code>。”先行否定断言“指的是，x只有不在y前面才匹配，必须写成<code>/x(?!y)/</code>。比如，只匹配不在百分号之前的数字，要写成<code>/\d+(?!%)/</code>。</p>
+<p>“后行断言”正好与“先行断言”相反，<code>x</code>只有在<code>y</code>后面才匹配，必须写成<code>/(?&lt;=y)x/</code>。比如，只匹配美元符号之后的数字，要写成<code>/(?&lt;=\$)\d+/</code>。”后行否定断言“则与”先行否定断言“相反，<code>x</code>只有不在<code>y</code>后面才匹配，必须写成<code>/(?&lt;!y)x/</code>。比如，只匹配不在美元符号后面的数字，要写成<code>/(?&lt;!\$)\d+/</code>。</p>
+<p>“后行断言”时，执行顺序是从右到左；”后行断言”的反斜杠引用，与通常的顺序相反，必须放在对应的那个括号之前。</p>
+<pre><code>/(?&lt;=(o)d\1)r/.exec(&apos;hodor&apos;)  // null
+/(?&lt;=\1d(o))r/.exec(&apos;hodor&apos;)  // [&quot;r&quot;, &quot;o&quot;]
+</code></pre><p>目前只是一个提案。V8 引擎4.9版已经支持，Chrome 浏览器49版打开”experimental JavaScript features“开关（地址栏键入about:flags），就可以使用这项功能。</p>
+<h1 id="Function类型"><a href="#Function类型" class="headerlink" title="Function类型"></a>Function类型</h1><p>ECMAScript中的函数实际上是对象，即每个函数都是Function类型的实例，而且与其他引用类型一样具有属性和方法。因此每个函数名实际上也是一个指向函数对象的指针。</p>
+<h2 id="创建函数"><a href="#创建函数" class="headerlink" title="创建函数"></a>创建函数</h2><p>创建一个函数有三种方法：函数声明法，函数表达式法，Function构造函数法。</p>
+<ul>
+<li><p>函数声明法</p>
+<pre><code>function sum(num1,num2){
+    return num1+num2;
+}
+</code></pre></li>
+<li><p>函数表达式法</p>
+<pre><code>var sum=function(num1,num2){
+    return num1+num2;
+};    //注意结尾要加分号
+</code></pre></li>
+<li><p>Function构造函数</p>
+<pre><code>var sum=new Function(&quot;num1&quot;,&quot;num2&quot;,&quot;return num1+num2&quot;);  //最后一个参数始终被看成是函数体
+</code></pre></li>
+</ul>
+<p>由于这种语法会导致解析两次代码（第一次是解析常规ECMAScript代码，第二次是解析传入构造函数中的字符串，因此不推荐这种方法。</p>
+<p>函数声明和函数表达式的区别：JS解析器有一个<strong>函数声明提升</strong>的过程，即在代码开始执行之前，JS引擎会读取函数声明并将它们放到源代码树的顶部。因此，如果使用函数声明的方式定义函数，则即使声明函数的代码在调用它的代码后面，JS引擎也能把函数声明提升到顶部，代码不会出错。但是，如果使用函数表达式，则必须等到解析器执行到它所在的代码行，才会真正被解释执行。所以如果函数表达式在调用它的代码之后，会在执行期间导致错误。</p>
+<p>由于JS中的每个函数名实际上也是一个指向函数对象的指针，所以相同的函数名实际上是同一个变量，因此<strong>没有重载</strong>。例：</p>
+<pre><code>function addSomeNumber(num）{
+    return num + 100;
+}
+
+function addSomeNumber(num) {
+    return num+200;
+}
+var result=addSomeNumber(100); //300
+</code></pre><p>以上的代码等同于下面的代码：</p>
+<pre><code>var addSomeNumber = function(num){
+    return num + 100;
+};
+addSomeNumber = function(num){
+   return num + 200;
+};
+var result=addSomeNumber(100); //300
+</code></pre><p>即在创建第二个函数时，实际上覆盖了引用第一个函数的变量<code>addSomeNumber</code>。</p>
+<h2 id="Function类型的属性和方法"><a href="#Function类型的属性和方法" class="headerlink" title="Function类型的属性和方法"></a>Function类型的属性和方法</h2><ul>
+<li><p>函数内部属性：</p>
+<ul>
+<li>arguments：是一个类数组对象，包含着传入函数中的所有参数。其中<code>arguments.callee</code>是一个指针，指向拥有这个arguments对象的函数；</li>
+<li>this：引用的是函数据以执行的环境对象。</li>
+</ul>
+</li>
+<li><p>函数对象的属性：</p>
+</li>
+<li><p>length：函数希望接收的命名参数的个数（不包括设置了默认值的参数）；</p>
+</li>
+<li><p>caller：保存着调用当前函数的函数的引用，如果在全局作用域调用当前函数，则它的值为<code>null</code>。例：</p>
+<pre><code>function outer(){
+     inner();
+ }
+
+ function inner(){
+     alert(arguments.callee.caller);
+ }
+
+ outer();    //会显示outer函数的源代码
+</code></pre></li>
+<li><p>函数对象的方法：</p>
+<ul>
+<li><p>call()和apply()：在特定的作用域中调用函数，实际上等于设置函数体内this对象的值。</p>
+<ul>
+<li>call()：第一个参数是在其中运行函数的作用域，后面的参数<strong>*依次</strong>为传递的参数</li>
+<li>apply()：第一个参数是在其中运行函数的作用域，第二个参数是参数数组，可以是Array实例，也可以是arguments对象。</li>
+</ul>
+</li>
+<li><p>bind()：会创建一个函数的实例，其this值会被绑定到传给bind()函数的参数，且以后不会变。</p>
+</li>
+<li>toLocaleString()、toString()、valueOf()：返回函数的代码。</li>
+</ul>
+</li>
+</ul>
+<h2 id="ES6新增特性-3"><a href="#ES6新增特性-3" class="headerlink" title="ES6新增特性"></a>ES6新增特性</h2><p>总的来说，ES6中对于函数新增的特性主要有两个：一是函数参数方面的扩展（可以设默认值、rest参数、扩展运算符等）；二是箭头函数。</p>
+<h3 id="函数参数新增的特性"><a href="#函数参数新增的特性" class="headerlink" title="函数参数新增的特性"></a>函数参数新增的特性</h3><p>ES6允许为函数的参数设置默认值，即直接写在参数定义的后面。</p>
+<pre><code>function log(x, y = &apos;World&apos;) {
+  console.log(x, y);
+}
+
+log(&apos;Hello&apos;) // Hello World
+log(&apos;Hello&apos;, &apos;China&apos;) // Hello China
+log(&apos;Hello&apos;, &apos;&apos;) // Hello
+</code></pre><p>指定了默认值以后，函数的<code>length</code>属性，将返回没有指定默认值的参数个数。也就是说，指定了默认值后，<code>length</code>属性将失真(<code>length</code>属性的含义是，该函数预期传入的参数个数。)，而且如果设置了默认值的参数不是尾参数，那么<code>length</code>属性也不再计入后面的参数了。此外，一旦设置了参数的默认值，函数进行声明初始化时，参数会形成一个单独的作用域。等到初始化结束，这个作用域就会消失。这种语法行为，在不设置参数默认值时，是不会出现的。</p>
+<pre><code>(function (a) {}).length // 1
+(function (a = 5) {}).length // 0
+(function (a, b, c = 5) {}).length // 2
+</code></pre><p>ES6 引入 <code>rest</code> 参数（形式为“…变量名”），用于获取函数的多余参数，这样就不需要使用<code>arguments</code>对象了。<code>rest</code> 参数搭配的变量是一个数组，该变量将多余的参数放入数组中。</p>
+<pre><code>function add(...values) {
+  let sum = 0;
+
+  for (var val of values) {
+    sum += val;
+  }
+
+  return sum;
+}
+
+add(2, 5, 3) // 10
+</code></pre><p>扩展运算符是三个点（<code>...</code>）。它好比 <code>rest</code> 参数的逆运算，将一个数组转为用逗号分隔的参数序列。</p>
+<pre><code>function push(array, ...items) {
+  array.push(...items);
+}
+
+function add(x, y) {
+  return x + y;
+}
+
+var numbers = [4, 38];
+add(...numbers) // 42
+</code></pre><h3 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h3><p>ES6允许使用“箭头”（<code>=&gt;</code>）定义函数。</p>
+<pre><code>var f = v =&gt; v;
+</code></pre><p>上面的箭头函数等同于：</p>
+<pre><code>var f = function(v) {
+  return v;
+};
+</code></pre><p>另一个例子：</p>
+<pre><code>// 正常函数写法
+var result = values.sort(function (a, b) {
+  return a - b;
+});
+
+// 箭头函数写法
+var result = values.sort((a, b) =&gt; a - b);
+</code></pre><p>箭头函数有几个使用注意点。</p>
+<ul>
+<li>函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。</li>
+<li>不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。</li>
+<li>不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用rest参数代替。</li>
+<li>不可以使用yield命令，因此箭头函数不能用作Generator函数。</li>
+</ul>
+<h3 id="函数的name属性"><a href="#函数的name属性" class="headerlink" title="函数的name属性"></a>函数的name属性</h3><p>返回该函数的函数名。</p>
+<p>如果将一个匿名函数赋值给一个变量，ES5 的<code>name</code>属性，会返回空字符串，而 ES6 的<code>name</code>属性会返回实际的函数名。</p>
+<pre><code>var f = function () {};
+
+// ES5
+f.name // &quot;&quot;
+
+// ES6
+f.name // &quot;f&quot;
+</code></pre><p>如果将一个具名函数赋值给一个变量，则 ES5 和 ES6 的<code>name</code>属性都返回这个具名函数原本的名字。</p>
+<pre><code>const bar = function baz() {};
+
+// ES5
+bar.name // &quot;baz&quot;
+
+// ES6
+bar.name // &quot;baz&quot;
+</code></pre><p>Function构造函数返回的函数实例，name属性的值为anonymous。</p>
+<pre><code>(new Function).name // &quot;anonymous&quot;
+</code></pre><p>bind返回的函数，name属性值会加上bound前缀。</p>
+<pre><code>function foo() {};
+foo.bind({}).name // &quot;bound foo&quot;
+
+(function(){}).bind({}).name // &quot;bound &quot;
+</code></pre><h1 id="基本包装类型"><a href="#基本包装类型" class="headerlink" title="基本包装类型"></a>基本包装类型</h1><p>ECMAScript提供了三种特殊的引用类型：Boolean、Number、String，分别与三种基本类型对应。每当读取一个基本类型值的例：候，后台就会创建一个对应的基本包装类型的对象，从而让我们能够调用一些方法来操作这些数据。例：</p>
+<pre><code>var str = &quot;wenhaoyang&quot;;
+var str2 = str.substring(3);
+</code></pre><p>执行第二行代码时，<code>str</code>处于读取模式，因此后台会自动进行下列过程：</p>
+<ol>
+<li>创建一个<code>String</code>类型的实例；</li>
+<li>在实例上调用指定的方法；</li>
+<li>销毁这个实例。</li>
+</ol>
+<p>所以，引用类型与基本包装类型的主要区别是对象的<strong>生存期</strong>。如果用new操作符创建的引用类型的实例，在执行流离开当前作用域之前都一直保存在内存中；而自动创建的基本包装类型的对象，则只存在于一行代码的执行瞬间，然后立即被销毁。例：</p>
+<pre><code>var s1 = &quot;some text&quot;;
+s1.color = &quot;red&quot;;
+alert(s1.color);   //undefined
+</code></pre><p>原因：第二行创建的String对象在执行第三行代码时已经被销毁了，第三行代码又创建自己的String对象，而该对象没有color属性。</p>
+<h2 id="Boolean类型"><a href="#Boolean类型" class="headerlink" title="Boolean类型"></a>Boolean类型</h2><p>创建Boolean类型的实例：</p>
+<pre><code>var booleanObject = new Boolean(true);   //注意此时是object，而不是boolean基本类型
+</code></pre><p>Boolean类型的实例的<code>valueOf()</code>方法会返回基本类型值true或false；<code>toString()</code>方法会返回字符串”true”或”false”。</p>
+<h2 id="Number类型"><a href="#Number类型" class="headerlink" title="Number类型"></a>Number类型</h2><h3 id="创建Number类型的实例"><a href="#创建Number类型的实例" class="headerlink" title="创建Number类型的实例"></a>创建Number类型的实例</h3><pre><code>var numberObject = new Number(10);
+</code></pre><h3 id="实例的方法"><a href="#实例的方法" class="headerlink" title="实例的方法"></a>实例的方法</h3><ul>
+<li>valueOf()：返回对象表示的基本类型的数值</li>
+<li>toString()（可传递表示基数的参数）、toLocaleString()：返回字符串形式的数值；</li>
+<li>toFixed():接收一个参数指定小数位，然后会按照指定的小数位返回数值的字符串表示；</li>
+<li><p>toExponential():接收一个参数用来指定输出结果中的小数位数，返回以指数表示法表示的数值的字符串形式。</p>
+<pre><code>例：
+var num=10;
+alert(num.toExponential(1)); //&quot;1.0e+1&quot;
+</code></pre></li>
+<li><p>toPrecision()：接收一个参数用来指定表示数值的所有数字位数（不包括指数部分），然后根据实际情况，返回固定大小格式（fixed）或指数格式（exponential）。</p>
+</li>
+</ul>
+<h3 id="ES6新增特性-4"><a href="#ES6新增特性-4" class="headerlink" title="ES6新增特性"></a>ES6新增特性</h3><ul>
+<li><code>Number.isFinite()</code>：检查一个数值是否为有限的;</li>
+<li><code>Number.isNaN()</code>：检查一个值是否为<code>NaN</code>；这两个新方法只对数值有效，即不会对非数值进行转换。非数值一律返回false。</li>
+<li><code>Number.parseInt()</code>,<code>Number.parseFloat()</code>：ES6将全局方法<code>parseInt()</code>和<code>parseFloat()</code>，移植到Number对象上面，行为完全保持不变。</li>
+<li><code>Number.isInteger()</code>：用来判断一个值是否为整数。需要注意的是，在JavaScript内部，整数和浮点数是同样的储存方法，所以3和3.0被视为同一个值。</li>
+<li><code>Number.EPSILON</code>：新增的一个极小的常量。引入一个这么小的量的目的，在于为浮点数计算，设置一个误差范围。</li>
+<li><code>Number.isSafeInteger()</code>：用来判断一个整数是否落在安全范围之内（<code>Number.MIN_SAFE_INTEGER</code>）到（<code>Number.MAX_SAFE_INTEGER</code>）之间）。</li>
+</ul>
+<h2 id="String类型"><a href="#String类型" class="headerlink" title="String类型"></a>String类型</h2><h3 id="创建String类型的实例"><a href="#创建String类型的实例" class="headerlink" title="创建String类型的实例"></a>创建String类型的实例</h3><pre><code>var stringObject = new String(&quot;hello world&quot;);
+</code></pre><p>实例的valueOf()、toString()、toLocaleString()：返回对象表示的基本字符串值；实例的<code>length</code>属性：表示字符串中包含的<strong>字符</strong>数量。</p>
+<h3 id="实例的方法-1"><a href="#实例的方法-1" class="headerlink" title="实例的方法"></a>实例的方法</h3><ul>
+<li><p>字符方法</p>
+<ul>
+<li>charAt()：以单字符字符串的形式返回给定位置的那个字符；</li>
+<li>charCodeAt()：返回给定位置的那个字符对应的字符编码（number类型）。</li>
+</ul>
+</li>
+<li><p>字符串操作方法</p>
+<ul>
+<li>concat()：可接收任意多个参数，用于将一个或多个字符串拼接起来，返回拼接得到的新字符串；</li>
+<li>slice()和subString()：第一个参数：指定起始位置；第二个参数：指定结束位置。返回从起始位置到结束位置的前一个位置的子串；</li>
+<li>subStr()：第一个参数：指定起始位置；第二个参数：指定返回的字符个数。返回相应的子串。</li>
+</ul>
+<p>如果传递给这些方法的参数是负数，则：</p>
+<ul>
+<li>slice()：将传入的负值与字符串的长度相加；</li>
+<li>subString()：第一个参数为负则加上字符串的长度；第二个参数为负则转换为0。<strong>注</strong>：该函数总是将较小的数作为开始位置，较大的数作为结束位置；</li>
+<li>subStr()：把所有负值参数都转换为0。</li>
+</ul>
+</li>
+<li><p>字符串位置方法</p>
+<p>indexOf()和lastIndexOf()：从一个字符串中搜索给定的子字符串，然后返回子字符串的位置（如果没有，则返回-1）。都支持第二个参数，表示开始搜索的位置。如果第一个参数不是字符串，则会先进行转换。</p>
+<p>区别：indexOf()从字符串的开头向后搜索；lastIndexOf()从字符串的末尾向前搜索。</p>
+</li>
+<li><p>trim()</p>
+<p>创建一个字符串的副本，删除前置及后缀的所有空格，之后返回结果。</p>
+</li>
+<li><p>字符串大小写转换方法</p>
+</li>
+</ul>
+<p>toLowerCase()、toUpperCase()、toLocaleLowerCase()、toLocaleUpperCase()</p>
+<ul>
+<li><p>字符串模式匹配方法</p>
+<ul>
+<li>match()：本质上与调用RegExp的exec()方法相同。该方法值接收一个参数（正则表达式或RegExp对象）。</li>
+<li>search()：接收参数同<code>match()</code>，返回字符串中第一个匹配项的索引，如果没有找到匹配项则返回-1。注：该方法始终从字符串开头向后查找。</li>
+<li><p>replace()：两个参数，第一个参数可以是一个RegExp对象或一个字符串（<strong>这个字符串不会被转换成正则表达式</strong>）；第二个参数可以是一个字符串或一个函数。</p>
+<ul>
+<li>如果第一个参数是字符串或未指定全局(g)的RegExp对象，则只会替换第一个子字符串。如果想替换所有的子字符串，则提供一个正则表达式，并指定为全局(g)。</li>
+<li>第二个参数是字符串：可以使用一些特殊的字符序列（<code>$$</code>，<code>$&amp;</code>，<code>$&#39;</code>，$反引号，<code>$n</code>,<code>$nn</code>)，将正则表达式操作得到的值插入到结果字符串中。</li>
+<li><p>第二个参数是函数：</p>
+<ul>
+<li>在只有一个匹配项的情况下，会传递3个参数：模式的匹配项(match)、模式匹配项在字符串中的位置(pos)、原始字符串(originalText)。返回一个字符串，表示应该被替换的字符串；</li>
+<li>如果正则表达式定义了多个捕获组，传递的参数依次是模式的匹配项、第一个捕获组的匹配项、第二个捕获组的匹配项…但最后两个参数仍然是模式的匹配项在字符串中的位置和原始字符串。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>split()：基于指定的分隔符将一个字符串分割成多个子字符串，并将结果放在一个数组中。其中，分隔符可以是字符串也可以是RegExp对象。还可以用第二个参数指定结果数组的大小。</p>
+</li>
+</ul>
+</li>
+<li><p>localCompare()</p>
+<p>比较两个字符串，并返回下列在值中的一个：</p>
+<ul>
+<li>字符串在<strong>字母表</strong>中应排在字符串参数之前：返回一个负数；</li>
+<li>字符串等于字符串参数：返回0</li>
+<li>字符串在字母表中应排在字符串参数之后：返回一个正数。</li>
+</ul>
+</li>
+<li><p>fromCharCode()</p>
+<p>静态方法，接收多个字符编码，然后将它们转换成一个字符串并返回。</p>
+</li>
+</ul>
+<h1 id="Global对象和Math对象"><a href="#Global对象和Math对象" class="headerlink" title="Global对象和Math对象"></a>Global对象和Math对象</h1><h2 id="Global对象"><a href="#Global对象" class="headerlink" title="Global对象"></a>Global对象</h2><p>ES5中，Global对象的属性与全局变量是等价的，即：不属于任何其他对象的属性和方法，最终都是Global对象的属性和方法。事实上，没有全局变量或全局函数；所有在全局作用域中定义的属性和函数，都是Global对象的属性。ES6中，<code>var</code>命令和<code>function</code>命令声明的全局变量，依旧是顶层对象的属性；但<code>let</code>命令、<code>const</code>命令、<code>class</code>命令声明的全局变量，不属于顶层对象的属性。</p>
+<p>Global对象在浏览器环境指的是<code>window</code>对象，在Node指的是<code>global</code>对象。</p>
+<h3 id="获取Global对象"><a href="#获取Global对象" class="headerlink" title="获取Global对象"></a>获取Global对象</h3><pre><code>// 方法一
+(typeof window !== &apos;undefined&apos;
+   ? window
+   : (typeof process === &apos;object&apos; &amp;&amp;
+      typeof require === &apos;function&apos; &amp;&amp;
+      typeof global === &apos;object&apos;)
+     ? global
+     : this);
+
+// 方法二
+var getGlobal = function () {
+  if (typeof self !== &apos;undefined&apos;) { return self; }
+  if (typeof window !== &apos;undefined&apos;) { return window; }
+  if (typeof global !== &apos;undefined&apos;) { return global; }
+  throw new Error(&apos;unable to locate global object&apos;);
+};
+</code></pre><h3 id="Global对象的方法"><a href="#Global对象的方法" class="headerlink" title="Global对象的方法"></a>Global对象的方法</h3><ul>
+<li><p>URI编码：</p>
+<ul>
+<li>encodeURI()：不会对本身属于URI的特殊字符进行编码，主要用于整个URI。</li>
+<li>encodeURIComponent()：会对它发现的任何非标准字符进行编码，主要用于对URI中的某一段的编码。</li>
+<li>相对应的解码方法：decodeURI()、decodeURIComponent()</li>
+</ul>
+</li>
+<li><p>eval()方法</p>
+<p>只接受一个参数：要执行的ECMAScript字符串。它会将传入的参数当做实际的ECMAScript语句来解析，然后把执行结果插入到原位置。<br>在eval()中创建的任何变量或函数都不会被提升。严格模式下外部访问不到eval()中创建的任何变量或函数。</p>
+</li>
+</ul>
+<h2 id="Math对象"><a href="#Math对象" class="headerlink" title="Math对象"></a>Math对象</h2><ul>
+<li><p>Math对象的属性：<code>Math.E``、Math.LN10</code>、<code>Math.LN2</code>、<code>Math.LOG2E</code>、<code>Math.LOG10E</code>、<code>Math.PI</code>、<code>Math.SQRT1_2</code>、<code>Math.SQRT2</code>；</p>
+</li>
+<li><p>Math对象的方法:</p>
+<ul>
+<li>min()、max()：传入任意多个数值参数，然后确定最小值或最大值</li>
+<li>舍入方法：<code>Math.ceil()</code>执行向上舍入<code>；Math.floor()</code>执行向下舍入；<code>Math.round()</code>执行四舍五入；</li>
+<li>random()：返回大于等于0小于1的一个随机数。从某个整数范围内随机选取一个值的方法：<code>Math.floor(Math.random()*可能值 的总数+第一个可能值)</code></li>
+<li>其他方法：Math.abs(num)、Math.exp(num)、Math.log(num)、Math.pow(num,power)、Math.sqrt(num)、Math.acos(num)、Math.asin(num)、Math.atan(num)、Math.atan2(y,x)(y/x的反正切值）、Math.cos(num)、Math.sin(num)、Math.tan(num)。</li>
+</ul>
+</li>
+</ul>
+<h3 id="ES6新特性"><a href="#ES6新特性" class="headerlink" title="ES6新特性"></a>ES6新特性</h3><ul>
+<li><p><code>Math.trunc()</code>：用于去除一个数的小数部分，返回整数部分。对于非数值，Math.trunc内部使用Number方法将其先转为数值，对于空值和无法截取整数的值，返回NaN。</p>
+<ul>
+<li><p><code>Math.sign()</code>：用来判断一个数到底是正数、负数、还是零。对于非数值，使用Number方法将其先转为数值再进行判断。</p>
+</li>
+<li><p>参数为正数，返回+1；</p>
+</li>
+<li>参数为负数，返回-1；</li>
+<li>参数为0，返回0；</li>
+<li>参数为-0，返回-0;</li>
+<li>其他值，返回NaN。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><code>Math.cbrt()</code>：用于计算一个数的立方根。对于非数值，Math.cbrt方法内部也是先使用Number方法将其转为数值。</li>
+<li><code>Math.clz32()</code>：返回一个数的32位无符号整数形式有多少个前导0。对于小数，Math.clz32方法只考虑整数部分；对于空值或其他类型的值，Math.clz32方法会将它们先转为数值，然后再计算。</li>
+<li><code>Math.imul()</code>：返回两个数以32位带符号整数形式相乘的结果，返回的也是一个32位的带符号整数。对于那些很大的数的乘法，低位数值往往都是不精确的，Math.imul方法可以返回正确的低位数值。<code>Math.imul(0x7fffffff, 0x7fffffff) // 1</code></li>
+<li><code>Math.fround()</code>：返回一个数的单精度浮点数形式。先使用Number方法将其转为数值。</li>
+<li><code>Math.hypot()</code>：返回所有参数的平方和的平方根。如果参数不是数值，Math.hypot方法会将其转为数值。只要有一个参数无法转为数值，就会返回NaN。</li>
+<li><code>Math.expm1(x)</code>：返回<code>ex - 1</code>，即<code>Math.exp(x) - 1</code>。</li>
+<li><code>Math.log1p(x)</code>：返回<code>1 + x</code>的自然对数，即<code>Math.log(1 + x)</code>。如果<code>x</code>小于<code>-1</code>，返回<code>NaN</code>。</li>
+<li><code>Math.log10(x)</code>：返回以10为底的<code>x</code>的对数。</li>
+<li><code>Math.log2(x)</code>：返回以2为底的<code>x</code>的对数。</li>
+<li><code>Math.sinh(x)</code>：返回<code>x</code>的双曲正弦</li>
+<li><code>Math.cosh(x)</code>：返回<code>x</code>的双曲余弦</li>
+<li><code>Math.tanh(x)</code>：返回<code>x</code>的双曲正切</li>
+<li><code>Math.asinh(x)</code>：返回<code>x</code>的反双曲正弦</li>
+<li><code>Math.acosh(x)</code>：返回<code>x</code>的反双曲余弦</li>
+<li><code>Math.atanh(x)</code>：返回<code>x</code>的反双曲正切</li>
+<li><p>指数运算符<code>**</code>：</p>
+<pre><code>let a = 1.5;
+a **= 2;
+// 等同于 a = a * a;
+
+let b = 4;
+b **= 3;
+// 等同于 b = b * b * b;
+</code></pre></li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/前端/">前端</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/js/">js</a>
+  </div>
+
+</div>
+
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/06/01/Webpack入门学习/"  title="Webpack入门学习">
+ <span>Webpack入门学习
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/06/21/JavaScript总结之引用类型/" data-title="JavaScript总结之引用类型" data-url="https://fantasticzhang.github.io/2017/06/21/JavaScript总结之引用类型/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Object类型"><span class="toc-number">1.</span> <span class="toc-text">Object类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ES6新增特性"><span class="toc-number">1.1.</span> <span class="toc-text">ES6新增特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#属性的简写"><span class="toc-number">1.1.1.</span> <span class="toc-text">属性的简写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#属性名表达式"><span class="toc-number">1.1.2.</span> <span class="toc-text">属性名表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法的name属性"><span class="toc-number">1.1.3.</span> <span class="toc-text">方法的name属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新增的一些方法"><span class="toc-number">1.1.4.</span> <span class="toc-text">新增的一些方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象的扩展运算符"><span class="toc-number">1.1.5.</span> <span class="toc-text">对象的扩展运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#解构赋值"><span class="toc-number">1.1.5.1.</span> <span class="toc-text">解构赋值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#扩展运算符"><span class="toc-number">1.1.5.2.</span> <span class="toc-text">扩展运算符</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Array类型"><span class="toc-number">2.</span> <span class="toc-text">Array类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建Array类型"><span class="toc-number">2.1.</span> <span class="toc-text">创建Array类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Array类型的方法"><span class="toc-number">2.2.</span> <span class="toc-text">Array类型的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#检测数组"><span class="toc-number">2.2.1.</span> <span class="toc-text">检测数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#转换方法"><span class="toc-number">2.2.2.</span> <span class="toc-text">转换方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#栈方法"><span class="toc-number">2.2.3.</span> <span class="toc-text">栈方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#队列方法"><span class="toc-number">2.2.4.</span> <span class="toc-text">队列方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重排序方法"><span class="toc-number">2.2.5.</span> <span class="toc-text">重排序方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作方法"><span class="toc-number">2.2.6.</span> <span class="toc-text">操作方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#位置方法"><span class="toc-number">2.2.7.</span> <span class="toc-text">位置方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代方法"><span class="toc-number">2.2.8.</span> <span class="toc-text">迭代方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#归并方法"><span class="toc-number">2.2.9.</span> <span class="toc-text">归并方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ES6新增特性-1"><span class="toc-number">2.3.</span> <span class="toc-text">ES6新增特性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Date类型"><span class="toc-number">3.</span> <span class="toc-text">Date类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建Date类型"><span class="toc-number">3.1.</span> <span class="toc-text">创建Date类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Date类型的方法"><span class="toc-number">3.2.</span> <span class="toc-text">Date类型的方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RegExp类型"><span class="toc-number">4.</span> <span class="toc-text">RegExp类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建RegExp类型"><span class="toc-number">4.1.</span> <span class="toc-text">创建RegExp类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RegExp类型的属性和方法"><span class="toc-number">4.2.</span> <span class="toc-text">RegExp类型的属性和方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实例属性"><span class="toc-number">4.2.1.</span> <span class="toc-text">实例属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例方法"><span class="toc-number">4.2.2.</span> <span class="toc-text">实例方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构造函数属性"><span class="toc-number">4.2.3.</span> <span class="toc-text">构造函数属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ES6新增特性-2"><span class="toc-number">4.3.</span> <span class="toc-text">ES6新增特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造函数"><span class="toc-number">4.3.1.</span> <span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u修饰符"><span class="toc-number">4.3.2.</span> <span class="toc-text">u修饰符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#y-修饰符"><span class="toc-number">4.3.3.</span> <span class="toc-text">y 修饰符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后行断言"><span class="toc-number">4.3.4.</span> <span class="toc-text">后行断言</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Function类型"><span class="toc-number">5.</span> <span class="toc-text">Function类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建函数"><span class="toc-number">5.1.</span> <span class="toc-text">创建函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Function类型的属性和方法"><span class="toc-number">5.2.</span> <span class="toc-text">Function类型的属性和方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ES6新增特性-3"><span class="toc-number">5.3.</span> <span class="toc-text">ES6新增特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数参数新增的特性"><span class="toc-number">5.3.1.</span> <span class="toc-text">函数参数新增的特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#箭头函数"><span class="toc-number">5.3.2.</span> <span class="toc-text">箭头函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数的name属性"><span class="toc-number">5.3.3.</span> <span class="toc-text">函数的name属性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基本包装类型"><span class="toc-number">6.</span> <span class="toc-text">基本包装类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Boolean类型"><span class="toc-number">6.1.</span> <span class="toc-text">Boolean类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Number类型"><span class="toc-number">6.2.</span> <span class="toc-text">Number类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建Number类型的实例"><span class="toc-number">6.2.1.</span> <span class="toc-text">创建Number类型的实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例的方法"><span class="toc-number">6.2.2.</span> <span class="toc-text">实例的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ES6新增特性-4"><span class="toc-number">6.2.3.</span> <span class="toc-text">ES6新增特性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String类型"><span class="toc-number">6.3.</span> <span class="toc-text">String类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建String类型的实例"><span class="toc-number">6.3.1.</span> <span class="toc-text">创建String类型的实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例的方法-1"><span class="toc-number">6.3.2.</span> <span class="toc-text">实例的方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Global对象和Math对象"><span class="toc-number">7.</span> <span class="toc-text">Global对象和Math对象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Global对象"><span class="toc-number">7.1.</span> <span class="toc-text">Global对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#获取Global对象"><span class="toc-number">7.1.1.</span> <span class="toc-text">获取Global对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Global对象的方法"><span class="toc-number">7.1.2.</span> <span class="toc-text">Global对象的方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Math对象"><span class="toc-number">7.2.</span> <span class="toc-text">Math对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ES6新特性"><span class="toc-number">7.2.1.</span> <span class="toc-text">ES6新特性</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+<div id="authorInfo">
+	
+		<div class="author-img"></div>		
+	
+	<div class="social-info" class="clearfix">
+		
+		<a href="http://weibo.com/jinlingzhang" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/fantasticZhang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:jlzhanghot@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+
+	</div>
+</div>
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/github/" title="github">github<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>21</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/生活/" title="生活">生活<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随记/" title="随记">随记<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/CSS/" title="CSS">CSS<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/js/" title="js">js<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/html5/" title="html5">html5<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Canvas/" title="Canvas">Canvas<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/demo/" title="demo">demo<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数学公式/" title="数学公式">数学公式<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/OpenVPN/" title="OpenVPN">OpenVPN<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/webpack/" title="webpack">webpack<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信小程序/" title="微信小程序">微信小程序<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Node/" title="Node">Node<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://ily11.github.io/" target="_blank" title="ily">ily</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.airghc.top/" target="_blank" title="Airghc">Airghc</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://rain1ove.cn/" target="_blank" title="rain">rain</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://wisexy.github.io/" target="_blank" title="wisexy">wisexy</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.mapan.win/" target="_blank" title="mapan">mapan</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+		
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/hsihohuang/kiddochan" target="_blank" title="Kiddochan">Kiddochan</a> © 2017
+		
+		<a href="/about" target="_blank" title="张金玲">张金玲</a>
+		
+
+		</p>
+		<!-- <p class="copyright">
+		<span id="busuanzi_container_site_pv">
+		    本站总访问量<span id="busuanzi_value_site_pv"></span>次，
+		</span>
+		<span id="busuanzi_container_site_uv">
+		  您是第<span id="busuanzi_value_site_uv"></span>个到来的小伙伴
+		</span>
+
+		</p> -->
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+<!--自定义的配置-->
+<!-- <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script> -->
+<script src="/js/search.js"></script>
+<!--相冊功能-->
+<script src="/js/jquery.lazyload.js"></script>
+<script src="/js/photo.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+    //2016-11-29
+    if($('header nav').hasClass('shownav')){
+      $('.animated').css('display', 'block');
+    }else {
+      $('.animated').css('display', 'none');  //2016-11-29
+    }
+
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+      $('.animated').css('display', 'block');   //2016-11-29
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      $('.animated').css('display', 'none');  //2016-11-29
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+      //自定义  固定搜索结果列表宽度
+      $('ul.search-result-list').css('width', '82%');
+    }
+  });
+  //自定义事件 让搜索结果与输入框同宽 2016-11-30
+  $('#local-search-input').focusin(function(){
+    getSize();
+    if (myWidth >= 1024) {
+        $('ul.search-result-list').css('width', '13.5em');
+    }
+  })
+  $('#local-search-input').focusout(function(){
+    getSize();
+    if (myWidth >= 1024) {
+        $('ul.search-result-list').css('width', '7.4em');
+    }
+  })
+  //自定义 如果初始化时屏幕尺寸小于1024 则根据实际情况显示或隐藏菜单
+  getSize();
+  if (myWidth < 1024) {
+    if($('header nav').hasClass('shownav')){
+      $('.animated').css('display', 'block');
+    }else {
+      $('.animated').css('display', 'none');  //2016-11-29
+    }
+  }
+});
+
+<!--自定义功能：本地搜索-->
+var search_path = "search.xml";
+     if (search_path.length == 0) {
+     	search_path = "search.xml";
+     }
+     var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"fantasticzhang"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+
+  //相册功能 2017-02-20 add
+  if($(".photos").length) {
+      photoInit();
+   }
+});
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?dacfb28ac21a2d86cfeeda2ea84b20a7";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
