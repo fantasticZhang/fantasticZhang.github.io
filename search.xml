@@ -704,7 +704,87 @@ alert(num.toExponential(1)); //&quot;1.0e+1&quot;
 <p>静态方法，接收多个字符编码，然后将它们转换成一个字符串并返回。</p>
 </li>
 </ul>
-<h1 id="Global对象和Math对象"><a href="#Global对象和Math对象" class="headerlink" title="Global对象和Math对象"></a>Global对象和Math对象</h1><h2 id="Global对象"><a href="#Global对象" class="headerlink" title="Global对象"></a>Global对象</h2><p>ES5中，Global对象的属性与全局变量是等价的，即：不属于任何其他对象的属性和方法，最终都是Global对象的属性和方法。事实上，没有全局变量或全局函数；所有在全局作用域中定义的属性和函数，都是Global对象的属性。ES6中，<code>var</code>命令和<code>function</code>命令声明的全局变量，依旧是顶层对象的属性；但<code>let</code>命令、<code>const</code>命令、<code>class</code>命令声明的全局变量，不属于顶层对象的属性。</p>
+<h3 id="ES6新增特性-5"><a href="#ES6新增特性-5" class="headerlink" title="ES6新增特性"></a>ES6新增特性</h3><h4 id="字符的Unicode表示方法"><a href="#字符的Unicode表示方法" class="headerlink" title="字符的Unicode表示方法"></a>字符的Unicode表示方法</h4><p>JavaScript允许采用<code>\uxxxx</code>形式表示一个字符，其中<code>xxxx</code>表示字符的Unicode码点。但是这种表示方法只限于码点在<code>\u0000</code>~<code>\uFFFF</code>之间的字符。超出这个范围的字符，必须用两个双字节的形式表示。ES6 对这一点做出了改进，只要将码点放入大括号，就能正确解读该字符。</p>
+<pre><code>&quot;\u{20BB7}&quot;
+// &quot;𠮷&quot;
+
+&quot;\u{41}\u{42}\u{43}&quot;
+// &quot;ABC&quot;
+
+let hello = 123;
+hell\u{6F} // 123
+
+&apos;\u{1F680}&apos; === &apos;\uD83D\uDE80&apos;
+// true
+</code></pre><h4 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h4><p>模板字符串（template string）是增强版的字符串，用反引号标识。它可以当作普通字符串使用，也可以用来定义<strong>多行字符串</strong>，或者在字符串中<strong>嵌入变量</strong>。模板字符串中嵌入变量，需要将变量名写在<code>${}</code>之中。<code>{}</code>中可以放入任意的JavaScript表达式，可以进行运算，可以引用对象属性，还可以进行函数调用。</p>
+<pre><code>var x = 1;
+var y = 2;
+
+`${x} + ${y} = ${x + y}`
+// &quot;1 + 2 = 3&quot;
+
+function fn() {
+return &quot;Hello World&quot;;
+}
+
+`foo ${fn()} bar`
+// foo Hello World bar
+</code></pre><h4 id="新增方法"><a href="#新增方法" class="headerlink" title="新增方法"></a>新增方法</h4><ul>
+<li>codePointAt()：能够正确处理4个字节储存的字符，会正确返回32位的UTF-16字符的码点。对于那些两个字节储存的常规字符，它的返回结果与<code>charCodeAt</code>方法相同。</li>
+<li>String.fromCodePoint()：可以识别大于<code>0xFFFF</code>的字符，弥补了String.fromCharCode方法的不足。在作用上，正好与codePointAt方法相反。</li>
+<li><p>normalize()：用来将字符的不同表示方法统一为同样的形式，这称为Unicode正规化。</p>
+<pre><code>&apos;\u01D1&apos;.normalize() === &apos;\u004F\u030C&apos;.normalize()
+// true
+</code></pre></li>
+<li><p>includes()：返回布尔值，表示是否找到了参数字符串。支持第二个参数，表示开始搜索的位置，即：从第<code>n</code>个位置直到字符串结束。</p>
+</li>
+<li>startsWith()：返回布尔值，表示参数字符串是否在源字符串的头部。支持第二个参数，表示开始搜索的位置，即：从第<code>n</code>个位置直到字符串结束。</li>
+<li>endsWith()：返回布尔值，表示参数字符串是否在源字符串的尾部。支持第二个参数<code>n</code>，表示开始搜索的位置，即：<strong>前<code>n</code>个字符</strong>。</li>
+<li>repeat()：返回一个新字符串，表示将原字符串重复n次。</li>
+<li>padStart()：补全字符串，如果该字符串不够指定长度，会在头部补全；</li>
+<li>padEnd()：补全字符串，如果该字符串不够指定长度，会在尾部补全。</li>
+</ul>
+<h4 id="字符串的遍历器接口"><a href="#字符串的遍历器接口" class="headerlink" title="字符串的遍历器接口"></a>字符串的遍历器接口</h4><p>ES6为字符串添加了遍历器接口，使得字符串可以被<code>for...of</code>循环遍历(能够正确处理4个字节储存的字符)。</p>
+<pre><code>for (let codePoint of &apos;foo&apos;) {
+  console.log(codePoint)
+}
+// &quot;f&quot;
+// &quot;o&quot;
+// &quot;o&quot;
+</code></pre><h4 id="标签模板"><a href="#标签模板" class="headerlink" title="标签模板"></a>标签模板</h4><p>标签模板是函数调用的一种特殊形式。“标签”指的就是函数，紧跟在后面的模板字符串就是它的参数。</p>
+<pre><code>alert`123`
+// 等同于
+alert(123)
+</code></pre><p>但是，如果模板字符里面有变量，就不是简单的调用了，而是会将模板字符串先处理成多个参数，再调用函数。</p>
+<pre><code>var a = 5;
+var b = 10;
+
+tag`Hello ${ a + b } world ${ a * b }`;
+
+// 等同于
+tag([&apos;Hello &apos;, &apos; world &apos;, &apos;&apos;], 15, 50);
+</code></pre><p>上面代码中，模板字符串前面有一个标识名tag，它是一个函数。整个表达式的返回值，就是tag函数处理模板字符串后的返回值。</p>
+<p>tag函数所有参数的实际值如下。</p>
+<ul>
+<li>第一个参数：[‘Hello ‘, ‘ world ‘, ‘’]</li>
+<li>第二个参数: 15</li>
+<li>第三个参数：50</li>
+</ul>
+<p>tag函数的第一个参数是一个数组，该数组的成员是模板字符串中那些没有变量替换的部分，也就是说，变量替换只发生在数组的第一个成员与第二个成员之间、第二个成员与第三个成员之间，以此类推。tag函数的其他参数，都是模板字符串各个变量被替换后的值。由于本例中，模板字符串含有两个变量，因此tag会接受到value1和value2两个参数。</p>
+<p>上面代码中，tag函数的第一个参数strings，有一个raw属性，也指向一个数组。该数组的成员与strings数组完全一致。比如，strings数组是[“First line\nSecond line”]，那么strings.raw数组就是[“First line\nSecond line”]。两者唯一的区别，就是字符串里面的斜杠都被转义了。比如，strings.raw数组会将\n视为\和n两个字符，而不是换行符。</p>
+<h4 id="String-raw"><a href="#String-raw" class="headerlink" title="String.raw()"></a>String.raw()</h4><p>String.raw方法，往往用来充当模板字符串的处理函数，返回一个<strong>斜杠都被转义</strong>（即斜杠前面再加一个斜杠）的字符串，对应于替换变量后的模板字符串。如果原字符串的斜杠已经转义，那么String.raw不会做任何处理。String.raw方法可以作为处理模板字符串的基本方法，它会将所有变量替换，而且对斜杠进行转义，方便下一步作为字符串来使用。</p>
+<pre><code>String.raw`Hi\n${2+3}!`;
+// &quot;Hi\\n5!&quot;
+
+String.raw`Hi\u000A!`;
+// &apos;Hi\\u000A!&apos;
+</code></pre><p>String.raw方法也可以作为正常的函数使用。这时，它的第一个参数，应该是一个具有raw属性的对象，且raw属性的值应该是一个数组。</p>
+<pre><code>String.raw({ raw: &apos;test&apos; }, 0, 1, 2);
+// &apos;t0e1s2t&apos;
+
+// 等同于
+String.raw({ raw: [&apos;t&apos;,&apos;e&apos;,&apos;s&apos;,&apos;t&apos;] }, 0, 1, 2);
+</code></pre><h1 id="Global对象和Math对象"><a href="#Global对象和Math对象" class="headerlink" title="Global对象和Math对象"></a>Global对象和Math对象</h1><h2 id="Global对象"><a href="#Global对象" class="headerlink" title="Global对象"></a>Global对象</h2><p>ES5中，Global对象的属性与全局变量是等价的，即：不属于任何其他对象的属性和方法，最终都是Global对象的属性和方法。事实上，没有全局变量或全局函数；所有在全局作用域中定义的属性和函数，都是Global对象的属性。ES6中，<code>var</code>命令和<code>function</code>命令声明的全局变量，依旧是顶层对象的属性；但<code>let</code>命令、<code>const</code>命令、<code>class</code>命令声明的全局变量，不属于顶层对象的属性。</p>
 <p>Global对象在浏览器环境指的是<code>window</code>对象，在Node指的是<code>global</code>对象。</p>
 <h3 id="获取Global对象"><a href="#获取Global对象" class="headerlink" title="获取Global对象"></a>获取Global对象</h3><pre><code>// 方法一
 (typeof window !== &apos;undefined&apos;
@@ -786,6 +866,8 @@ b **= 3;
 // 等同于 b = b * b * b;
 </code></pre></li>
 </ul>
+<p>参考链接：</p>
+<p><a href="http://es6.ruanyifeng.com/" target="_blank" rel="external">http://es6.ruanyifeng.com/</a></p>
 ]]></content>
     </entry>
     
@@ -4751,24 +4833,6 @@ child.on(&apos;close&apos;,function(code){
     </entry>
     
     <entry>
-      <title><![CDATA[学习过程中实现的实例demo]]></title>
-      <url>https://fantasticzhang.github.io/demo/index.html</url>
-      <content type="html"><![CDATA[<p>做前端和后台不太一样，总觉得只有自己动手做出来一些能看得见的东西，才会有一些成就感~</p>
-<a id="more"></a>
-<h2 id="实例一：Canvas小动画"><a href="#实例一：Canvas小动画" class="headerlink" title="实例一：Canvas小动画"></a>实例一：Canvas小动画</h2><p>使用html5的Canvas实现的一个小动画：模拟太空中一个行星群的运动。</p>
-<ul>
-<li>demo：<a href="/2017/03/10/实例demo之Canvas小动画/" title="实例demo之Canvas小动画">实例demo之Canvas小动画</a></li>
-<li>源码：<a href="https://github.com/fantasticZhang/Asteroids" target="_blank" rel="external">View on GitHub</a></li>
-</ul>
-<h2 id="实例二：Fido-Bowling游戏"><a href="#实例二：Fido-Bowling游戏" class="headerlink" title="实例二：Fido Bowling游戏"></a>实例二：Fido Bowling游戏</h2><p>基于Canvas开发的一个小游戏——太空保龄球。将源码下载下来即可运行，无需安装任何插件。</p>
-<ul>
-<li>demo：<a href="/2017/03/12/实例demo之FidoBowling小游戏/" title="实例demo之FidoBowling小游戏">实例demo之FidoBowling小游戏</a></li>
-<li>源码：<a href="https://github.com/fantasticZhang/FidoBowling" target="_blank" rel="external">View on GitHub</a></li>
-</ul>
-]]></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[相册]]></title>
       <url>https://fantasticzhang.github.io/photos/index.html</url>
       <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
@@ -4813,6 +4877,24 @@ child.on(&apos;close&apos;,function(code){
             })
         }(0));
     });
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[学习过程中实现的实例demo]]></title>
+      <url>https://fantasticzhang.github.io/demo/index.html</url>
+      <content type="html"><![CDATA[<p>做前端和后台不太一样，总觉得只有自己动手做出来一些能看得见的东西，才会有一些成就感~</p>
+<a id="more"></a>
+<h2 id="实例一：Canvas小动画"><a href="#实例一：Canvas小动画" class="headerlink" title="实例一：Canvas小动画"></a>实例一：Canvas小动画</h2><p>使用html5的Canvas实现的一个小动画：模拟太空中一个行星群的运动。</p>
+<ul>
+<li>demo：<a href="/2017/03/10/实例demo之Canvas小动画/" title="实例demo之Canvas小动画">实例demo之Canvas小动画</a></li>
+<li>源码：<a href="https://github.com/fantasticZhang/Asteroids" target="_blank" rel="external">View on GitHub</a></li>
+</ul>
+<h2 id="实例二：Fido-Bowling游戏"><a href="#实例二：Fido-Bowling游戏" class="headerlink" title="实例二：Fido Bowling游戏"></a>实例二：Fido Bowling游戏</h2><p>基于Canvas开发的一个小游戏——太空保龄球。将源码下载下来即可运行，无需安装任何插件。</p>
+<ul>
+<li>demo：<a href="/2017/03/12/实例demo之FidoBowling小游戏/" title="实例demo之FidoBowling小游戏">实例demo之FidoBowling小游戏</a></li>
+<li>源码：<a href="https://github.com/fantasticZhang/FidoBowling" target="_blank" rel="external">View on GitHub</a></li>
+</ul>
 ]]></content>
     </entry>
     
