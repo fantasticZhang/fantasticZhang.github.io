@@ -4,6 +4,422 @@
   
     
     <entry>
+      <title><![CDATA[Webpack进阶（一）]]></title>
+      <url>https://fantasticzhang.github.io/2017/07/12/Webpack%E8%BF%9B%E9%98%B6%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+      <content type="html"><![CDATA[<p>前段时间简单地学习了一些webpack的基础知识，但是在实际应用时仅仅有这些知识还是远远不够的，于是最近又对webpack2进行了进一步的学习，主要是参照<a href="https://github.com/fenivana/webpack-in-action/" target="_blank" rel="external">webpack 2 打包实战</a>。在学习过程中的一个体会是：实践很重要！可能你在看官方文档或是一些技术文档时会觉着自己都理解了，然后觉着自己应该是“掌握”了这个技能。但这远远不够的，因为在实践的过程中你可能会遇到这样那样的问题，即使是跟着别人的demo敲出了一样的代码，在运行时还是有可能会出错（这其中有很多原因，比如：package的版本不同、运行平台的不同等），在解决这些问题的过程中会有不小的收获。所以，学习一门知识一定要：多思考、多总结、多动手、多实践。</p>
+<p>这里再简单介绍一下Webpack的工作方式：把项目当做一个整体，通过一个给定的主文件（如：index.js），Webpack将从这个文件开始找到项目的所有依赖文件，并使用相应的loader对依赖的文件进行编译，最后打包为一个浏览器可识别的JavaScript文件。</p>
+<p>Webpack的简单使用已经在<a href="/2017/06/01/Webpack入门学习/" title="Webpack入门学习">Webpack入门学习</a>中介绍过了，这里不再介绍。下面是一些进阶内容。</p>
+<p>以下内容来自于<a href="https://github.com/fenivana/webpack-in-action/" target="_blank" rel="external">webpack 2 打包实战</a></p>
+<h2 id="指定静态资源的url路径前缀"><a href="#指定静态资源的url路径前缀" class="headerlink" title="指定静态资源的url路径前缀"></a>指定静态资源的url路径前缀</h2><p>通过webpack配置文件中的<code>output.publicPath</code>来给静态资源的url路径指定前缀，例：</p>
+<pre><code>{
+  output: {
+    publicPath: &apos;/assets/&apos;
+  },
+
+  devServer: {
+    // 指定index.html文件的url路径
+    historyApiFallback: {
+      index: &apos;/assets/&apos;
+    }
+  }
+}
+</code></pre><p>通过以上方法，我们就给资源文件的url加了一个前缀, 此时的路径变为<code>http://127.0.0.1:8100/assets/index.js</code>.这样做可以有利于缓存控制和CDN。</p>
+<h2 id="各个页面分开打包"><a href="#各个页面分开打包" class="headerlink" title="各个页面分开打包"></a>各个页面分开打包</h2><p>可以使用<code>import()</code>来实现页面分开打包异步加载，这样浏览器只需加载当前访问的页面的代码。</p>
+<pre><code>//index.js:
+
+load(path) {
+  import(&apos;./views&apos; + path + &apos;/index.js&apos;).then(module =&gt; {
+    // export default ... 的内容通过module.default访问
+    const View = module.default
+    const view = new View()
+    view.mount(document.body)
+  })
+}
+</code></pre><p>这样我们就不需要在开头把所有页面文件都import进来了.</p>
+<p> babel需要插件来支持它:</p>
+<pre><code>npm install babel-preset-stage-2 --save-dev
+</code></pre><p>package.json改一下:</p>
+<pre><code>{
+  &quot;babel&quot;: {
+    &quot;presets&quot;: [
+      &quot;env&quot;,
+      &quot;stage-2&quot;
+    ]
+  }
+}
+</code></pre><p>然后修改webpack配置:</p>
+<pre><code>{
+  output: {
+    /*
+    import()加载的文件会被分开打包, 我们称这个包为chunk, chunkFilename用来配置这个chunk输出的文件名.
+
+    [id]: 编译时每个chunk会有一个id.
+    [chunkhash]: 这个chunk的hash值, 文件发生变化时该值也会变. 文件名加上该值可以防止浏览器读取旧的缓存文件.
+    */
+    chunkFilename: &apos;[id].js?[chunkhash]&apos;,
+  }
+}
+</code></pre><h2 id="打包时区分开发环境和生产环境"><a href="#打包时区分开发环境和生产环境" class="headerlink" title="打包时区分开发环境和生产环境"></a>打包时区分开发环境和生产环境</h2><p>如果webpack.config.js导出的是一个function, 那么webpack会执行它, 并把返回的结果作为配置对象。</p>
+<pre><code>module.exports = (options = {}) =&gt; {
+  return {
+    // 配置内容
+  }
+}
+</code></pre><p>该function接受一个参数, 这个参数的值是由命令行传入的. 比如当我们在命令行中执行:</p>
+<pre><code>webpack-dev-server --env.dev --env.config dev
+</code></pre><p>那么options值为 { dev: true, config: ‘dev’ }</p>
+<p>该参数对<code>webpack</code> 命令同样有效.</p>
+<h2 id="输出的entry文件加上hash"><a href="#输出的entry文件加上hash" class="headerlink" title="输出的entry文件加上hash"></a>输出的entry文件加上hash</h2><p>上面提到了chunkFilename可以加上[chunkhash]防止浏览器读取错误缓存, 那么entry同样需要加上hash。但使用webpack-dev-server启动开发环境时, entry文件是没有[chunkhash]的, 用了会报错。因此我们需要利用上面提到的区分开发环境和生产环境的功能, 只在打包生产环境代码时加上[chunkhash]：</p>
+<pre><code>module.exports = (options = {}) =&gt; {
+  return {
+    /*
+    这里entry我们改用对象来定义
+    属性名在下面的output.filename中使用, 值为文件路径
+    */
+    entry: {
+      index: &apos;./src/index&apos;,
+    },
+
+    output: {
+      /*
+      entry字段配置的入口js的打包输出文件名
+      [name]作为占位符, 在输出时会被替换为entry里定义的属性名, 比如这里会被替换为&quot;index&quot;
+      [chunkhash]是打包后输出文件的hash值的占位符, 把?[chunkhash]跟在文件名后面可以防止浏览器使用缓存的过期内容,
+      这里, webpack会生成以下代码插入到index.html中:
+      &lt;script type=&quot;text/javascript&quot; src=&quot;/assets/index.js?d835352892e6aac768bf&quot;&gt;&lt;/script&gt;
+      这里/assets/目录前缀是output.publicPath配置的
+
+      options.dev是命令行传入的参数. 这里是由于使用webpack-dev-server启动开发环境时, 是没有[chunkhash]的, 用了会报错
+      因此我们不得已在使用webpack-dev-server启动项目时, 命令行跟上--env.dev参数, 当有该参数时, 不在后面跟[chunkhash]
+      */
+      filename: options.dev ? &apos;[name].js&apos; : &apos;[name].js?[chunkhash]&apos;,
+    }
+  }
+}
+</code></pre><p>[chunkhash]和官网文档中[hash]占位符的区别是：hash是整个编译过程产生的一个总的hash值, 而不是单个文件的hash值, 项目中任何一个文件的改动, 都会造成这个hash值的改变。[hash]占位符是始终存在的, 但我们不希望修改一个文件导致所有输出的文件hash都改变, 这样就无法利用浏览器缓存了。</p>
+<h2 id="第三方库和业务代码分开打包"><a href="#第三方库和业务代码分开打包" class="headerlink" title="第三方库和业务代码分开打包"></a>第三方库和业务代码分开打包</h2><p>将第三方库和业务代码分开打包，这样更新业务代码时可以借助浏览器缓存, 用户不需要重新下载没有发生变化的第三方库。</p>
+<p>假设vendor.js和index.js两个文件都引用了同一个第三方库，则解决思路是：入口的html文件引两个js，vendor.js和index.js。</p>
+<p>然后webpack的配置需要修改一下:</p>
+<pre><code>// 引入webpack
+const webpack = require(&apos;webpack&apos;)
+
+module.exports = (options = {}) =&gt; {
+  return {
+    // entry中加入vendor
+    entry: {
+      vendor: &apos;./src/vendor&apos;,
+      index: &apos;./src/index&apos;
+    },
+
+    plugins: [
+      /*
+      使用CommonsChunkPlugin插件来处理重复代码
+      因为vendor.js和index.js都引用了spa-history, 如果不处理的话, 两个文件里都会有spa-history包的代码,
+      我们用CommonsChunkPlugin插件来使共同引用的文件只打包进vendor.js
+      */
+      new webpack.optimize.CommonsChunkPlugin({
+        /*
+        names: 将entry文件中引用的相同文件打包进指定的文件, 可以是新建文件, 也可以是entry中已存在的文件
+        这里我们指定打包进vendor.js
+
+        但这样还不够, 还记得那个chunkFilename参数吗? 这个参数指定了chunk的打包输出的名字,
+        我们设置为 [id].js?[chunkhash] 的格式. 那么打包时这个文件名存在哪里的呢?
+        它就存在引用它的文件中. 这就意味着被引用的文件发生改变, 会导致引用的它文件也发生改变.
+
+        然后CommonsChunkPlugin有个附加效果, 会把所有chunk的文件名记录到names指定的文件中.
+        那么这时当我们修改页面foo或者bar时, vendor.js也会跟着改变, 而index.js不会变.
+        那么怎么处理这些chunk, 使得修改页面代码而不会导致entry文件改变呢?
+
+        这里我们用了一点小技巧. names参数可以是一个数组, 意思相当于调用多次CommonsChunkPlugin,
+        比如:
+
+        plugins: [
+          new webpack.optimize.CommonsChunkPlugin({
+            names: [&apos;vendor&apos;, &apos;manifest&apos;]
+          })
+        ]
+
+        相当于
+
+        plugins: [
+          new webpack.optimize.CommonsChunkPlugin({
+            names: &apos;vendor&apos;
+          }),
+
+          new webpack.optimize.CommonsChunkPlugin({
+            names: &apos;manifest&apos;
+          })
+        ]
+
+        首先把重复引用的库打包进vendor.js, 这时候我们的代码里已经没有重复引用了, chunk文件名存在vendor.js中,
+        然后我们在执行一次CommonsChunkPlugin, 把所有chunk的文件名打包到manifest.js中.
+        这样我们就实现了chunk文件名和代码的分离. 这样修改一个js文件不会导致其他js文件在打包时发生改变, 只有manifest.js会改变.
+        */
+        names: [&apos;vendor&apos;, &apos;manifest&apos;]
+      })
+    ]
+  }
+}
+</code></pre><h2 id="开发环境关闭performance-hints"><a href="#开发环境关闭performance-hints" class="headerlink" title="开发环境关闭performance.hints"></a>开发环境关闭performance.hints</h2><p>运行开发环境是命令行会报一段warning:</p>
+<pre><code>WARNING in asset size limit: The following asset(s) exceed the recommended size limit (250 kB).
+This can impact web performance.
+...
+</code></pre><p>这是说建议每个输出的js文件的大小不要超过250k. 但开发环境因为包含了sourcemap并且代码未压缩所以一般都会超过这个大小, 所以可以在开发环境把这个warning关闭.</p>
+<p>webpack配置中加入:</p>
+<pre><code>{
+  performance: {
+    hints: options.dev ? false : &apos;warning&apos;
+  }
+}
+</code></pre><h2 id="配置favicon"><a href="#配置favicon" class="headerlink" title="配置favicon"></a>配置favicon</h2><p>在src目录中放一张favicon.png, 然后src/index.html的<head>中插入:</head></p>
+<pre><code>&lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;favicon.png&quot;&gt;
+</code></pre><p>修改webpack配置:</p>
+<pre><code>{
+  module: {
+    rules: [
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: &apos;html-loader&apos;,
+            options: {
+              /*
+              html-loader接受attrs参数, 表示什么标签的什么属性需要调用webpack的loader进行打包.
+              比如&lt;img&gt;标签的src属性, webpack会把&lt;img&gt;引用的图片打包, 然后src的属性值替换为打包后的路径.
+              使用什么loader代码, 同样是在module.rules定义中使用匹配的规则.
+
+              如果html-loader不指定attrs参数, 默认值是img:src, 意味着会默认打包&lt;img&gt;标签的图片.
+              这里我们加上&lt;link&gt;标签的href属性, 用来打包入口index.html引入的favicon.png文件.
+              */
+              attrs: [&apos;img:src&apos;, &apos;link:href&apos;]
+            }
+          }
+        ]
+      },
+
+      {
+        /*
+        匹配favicon.png
+        上面的html-loader会把入口index.html引用的favicon.png图标文件解析出来进行打包
+        打包规则就按照这里指定的loader执行
+        */
+        test: /favicon\.png$/,
+
+        use: [
+          {
+            // 使用file-loader
+            loader: &apos;file-loader&apos;,
+            options: {
+              /*
+              name: 指定文件输出名
+              [name]是源文件名, 不包含后缀. [ext]为后缀. [hash]为源文件的hash值,
+              这里我们保持文件名, 在后面跟上hash, 防止浏览器读取过期的缓存文件.
+              */
+              name: &apos;[name].[ext]?[hash]&apos;
+            }
+          }
+        ]
+      },
+
+      // 图片文件的加载配置增加一个exclude参数
+      {
+        test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
+
+        // 排除favicon.png, 因为它已经由上面的loader处理了. 如果不排除掉, 它会被这个loader再处理一遍
+        exclude: /favicon\.png$/,
+
+        use: [
+          {
+            loader: &apos;url-loader&apos;,
+            options: {
+              limit: 10000
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+</code></pre><p>其实html-webpack-plugin接受一个favicon参数, 可以指定favicon文件路径, 会自动打包插入到html文件中。 但它有个bug, 打包后的文件名路径不带hash, 就算有hash, 它也是[hash], 而不是[chunkhash], 导致修改代码也会改变favicon打包输出的文件名。</p>
+<h2 id="开发环境允许其他电脑访问"><a href="#开发环境允许其他电脑访问" class="headerlink" title="开发环境允许其他电脑访问"></a>开发环境允许其他电脑访问</h2><p>webpack配置devServer.host为’0.0.0.0’即可.</p>
+<h2 id="打包时自定义部分参数"><a href="#打包时自定义部分参数" class="headerlink" title="打包时自定义部分参数"></a>打包时自定义部分参数</h2><p>在多人开发时, 每个人可能需要有自己的配置, 比如说webpack-dev-server监听的端口号,还有一点就是开发环境/测试环境/生产环境的部分webpack配置是不同的, 比如publicPath在生产环境可能要配置一个CDN地址。</p>
+<p>解决方案是在根目录建立一个文件夹config, 里面创建多个个配置文件:</p>
+<p>default.js: 生产环境</p>
+<pre><code>module.exports = {
+  publicPath: &apos;http://cdn.example.com/assets/&apos;
+}
+</code></pre><p>dev.js: 默认开发环境</p>
+<pre><code>module.exports = {
+  publicPath: &apos;/assets/&apos;,
+
+  devServer: {
+    port: 8100,
+    proxy: {
+      &apos;/api/auth/&apos;:{
+            target:&apos;http://fantasticzhang.gtensor.com&apos;,
+            changeOrigin: true,
+            pathRewrite:{
+                &apos;^/api&apos;: &apos;&apos;
+            }
+          },
+      &apos;/api/pay/&apos;:{
+          target: &apos;http://fantasticzhang.gtensor.com&apos;,
+          changeOrigin: true,
+          pathRewrite:{
+              &apos;^/api&apos;:&quot;&quot;
+          }
+      }
+    }
+  }
+}
+</code></pre><p>local.js: 个人本地环境, 在dev.js基础上修改部分参数.</p>
+<pre><code>const config = require(&apos;./dev&apos;)
+config.devServer.port = 8200
+module.exports = config
+</code></pre><p>package.json修改scripts:</p>
+<pre><code>{
+  &quot;scripts&quot;: {
+    &quot;local&quot;: &quot;npm run dev --config=local&quot;,
+    &quot;dev&quot;: &quot;webpack-dev-server -d --hot --env.dev --env.config dev&quot;,
+    &quot;build&quot;: &quot;rimraf dist &amp;&amp; webpack -p&quot;
+  }
+}
+</code></pre><p>webpack配置修改:</p>
+<pre><code>// ...
+const url = require(&apos;url&apos;)
+
+module.exports = (options = {}) =&gt; {
+  const config = require(&apos;./config/&apos; + (process.env.npm_config_config || options.config || &apos;default&apos;))
+
+  return {
+    // ...
+    devServer: config.devServer ? {
+      host: &apos;0.0.0.0&apos;,
+      port: config.devServer.port,
+      proxy: config.devServer.proxy,
+      historyApiFallback: {
+        index: url.parse(config.publicPath).pathname
+      }
+    } : undefined,
+  }
+}
+</code></pre><ul>
+<li>npm run传进来的自定义参数可以通过process.env.npm<em>config</em>*获得。参数中如果有-会被转成_</li>
+<li>–env.<em>传进来的参数可以通过options.</em>获得。这里优先使用npm run指定的配置文件. 这样我们可以在命令行覆盖scripts中指定的配置文件：当我们执行<code>npm run dev</code>时使用的是dev.js, 执行<code>npm run local</code>使用local.js, 执行<code>npm run build</code>使用default.js.</li>
+<li>config.devServer.proxy用来配置后端api的反向代理, ajax /api/auth/<em>的请求会被转发到 <a href="http://fantasticzhang.gtensor.com/auth/" target="_blank" rel="external">http://fantasticzhang.gtensor.com/auth/</a></em>, /api/pay/<em>的请求会被转发到 <a href="http://fantasticzhang.gtensor.com/pay/" target="_blank" rel="external">http://fantasticzhang.gtensor.com/pay/</a></em></li>
+<li>changeOrigin会修改HTTP请求头中的Host为target的域名, 这里会被改为api.example.dev</li>
+<li>pathRewrite用来改写URL, 这里是把/api前缀去掉了</li>
+</ul>
+<h2 id="webpack-dev-server处理带后缀名的文件的特殊规则"><a href="#webpack-dev-server处理带后缀名的文件的特殊规则" class="headerlink" title="webpack-dev-server处理带后缀名的文件的特殊规则"></a>webpack-dev-server处理带后缀名的文件的特殊规则</h2><p>当处理带后缀名的请求时, 比如 <a href="http://localhost:8100/bar.do" target="_blank" rel="external">http://localhost:8100/bar.do</a> , webpack-dev-server会认为它应该是一个实际存在的文件, 就算找不到该文件, 也不会fallback到index.html, 而是返回404. 但在单页应用中这不是我们希望的. webpack-dev-server有一个配置选项disableDotRule: true可以禁用这个规则, 使带后缀的文件当不存在时也能fallback到index.html。</p>
+<pre><code>historyApiFallback: {
+  index: url.parse(config.publicPath).pathname,
+  disableDotRule: true
+}
+</code></pre><h2 id="代码中插入环境变量"><a href="#代码中插入环境变量" class="headerlink" title="代码中插入环境变量"></a>代码中插入环境变量</h2><p>在业务代码中, 有些变量在开发环境和生产环境是不同的, 比如域名, 后台API地址等. 还有开发环境可能需要打印调试信息等。可以使用DefinePlugin插件在打包时往代码中插入需要的环境变量：</p>
+<pre><code>// ...
+const pkgInfo = require(&apos;./package.json&apos;)
+
+module.exports = (options = {}) =&gt; {
+  const config = require(&apos;./config/&apos; + (process.env.npm_config_config || options.config || &apos;default&apos;)).default
+
+  return {
+    // ...
+    plugins: [
+      new webpack.DefinePlugin({
+        DEBUG: Boolean(options.dev),
+        VERSION: JSON.stringify(pkgInfo.version),
+        CONFIG: JSON.stringify(config.runtimeConfig)
+      })
+    ]
+  }
+}
+</code></pre><h2 id="简化import路径"><a href="#简化import路径" class="headerlink" title="简化import路径"></a>简化import路径</h2><p>文件a引入文件b时, b的路径是相对于a文件所在目录的. 如果a和b在不同的目录, 藏得又深, 写起来就会很麻烦:</p>
+<pre><code>import b from &apos;../../../components/b&apos;
+</code></pre><p>此时我们可以定义一个路径别名(alias):</p>
+<pre><code>resolve: {
+  alias: {
+    &apos;~&apos;: path.resolve(__dirname, &apos;src&apos;)
+  }
+}
+</code></pre><p>这样, 我们可以以src目录为基础路径来import文件:</p>
+<pre><code>import b from &apos;~/components/b&apos;
+</code></pre><p>html中的<img>标签没法使用这个别名功能, 但html-loader有一个root参数, 可以使<code>/</code>开头的文件相对于root目录解析。</p>
+<pre><code>{
+  test: /\.html$/,
+  use: [
+    {
+      loader: &apos;html-loader&apos;,
+      options: {
+        root: path.resolve(__dirname, &apos;src&apos;),
+        attrs: [&apos;img:src&apos;, &apos;link:href&apos;]
+      }
+    }
+  ]
+}
+</code></pre><p>那么, <code>&lt;img src=&quot;/favicon.png&quot;&gt;</code>就能顺利指向到src目录下的favicon.png文件, 不需要关心当前文件和目标文件的相对路径。</p>
+<h2 id="优化babel编译后的代码性能"><a href="#优化babel编译后的代码性能" class="headerlink" title="优化babel编译后的代码性能"></a>优化babel编译后的代码性能</h2><p>babel编译后的代码一般会造成性能损失, babel提供了一个loose选项, 使编译后的代码不需要完全遵循ES6规定, 简化编译后的代码, 提高代码执行效率:</p>
+<pre><code>package.json:
+
+{
+  &quot;babel&quot;: {
+    &quot;presets&quot;: [
+      [
+        &quot;env&quot;,
+        {
+          &quot;loose&quot;: true
+        }
+      ],
+      &quot;stage-2&quot;
+    ]
+  }
+}
+</code></pre><p>但这么做会有兼容性的风险, 可能会导致ES6源码理应的执行结果和编译后的ES5代码的实际结果并不一致。</p>
+<h2 id="使用webpack2自带的ES6模块处理功能"><a href="#使用webpack2自带的ES6模块处理功能" class="headerlink" title="使用webpack2自带的ES6模块处理功能"></a>使用webpack2自带的ES6模块处理功能</h2><p>目前的配置, babel会把ES6模块定义转为CommonJS定义, 但webpack自己可以处理import和export, 而且webpack处理import时会做代码优化, 把没用到的部分代码删除掉。因此通过babel提供的<code>modules: false</code>选项把ES6模块转为CommonJS模块的功能给关闭掉。</p>
+<p>package.json:</p>
+<pre><code>{
+  &quot;babel&quot;: {
+    &quot;presets&quot;: [
+      [
+        &quot;env&quot;,
+        {
+          &quot;loose&quot;: true,
+          &quot;modules&quot;: false
+        }
+      ],
+      &quot;stage-2&quot;
+    ]
+  }
+}
+</code></pre><h2 id="使用autoprefixer自动创建css的vendor-prefixes"><a href="#使用autoprefixer自动创建css的vendor-prefixes" class="headerlink" title="使用autoprefixer自动创建css的vendor prefixes"></a>使用autoprefixer自动创建css的vendor prefixes</h2><p>css有一个很麻烦的问题就是比较新的css属性在各个浏览器里是要加前缀的, 我们可以使用autoprefixer工具自动创建这些浏览器规则。</p>
+<p>首先, 用npm安装它:</p>
+<pre><code>npm install postcss-loader autoprefixer --save-dev
+</code></pre><p>autoprefixer是postcss的一个插件, 所以我们也要安装postcss的webpack loader。</p>
+<p>修改一下webpack的css rule:</p>
+<pre><code>{
+  test: /\.css$/,
+  use: [&apos;style-loader&apos;, &apos;css-loader&apos;, &apos;postcss-loader&apos;]
+}
+</code></pre><p>然后创建文件postcss.config.js:</p>
+<pre><code>module.exports = {
+  plugins: [
+    require(&apos;autoprefixer&apos;)()
+  ]
+}
+</code></pre><h2 id="编译前清空dist目录"><a href="#编译前清空dist目录" class="headerlink" title="编译前清空dist目录"></a>编译前清空dist目录</h2><p>不清空的话上次编译生成的文件会遗留在dist目录中, 最好先把目录清空一下。考虑到跨平台的需求, 我们可以用rimraf:</p>
+<pre><code>npm install rimraf --save-dev
+</code></pre><p>package.json修改一下:</p>
+<pre><code>{
+  &quot;scripts&quot;: {
+    &quot;build&quot;: &quot;rimraf dist &amp;&amp; webpack -p --env.config production&quot;
+  },
+}
+</code></pre><p>以上学习过程的全部代码见我的github：<a href="https://github.com/fantasticZhang/webpackLearning" target="_blank" rel="external">webpackLearning</a></p>
+<p>虽然是照着教程敲了一遍代码，但是在运行时还是遇到了一些问题。例如，一开始总是提示我：hookAnchorElements is not a function。最后找到了原因：我安装的<code>spa-history</code>比教程中的版本要高，而这个版本中已经把这个方法去掉了= =。不过好在最后把所有问题都解决了，demo成功地运行了起来~</p>
+<p>最后，一定要多思考、多总结、多动手、多实践。ps：遇到了问题，如果网上找不到解决方法，其实看源码也是一种解决思路。当然，个人认为学习前端的某个框架或工具，学习其思想是很重要的，而这就又免不了读源码了。不过，这就是后话了</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[JavaScript总结之引用类型]]></title>
       <url>https://fantasticzhang.github.io/2017/06/21/JavaScript%E6%80%BB%E7%BB%93%E4%B9%8B%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/</url>
       <content type="html"><![CDATA[<p>ECMAScript中，引用类型是一种数据结构，用于将数据和功能组织在一起，引用类型的值（对象）是引用类型的一个实例。ECMAScript提供了许多原生的引用类型，下面一一简单介绍。</p>
@@ -4734,17 +5150,17 @@ child.on(&apos;close&apos;,function(code){
 <h4 id="scroll和auto的区别"><a href="#scroll和auto的区别" class="headerlink" title="scroll和auto的区别"></a>scroll和auto的区别</h4><ul>
 <li>scroll：内容自动撑开容器的宽度不包括滚动条，相当于滚动条是一个和内容并列显示的组件。</li>
 <li><p>auto：内容撑开容器的宽度包括滚动条。即 使用<code>white-space:nowrape;</code>撑开容器至正好显示所有内容时，如果有滚动条，则滚动条会覆盖在内容上方，导致内容宽度被再次缩小，然后出现省略号。由此推断渲染顺序：</p>
-<p>  自适应宽度-&gt;根据高度显示滚动条-&gt;重新计算内部元素宽度。 </p>
+<p>  自适应宽度-&gt;根据高度显示滚动条-&gt;重新计算内部元素宽度。</p>
 </li>
 </ul>
 <p>综上，如果宽度是由内容自适应撑开的，则<code>overflow:auto;</code>带来的滚动条会占用内容的一部分宽度，导致内容显示不全。</p>
 <h3 id="white-space属性"><a href="#white-space属性" class="headerlink" title="white-space属性"></a>white-space属性</h3><p>该属性声明建立布局过程中如何处理元素中的空白符。</p>
 <h4 id="可能的取值-1"><a href="#可能的取值-1" class="headerlink" title="可能的取值"></a>可能的取值</h4><ul>
 <li>normal：默认值。连续的空白符会被合并，换行符会被当做空白符来处理。填充line盒子时，必要的话会换行。</li>
-<li>pre: 连续的空白符会被保留。在遇到换行符或者\<br\>元素时才会换行。</br\></li>
-<li>nowrap: 连续的空白符会被合并，文本不会换行，会在同一行上继续，直到遇到\<br\>标签为止。</br\></li>
-<li>pre-wrap：连续的空白符会被保留，在遇到换行符或者\<br\>元素或者需要为了填充line盒子时才会换行。</br\></li>
-<li>pre-line：连续的空白符会被合并，在遇到换行符或者\<br\>元素或者需要为了填充line盒子时才会换行。</br\></li>
+<li>pre: 连续的空白符会被保留。在遇到换行符或者<code>&lt;br&gt;</code>元素时才会换行。</li>
+<li>nowrap: 连续的空白符会被合并，文本不会换行，会在同一行上继续，直到遇到<code>&lt;br&gt;</code>标签为止。</li>
+<li>pre-wrap：连续的空白符会被保留，在遇到换行符或者<code>&lt;br&gt;</code>元素或者需要为了填充line盒子时才会换行。</li>
+<li>pre-line：连续的空白符会被合并，在遇到换行符或者<code>&lt;br&gt;</code>元素或者需要为了填充line盒子时才会换行。</li>
 <li>inherit：从父元素继承white-space属性的值。</li>
 </ul>
 <p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/white-space" target="_blank" rel="external">参考</a></p>
@@ -4844,12 +5260,6 @@ child.on(&apos;close&apos;,function(code){
     
     <entry>
       <title></title>
-      <url>https://fantasticzhang.github.io/photos/output.json</url>
-      <content type="html"><![CDATA[["IMG_20161005_164625.jpg","IMG_20161005_165430.jpg","IMG_20161005_165817.jpg","IMG_20161005_172129.jpg","IMG_20161006_130939.jpg","IMG_20161006_132426.jpg","IMG_20161006_132836.jpg","IMG_20161116_141430.jpg","IMG_20161116_150715.jpg","IMG_20161116_155406.jpg","IMG_20161118_124950.jpg","mmexport1479264425744.jpg","mmexport1479264435676.jpg","wen.jpg"]]]></content>
-    </entry>
-    
-    <entry>
-      <title></title>
       <url>https://fantasticzhang.github.io/photos/tool.js</url>
       <content type="html"><![CDATA["use strict";
     const fs = require("fs");
@@ -4878,6 +5288,12 @@ child.on(&apos;close&apos;,function(code){
         }(0));
     });
 ]]></content>
+    </entry>
+    
+    <entry>
+      <title></title>
+      <url>https://fantasticzhang.github.io/photos/output.json</url>
+      <content type="html"><![CDATA[["IMG_20161005_164625.jpg","IMG_20161005_165430.jpg","IMG_20161005_165817.jpg","IMG_20161005_172129.jpg","IMG_20161006_130939.jpg","IMG_20161006_132426.jpg","IMG_20161006_132836.jpg","IMG_20161116_141430.jpg","IMG_20161116_150715.jpg","IMG_20161116_155406.jpg","IMG_20161118_124950.jpg","mmexport1479264425744.jpg","mmexport1479264435676.jpg","wen.jpg"]]]></content>
     </entry>
     
     <entry>
