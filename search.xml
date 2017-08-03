@@ -4,6 +4,98 @@
   
     
     <entry>
+      <title><![CDATA[基于Express的Multer中间件实现文件上传功能]]></title>
+      <url>https://fantasticzhang.github.io/2017/08/03/%C2%96%E5%9F%BA%E4%BA%8EExpress%E7%9A%84Multer%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%8A%9F%E8%83%BD/</url>
+      <content type="html"><![CDATA[<p>最近在项目中遇到一个问题：给项目增加一个文件上传的功能。项目的结构如下：</p>
+<ul>
+<li>前端：基于Vue.js，幷通过axios向服务器端发出请求；</li>
+<li>服务器端：基于Node.js+Express搭建。</li>
+</ul>
+<p>由于之前还没有用node实现过文件上传功能，因此在解决这个问题的过程中查阅了一些资料，最终成功实现该功能。</p>
+<h2 id="前端通过axios上传文件"><a href="#前端通过axios上传文件" class="headerlink" title="前端通过axios上传文件"></a>前端通过<code>axios</code>上传文件</h2><p>由于比较简单，直接上代码。由于项目是基于组件化开发的，所以为了容易理解，这里对源代码做了部分修改。</p>
+<pre><code>upload(){
+  let cert = document.getElementById(&quot;certificate&quot;).files[0];
+  let form = new FormData();
+  form.append(&apos;file&apos;,cert);
+  axios.post(&apos;http://fantasticzhang.gtensor.com&apos;, form, {
+    method: &apos;post&apos;,
+    headers:
+      {&apos;Content-Type&apos;: &apos;multipart/form-data&apos;,   //很重要
+        &apos;dataType&apos;: &apos;json&apos;
+      }
+  }).then((res) =&gt; {
+      if (res.data.status === 1) {
+        this.$Message.success(r.msg);
+      } else {
+        this.$Message.error(err);
+      }
+  }).catch(function (err) {
+      let res = err.response;
+      if (err) {
+        console.log(&apos;api error, HTTP CODE: &apos; + res);
+        window.alert(&quot;后台接口出错了，稍后再刷新试试~&quot;)
+      }
+    })
+});
+</code></pre><h2 id="后端使用Multer中间件实现文件上传功能"><a href="#后端使用Multer中间件实现文件上传功能" class="headerlink" title="后端使用Multer中间件实现文件上传功能"></a>后端使用Multer中间件实现文件上传功能</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><pre><code>npm install multer --save
+</code></pre><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>新建一个multerUtil.js文件，对multer进行配置：</p>
+<pre><code>//multerUtil.js
+
+let multer = require(&apos;multer&apos;);
+let storage = multer.diskStorage({
+  //设置上传后文件路径
+  destination: function (req, file, cb) {
+    cb(null, &apos;./certs&apos;)
+  },
+  //给上传文件重命名，获取添加后缀名
+  filename: function (req, file, cb) {
+    let fileFormat = (file.originalname).split(&quot;.&quot;);
+    cb(null, file.originalname);
+  }
+});
+//添加配置文件到muler对象。
+let upload = multer({
+  storage: storage
+});
+
+//导出对象
+module.exports = upload;
+</code></pre><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><pre><code>//index.js
+
+let multer = require(&apos;./multerUtil&apos;);
+let upload = multer.single(&apos;file&apos;);   //single()中的名称必须是表单上传字段的name名称。我的项目中字段名是&apos;file&apos;
+
+app.post(&apos;/importCertificate&apos;,upload,function (req,res) {
+  upload(req,res,function (err) {
+    if(err){
+      let resData = {
+        status: 0,
+        errorReason: &quot;导入文件失败！&quot;
+      };
+      res.send(JSON.stringify(resData));
+      res.end();
+    }else{
+      // req.file 中是文件信息
+      // 如果除文件外还有其他字段，则在req.body 中
+
+      let resData = {
+        status: 1,
+        msg: &quot;导入文件成功！&quot;
+      };
+      res.send(JSON.stringify(resData));
+      res.end();
+     });
+    }
+  })
+})
+</code></pre><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>以上只是实现了单文件上传的功能。还可以通过Multer实现多文件上传、混合上传等功能。详见<a href="https://github.com/expressjs/multer" target="_blank" rel="external">官方API</a>。</p>
+<p>参考链接：</p>
+<p><a href="https://my.oschina.net/lfj/blog/869207" target="_blank" rel="external">https://my.oschina.net/lfj/blog/869207</a></p>
+<p><a href="https://cnodejs.org/topic/564f32631986c7df7e92b0db" target="_blank" rel="external">https://cnodejs.org/topic/564f32631986c7df7e92b0db</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Webpack进阶（一）]]></title>
       <url>https://fantasticzhang.github.io/2017/07/12/Webpack%E8%BF%9B%E9%98%B6%EF%BC%88%E4%B8%80%EF%BC%89/</url>
       <content type="html"><![CDATA[<p>前段时间简单地学习了一些webpack的基础知识，但是在实际应用时仅仅有这些知识还是远远不够的，于是最近又对webpack2进行了进一步的学习，主要是参照<a href="https://github.com/fenivana/webpack-in-action/" target="_blank" rel="external">webpack 2 打包实战</a>。在学习过程中的一个体会是：实践很重要！可能你在看官方文档或是一些技术文档时会觉着自己都理解了，然后觉着自己应该是“掌握”了这个技能。但这远远不够的，因为在实践的过程中你可能会遇到这样那样的问题，即使是跟着别人的demo敲出了一样的代码，在运行时还是有可能会出错（这其中有很多原因，比如：package的版本不同、运行平台的不同等），在解决这些问题的过程中会有不小的收获。所以，学习一门知识一定要：多思考、多总结、多动手、多实践。</p>
@@ -415,7 +507,7 @@ module.exports = (options = {}) =&gt; {
 }
 </code></pre><p>以上学习过程的全部代码见我的github：<a href="https://github.com/fantasticZhang/webpackLearning" target="_blank" rel="external">webpackLearning</a></p>
 <p>虽然是照着教程敲了一遍代码，但是在运行时还是遇到了一些问题。例如，一开始总是提示我：hookAnchorElements is not a function。最后找到了原因：我安装的<code>spa-history</code>比教程中的版本要高，而这个版本中已经把这个方法去掉了= =。不过好在最后把所有问题都解决了，demo成功地运行了起来~</p>
-<p>最后，一定要多思考、多总结、多动手、多实践。ps：遇到了问题，如果网上找不到解决方法，其实看源码也是一种解决思路。当然，个人认为学习前端的某个框架或工具，学习其思想是很重要的，而这就又免不了读源码了。不过，这就是后话了</p>
+<p>最后，一定要多思考、多总结、多动手、多实践。ps：遇到了问题，如果网上找不到解决方法，其实看源码也是一种解决思路。当然，个人认为学习前端的某个框架或工具，学习其思想是很重要的，而这就又免不了读源码了。不过，这就是后话了。</p>
 ]]></content>
     </entry>
     
@@ -5242,6 +5334,24 @@ child.on(&apos;close&apos;,function(code){
   
     
     <entry>
+      <title><![CDATA[学习过程中实现的实例demo]]></title>
+      <url>https://fantasticzhang.github.io/demo/index.html</url>
+      <content type="html"><![CDATA[<p>做前端和后台不太一样，总觉得只有自己动手做出来一些能看得见的东西，才会有一些成就感~</p>
+<a id="more"></a>
+<h2 id="实例一：Canvas小动画"><a href="#实例一：Canvas小动画" class="headerlink" title="实例一：Canvas小动画"></a>实例一：Canvas小动画</h2><p>使用html5的Canvas实现的一个小动画：模拟太空中一个行星群的运动。</p>
+<ul>
+<li>demo：<a href="/2017/03/10/实例demo之Canvas小动画/" title="实例demo之Canvas小动画">实例demo之Canvas小动画</a></li>
+<li>源码：<a href="https://github.com/fantasticZhang/Asteroids" target="_blank" rel="external">View on GitHub</a></li>
+</ul>
+<h2 id="实例二：Fido-Bowling游戏"><a href="#实例二：Fido-Bowling游戏" class="headerlink" title="实例二：Fido Bowling游戏"></a>实例二：Fido Bowling游戏</h2><p>基于Canvas开发的一个小游戏——太空保龄球。将源码下载下来即可运行，无需安装任何插件。</p>
+<ul>
+<li>demo：<a href="/2017/03/12/实例demo之FidoBowling小游戏/" title="实例demo之FidoBowling小游戏">实例demo之FidoBowling小游戏</a></li>
+<li>源码：<a href="https://github.com/fantasticZhang/FidoBowling" target="_blank" rel="external">View on GitHub</a></li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[关于我]]></title>
       <url>https://fantasticzhang.github.io/about/index.html</url>
       <content type="html"><![CDATA[<p>目前在北京读研，平时的工作主要是前端相关的。对前端技术也很感兴趣，处于边学边实践的阶段。欢迎志同道合的朋友与我多多交流，也期待大神的指点~</p>
@@ -5256,6 +5366,12 @@ child.on(&apos;close&apos;,function(code){
 
 <div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
 ]]></content>
+    </entry>
+    
+    <entry>
+      <title></title>
+      <url>https://fantasticzhang.github.io/photos/output.json</url>
+      <content type="html"><![CDATA[["IMG_20161005_164625.jpg","IMG_20161005_165430.jpg","IMG_20161005_165817.jpg","IMG_20161005_172129.jpg","IMG_20161006_130939.jpg","IMG_20161006_132426.jpg","IMG_20161006_132836.jpg","IMG_20161116_141430.jpg","IMG_20161116_150715.jpg","IMG_20161116_155406.jpg","IMG_20161118_124950.jpg","mmexport1479264425744.jpg","mmexport1479264435676.jpg","wen.jpg"]]]></content>
     </entry>
     
     <entry>
@@ -5287,30 +5403,6 @@ child.on(&apos;close&apos;,function(code){
             })
         }(0));
     });
-]]></content>
-    </entry>
-    
-    <entry>
-      <title></title>
-      <url>https://fantasticzhang.github.io/photos/output.json</url>
-      <content type="html"><![CDATA[["IMG_20161005_164625.jpg","IMG_20161005_165430.jpg","IMG_20161005_165817.jpg","IMG_20161005_172129.jpg","IMG_20161006_130939.jpg","IMG_20161006_132426.jpg","IMG_20161006_132836.jpg","IMG_20161116_141430.jpg","IMG_20161116_150715.jpg","IMG_20161116_155406.jpg","IMG_20161118_124950.jpg","mmexport1479264425744.jpg","mmexport1479264435676.jpg","wen.jpg"]]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[学习过程中实现的实例demo]]></title>
-      <url>https://fantasticzhang.github.io/demo/index.html</url>
-      <content type="html"><![CDATA[<p>做前端和后台不太一样，总觉得只有自己动手做出来一些能看得见的东西，才会有一些成就感~</p>
-<a id="more"></a>
-<h2 id="实例一：Canvas小动画"><a href="#实例一：Canvas小动画" class="headerlink" title="实例一：Canvas小动画"></a>实例一：Canvas小动画</h2><p>使用html5的Canvas实现的一个小动画：模拟太空中一个行星群的运动。</p>
-<ul>
-<li>demo：<a href="/2017/03/10/实例demo之Canvas小动画/" title="实例demo之Canvas小动画">实例demo之Canvas小动画</a></li>
-<li>源码：<a href="https://github.com/fantasticZhang/Asteroids" target="_blank" rel="external">View on GitHub</a></li>
-</ul>
-<h2 id="实例二：Fido-Bowling游戏"><a href="#实例二：Fido-Bowling游戏" class="headerlink" title="实例二：Fido Bowling游戏"></a>实例二：Fido Bowling游戏</h2><p>基于Canvas开发的一个小游戏——太空保龄球。将源码下载下来即可运行，无需安装任何插件。</p>
-<ul>
-<li>demo：<a href="/2017/03/12/实例demo之FidoBowling小游戏/" title="实例demo之FidoBowling小游戏">实例demo之FidoBowling小游戏</a></li>
-<li>源码：<a href="https://github.com/fantasticZhang/FidoBowling" target="_blank" rel="external">View on GitHub</a></li>
-</ul>
 ]]></content>
     </entry>
     

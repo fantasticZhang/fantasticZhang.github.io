@@ -4,32 +4,41 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>同一台电脑关联两个或多个Github账号 | Fantastic</title>
+    <title>基于Express的Multer中间件实现文件上传功能 | Fantastic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="张金玲">
     
 
     
-    <meta name="description" content="今天遇到了一个问题，我自己有一个github账号，项目组有一个github账号，然后我需要在我的电脑上同时管理这两个github账号的仓库，这时候该怎么办呢？在查阅了一些资料后，成功解决了这个问题，现将解决方案记录下来，以便日后查看。
-思路管理两个SSH key。
-解决方案生成SSH keyssh-keygen -t rsa -C &amp;quot;注册邮箱&amp;quot;
-使用上面的命令在本地生成SSH">
+    <meta name="description" content="最近在项目中遇到一个问题：给项目增加一个文件上传的功能。项目的结构如下：
+
+前端：基于Vue.js，幷通过axios向服务器端发出请求；
+服务器端：基于Node.js+Express搭建。
+
+由于之前还没有用node实现过文件上传功能，因此在解决这个问题的过程中查阅了一些资料，最终成功实现该功能。
+前端通过axios上传文件由于比较简单，直接上代码。由于项目是基于组件化开发的，所以为了容易理解，这">
 <meta property="og:type" content="article">
-<meta property="og:title" content="同一台电脑关联两个或多个Github账号">
-<meta property="og:url" content="https://fantasticzhang.github.io/2016/12/07/同一台电脑关联两个或多个Github账号/index.html">
+<meta property="og:title" content="基于Express的Multer中间件实现文件上传功能">
+<meta property="og:url" content="https://fantasticzhang.github.io/2017/08/03/基于Express的Multer中间件实现文件上传功能/index.html">
 <meta property="og:site_name" content="Fantastic">
-<meta property="og:description" content="今天遇到了一个问题，我自己有一个github账号，项目组有一个github账号，然后我需要在我的电脑上同时管理这两个github账号的仓库，这时候该怎么办呢？在查阅了一些资料后，成功解决了这个问题，现将解决方案记录下来，以便日后查看。
-思路管理两个SSH key。
-解决方案生成SSH keyssh-keygen -t rsa -C &amp;quot;注册邮箱&amp;quot;
-使用上面的命令在本地生成SSH">
-<meta property="og:updated_time" content="2016-12-07T14:35:57.046Z">
+<meta property="og:description" content="最近在项目中遇到一个问题：给项目增加一个文件上传的功能。项目的结构如下：
+
+前端：基于Vue.js，幷通过axios向服务器端发出请求；
+服务器端：基于Node.js+Express搭建。
+
+由于之前还没有用node实现过文件上传功能，因此在解决这个问题的过程中查阅了一些资料，最终成功实现该功能。
+前端通过axios上传文件由于比较简单，直接上代码。由于项目是基于组件化开发的，所以为了容易理解，这">
+<meta property="og:updated_time" content="2017-08-03T09:53:08.243Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="同一台电脑关联两个或多个Github账号">
-<meta name="twitter:description" content="今天遇到了一个问题，我自己有一个github账号，项目组有一个github账号，然后我需要在我的电脑上同时管理这两个github账号的仓库，这时候该怎么办呢？在查阅了一些资料后，成功解决了这个问题，现将解决方案记录下来，以便日后查看。
-思路管理两个SSH key。
-解决方案生成SSH keyssh-keygen -t rsa -C &amp;quot;注册邮箱&amp;quot;
-使用上面的命令在本地生成SSH">
+<meta name="twitter:title" content="基于Express的Multer中间件实现文件上传功能">
+<meta name="twitter:description" content="最近在项目中遇到一个问题：给项目增加一个文件上传的功能。项目的结构如下：
+
+前端：基于Vue.js，幷通过axios向服务器端发出请求；
+服务器端：基于Node.js+Express搭建。
+
+由于之前还没有用node实现过文件上传功能，因此在解决这个问题的过程中查阅了一些资料，最终成功实现该功能。
+前端通过axios上传文件由于比较简单，直接上代码。由于项目是基于组件化开发的，所以为了容易理解，这">
 
     
     <link rel="alternative" href="atom.xml" title="Fantastic" type="application/atom+xml">
@@ -101,16 +110,16 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/12/07/同一台电脑关联两个或多个Github账号/" title="同一台电脑关联两个或多个Github账号" itemprop="url">同一台电脑关联两个或多个Github账号</a>
+      <a href="/2017/08/03/基于Express的Multer中间件实现文件上传功能/" title="基于Express的Multer中间件实现文件上传功能" itemprop="url">基于Express的Multer中间件实现文件上传功能</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="张金玲" target="_blank" itemprop="author">张金玲</a>
 		
   <p class="article-time">
-    <time datetime="2016-12-07T07:35:28.000Z" itemprop="datePublished"> 发表于 2016-12-07</time>
+    <time datetime="2017-08-03T09:49:18.000Z" itemprop="datePublished"> 发表于 2017-08-03</time>
     <span class="head-plus">
-   &nbsp;|&nbsp;<i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="2016/12/07/同一台电脑关联两个或多个Github账号/"><i class="fa fa-spinner fa-spin"></i></span>
+   &nbsp;|&nbsp;<i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="2017/08/03/基于Express的Multer中间件实现文件上传功能/"><i class="fa fa-spinner fa-spin"></i></span>
    </span>
   </p>
 
@@ -122,47 +131,106 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-number">1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案"><span class="toc-number">2.</span> <span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#生成SSH-key"><span class="toc-number">2.1.</span> <span class="toc-text">生成SSH key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将SSH-key添加到github"><span class="toc-number">2.2.</span> <span class="toc-text">将SSH key添加到github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建config文件"><span class="toc-number">2.3.</span> <span class="toc-text">创建config文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将SSH-key添加到ssh-agent上"><span class="toc-number">2.4.</span> <span class="toc-text">将SSH key添加到ssh-agent上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试github连接是否成功"><span class="toc-number">2.5.</span> <span class="toc-text">测试github连接是否成功</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-number">2.6.</span> <span class="toc-text">使用</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前端通过axios上传文件"><span class="toc-number">1.</span> <span class="toc-text">前端通过axios上传文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后端使用Multer中间件实现文件上传功能"><span class="toc-number">2.</span> <span class="toc-text">后端使用Multer中间件实现文件上传功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-number">2.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置"><span class="toc-number">2.2.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-number">2.3.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-number">2.4.</span> <span class="toc-text">其他</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<p>今天遇到了一个问题，我自己有一个github账号，项目组有一个github账号，然后我需要在我的电脑上同时管理这两个github账号的仓库，这时候该怎么办呢？在查阅了一些资料后，成功解决了这个问题，现将解决方案记录下来，以便日后查看。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>管理两个SSH key。</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="生成SSH-key"><a href="#生成SSH-key" class="headerlink" title="生成SSH key"></a>生成SSH key</h3><p><code>ssh-keygen -t rsa -C &quot;注册邮箱&quot;</code></p>
-<p>使用上面的命令在本地生成SSH key。由于需要管理两个github账号，因此在保存所生成的SSH key时需要注意两个key的文件名要有区别，比如我第一个账号生成的文件名为<code>id_rsa</code>，第二个账号生成的文件名为<code>id_rsa.gtensor</code>，这样就可以加以区分。</p>
-<h3 id="将SSH-key添加到github"><a href="#将SSH-key添加到github" class="headerlink" title="将SSH key添加到github"></a>将SSH key添加到github</h3><p>将上一步所生成的两个SSH key分别添加到对应的github账户中。</p>
-<h3 id="创建config文件"><a href="#创建config文件" class="headerlink" title="创建config文件"></a>创建config文件</h3><p><code>$touch config</code></p>
-<p>在.ssh目录下，使用以上命令新建一个config文件，并在文件中添加如下内容：</p>
-<pre><code>#default github
-Host github.com
-  HostName github.com
-  IdentityFile ~/.ssh/id_rsa    
-#gtensor github
-Host github_gtensor
-  HostName github.com  
-  IdentityFile ~/.ssh/id_rsa.gtensor
-</code></pre><p>其中，Host后面就是github账号的别名，这里就是为第二个github账号新增了一个别名<code>github_gtensor</code>，这样就将不同的账号区分开了。config文件的内容，需要根据自己的实际情况进行相应修改。</p>
-<h3 id="将SSH-key添加到ssh-agent上"><a href="#将SSH-key添加到ssh-agent上" class="headerlink" title="将SSH key添加到ssh-agent上"></a>将SSH key添加到ssh-agent上</h3><p><code>$ ssh-add ~/.ssh/id_rsa.gtensor</code></p>
-<p>在.ssh目录下，使用上面的命令将第二个账号的key添加到agent上。在执行以上命令时可能会出现错误提示： <code>Could not open a connection to your authentication agent</code>，此时需要执行以下命令开启ssh-agent服务：</p>
-<p><code>$ eval $(ssh-agent)</code></p>
-<h3 id="测试github连接是否成功"><a href="#测试github连接是否成功" class="headerlink" title="测试github连接是否成功"></a>测试github连接是否成功</h3><p><code>$ ssh –T git@github_gtensor</code></p>
-<p>使用以上命令测试是否能连接github账户，其中<code>github_gtensor</code>即为我所设置的第二个github账号的别名，需要根据实际情况进行修改。</p>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>通过以上配置，我们就可以通过使用github.com的别名github_gtensor来明确说明我们要使用id_rsa.gtensor的SSH key来连接github，即使用项目组的github账号进行操作。</p>
-<p>例如，要克隆第二个github账号的远程仓库到本地，则原来的写法：</p>
-<pre><code>$ git clone git@github.com: 第二个github账号的用户名/***.git
-</code></pre><p>则现在的写法改为：</p>
-<pre><code>$ git clone git@github_gtensor: 第二个github账号的用户名/***.git
-</code></pre><p>我的环境是：win10 + git bash，测试成功，如有任何疑问，可给我留言。</p>
+		<p>最近在项目中遇到一个问题：给项目增加一个文件上传的功能。项目的结构如下：</p>
+<ul>
+<li>前端：基于Vue.js，幷通过axios向服务器端发出请求；</li>
+<li>服务器端：基于Node.js+Express搭建。</li>
+</ul>
+<p>由于之前还没有用node实现过文件上传功能，因此在解决这个问题的过程中查阅了一些资料，最终成功实现该功能。</p>
+<h2 id="前端通过axios上传文件"><a href="#前端通过axios上传文件" class="headerlink" title="前端通过axios上传文件"></a>前端通过<code>axios</code>上传文件</h2><p>由于比较简单，直接上代码。由于项目是基于组件化开发的，所以为了容易理解，这里对源代码做了部分修改。</p>
+<pre><code>upload(){
+  let cert = document.getElementById(&quot;certificate&quot;).files[0];
+  let form = new FormData();
+  form.append(&apos;file&apos;,cert);
+  axios.post(&apos;http://fantasticzhang.gtensor.com&apos;, form, {
+    method: &apos;post&apos;,
+    headers:
+      {&apos;Content-Type&apos;: &apos;multipart/form-data&apos;,   //很重要
+        &apos;dataType&apos;: &apos;json&apos;
+      }
+  }).then((res) =&gt; {
+      if (res.data.status === 1) {
+        this.$Message.success(r.msg);
+      } else {
+        this.$Message.error(err);
+      }
+  }).catch(function (err) {
+      let res = err.response;
+      if (err) {
+        console.log(&apos;api error, HTTP CODE: &apos; + res);
+        window.alert(&quot;后台接口出错了，稍后再刷新试试~&quot;)
+      }
+    })
+});
+</code></pre><h2 id="后端使用Multer中间件实现文件上传功能"><a href="#后端使用Multer中间件实现文件上传功能" class="headerlink" title="后端使用Multer中间件实现文件上传功能"></a>后端使用Multer中间件实现文件上传功能</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><pre><code>npm install multer --save
+</code></pre><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>新建一个multerUtil.js文件，对multer进行配置：</p>
+<pre><code>//multerUtil.js
+
+let multer = require(&apos;multer&apos;);
+let storage = multer.diskStorage({
+  //设置上传后文件路径
+  destination: function (req, file, cb) {
+    cb(null, &apos;./certs&apos;)
+  },
+  //给上传文件重命名，获取添加后缀名
+  filename: function (req, file, cb) {
+    let fileFormat = (file.originalname).split(&quot;.&quot;);
+    cb(null, file.originalname);
+  }
+});
+//添加配置文件到muler对象。
+let upload = multer({
+  storage: storage
+});
+
+//导出对象
+module.exports = upload;
+</code></pre><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><pre><code>//index.js
+
+let multer = require(&apos;./multerUtil&apos;);
+let upload = multer.single(&apos;file&apos;);   //single()中的名称必须是表单上传字段的name名称。我的项目中字段名是&apos;file&apos;
+
+app.post(&apos;/importCertificate&apos;,upload,function (req,res) {
+  upload(req,res,function (err) {
+    if(err){
+      let resData = {
+        status: 0,
+        errorReason: &quot;导入文件失败！&quot;
+      };
+      res.send(JSON.stringify(resData));
+      res.end();
+    }else{
+      // req.file 中是文件信息
+      // 如果除文件外还有其他字段，则在req.body 中
+
+      let resData = {
+        status: 1,
+        msg: &quot;导入文件成功！&quot;
+      };
+      res.send(JSON.stringify(resData));
+      res.end();
+     });
+    }
+  })
+})
+</code></pre><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>以上只是实现了单文件上传的功能。还可以通过Multer实现多文件上传、混合上传等功能。详见<a href="https://github.com/expressjs/multer" target="_blank" rel="external">官方API</a>。</p>
+<p>参考链接：</p>
+<p><a href="https://my.oschina.net/lfj/blog/869207" target="_blank" rel="external">https://my.oschina.net/lfj/blog/869207</a></p>
+<p><a href="https://cnodejs.org/topic/564f32631986c7df7e92b0db" target="_blank" rel="external">https://cnodejs.org/topic/564f32631986c7df7e92b0db</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/github/">github</a>
-</div>
 
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Express/">Express</a>
+  </div>
 
 </div>
 
@@ -175,17 +243,10 @@ Host github_gtensor
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/12/09/微信小程序开发（一）/" title="微信小程序开发（一）">
-  <span>
-  微信小程序开发（一）</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/12/04/利用Node的子进程调用脚本和系统命令/"  title="利用Node的子进程调用脚本和系统命令">
- <span>利用Node的子进程调用脚本和系统命令
+<a href="/2017/07/12/Webpack进阶（一）/"  title="Webpack进阶（一）">
+ <span>Webpack进阶（一）
 </span>
 </a>
 </div>
@@ -194,7 +255,7 @@ Host github_gtensor
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/12/07/同一台电脑关联两个或多个Github账号/" data-title="同一台电脑关联两个或多个Github账号" data-url="https://fantasticzhang.github.io/2016/12/07/同一台电脑关联两个或多个Github账号/"></div>
+	<div class="ds-thread" data-thread-key="2017/08/03/基于Express的Multer中间件实现文件上传功能/" data-title="基于Express的Multer中间件实现文件上传功能" data-url="https://fantasticzhang.github.io/2017/08/03/基于Express的Multer中间件实现文件上传功能/"></div>
 </section>
 
 
@@ -204,7 +265,7 @@ Host github_gtensor
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-number">1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案"><span class="toc-number">2.</span> <span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#生成SSH-key"><span class="toc-number">2.1.</span> <span class="toc-text">生成SSH key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将SSH-key添加到github"><span class="toc-number">2.2.</span> <span class="toc-text">将SSH key添加到github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建config文件"><span class="toc-number">2.3.</span> <span class="toc-text">创建config文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将SSH-key添加到ssh-agent上"><span class="toc-number">2.4.</span> <span class="toc-text">将SSH key添加到ssh-agent上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试github连接是否成功"><span class="toc-number">2.5.</span> <span class="toc-text">测试github连接是否成功</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-number">2.6.</span> <span class="toc-text">使用</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前端通过axios上传文件"><span class="toc-number">1.</span> <span class="toc-text">前端通过axios上传文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后端使用Multer中间件实现文件上传功能"><span class="toc-number">2.</span> <span class="toc-text">后端使用Multer中间件实现文件上传功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-number">2.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置"><span class="toc-number">2.2.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-number">2.3.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-number">2.4.</span> <span class="toc-text">其他</span></a></li></ol></li></ol>
  
   </div>
 
