@@ -4,8 +4,599 @@
   
     
     <entry>
+      <title><![CDATA[JavaScript总结之对象和继承]]></title>
+      <url>https://fantasticzhang.github.io/2017/08/10/JavaScript%E6%80%BB%E7%BB%93%E4%B9%8B%E5%AF%B9%E8%B1%A1%E5%92%8C%E7%BB%A7%E6%89%BF/</url>
+      <content type="html"><![CDATA[<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>ECMA-262把对象定义为：“无序属性的集合，其属性可以包含基本值、对象或者函数。”因此，可以把ECMAScript的对象想象成散列表：一组明知对，其中值可以是数据或函数。</p>
+<p>每个对象都是基于一个引用类型创建的，这个引用类型可以是原生类型，也可以是自定义类型。</p>
+<h2 id="对象的属性类型"><a href="#对象的属性类型" class="headerlink" title="对象的属性类型"></a>对象的属性类型</h2><p>ECMAScript中有两种属性：数据属性和访问器属性。</p>
+<h3 id="数据属性"><a href="#数据属性" class="headerlink" title="数据属性"></a>数据属性</h3><p>数据属性用以下4个特性描述其行为：</p>
+<ul>
+<li><code>[[Configurable]]</code>：表示能否通过delete删除属性从而重新定义属性，能否修改属性的特性或者能否把属性修改为访问器属性。</li>
+<li><code>[[Enumberable]]</code>：表示能否通过<code>for-in</code>循环返回属性。</li>
+<li><p><code>[[Writable]]</code>：表示是否能修改属性的值。</p>
+<p>如果是直接在对象上定义的属性（例：<code>obj.name=&#39;zjl&#39;</code>），则该属性的以上三个特性的默认值都是<code>true</code>。</p>
+</li>
+<li><p><code>[[Value]]</code>：包含这个属性的数据值。默认值为<code>undefined</code>。</p>
+</li>
+</ul>
+<h3 id="访问器属性"><a href="#访问器属性" class="headerlink" title="访问器属性"></a>访问器属性</h3><p>访问器属性用以下4个特性描述其行为：</p>
+<ul>
+<li><code>[[Configurable]]</code>：表示能否通过delete删除属性从而重新定义属性，能否修改属性的特性或者能否把属性修改为访问器属性。</li>
+<li><code>[[Enumberable]]</code>：表示能否通过<code>for-in</code>循环返回属性。</li>
+<li><code>[[Get]]</code>：在读取属性时调用的函数。默认值为<code>undefined</code>。</li>
+<li><code>[[Set]]</code>：在写入属性时调用的函数。默认值为<code>undefined</code>。</li>
+</ul>
+<p>因此，访问器属性不包含数据值，它包含一对getter和setter函数，在读取访问器属性时会调用getter函数，该函数负责返回有效的值；在写入访问器属性时，会调用setter函数并传入新值，这个函数负责决定如何处理数据。</p>
+<h2 id="定义属性的方法"><a href="#定义属性的方法" class="headerlink" title="定义属性的方法"></a>定义属性的方法</h2><h3 id="直接定义"><a href="#直接定义" class="headerlink" title="直接定义"></a>直接定义</h3><pre><code>var persion = new Object();
+persion.name = &apos;zjl&apos;;
+persion.age = 24;
+</code></pre><p>以上便是直接定义法，也是我们常用的方法。但是，直接定义的属性都是数据属性，也就是说访问器属性不能直接定义。</p>
+<h3 id="Object-defineProperty"><a href="#Object-defineProperty" class="headerlink" title="Object.defineProperty"></a><code>Object.defineProperty</code></h3><p>该方法接收三个参数：属性所在的对象、属性的名字和一个描述符对象。</p>
+<p>例：使用<code>Object.defineProperty</code>定义数据属性：</p>
+<pre><code>var persion = {};
+Object.defineProperty(persion,&apos;name&apos;,{
+  configurable: false,
+  value: &apos;zjl&apos;
+});
+
+console.log(persion.name);  //zjl
+delete persion.name;  //严格模式下，该操作会导致抛出错误
+console.log(persion.name);  //zjl
+</code></pre><p>注：一旦把属性定义为不可配置的，就不能再改回可配置了。此时，再调用<code>Object.defineProperty()</code>方法修改除<code>writable</code>之外的特性，都会导致错误。</p>
+<p>在调用<code>Object.defineProperty()</code>方法时，如果不指定，<code>configurable</code>、<code>enumberable</code>、<code>writable</code>特性的默认值都是<code>false</code>。</p>
+<p>使用<code>Object.defineProperty</code>定义访问器属性：</p>
+<pre><code>var book = {
+  _year: 2014,
+  edition: 1
+};
+Object.defineProperty(book,&quot;year&quot;,{
+  get: function(){
+    return this._year;
+  },
+  set: function(newValue){
+    if(newValue&gt;2014){
+      this._year = newValue;
+      this.edition += newValue-2014;
+    }
+  }
+});
+book.year = 2017;
+console.log(book.edition); //4
+</code></pre><p>以上代码是使用访问器属性的一个常见方式：设置一个属性的值会导致其他属性发生变化。</p>
+<p>在这之前还有两个非标准方法可创建访问器属性：<code>__defineGetter__()</code>和<code>__defineSetter__()</code>。</p>
+<h3 id="Object-defineProperties"><a href="#Object-defineProperties" class="headerlink" title="Object.defineProperties()"></a><code>Object.defineProperties()</code></h3><p>该方法接收两个对象参数：第一个对象是要添加和修改器属性的对象，第二个对象的属性与第一个对象中要添加或修改的属性一一对应。利用该方法可一次定义多个属性。</p>
+<pre><code>var persion = {};
+Object.defineProperties(persion,{
+  name: {
+    configurable: false,
+    writable: true,
+    value: &apos;zjl&apos;
+  },
+  age:{
+    writable: false,
+    value: 24
+  }  
+})
+</code></pre><h2 id="读取属性的特性"><a href="#读取属性的特性" class="headerlink" title="读取属性的特性"></a>读取属性的特性</h2><p><code>Object.getOwnPropertyDescriptor()</code>：接收两个参数：属性所在的对象和要读取其描述符的属性名称；返回值为一个对象，即为指定属性的描述。<br><code>Object.getOwnPropertyDescriptors()</code>：接收一个参数：属性所在的对象；返回值为一个对象，即为所传入对象的所有属性的描述。</p>
+<h1 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h1><p>使用<code>Object</code>构造函数或对象字面量法适用于创建单个对象。如果使用同一接口去创建多个对象，则这两种方法会产生大量的重复代码，因此就有了以下几种创建对象的模式。</p>
+<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>用函数封装以特定接口创建对象的细节。</p>
+<pre><code>function createPersion(name,age){
+  var o = new Object();
+  o.name = name;
+  o.age = age;
+  return o;
+}
+
+var persion1 = createPersion(&apos;zjl&apos;,24);
+</code></pre><p>该方法的缺点：未解决对象识别的问题，即怎样知道一个对象的类型。</p>
+<h2 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h2><pre><code>function Persion(name,age){
+  this.name = name;
+  this.age = age;
+  this.sayName = function(){
+    alert(this.name);
+  }
+}
+var persion1 = new Persion(&apos;zjl&apos;,24);
+console.log(persion1.constructor === Persion); //true
+console.log(persion1 instanceof Persion);  //true
+console.log(persion1 instanceof Object);  //true
+</code></pre><p>构造函数本身也是函数，只不过可以用来创建对象而已。要创建Persion的实例对象，必须使用<code>new</code>操作符。以这种方式调用构造函数实际上会经历以下4个步骤：</p>
+<ul>
+<li>创建一个新对象；</li>
+<li>将构造函数的作用域赋给新对象，因此<code>this</code>就指向了这个新对象；</li>
+<li>执行构造函数中的代码，即为这个新对象添加属性；</li>
+<li>返回新对象。</li>
+</ul>
+<p>优点：可以将自定义的构造函数的实例对象标识为一种特定的类型。<br>缺点：每创建一个该类型的对象实例，就会将所有属性和方法都复制一遍，这样就不能复用，尤其的方法的重复会造成内存空间的浪费。</p>
+<h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h2><p>在JS中，创建的每个函数都有一个<code>prototype</code>属性，该属性是一个指针，指向一个对象，该对象的用途是包含可以由特性类型的所有实例共享的属性和方法。即，prototype就是通过调用构造函数而创建的那个对象实例的原型对象。使用原型对象的好处是可以让所有对象实例都共享它所包含的属性和方法，因此，可以将对象实例的信息直接添加到原型对象上。</p>
+<pre><code>function Persion(){
+
+}
+Persion.prototype.name = &apos;zjl&apos;;
+Persion.prototype.age = 24;
+Persion.prototype.sayName = function(){
+  alert(this.name);
+}
+var persion1 = new Persion();
+persion1.sayName(); //zjl
+var persion2 = new Persion();
+persion2.sayName(); //zjl
+console.log(persion1.name === persion2.name); //true
+</code></pre><h3 id="关于原型对象"><a href="#关于原型对象" class="headerlink" title="关于原型对象"></a>关于原型对象</h3><p>在JS中，只要创建了一个新函数，就会根据一组特定的规则为该函数创建一个<code>prototype</code>属性，这个属性指向函数的原型对象。默认情况下，所有原型对象都会自动获得一个<code>constructor</code>（构造函数）属性，该属性包含一个指向<code>prototype</code>属性所在函数的指针。当调用构造函数创建一个新实例后，该实例内部包含一个指针<code>[[Prototype]]</code>，指向构造函数的原型对象（在一些浏览器的实现中，即为每个对象的<code>__proto__</code>属性）。注：这个连接存在于实例和构造函数的原型对象之间，而不是存在于实例与构造函数之间。</p>
+<p>下图展示了上一小节的代码中各个对象之间的关系。</p>
+<p><img src="/images/2017-08-10/原型对象.png" alt=""></p>
+<p>确定对象实例和原型对象关系的方法：</p>
+<ul>
+<li><code>isPrototypeOf()</code>：接收一个参数：对象实例。如果该对象实例的<code>[[Prototype]]</code>指向调用该方法的对象，那么该方法返回<code>true</code>。</li>
+<li><code>Objget.getPrototypeOf()</code>：接收一个参数：对象实例。返回该对象实例的原型对象。</li>
+<li><code>__proto__</code>：在一些浏览器中，可通过对象实例的<code>__proto__</code>属性获取该对象实例的原型对象。</li>
+</ul>
+<p>每当代码读取某个对象实例的某个属性时，都会执行一次搜索，目标是具有给定名字的属性。搜索首先从对象实例本身开始，如果在实例中找到了该属性则返回；如果没找到则继续搜索其指针指向的原型对象。</p>
+<p>注：虽然可通过对象实例访问保存在原型中的值，但却<strong>不能</strong>通过对象实例<strong>重写</strong>原型中的值。如果在实例中添加了一个属性且该属性与实例原型中的一个属性同名，则实际上是在该实例中创建了该属性，该属性会<strong>屏蔽</strong>原型中的那个同名属性。可以使用<code>hasOwnProrerty()</code>方法来检测一个属性是存在于实例中环视存在于原型中，只有在给定属性存在于对象实例中时，该方法才会返回<code>true</code>。</p>
+<h3 id="原型对象的问题"><a href="#原型对象的问题" class="headerlink" title="原型对象的问题"></a>原型对象的问题</h3><p>所有对象实例都共享相同的属性和方法，尤其是当属性是引用类型值时，一个对象实例修改了该属性，则其他所有对象实例的该属性也发生了变化。而实际中，我们希望的是每个对象实例的属性是独立的，方法是共享的，这就出现了下面的模式。</p>
+<h2 id="组合使用构造函数模式和原型模式"><a href="#组合使用构造函数模式和原型模式" class="headerlink" title="组合使用构造函数模式和原型模式"></a>组合使用构造函数模式和原型模式</h2><p>构造函数模式用于定义实例属性，原型模式用于定义方法和共享的属性。该模式也是最常用的一种创建自定义类型的方法。</p>
+<pre><code>function Persion(name,age){
+  this.name = name;
+  this.age = age
+}
+Persion.prototype.sayName = function(){
+  alert(this.name);
+}
+var persion1 = new Persion(&apos;zjl&apos;,24);
+persion1.sayName(); //zjl
+var persion2 = new Persion(&apos;ty&apos;,24);
+persion2.sayName(); //ty
+console.log(persion1.name === persion2.name); //false
+console.log(persion1.sayName === persion2.sayName); //true
+</code></pre><h2 id="其他模式"><a href="#其他模式" class="headerlink" title="其他模式"></a>其他模式</h2><h3 id="动态原型模式"><a href="#动态原型模式" class="headerlink" title="动态原型模式"></a>动态原型模式</h3><p>即，把所有信息都封装在了构造函数中。通过检查某个应该存在的方法是否有效，来决定是否需要初始化原型。</p>
+<pre><code>function Persion(name,age){
+  this.name = name;
+  this.age = age
+
+  if(typeof this.sayName != &apos;function&apos;){
+    Persion.prototype.sayName = function(){
+      alert(this.name);
+    }
+  }
+}
+var persion1 = new Persion(&apos;zjl&apos;,24);
+persion1.sayName(); //zjl
+var persion2 = new Persion(&apos;ty&apos;,24);
+persion2.sayName(); //ty
+console.log(persion1.name === persion2.name); //false
+console.log(persion1.sayName === persion2.sayName); //true
+</code></pre><p>使用动态原型模式时，不能使用对象字面量重写原型，因为这样会切断现有实例与新原型之间的联系。</p>
+<h3 id="寄生构造函数模式"><a href="#寄生构造函数模式" class="headerlink" title="寄生构造函数模式"></a>寄生构造函数模式</h3><p>基本思想是：创建一个函数，该函数的作用仅仅是封装创建对象的代码，然后再返回新创建的对象。</p>
+<pre><code>function Persion(name,age){
+  var o = new Object();
+  o.name = name;
+  o.age = age;
+  return o;
+}
+
+var persion1 = new Persion(&apos;zjl&apos;,24);
+</code></pre><p>构造函数在不返回值的情况下，默认返回新对象实例；通过在构造函数的末尾添加一个<code>return</code>语句，可重写调用构造函数时的返回值。因此，在使用该模式创建对象实例时，返回的对象与构造函数或构造函数的原型属性之间没有任何关系了，因此也不能使用<code>instanceof</code>操作符来确定对象类型。</p>
+<h3 id="稳妥构造函数模式"><a href="#稳妥构造函数模式" class="headerlink" title="稳妥构造函数模式"></a>稳妥构造函数模式</h3><p>稳妥对象指的是没有公共属性，而且其方法也不引用<code>this</code>的对象。稳妥对象适合在一些安全环境（这些环境中会禁止使用<code>this</code>和<code>new</code>)或是在防止数据被其他应用程序改动时使用。</p>
+<p>稳妥构造函数与寄生构造函数的区别：创建对象的实例方法不引用<code>this</code>；不使用<code>new</code>操作符调用构造函数。</p>
+<pre><code>function Persion(name,age){
+  var o = new Object();
+  o.sayName = function(){
+    alert(name);
+  }
+  return o;
+}
+
+var persion1 = Persion(&apos;zjl&apos;,24);
+</code></pre><p>使用这种模式创建的对象中，除了使用<code>sayName()</code>方法之外，没有其他办法访问<code>name</code>的值。</p>
+<h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><p>许多OO语言都支持两种继承方式：接口继承和实现继承。由于ECMAScript的函数中没有签名，因此无法实现接口继承。即，ECMAScript只支持实现继承，主要依赖原型链来实现继承。</p>
+<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p>如果我们让一个构造函数的原型对象等于另一个类型的实例，那么此时的原型对象将包含指向另一个原型的指针，相应地，另一个原型中包含着一个指向另一个构造函数的指针。如果另一个原型又是另一个类型的实例，那么上述关系依然成立，如此层层递进，就构成了实例与原型的链条。这就是所谓的原型链。</p>
+<p>使用原型链实现继承的方式：</p>
+<pre><code>function SuperType(){
+  this.property = true;
+}
+SuperType.prototype.getSuperValue = function(){
+  return this.property;
+}
+function SubType(){
+  this.subProperty = false;
+}
+//继承了SuperType
+SubType.prototype = new SuperType();
+SubType.prototype.getSubValue = function(){
+  return this.subProperty;
+};
+var instance = new SubType();
+console.log(instance.getSuperValue()); //true
+</code></pre><p>该例子中的实例、构造函数和原型之间的关系如下图。</p>
+<p><img src="/images/2017-08-10/原型链.png" alt=""></p>
+<p>所有引用类型都默认继承了<code>Object</code>，而这个继承也是通过原型链实现的。也就是说，所有函数的默认原型都是<code>Object</code>的实例。因此有了如上的关系图。</p>
+<p>原型链继承存在的问题：</p>
+<ol>
+<li>所有实例对象共享所有继承的属性和方法。当属性是引用类型时，往往不是我们想要的结果。</li>
+<li>在创建子类型的实例时，不能向超类型的构造函数中传递参数。</li>
+</ol>
+<h2 id="借用构造函数"><a href="#借用构造函数" class="headerlink" title="借用构造函数"></a>借用构造函数</h2><p>即：在子类的构造函数中调用超类的构造函数。</p>
+<pre><code>function SuperType(name){
+  this.name = name;
+}
+function SubType(name,age){
+  SuperType.call(this,name)
+  this.age = age;
+}
+
+var instance = new SubType(&apos;zjl&apos;,24);
+console.log(instance.name); //&apos;zjl&apos;
+console.log(instance.age); //24
+</code></pre><p>借用构造函数存在的问题：</p>
+<ol>
+<li>如果方法都在父类的构造函数里定义，则不能达到函数复用的目的；</li>
+<li>如果方法在父类的原型中定义，则这些方法对子类而言是不可见的。</li>
+</ol>
+<h2 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h2><p>将原型链和借用构造函数的技术组合在一起。即：使用原型链实现对原型属性和方法的继承，而通过借用构造函数来实现对实例属性的继承。</p>
+<pre><code>function SuperType(name){
+  this.name = name;
+}
+SuperType.prototype.sayName = function(){
+  alert(this.name);
+};
+function SubType(name,age){
+  //继承属性
+  SuperType.call(this,name)
+  this.age = age;
+}
+//继承方法
+SubType.prototype = new SuperType();
+SubType.prototype.constructor = SubType;
+SubType.prototype.sayAge = function(){
+  alert(this.age);
+};
+</code></pre><p>组合继承避免了原型链和借用构造函数的缺点，融合了它们的优点，也是JS中最常用的集成模式。</p>
+<p>组合继承存在的问题：会调用两次超类的构造函数，这样在原型中中会存在多余的实例属性。</p>
+<h2 id="其他继承"><a href="#其他继承" class="headerlink" title="其他继承"></a>其他继承</h2><h3 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h3><p>该继承的想法是借助原型可以基于已有的对象创建新对象，同时还不必因此创建自定义类型。</p>
+<pre><code>function object(o){
+  function F() {}
+    F.prototype = o;
+    return new F();
+}
+
+var persion = {
+  name: &apos;zjl&apos;,
+  friends: [&apos;hs&apos;,&apos;yn&apos;,&apos;ty&apos;]
+}
+
+var anotherPersion = object(persion);
+anotherPersion.name = &apos;hh&apos;;
+anotherPersion.friends.push(&apos;Bob&apos;);
+
+var yetAnotherPersion = object(persion);
+yetAnotherPersion.friends.push(&apos;wy&apos;);
+
+console.log(persion.friends);  //&quot;hs&quot;, &quot;yn&quot;, &quot;ty&quot;, &quot;Bob&quot;, &quot;wy&quot;
+</code></pre><p>适用场合：并不想创建构造函数，只是想让一个对象与另一个对象保持类似的情况下，原型式继承是完全可以胜任的。但是，包含引用类型的属性始终都会共享相应的值。</p>
+<p>ES5中的<code>object.create()</code>方法规范化了原型式继承。该方法接收两个参数：第一个参数是用作新对象原型的对象；第二个参数（可选）是为新对象定义额外属性的对象。</p>
+<h3 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h3><p>即：创建一个仅用于封装继承过程的函数，该函数在内部已某种方式类增强对象。</p>
+<pre><code>function createAnother(original){
+  var clone = object(original);  //创建一个新对象
+  clone.sayHi = function(){
+    alert(&apos;Hi&apos;);               //增强对象
+  }
+  return clone;               //返回对象
+}
+</code></pre><p>在主要考虑对象而不是自定义类型和构造函数的情况下，这种继承方式可以考虑。但为对象添加的方法不能做到函数复用。</p>
+<h3 id="寄生组合式继承"><a href="#寄生组合式继承" class="headerlink" title="寄生组合式继承"></a>寄生组合式继承</h3><p>即：通过借用构造函数来继承属性，通过原型链的混成形式来继承方法。其背后的思路是：不必为了指定子类型的原型而调用超类型的构造函数，我们需要的只是超类型原型的一个副本。本质上就是使用寄生式继承来继承超类型的原型。</p>
+<pre><code>function inheritPrototype(subType,superType){
+  var prototype = object(superType.prototype);  //创建一个新对象
+  prototype.constructor = subType;             //增强对象
+  subType.prototype = prototype;                //返回对象
+}
+
+function SuperType(name){
+  this.name = name;
+}
+SuperType.prototype.sayName = function(){
+  alert(this.name);
+};
+function SubType(name,age){
+  //继承属性
+  SuperType.call(this,name)
+  this.age = age;
+}
+//继承方法
+inheritPrototype(SubType,SuperType);
+SubType.prototype.sayAge = function(){
+  alert(this.age);
+};
+</code></pre><p>由于这种继承只调用了一次<code>SuperType</code>构造函数，避免了在<code>SubType</code>的原型对象上创建不必要的、多余的属性，与此同时原型链还能保持不变。因此，这种继承是一种理想的继承方式。</p>
+<h1 id="ES6新增特性"><a href="#ES6新增特性" class="headerlink" title="ES6新增特性"></a>ES6新增特性</h1><p>ES6中使用<code>class</code>来定义一个类，使用<code>extends</code>来实现继承。</p>
+<h2 id="class的基本用法"><a href="#class的基本用法" class="headerlink" title="class的基本用法"></a>class的基本用法</h2><p>ES6 的<code>class</code>可以看作只是一个语法糖，它的绝大部分功能，ES5 都可以做到，新的<code>class</code>写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。一个简单的例子：</p>
+<pre><code>//定义类
+class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  toString() {
+    return &apos;(&apos; + this.x + &apos;, &apos; + this.y + &apos;)&apos;;
+  }
+}
+</code></pre><p>ES6 的类，完全可以看作构造函数的另一种写法。</p>
+<pre><code>class Point {
+  // ...
+}
+
+typeof Point // &quot;function&quot;
+Point === Point.prototype.constructor // true
+</code></pre><p>上面代码表明，类的数据类型就是函数，类本身就指向构造函数。</p>
+<p>注：</p>
+<ul>
+<li>类的所有方法都定义在类的prototype属性上面，在类的实例上面调用方法，其实就是调用原型上的方法。</li>
+<li>类的内部所有定义的方法，都是不可枚举的，这一点与 ES5 的行为不一致。</li>
+<li>类和模块的内部，默认就是严格模式，所以不需要使用use strict指定运行模式。只要你的代码写在类或模块之中，就只有严格模式可用。</li>
+</ul>
+<h3 id="constructor-方法"><a href="#constructor-方法" class="headerlink" title="constructor 方法"></a>constructor 方法</h3><p><code>constructor</code>方法是类的默认方法，通过new命令生成对象实例时，自动调用该方法。一个类必须有constructor方法，如果没有显式定义，一个空的<code>constructor</code>方法会被默认添加。</p>
+<pre><code>class Point {
+}
+
+// 等同于
+class Point {
+  constructor() {}
+}
+</code></pre><p><code>constructor</code>方法默认返回实例对象（即<code>this</code>），完全可以指定返回另外一个对象。</p>
+<pre><code>class Foo {
+  constructor() {
+    return Object.create(null);
+  }
+}
+
+new Foo() instanceof Foo
+// false
+</code></pre><p>上面代码中，<code>constructor</code>函数返回一个全新的对象，结果导致实例对象不是Foo类的实例。</p>
+<p>类必须使用<code>new</code>调用，否则会报错。这是它跟普通构造函数的一个主要区别，后者不用<code>new</code>也可以执行。</p>
+<h3 id="不存在变量提升"><a href="#不存在变量提升" class="headerlink" title="不存在变量提升"></a>不存在变量提升</h3><p>类不存在变量提升，这一点与 ES5 完全不同。</p>
+<pre><code>new Foo(); // ReferenceError
+class Foo {}
+</code></pre><h3 id="Class-的取值函数（getter）和存值函数（setter）"><a href="#Class-的取值函数（getter）和存值函数（setter）" class="headerlink" title="Class 的取值函数（getter）和存值函数（setter）"></a>Class 的取值函数（getter）和存值函数（setter）</h3><p>与 ES5 一样，在“类”的内部可以使用<code>get</code>和<code>set</code>关键字，对某个属性设置存值函数和取值函数，拦截该属性的存取行为。</p>
+<pre><code>class MyClass {
+  constructor() {
+    // ...
+  }
+  get prop() {
+    return &apos;getter&apos;;
+  }
+  set prop(value) {
+    console.log(&apos;setter: &apos;+value);
+  }
+}
+
+let inst = new MyClass();
+
+inst.prop = 123;
+// setter: 123
+
+inst.prop
+// &apos;getter&apos;
+</code></pre><p>上面代码中，<code>prop</code>属性有对应的存值函数和取值函数，因此赋值和读取行为都被自定义了。</p>
+<h3 id="Class-的静态方法"><a href="#Class-的静态方法" class="headerlink" title="Class 的静态方法"></a>Class 的静态方法</h3><p>如果在一个方法前，加上<code>static</code>关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”。</p>
+<pre><code>class Foo {
+  static classMethod() {
+    return &apos;hello&apos;;
+  }
+}
+
+Foo.classMethod() // &apos;hello&apos;
+
+var foo = new Foo();
+foo.classMethod()
+// TypeError: foo.classMethod is not a function
+</code></pre><p>上面代码中，Foo类的<code>classMethod</code>方法前有<code>static</code>关键字，表明该方法是一个静态方法，可以直接在Foo类上调用（<code>Foo.classMethod()</code>），而不是在Foo类的实例上调用。如果在实例上调用静态方法，会抛出一个错误，表示不存在该方法。</p>
+<h3 id="new-target属性"><a href="#new-target属性" class="headerlink" title="new.target属性"></a>new.target属性</h3><p>ES6 为<code>new</code>命令引入了一个<code>new.target</code>属性，该属性一般用在构造函数之中，返回<code>new</code>命令作用于的那个构造函数。如果构造函数不是通过<code>new</code>命令调用的，<code>new.target</code>会返回<code>undefined</code>，因此这个属性可以用来确定构造函数是怎么调用的。</p>
+<pre><code>function Person(name) {
+  if (new.target !== undefined) {
+    this.name = name;
+  } else {
+    throw new Error(&apos;必须使用new生成实例&apos;);
+  }
+}
+var person = new Person(&apos;张三&apos;); // 正确
+var notAPerson = Person.call(person, &apos;张三&apos;);  // 报错
+</code></pre><p>上面代码确保构造函数只能通过<code>new</code>命令调用。</p>
+<p>Class 内部调用<code>new.target</code>，返回当前 Class。</p>
+<pre><code>class Rectangle {
+  constructor(length, width) {
+    console.log(new.target === Rectangle);
+    this.length = length;
+    this.width = width;
+  }
+}
+  var obj = new Rectangle(3, 4); // 输出 true
+</code></pre><p>需要注意的是，子类继承父类时，<code>new.target</code>会返回子类。</p>
+<pre><code>class Rectangle {
+  constructor(length, width) {
+    console.log(new.target === Rectangle);
+    // ...
+  }
+}
+
+class Square extends Rectangle {
+  constructor(length) {
+    super(length, length);
+  }
+}
+
+var obj = new Square(3); // 输出 false
+</code></pre><p>上面代码中，new.target会返回子类。</p>
+<h2 id="class的继承"><a href="#class的继承" class="headerlink" title="class的继承"></a>class的继承</h2><p>ES6中使用<code>extends</code>关键字实现继承。例：</p>
+<pre><code>class Point {
+  constructor(x,y){
+    this.x = x;
+    this.y = y;
+  }
+  toString(){
+    return this.x+&apos; &apos;+this.y;
+  }
+}
+
+class ColorPoint extends Point {
+  constructor(x, y, color) {
+    super(x, y); // 调用父类的constructor(x, y)
+    this.color = color;
+  }
+
+  toString() {
+    return this.color + &apos; &apos; + super.toString(); // 调用父类的toString()
+  }
+}
+</code></pre><p>ES6中，子类必须在<code>constructor</code>方法中调用<code>super</code>方法，否则新建实例时会报错。这是因为子类没有自己的<code>this</code>对象，而是继承父类的<code>this</code>对象，然后对其进行加工。如果不调用<code>super</code>方法，子类就得不到<code>this</code>对象。因此，在子类的构造函数中，只有调用<code>super</code>之后，才可以使用<code>this</code>关键字，否则会报错。</p>
+<p>ES5 的继承，实质是先创造子类的实例对象<code>this</code>，然后再将父类的方法添加到<code>this</code>上面（Parent.apply(this)）。ES6 的继承机制完全不同，实质是先创造父类的实例对象<code>this</code>（所以必须先调用<code>super</code>方法），然后再用子类的构造函数修改<code>this</code>。</p>
+<p><code>Object.getPrototypeOf</code>方法可以用来从子类上获取父类。</p>
+<pre><code>Object.getPrototypeOf(ColorPoint) === Point
+// true
+</code></pre><p>因此，可以使用这个方法判断，一个类是否<strong>继承</strong>了另一个类。</p>
+<h3 id="super关键字"><a href="#super关键字" class="headerlink" title="super关键字"></a><code>super</code>关键字</h3><h4 id="super作为函数调用"><a href="#super作为函数调用" class="headerlink" title="super作为函数调用"></a><code>super</code>作为函数调用</h4><p><code>super</code>作为函数调用时，代表父类的构造函数。</p>
+<pre><code>class A {
+  constructor() {
+    console.log(new.target.name);
+  }
+}
+class B extends A {
+  constructor() {
+    super();
+  }
+}
+new A() // A
+new B() // B
+</code></pre><p>上面代码中，子类B的构造函数之中的<code>super()</code>，代表调用父类的构造函数。注意，<code>super</code>虽然代表了父类A的构造函数，但是返回的是子类B的实例，即<code>super</code>内部的<code>this</code>指的是B，因此<code>super()</code>在这里相当于<code>A.prototype.constructor.call(this)</code>。</p>
+<h4 id="super作为对象"><a href="#super作为对象" class="headerlink" title="super作为对象"></a><code>super</code>作为对象</h4><p><code>super</code>作为对象时，在普通方法中，指向父类的<strong>原型对象</strong>；在静态方法中，指向父类。</p>
+<p>注，在普通方法中，由于super指向父类的原型对象，所以定义在父类实例上的方法或属性，是无法通过super调用的。</p>
+<p>ES6 规定，通过super调用父类的方法时，super会绑定子类的this。</p>
+<pre><code>class A {
+  constructor() {
+    this.x = 1;
+  }
+  print() {
+    console.log(this.x);
+  }
+}
+
+class B extends A {
+  constructor() {
+    super();
+    this.x = 2;
+  }
+  m() {
+    super.print();
+  }
+}
+
+let b = new B();
+b.m() // 2
+</code></pre><p>由于绑定子类的this，所以如果通过super对某个属性<strong>赋值</strong>，这时super就是this，赋值的属性会变成子类实例的属性。</p>
+<pre><code>class A {
+  constructor() {
+    this.x = 1;
+  }
+}
+
+class B extends A {
+  constructor() {
+    super();
+    this.x = 2;
+    super.x = 3;
+    console.log(super.x); // undefined
+    console.log(this.x); // 3
+  }
+}
+let b = new B();
+</code></pre><p>上面代码中，super.x赋值为3，这时等同于对this.x赋值为3。而当读取super.x的时候，读的是A.prototype.x，所以返回undefined。</p>
+<h3 id="类的-prototype-属性和-proto-属性"><a href="#类的-prototype-属性和-proto-属性" class="headerlink" title="类的 prototype 属性和__proto__属性"></a>类的 <code>prototype</code> 属性和<code>__proto__</code>属性</h3><p>大多数浏览器的 ES5 实现之中，每一个对象都有<code>__proto__</code>属性，指向对应的构造函数的<code>prototype</code>属性。Class 作为构造函数的语法糖，同时有<code>prototype</code>属性和<code>__proto__</code>属性，因此同时存在两条继承链。</p>
+<ul>
+<li>子类的<code>__proto__</code>属性，表示构造函数的继承，总是指向父类。</li>
+<li><p>子类<code>prototype</code>属性的<code>__proto__属</code>性，表示方法的继承，总是指向父类的<code>prototype</code>属性。</p>
+<p>  class A {<br>  }</p>
+<p>  class B extends A {<br>  }</p>
+<p>  B.<strong>proto</strong> === A // true<br>  B.prototype.<strong>proto</strong> === A.prototype // true</p>
+</li>
+</ul>
+<p>上面代码中，子类B的<code>__proto__</code>属性指向父类A，子类B的<code>prototype</code>属性的<code>__proto__</code>属性指向父类A的<code>prototype</code>属性。</p>
+<p>这样的结果是因为，类的继承是按照下面的模式实现的。</p>
+<pre><code>class A {
+}
+
+class B {
+}
+
+// B 的实例继承 A 的实例
+Object.setPrototypeOf(B.prototype, A.prototype);
+
+// B 的实例继承 A 的静态属性
+Object.setPrototypeOf(B, A);
+
+const b = new B();
+</code></pre><p><code>Object.setPrototypeOf</code>方法的实现:</p>
+<pre><code>Object.setPrototypeOf = function (obj, proto) {
+  obj.__proto__ = proto;
+  return obj;
+}
+</code></pre><p>因此，就得到了上面的结果。</p>
+<pre><code>Object.setPrototypeOf(B.prototype, A.prototype);
+// 等同于
+B.prototype.__proto__ = A.prototype;
+
+Object.setPrototypeOf(B, A);
+// 等同于
+B.__proto__ = A;
+</code></pre><p>这两条继承链，可以这样理解：作为一个对象，子类（B）的原型（<code>__proto__</code>属性）是父类（A）；作为一个构造函数，子类（B）的原型（<code>prototype</code>属性）是父类的实例。</p>
+<h3 id="三种特殊的继承"><a href="#三种特殊的继承" class="headerlink" title="三种特殊的继承"></a>三种特殊的继承</h3><pre><code>第一种特殊情况，子类继承Object类。
+
+class A extends Object {
+}
+
+A.__proto__ === Object // true
+A.prototype.__proto__ === Object.prototype // true
+</code></pre><p>这种情况下，A其实就是构造函数<code>Object</code>的复制，A的实例就是<code>Object</code>的实例。</p>
+<p>第二种特殊情况，不存在任何继承。</p>
+<pre><code>class A {
+}
+
+A.__proto__ === Function.prototype // true
+A.prototype.__proto__ === Object.prototype // true
+</code></pre><p>这种情况下，A作为一个基类（即不存在任何继承），就是一个普通函数，所以直接继承<code>Function.prototype</code>。但是，A调用后返回一个空对象（即Object实例），所以<code>A.prototype.__proto__</code>指向构造函数（Object）的<code>prototype</code>属性。</p>
+<p>第三种特殊情况，子类继承null。</p>
+<pre><code>class A extends null {
+}
+
+A.__proto__ === Function.prototype // true
+A.prototype.__proto__ === undefined // true
+</code></pre><p>这种情况与第二种情况非常像。A也是一个普通函数，所以直接继承<code>Function.prototype</code>。但是，A调用后返回的对象不继承任何方法，实质上执行了下面的代码。</p>
+<pre><code>class A extends null {
+  constructor() { return Object.create(null); }
+}
+</code></pre><h3 id="原生构造函数的继承"><a href="#原生构造函数的继承" class="headerlink" title="原生构造函数的继承"></a>原生构造函数的继承</h3><p>ECMAScript 的原生构造函数大致有这些：<code>Boolean()</code>、<code>Number()</code>、<code>String()</code>、<code>Array()</code>、<code>Date()</code>、<code>Function()</code>、<code>RegExp()</code>、<code>Error()</code>、<code>Object()</code>。</p>
+<p>ES5 是先新建子类的实例对象<code>this</code>，再将父类的属性添加到子类上，由于父类的内部属性无法获取，导致无法继承原生的构造函数。</p>
+<p>ES6 允许继承原生构造函数定义子类，因为 ES6 是先新建父类的实例对象<code>this</code>，然后再用子类的构造函数修饰<code>
+</code>，使得父类的所有行为都可以继承。下面是一个继承Array的例子。</p>
+<pre><code>class MyArray extends Array {
+  constructor(...args) {
+    super(...args);
+  }
+}
+
+var arr = new MyArray();
+arr[0] = 12;
+arr.length // 1
+
+arr.length = 0;
+arr[0] // undefined
+</code></pre><p>参考链接：</p>
+<p><a href="http://es6.ruanyifeng.com/#docs/class" target="_blank" rel="external">http://es6.ruanyifeng.com/#docs/class</a></p>
+<p><a href="http://es6.ruanyifeng.com/#docs/class-extends" target="_blank" rel="external">http://es6.ruanyifeng.com/#docs/class-extends</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[基于Express的Multer中间件实现文件上传功能]]></title>
-      <url>https://fantasticzhang.github.io/2017/08/03/%C2%96%E5%9F%BA%E4%BA%8EExpress%E7%9A%84Multer%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%8A%9F%E8%83%BD/</url>
+      <url>https://fantasticzhang.github.io/2017/08/03/%E5%9F%BA%E4%BA%8EExpress%E7%9A%84Multer%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%8A%9F%E8%83%BD/</url>
       <content type="html"><![CDATA[<p>最近在项目中遇到一个问题：给项目增加一个文件上传的功能。项目的结构如下：</p>
 <ul>
 <li>前端：基于Vue.js，幷通过axios向服务器端发出请求；</li>
@@ -5334,6 +5925,13 @@ child.on(&apos;close&apos;,function(code){
   
     
     <entry>
+      <title><![CDATA[关于我]]></title>
+      <url>https://fantasticzhang.github.io/about/index.html</url>
+      <content type="html"><![CDATA[<p>目前在北京读研，平时的工作主要是前端相关的。对前端技术也很感兴趣，处于边学边实践的阶段。欢迎志同道合的朋友与我多多交流，也期待大神的指点~</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[学习过程中实现的实例demo]]></title>
       <url>https://fantasticzhang.github.io/demo/index.html</url>
       <content type="html"><![CDATA[<p>做前端和后台不太一样，总觉得只有自己动手做出来一些能看得见的东西，才会有一些成就感~</p>
@@ -5348,23 +5946,6 @@ child.on(&apos;close&apos;,function(code){
 <li>demo：<a href="/2017/03/12/实例demo之FidoBowling小游戏/" title="实例demo之FidoBowling小游戏">实例demo之FidoBowling小游戏</a></li>
 <li>源码：<a href="https://github.com/fantasticZhang/FidoBowling" target="_blank" rel="external">View on GitHub</a></li>
 </ul>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[关于我]]></title>
-      <url>https://fantasticzhang.github.io/about/index.html</url>
-      <content type="html"><![CDATA[<p>目前在北京读研，平时的工作主要是前端相关的。对前端技术也很感兴趣，处于边学边实践的阶段。欢迎志同道合的朋友与我多多交流，也期待大神的指点~</p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[相册]]></title>
-      <url>https://fantasticzhang.github.io/photos/index.html</url>
-      <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
-<link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet">
-
-<div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
 ]]></content>
     </entry>
     
@@ -5403,6 +5984,16 @@ child.on(&apos;close&apos;,function(code){
             })
         }(0));
     });
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[相册]]></title>
+      <url>https://fantasticzhang.github.io/photos/index.html</url>
+      <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
+<link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet">
+
+<div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
 ]]></content>
     </entry>
     
