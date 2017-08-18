@@ -19,13 +19,13 @@
 <meta property="og:site_name" content="Fantastic">
 <meta property="og:description" content="为什么需要闭包JavaScript中，变量的作用域有两种：全局作用域（全局变量）和函数级作用域（局部变量）。函数内部可以直接读取全局变量，在函数外部则无法读取函数内的局部变量。出于种种原因，有时候我们需要得到函数内的局部变量。而正常情况下这是办不到的，因此只有通过变通方法才能实现。即：在函数的内部，再定义一个函数。这就出现了闭包。
 闭包的概念闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包">
-<meta property="og:image" content="https://fantasticzhang.github.io/./闭包作用域链.png">
-<meta property="og:updated_time" content="2017-08-18T13:11:30.102Z">
+<meta property="og:image" content="https://fantasticzhang.github.io/images/2017-08-18/闭包作用域链.png">
+<meta property="og:updated_time" content="2017-08-18T13:23:22.169Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript总结之闭包">
 <meta name="twitter:description" content="为什么需要闭包JavaScript中，变量的作用域有两种：全局作用域（全局变量）和函数级作用域（局部变量）。函数内部可以直接读取全局变量，在函数外部则无法读取函数内的局部变量。出于种种原因，有时候我们需要得到函数内的局部变量。而正常情况下这是办不到的，因此只有通过变通方法才能实现。即：在函数的内部，再定义一个函数。这就出现了闭包。
 闭包的概念闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包">
-<meta name="twitter:image" content="https://fantasticzhang.github.io/./闭包作用域链.png">
+<meta name="twitter:image" content="https://fantasticzhang.github.io/images/2017-08-18/闭包作用域链.png">
 
     
     <link rel="alternative" href="atom.xml" title="Fantastic" type="application/atom+xml">
@@ -174,7 +174,7 @@ var result = compare(5,10);
 var compare = createComparisionFunction(&quot;name&quot;);
 var result = compare({name: &quot;zjl&quot;}, {name: &quot;hs&quot;});
 </code></pre><p>当上面代码执行时，包含函数和内部匿名函数的作用域链如下图所示：</p>
-<p><img src="./闭包作用域链.png" alt=""></p>
+<p><img src="/images/2017-08-18/闭包作用域链.png" alt=""></p>
 <p>在匿名函数从<code>createComparisionFunction()</code>中被返回后，它的作用域链被初始化为包含<code>createComparisionFunction()</code>函数的活动对象和全局变量对象。因此，匿名函数就可以访问在<code>createComparisionFunction()</code>中定义的所有变量。而且，在<code>createComparisionFunction()</code>函数执行完毕后，其活动对象也不会被销毁，因为匿名函数的作用域链仍然在引用这个活动对象。也就是说，当<code>createComparisionFunction()</code>函数返回后，它执行环境的作用域链会被销毁，但它的活动对象仍然会留在内存中，直至匿名函数被销毁后，<code>createComparisionFunction()</code>函数的活动对象才会被销毁。</p>
 <p>下面是闭包的两个例子：</p>
 <pre><code>var name = &quot;The Window&quot;;
@@ -455,15 +455,15 @@ console.log(p1.getName());  //&quot;ty&quot;
 			
 		
 			
-				<li><a href="/tags/demo/" title="demo">demo<sup>2</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/webpack/" title="webpack">webpack<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+				<li><a href="/tags/demo/" title="demo">demo<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/OpenVPN/" title="OpenVPN">OpenVPN<sup>1</sup></a></li>
 			
 		
 			
@@ -479,11 +479,11 @@ console.log(p1.getName());  //&quot;ty&quot;
 			
 		
 			
-				<li><a href="/tags/OpenVPN/" title="OpenVPN">OpenVPN<sup>1</sup></a></li>
+				<li><a href="/tags/微信小程序/" title="微信小程序">微信小程序<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/微信小程序/" title="微信小程序">微信小程序<sup>1</sup></a></li>
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
 			
 		
 		</ul>
