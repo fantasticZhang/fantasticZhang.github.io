@@ -4,6 +4,216 @@
   
     
     <entry>
+      <title><![CDATA[JavaScript总结之闭包]]></title>
+      <url>https://fantasticzhang.github.io/2017/08/18/JavaScript%E6%80%BB%E7%BB%93%E4%B9%8B%E9%97%AD%E5%8C%85/</url>
+      <content type="html"><![CDATA[<h1 id="为什么需要闭包"><a href="#为什么需要闭包" class="headerlink" title="为什么需要闭包"></a>为什么需要闭包</h1><p>JavaScript中，变量的作用域有两种：全局作用域（全局变量）和函数级作用域（局部变量）。函数内部可以直接读取全局变量，在函数外部则无法读取函数内的局部变量。出于种种原因，有时候我们需要得到函数内的局部变量。而正常情况下这是办不到的，因此只有通过变通方法才能实现。即：在函数的内部，再定义一个函数。这就出现了闭包。</p>
+<h1 id="闭包的概念"><a href="#闭包的概念" class="headerlink" title="闭包的概念"></a>闭包的概念</h1><p>闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见方式，就是在一个函数内部创建另一个函数。</p>
+<pre><code>function createComparisionFunction(propertyName){
+  return function(obj1,obj2){
+    var v1 = obj1[propertyName];
+    var v2 = obj2[propertyName];
+
+    if(v1&lt;v2){
+      return -1;
+    }else if(v1&gt;v2){
+      return 1;
+    }
+    else{
+      return 0;
+    }
+  }
+}
+</code></pre><p>在上面的代码中，内部函数（匿名）访问了外部函数中的变量<code>propertyName</code>，即使这个内部函数被返回了，而且在其他地方被调用了，它仍可访问变量<code>propertyName</code>。这是因为内部函数的作用域链中包含了<code>createComparisionFunction()</code>的作用域。</p>
+<h2 id="关于作用域链"><a href="#关于作用域链" class="headerlink" title="关于作用域链"></a>关于作用域链</h2><p>在之前的博客中介绍过作用域链的概念。在一个函数被调用时，会创建一个执行环境及相应的作用域链，然后使用<code>arguments</code>和其他命名参数来初始化当前函数的活动对象。在作用域链中，当前函数的活动对象处在第一位，外部函数的活动对象始终处于第二位，外部函数的外部函数的活动对象处于第三位…直至作为作用域终点的全局执行环境。在函数执行的过程中，读取和写入变量的值，就需要沿着作用域链查找相应的变量。</p>
+<p>也就是说，后台的每个执行环境都有一个表示变量的对象——变量对象，作用域链本质上是一个指向变量对象的指针列表，它只是引用但不实际包含变量对象。全局环境的变量对象始终存在，但是局部环境的变量对象，则只在函数执行的过程中存在。以下面的代码为例：</p>
+<pre><code>function compare(v1,v2){
+  if(v1&lt;v2){
+    return -1;
+  }else if(v1&gt;v2){
+    return 1;
+  }
+  else{
+    return 0;
+  }
+}
+var result = compare(5,10);
+</code></pre><p>在创建<code>compare()</code>函数时，会创建一个预先包含全局变量对象的作用域链，这个作用域链被保存在内部的<code>[[scope]]</code>属性中。当调用<code>compare()</code>函数时，会为函数创建一个执行环境，然后通过复制函数的<code>[[scope]]</code>属性中的对象构建起执行环境的作用域链。此后，又有一个活动对象（<code>compare()</code>函数的活动对象，在此作为变量对象使用）被创建并被推入执行环境作用域链的前端。对于<code>compare()</code>函数的执行环境而言，其作用域链中包含两个变量对象：本地活动对象和全局变量对象。</p>
+<p>一般来讲，当函数执行完毕后，局部活动对象就会被销毁，内存中仅保存全局作用域（即全局执行环境的变量对象）。但是，闭包下的作用域链有些不同。</p>
+<h2 id="闭包下的作用域链"><a href="#闭包下的作用域链" class="headerlink" title="闭包下的作用域链"></a>闭包下的作用域链</h2><p>还是以下面的代码为例。</p>
+<pre><code>function createComparisionFunction(propertyName){
+  return function(obj1,obj2){
+    var v1 = obj1[propertyName];
+    var v2 = obj2[propertyName];
+
+    if(v1&lt;v2){
+      return -1;
+    }else if(v1&gt;v2){
+      return 1;
+    }
+    else{
+      return 0;
+    }
+  }
+}
+var compare = createComparisionFunction(&quot;name&quot;);
+var result = compare({name: &quot;zjl&quot;}, {name: &quot;hs&quot;});
+</code></pre><p>当上面代码执行时，包含函数和内部匿名函数的作用域链如下图所示：</p>
+<p><img src="./闭包作用域链.png" alt=""></p>
+<p>在匿名函数从<code>createComparisionFunction()</code>中被返回后，它的作用域链被初始化为包含<code>createComparisionFunction()</code>函数的活动对象和全局变量对象。因此，匿名函数就可以访问在<code>createComparisionFunction()</code>中定义的所有变量。而且，在<code>createComparisionFunction()</code>函数执行完毕后，其活动对象也不会被销毁，因为匿名函数的作用域链仍然在引用这个活动对象。也就是说，当<code>createComparisionFunction()</code>函数返回后，它执行环境的作用域链会被销毁，但它的活动对象仍然会留在内存中，直至匿名函数被销毁后，<code>createComparisionFunction()</code>函数的活动对象才会被销毁。</p>
+<p>下面是闭包的两个例子：</p>
+<pre><code>var name = &quot;The Window&quot;;
+　　var object = {
+　　　　name : &quot;My Object&quot;,
+　　　　getNameFunc : function(){
+　　　　　　return function(){
+　　　　　　　　return this.name;
+　　　　};
+　  }
+};
+alert(object.getNameFunc()());  //&quot;The Window&quot;
+</code></pre><p>函数中的<code>this</code>对象是在运行时基于函数的执行环境绑定的，在全局环境中<code>this</code>等于<code>window</code>，而当函数作为某个对象的方法调用时，<code>this</code>等于那个对象。而<strong>匿名函数的执行环境具有全局性</strong>，因此其<code>this</code>对象通常指向<code>window</code>。</p>
+<p>上面的代码中，对象的<code>getNameFunc()</code>方法返回一个匿名函数，而匿名函数又返回<code>this.name</code>，因此调用<code>object.getNameFunc()()</code>会立即调用它的返回函数，就得到了一个字符串”The Window”，即全局变量的<code>name</code>。为什么这里的<code>this</code>指向了全局环境而不是其包含作用域的<code>this</code>对象呢？这是因为，每个函数在被调用时都会自动获取两个特殊变量：<code>this</code>和<code>arguments</code>。由于内部函数是沿着作用域链搜索变量的，因此在搜索这两个变量时，只会搜索到其活动对象为止，这样就永远不可能<strong>直接</strong>访问外部函数中的这两个变量（可以参看上面的作用域链图）。但是，可以把外部作用域中的<code>this</code>对象保存在一个闭包能访问到的变量里，就可以让闭包访问该对象了。如下所示。</p>
+<pre><code>var name = &quot;The Window&quot;;
+　　var object = {
+　　　　name : &quot;My Object&quot;,
+　　　　getNameFunc : function(){
+　　　　　　var that = this;
+　　　　　　return function(){
+　　　　　　　　return that.name;
+　　　　　};
+　　　}
+};
+alert(object.getNameFunc()());  //&quot;My Object&quot;
+</code></pre><h1 id="闭包的用途"><a href="#闭包的用途" class="headerlink" title="闭包的用途"></a>闭包的用途</h1><h2 id="模仿块级作用域"><a href="#模仿块级作用域" class="headerlink" title="模仿块级作用域"></a>模仿块级作用域</h2><p>更准确地说，这是匿名函数的用途。即，利用匿名函数可以模仿块级作用域。先看下面的例子：</p>
+<pre><code>function outputNumbers(count){
+  for(var i=0;i&lt;count;i++){
+    alert(i);
+  }
+  var i;    //重新声明变量
+  alert(i);  
+}
+</code></pre><p>ES6之前，JS是没有块级作用域的概念的。因此在上面的代码中，for循环中的变量<code>i</code>是定义在<code>outputNumbers()</code>的活动对象中的，即可以在函数内部随处访问它。而注释部分重新声明了变量<code>i</code>，但这不会改变它的值。这是因为在JS中，会对后续的声明视而不见，不过它会执行后续声明中的变量初始化。使用匿名函数可以模仿块级作用域，从而避免上面的问题。语法如下：</p>
+<pre><code>(function(){
+  //这里是块级作用域
+})();
+</code></pre><p>以上代码定义并立即调用了一个匿名函数。注意下面的代码会导致错误：</p>
+<pre><code>function(){
+  //这里是块级作用域
+}();  //出错
+</code></pre><p>这是因为JS中会将<code>function</code>关键字当做是一个函数声明的开始，而函数声明后面不能跟圆括号。然而，函数表达式的后面可以跟圆括号，要将函数声明转换为函数表达式，只要像第一个代码中那样加上一对圆括号即可。</p>
+<p>通过匿名函数，可以在临时需要一些变量时，使用块级（私有）作用域：</p>
+<pre><code>function outputNumbers(count){
+  (function(){
+    //这里是块级作用域
+    for(var i=0;i&lt;count;i++){
+      alert(i);
+    }
+  })()；
+  var i;   
+  alert(i);   //undefined
+}
+</code></pre><p>在匿名函数中定义的任何变量，都会在执行结束时被销毁，因此上面的代码中，<code>i</code>只能在for循环中使用，使用后便被销毁。</p>
+<p>不过，ES6中新增了块级作用域（用<code>let</code>/<code>const</code>声明变量），因此下面的代码可以达到同样的效果：</p>
+<pre><code>function outputNumbers(count){
+  for(let i=0;i&lt;count;i++){
+    alert(i);
+  }
+  var i;    
+  alert(i);  //undefined
+}
+</code></pre><h2 id="在对象中创建私有变量"><a href="#在对象中创建私有变量" class="headerlink" title="在对象中创建私有变量"></a>在对象中创建私有变量</h2><p>在JS中还没有正式的私有对象属性的概念，但是我们可以使用闭包来实现公有方法，而通过公有方法可以访问在包含作用域中定义的变量。先看下面的例子：</p>
+<pre><code>function MyObject(){
+  //私有变量和私有函数
+  var privateVar = 25;
+  funtion privateFun(){
+    return false;
+  }
+  //公有方法（特权方法）
+  this.publicMethod = function(){
+    privateVar++;
+    return privateFun();
+  }
+}
+</code></pre><p>上面的代码中，在构造函数中定义了私有变量和函数，并创建了能够访问这些私有成员的公有方法，这个公有方法作为闭包有权访问在构造函数中定义的所有变量和函数。通常把有权访问私有变量和私有函数的公有方法称为<strong>特权方法</strong>。</p>
+<h3 id="实现自定义类型的特权方法"><a href="#实现自定义类型的特权方法" class="headerlink" title="实现自定义类型的特权方法"></a>实现自定义类型的特权方法</h3><h4 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h4><p>即，在构造函数中定义特权方法。基本模式如下：</p>
+<pre><code>function MyObject(){
+  //私有变量和私有函数
+  var privateVar = 25;
+  funtion privateFun(){
+    return false;
+  }
+  //特权方法
+  this.publicMethod = function(){
+    privateVar++;
+    return privateFun();
+  }
+}
+</code></pre><p>使用这种模式，可以隐藏一些不该被直接修改的数据。但构造函数模式的缺点就是不能实现函数的复用，每个实例都会创建同样一组新方法。</p>
+<h4 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h4><p>基本模式如下：</p>
+<pre><code>(function(){
+  var name = &quot;&quot;;
+  Persion = function(val){
+    name = val;
+  };
+  Persion.prototype.getName = function(){
+    return name;
+  }
+  Persion.prototype.setName = function(val){
+    name = val;
+  }
+})();
+
+var p1 = new Persion(&quot;zjl&quot;);
+console.log(p1.getName());  //&quot;zjl&quot;
+p1.setName(&quot;hs&quot;);
+console.log(p1.getName());  //&quot;hs&quot;
+
+var p2 = new Persion(&quot;ty&quot;);
+console.log(p2.getName());  //&quot;ty&quot;
+console.log(p1.getName());  //&quot;ty&quot;
+</code></pre><p>该模式与构造函数模式定义特权方法的区别是：私有变量和函数是由所有实例所<strong>共享</strong>的。由于特权方法是在原型上定义的，因此所有实例也共享同一个函数。而该特权方法作为闭包，总是包存着对包含作用域的引用。</p>
+<h3 id="实现单例模式的特权方法"><a href="#实现单例模式的特权方法" class="headerlink" title="实现单例模式的特权方法"></a>实现单例模式的特权方法</h3><h4 id="模块模式"><a href="#模块模式" class="headerlink" title="模块模式"></a>模块模式</h4><p>语法形式如下：</p>
+<pre><code>var singleton = function(){
+  //私有变量和私有函数
+  var privateVar = 25;
+  function privateFun(){
+    return false;
+  }
+  //特权/公有方法和属性
+  return {
+    publicProperty: true,
+    publicMethod: function(){
+      privateVar++;
+      return privateFun();
+    }
+  }
+}();
+</code></pre><p>该模式使用了一个返回对象的匿名函数。在这个匿名函数内部，首先定义了私有变量和函数，然后将对象字面量作为函数的值返回。返回的对象字面量中只包含了可以公开的属性和方法，本质上这个对象字面量定义的是单例的公有接口。</p>
+<p>模块模式的使用场景：需要创建一个对象并以某些数据对其进行初始化，同时还要公开一些能够访问这些私有数据的方法时，可以使用该模式。</p>
+<h4 id="增强的模块模式"><a href="#增强的模块模式" class="headerlink" title="增强的模块模式"></a>增强的模块模式</h4><p>是对模块模式的改进。即在返回对象之前加入对其增强的代码。增强的模块模式适用于那些单例模式必须是某种类型的实例，同时还必须添加某些属性或方法对其加以增强的情况。</p>
+<pre><code>var singleton = function(){
+  //私有变量和私有函数
+  var privateVar = 25;
+  function privateFun(){
+    return false;
+  }
+  //创建对象
+  var obj = new CustomType();
+  //特权/公有方法和属性(公共接口)
+  obj.publicProperty = true;
+  obj.publicMethod = function(){
+    privateVar++;
+    return privateFun();
+  }
+  //返回这个对象
+  return obj;
+}();
+</code></pre><p>以上代码的主要不同之处在于命名变量<code>obj</code>的创建过程，这里它必须是<code>CustomType</code>的实例。此后，我们又为<code>obj</code>对象添加了能够访问私有变量的公有方法，最后一步返回<code>obj</code>对象。</p>
+<p>以上就是对闭包的简单介绍，当然闭包的使用可能会带来内存泄漏的问题。关于这方面的知识会在之后的博客中总结~</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[JavaScript总结之对象和继承]]></title>
       <url>https://fantasticzhang.github.io/2017/08/10/JavaScript%E6%80%BB%E7%BB%93%E4%B9%8B%E5%AF%B9%E8%B1%A1%E5%92%8C%E7%BB%A7%E6%89%BF/</url>
       <content type="html"><![CDATA[<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>ECMA-262把对象定义为：“无序属性的集合，其属性可以包含基本值、对象或者函数。”因此，可以把ECMAScript的对象想象成散列表：一组明知对，其中值可以是数据或函数。</p>
@@ -2246,9 +2456,10 @@ function f() { console.log(&apos;I am outside!&apos;); }
 <p>数值转换：</p>
 <ul>
 <li>Number()：空字符串、null转换为0；undefined转换为NaN；如果是字符串则只能包含数字（正负号、十进制、十六进制、浮点数），如果包含这之外的其他字符，则返回NaN。</li>
-<li>parseInt()：会忽略前导空格，直到找到第一个非空格字符。如果第一个字符不是数字或负号则返回NaN；如果是数字字符，则会解析完后续所有字符或者遇到了一个非数字字符。可以用第二个参数来指定转换时使用的基数（即多少进制），如果指定的基数和第一个参数的数字不匹配，会返回0。</li>
+<li>parseInt()：会忽略前导空格，直到找到第一个非空格字符。如果第一个字符不是数字或负号则返回NaN；如果是数字字符，则会解析完后续所有字符或者遇到了一个非数字字符。可以用第二个参数来指定转换时使用的基数（即多少进制），如果指定的基数和第一个参数的数字不匹配，会返回NaN。</li>
 <li>parseFloat()：与<code>parseInt()</code>的解析方式类似，但不会忽略第一个小数点<code>.</code>，而且只解析十进制数值。</li>
 </ul>
+<p>以上三种方法都会忽略字符串前后的空格，并且Number()和parseFloat()能正确识别用科学计数法形式表示数字的字符串。</p>
 <h3 id="ES6新特性之二进制和八进制表示法"><a href="#ES6新特性之二进制和八进制表示法" class="headerlink" title="ES6新特性之二进制和八进制表示法"></a>ES6新特性之二进制和八进制表示法</h3><p>ES6 提供了二进制和八进制数值的新的写法，分别用前缀<code>0b</code>（或<code>0B</code>）和<code>0o</code>（或<code>0O</code>）表示。</p>
 <pre><code>0b111110111 === 503 // true
 0o767 === 503 // true
@@ -5932,20 +6143,12 @@ child.on(&apos;close&apos;,function(code){
     </entry>
     
     <entry>
-      <title><![CDATA[学习过程中实现的实例demo]]></title>
-      <url>https://fantasticzhang.github.io/demo/index.html</url>
-      <content type="html"><![CDATA[<p>做前端和后台不太一样，总觉得只有自己动手做出来一些能看得见的东西，才会有一些成就感~</p>
-<a id="more"></a>
-<h2 id="实例一：Canvas小动画"><a href="#实例一：Canvas小动画" class="headerlink" title="实例一：Canvas小动画"></a>实例一：Canvas小动画</h2><p>使用html5的Canvas实现的一个小动画：模拟太空中一个行星群的运动。</p>
-<ul>
-<li>demo：<a href="/2017/03/10/实例demo之Canvas小动画/" title="实例demo之Canvas小动画">实例demo之Canvas小动画</a></li>
-<li>源码：<a href="https://github.com/fantasticZhang/Asteroids" target="_blank" rel="external">View on GitHub</a></li>
-</ul>
-<h2 id="实例二：Fido-Bowling游戏"><a href="#实例二：Fido-Bowling游戏" class="headerlink" title="实例二：Fido Bowling游戏"></a>实例二：Fido Bowling游戏</h2><p>基于Canvas开发的一个小游戏——太空保龄球。将源码下载下来即可运行，无需安装任何插件。</p>
-<ul>
-<li>demo：<a href="/2017/03/12/实例demo之FidoBowling小游戏/" title="实例demo之FidoBowling小游戏">实例demo之FidoBowling小游戏</a></li>
-<li>源码：<a href="https://github.com/fantasticZhang/FidoBowling" target="_blank" rel="external">View on GitHub</a></li>
-</ul>
+      <title><![CDATA[相册]]></title>
+      <url>https://fantasticzhang.github.io/photos/index.html</url>
+      <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
+<link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet">
+
+<div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
 ]]></content>
     </entry>
     
@@ -5988,12 +6191,20 @@ child.on(&apos;close&apos;,function(code){
     </entry>
     
     <entry>
-      <title><![CDATA[相册]]></title>
-      <url>https://fantasticzhang.github.io/photos/index.html</url>
-      <content type="html"><![CDATA[<p><link type="text/css" href="/css/photo.css" rel="stylesheet"></p>
-<link type="text/css" href="/fancybox/jquery.fancybox.css" rel="stylesheet">
-
-<div class="photos"><br>  <section class="archives album"><br>    <ul class="img-box-ul"></ul><br>  </section><br></div>
+      <title><![CDATA[学习过程中实现的实例demo]]></title>
+      <url>https://fantasticzhang.github.io/demo/index.html</url>
+      <content type="html"><![CDATA[<p>做前端和后台不太一样，总觉得只有自己动手做出来一些能看得见的东西，才会有一些成就感~</p>
+<a id="more"></a>
+<h2 id="实例一：Canvas小动画"><a href="#实例一：Canvas小动画" class="headerlink" title="实例一：Canvas小动画"></a>实例一：Canvas小动画</h2><p>使用html5的Canvas实现的一个小动画：模拟太空中一个行星群的运动。</p>
+<ul>
+<li>demo：<a href="/2017/03/10/实例demo之Canvas小动画/" title="实例demo之Canvas小动画">实例demo之Canvas小动画</a></li>
+<li>源码：<a href="https://github.com/fantasticZhang/Asteroids" target="_blank" rel="external">View on GitHub</a></li>
+</ul>
+<h2 id="实例二：Fido-Bowling游戏"><a href="#实例二：Fido-Bowling游戏" class="headerlink" title="实例二：Fido Bowling游戏"></a>实例二：Fido Bowling游戏</h2><p>基于Canvas开发的一个小游戏——太空保龄球。将源码下载下来即可运行，无需安装任何插件。</p>
+<ul>
+<li>demo：<a href="/2017/03/12/实例demo之FidoBowling小游戏/" title="实例demo之FidoBowling小游戏">实例demo之FidoBowling小游戏</a></li>
+<li>源码：<a href="https://github.com/fantasticZhang/FidoBowling" target="_blank" rel="external">View on GitHub</a></li>
+</ul>
 ]]></content>
     </entry>
     

@@ -25,7 +25,7 @@ ECMAScript：由ECMAScript-262定义，提供核心语言功能；
 
 ECMAScript：由ECMAScript-262定义，提供核心语言功能；
 文档对象模型（DOM）：提供访问和操作">
-<meta property="og:updated_time" content="2017-06-01T08:06:42.099Z">
+<meta property="og:updated_time" content="2017-08-11T07:19:24.738Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript总结之基本概念">
 <meta name="twitter:description" content="最近在面试的过程中发现，JavaScript的一些基础知识自己有些遗忘，于是决定重新学习JavaScript，同时学习ES6的相关新特性，记下笔记以便日后回顾。学习资料：《JavaScript高级程序设计》，ECMAScript6入门。
@@ -167,9 +167,10 @@ ECMAScript：由ECMAScript-262定义，提供核心语言功能；
 <p>数值转换：</p>
 <ul>
 <li>Number()：空字符串、null转换为0；undefined转换为NaN；如果是字符串则只能包含数字（正负号、十进制、十六进制、浮点数），如果包含这之外的其他字符，则返回NaN。</li>
-<li>parseInt()：会忽略前导空格，直到找到第一个非空格字符。如果第一个字符不是数字或负号则返回NaN；如果是数字字符，则会解析完后续所有字符或者遇到了一个非数字字符。可以用第二个参数来指定转换时使用的基数（即多少进制），如果指定的基数和第一个参数的数字不匹配，会返回0。</li>
+<li>parseInt()：会忽略前导空格，直到找到第一个非空格字符。如果第一个字符不是数字或负号则返回NaN；如果是数字字符，则会解析完后续所有字符或者遇到了一个非数字字符。可以用第二个参数来指定转换时使用的基数（即多少进制），如果指定的基数和第一个参数的数字不匹配，会返回NaN。</li>
 <li>parseFloat()：与<code>parseInt()</code>的解析方式类似，但不会忽略第一个小数点<code>.</code>，而且只解析十进制数值。</li>
 </ul>
+<p>以上三种方法都会忽略字符串前后的空格，并且Number()和parseFloat()能正确识别用科学计数法形式表示数字的字符串。</p>
 <h3 id="ES6新特性之二进制和八进制表示法"><a href="#ES6新特性之二进制和八进制表示法" class="headerlink" title="ES6新特性之二进制和八进制表示法"></a>ES6新特性之二进制和八进制表示法</h3><p>ES6 提供了二进制和八进制数值的新的写法，分别用前缀<code>0b</code>（或<code>0B</code>）和<code>0o</code>（或<code>0O</code>）表示。</p>
 <pre><code>0b111110111 === 503 // true
 0o767 === 503 // true
@@ -637,7 +638,7 @@ for (let item of iterable) {
 		  
 		
 		  
-			<li><a href="/categories/前端/" title="前端">前端<sup>22</sup></a></li>
+			<li><a href="/categories/前端/" title="前端">前端<sup>23</sup></a></li>
 		  
 		
 		  
@@ -658,7 +659,7 @@ for (let item of iterable) {
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/js/" title="js">js<sup>8</sup></a></li>
+				<li><a href="/tags/js/" title="js">js<sup>9</sup></a></li>
 			
 		
 			
@@ -682,7 +683,7 @@ for (let item of iterable) {
 			
 		
 			
-				<li><a href="/tags/OpenVPN/" title="OpenVPN">OpenVPN<sup>1</sup></a></li>
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
 			
 		
 			
@@ -694,15 +695,15 @@ for (let item of iterable) {
 			
 		
 			
-				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+				<li><a href="/tags/Express/" title="Express">Express<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/OpenVPN/" title="OpenVPN">OpenVPN<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/微信小程序/" title="微信小程序">微信小程序<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Express/" title="Express">Express<sup>1</sup></a></li>
 			
 		
 		</ul>
